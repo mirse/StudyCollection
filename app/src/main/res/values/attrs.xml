@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ColorPickerHSV">
+        <attr name="color_rad" format="dimension"/>
+        <attr name="inner_rad" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="ColorPickerRingRGB">
+        <attr name="circle_width" format="dimension"/>
+        <attr name="point_width" format="dimension"/>
+        <attr name="circle_thick" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="ColorPickerRGB">
+        <attr name="out_rad" format="dimension"/>
+        <attr name="in_rad" format="dimension"/>
+    </declare-styleable>
+
+</resources>
