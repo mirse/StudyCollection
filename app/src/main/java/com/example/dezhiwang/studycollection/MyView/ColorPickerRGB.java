@@ -133,7 +133,7 @@ public class ColorPickerRGB extends View {
         if (unit<0){
             mColor=COLOR[0];
             myColor=new MyColor();
-        //    Log.i("text","<<<<0?????????");
+             Log.i("text","<<<<0?????????");
             myColor.setA(Color.alpha(mColor));
             myColor.setR(Color.red(mColor));
             myColor.setG(Color.green(mColor));
