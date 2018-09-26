@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".Activity.ColorPickerActivity" />
         <activity android:name=".Activity.ColorPicker1Activity" />
-        <activity android:name=".Activity.ColorPicker2Activity"></activity>
+        <activity android:name=".Activity.ColorPicker2Activity" />
+        <activity android:name=".Activity.SurfaceViewActivity"></activity>
     </application>
 
 </manifest>

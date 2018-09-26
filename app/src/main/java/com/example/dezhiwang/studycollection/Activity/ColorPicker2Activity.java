@@ -10,6 +10,7 @@ public class ColorPicker2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //ColorPickerHSV
         setContentView(R.layout.activity_color_picker2);
     }
 }

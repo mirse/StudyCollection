@@ -10,6 +10,7 @@ public class ColorPicker1Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //ColorPickerRingRGB
         setContentView(R.layout.activity_color_picker1);
     }
 }

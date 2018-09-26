@@ -3,10 +3,12 @@ package com.example.dezhiwang.studycollection.MyView;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ComposeShader;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.RadialGradient;
 import android.graphics.Rect;
@@ -74,6 +76,8 @@ public class ColorPickerRGB extends View {
     private int offsetX;
     private int offsetY;
     private Paint radialPaint;
+    private Paint textPaint;
+    private Paint backPaint;
 
     public ColorPickerRGB(Context context) {
         super(context);
@@ -110,13 +114,23 @@ public class ColorPickerRGB extends View {
 
         pointPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         pointPaint.setColor(Color.BLACK);
-        text =myColor.getA()+" "+myColor.getR()+" "+myColor.getG()+" "+myColor.getB();
+        //text =myColor.getA()+" "+myColor.getR()+" "+myColor.getG()+" "+myColor.getB();
+        text=toHexFromColor(myColor);
         pointPaint.getTextBounds(text,0, text.length(),rect);
         width = rect.right - rect.left;
         height = rect.bottom - rect.height();
 
         radialPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         radialPaint.setShader(radialGradient);
+
+        textPaint = new Paint();
+        textPaint.setColor(Color.WHITE);
+        textPaint.setTextSize(40);
+        textPaint.setAntiAlias(true);
+        backPaint = new Paint();
+        backPaint.setColor(Color.GRAY);
+        backPaint.setAntiAlias(true);
+
     }
 
     private int calculateColor(float mAngle,double R) {      //1、2象限0-π   3、4象限-π-0
@@ -184,6 +198,7 @@ public class ColorPickerRGB extends View {
         myColor.setR(r);
         myColor.setG(g);
         myColor.setB(b);
+
         return mColor;
     }
 
@@ -277,15 +292,26 @@ public class ColorPickerRGB extends View {
 
         pointPaint.setTextSize(40);
 
-        text =myColor.getA()+" "+myColor.getR()+" "+myColor.getG()+" "+myColor.getB();
+        //text =myColor.getA()+" "+myColor.getR()+" "+myColor.getG()+" "+myColor.getB();
+        text=toHexFromColor(myColor);
+
         //Log.i("text","myColor.getA()="+myColor.getA()+" myColor.getR()"+myColor.getR());
       //  text =myColor.getR()+" "+myColor.getG()+" "+myColor.getB();
         pointPaint.getTextBounds(text,0, text.length(),rect);
         width = rect.right - rect.left;
-        height = rect.bottom - rect.height();
-
-
-        canvas.drawText(text,-width/2,5*height,pointPaint);//文字起点坐标
+        height = rect.bottom - rect.top;
+        //canvas.drawRect(centerX-width/2,centerY-pointWidth-height-height/2,centerX+width/2,centerY-pointWidth-height/2,mPaint);
+        Path path = new Path();
+        path.moveTo(centerX,centerY-pointWidth);
+        path.lineTo(centerX-width/6,centerY-pointWidth-height/2+pointWidth/4);
+        path.lineTo(centerX-width/2-pointWidth,centerY-pointWidth-height/2+pointWidth/4);
+        path.lineTo(centerX-width/2-pointWidth,centerY-pointWidth-height-height/2-pointWidth/4);
+        path.lineTo(centerX+width/2+pointWidth,centerY-pointWidth-height-height/2-pointWidth/4);
+        path.lineTo(centerX+width/2+pointWidth,centerY-pointWidth-height/2+pointWidth/4);
+        path.lineTo(centerX+width/6,centerY-pointWidth-height/2+pointWidth/4);
+        path.close();
+        canvas.drawPath(path,backPaint);
+        canvas.drawText(text,centerX-width/2,centerY-pointWidth-height/2,textPaint);//文字起点坐标
     }
 
     @Override
@@ -345,7 +371,7 @@ public class ColorPickerRGB extends View {
                    // Log.i("text","mAngle"+mAngle);
                     calculateColor(mAngle,r);
                     invalidate();
-                    // colorChangeListener.onRGBChange(AngleCount);
+                     //colorChangeListener.onRGBChange(myColor);
                 }
                 break;
             case MotionEvent.ACTION_UP:
@@ -356,11 +382,41 @@ public class ColorPickerRGB extends View {
         return true;
     }
 
+    /**
+     * @param color
+     * @return color转成十六进制
+     */
+    private static String toHexFromColor(MyColor color){
+        String r,g,b,a;
+        StringBuilder su = new StringBuilder();
+        a=Integer.toHexString(color.getA());
+        r = Integer.toHexString(color.getR());
+        g = Integer.toHexString(color.getG());
+        b = Integer.toHexString(color.getB());
+        a = a.length() == 1 ? "0" + a : a;
+        r = r.length() == 1 ? "0" + r : r;
+        g = g.length() ==1 ? "0" +g : g;
+        b = b.length() == 1 ? "0" + b : b;
+        a = a.toUpperCase();
+        r = r.toUpperCase();
+        g = g.toUpperCase();
+        b = b.toUpperCase();
+        su.append("#");
+        su.append(a);
+        su.append(r);
+        su.append(g);
+        su.append(b);		//0xFF0000FF
+        return su.toString();
+    }
+
+
+
+
     public void setonColorChange(OnColorChangeListener colorChangeListener){
         this.colorChangeListener=colorChangeListener;
     }
     public interface OnColorChangeListener{
-        void onRGBChange(float mAngle);
+        void onRGBChange(MyColor myColor);
         // void onRGBChange(boolean success);
     }
 
