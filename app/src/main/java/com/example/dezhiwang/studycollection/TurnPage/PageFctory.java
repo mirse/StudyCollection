@@ -11,6 +11,7 @@ public abstract class PageFctory {
     public int pageTotal=0;
     public PageFctory() {
     }
+    //
     public abstract void drawPrevious(Bitmap bitmap,int pageNum);
     public abstract void drawCurrent(Bitmap bitmap,int pageNum);
     public abstract void drawNext(Bitmap bitmap,int pageNum);
