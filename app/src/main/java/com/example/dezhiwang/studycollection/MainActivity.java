@@ -11,7 +11,9 @@ import android.view.View;
 import com.example.dezhiwang.studycollection.Activity.ColorPicker1Activity;
 import com.example.dezhiwang.studycollection.Activity.ColorPicker2Activity;
 import com.example.dezhiwang.studycollection.Activity.ColorPickerActivity;
+import com.example.dezhiwang.studycollection.Activity.PageActivity;
 import com.example.dezhiwang.studycollection.Activity.SurfaceViewActivity;
+import com.example.dezhiwang.studycollection.Activity.TabViewActivity;
 import com.example.dezhiwang.studycollection.MyView.ColorPickerHSV;
 
 import java.util.ArrayList;
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
 
     private void initData() {
         List<MainBean> list = new ArrayList<>();
-        String[][] array={{"自定义View","argb圆","rgbRing圆","hsv圆","SurfaceView","",""},{"测试用例","","","","","",""}};
+        String[][] array={{"自定义View","argb圆","rgbRing圆","hsv圆","SurfaceView","翻页效果","TabView"},{"测试用例","","","","","",""}};
         for (String[] mArray:array) {
             list.add(new MainBean(mArray[0],mArray[1],mArray[2],mArray[3],mArray[4],mArray[5],mArray[6]));
         }
@@ -70,8 +72,10 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                         startActivity(new Intent(this, SurfaceViewActivity.class));
                         break;
                     case R.id.button5:
+                        startActivity(new Intent(this, PageActivity.class));
                         break;
                     case R.id.button6:
+                        startActivity(new Intent(this, TabViewActivity.class));
                         break;
                 }
                 break;

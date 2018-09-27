@@ -15,5 +15,11 @@
         <attr name="out_rad" format="dimension"/>
         <attr name="in_rad" format="dimension"/>
     </declare-styleable>
+    
+    <!--自定义ViewGroup-->
+    <declare-styleable name="TabGroup">
+        <attr name="tab_text" format="string"/>
+        <attr name="tab_image" format="reference"/>
+    </declare-styleable>
 
 </resources>
