@@ -69,8 +69,12 @@ public class CoverPageView extends View {
         pageState=PAGE_STAY;
         mScroller = new Scroller(context, new LinearInterpolator());
     }
+    /**
+     * 设置工厂类
+     * @param factory
+     */
     public void setPageFactory(final PageFctory factory){
-        getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+        getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {//	当视图树将要被绘制时，会调用的接口
             @Override
             public boolean onPreDraw() {
                 getViewTreeObserver().removeOnPreDrawListener(this);
@@ -275,11 +279,15 @@ public class CoverPageView extends View {
     private void scrollPage(float x, float y) {
         touchPoint.x=x;
         touchPoint.y=y;
-        if (touchStyle==TOUCH_RIGHT){
+        if (touchStyle==TOUCH_RIGHT){//向左滑动
+
             scrollPageLeft = touchPoint.x - xDonwx;
+            Log.i("text","right-------scrollPageLeft==="+scrollPageLeft);
         }
-        else if (touchStyle==TOUCH_LEFT){
-            scrollPageLeft=touchPoint.x-xDonwx-viewWidth;
+        else if (touchStyle==TOUCH_LEFT){//向右滑动
+
+            scrollPageLeft=-viewWidth+(touchPoint.x-xDonwx);//改变起始位置
+            Log.i("text","left---------scrollPageLeft==="+scrollPageLeft);
         }
         if (scrollPageLeft>0){
             scrollPageLeft=0;

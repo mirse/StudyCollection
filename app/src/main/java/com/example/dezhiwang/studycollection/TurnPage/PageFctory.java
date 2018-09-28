@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 
 /**
  * Created by dezhi.wang on 2018/9/26.
+ * 抽象类PageFactory
  */
 
 public abstract class PageFctory {

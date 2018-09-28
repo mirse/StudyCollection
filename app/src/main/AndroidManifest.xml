@@ -21,7 +21,9 @@
         <activity android:name=".Activity.ColorPicker2Activity" />
         <activity android:name=".Activity.SurfaceViewActivity" />
         <activity android:name=".Activity.PageActivity" />
-        <activity android:name=".Activity.TabViewActivity"></activity>
+        <activity android:name=".Activity.TabViewActivity" />
+        <activity android:name=".Activity.DrawableWrapperActivity" />
+        <activity android:name=".Activity.DrawableIconActivity"></activity>
     </application>
 
 </manifest>

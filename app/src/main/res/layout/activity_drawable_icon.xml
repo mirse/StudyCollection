@@ -4,14 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dezhiwang.studycollection.Activity.PageActivity">
-    <TextView
-        android:text="不大清楚原理"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-<com.example.dezhiwang.studycollection.TurnPage.CoverPageView
-    android:id="@+id/cpv"
+    tools:context="com.example.dezhiwang.studycollection.Activity.DrawableIconActivity">
+<com.example.dezhiwang.studycollection.MyDrawable.ViewWithIcon
+    android:background="@color/colorPrimary"
     android:layout_centerInParent="true"
+    app:view_image="@drawable/football"
+    app:icon_num="1"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" />
 </RelativeLayout>
