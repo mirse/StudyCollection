@@ -25,7 +25,9 @@
         <activity android:name=".Activity.DrawableWrapperActivity" />
         <activity android:name=".Activity.DrawableIconActivity" />
         <activity android:name=".Activity.DrawableIconIVActivity" />
-        <activity android:name=".IndicatorView.IndicatorActivity"></activity>
+        <activity android:name=".IndicatorView.IndicatorActivity" />
+        <activity android:name=".RecyclePager.FragmentPagerActivity" />
+        <activity android:name=".RecyclePager.ImageRecyclerActivity"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.dezhiwang.studycollection.Activity.DrawableIconIVActivity">
+<TextView
+    android:text="1、原图片得有白边空隙，填充角标"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+    <com.example.dezhiwang.studycollection.MyDrawable.ImageWithIcon
+   android:layout_alignParentRight="true"
+    android:src="@drawable/ic_launcher"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+    <TextView
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:text="2、shape实现，待完善"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:background="@drawable/circle_icon"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/ic_launcher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>
