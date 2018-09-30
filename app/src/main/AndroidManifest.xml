@@ -23,7 +23,9 @@
         <activity android:name=".Activity.PageActivity" />
         <activity android:name=".Activity.TabViewActivity" />
         <activity android:name=".Activity.DrawableWrapperActivity" />
-        <activity android:name=".Activity.DrawableIconActivity"></activity>
+        <activity android:name=".Activity.DrawableIconActivity" />
+        <activity android:name=".Activity.DrawableIconIVActivity" />
+        <activity android:name=".IndicatorView.IndicatorActivity"></activity>
     </application>
 
 </manifest>

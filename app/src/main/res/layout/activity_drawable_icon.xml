@@ -5,11 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.dezhiwang.studycollection.Activity.DrawableIconActivity">
+    <TextView
+        android:text="自定义View实现"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 <com.example.dezhiwang.studycollection.MyDrawable.ViewWithIcon
+    android:id="@+id/viewWithIcon"
     android:background="@color/colorPrimary"
     android:layout_centerInParent="true"
     app:view_image="@drawable/football"
-    app:icon_num="1"
+    app:icon_num="99"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" />
 </RelativeLayout>

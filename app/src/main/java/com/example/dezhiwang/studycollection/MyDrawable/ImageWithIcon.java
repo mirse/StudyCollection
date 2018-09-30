@@ -57,11 +57,11 @@ public class ImageWithIcon extends android.support.v7.widget.AppCompatImageView 
         this.num=num;
         invalidate();
     }
-
+//
 //    @Override
 //    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-//        Log.i("text","getwidth=="+getWidth());
-//        Log.i("text","getmeasurewidth=="+getMeasuredWidth());
+//        Log.i("text","getwidth=="+getWidth());//0
+//        Log.i("text","getmeasurewidth=="+getMeasuredWidth());//0
 //        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
 //        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
 //        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
@@ -86,14 +86,14 @@ public class ImageWithIcon extends android.support.v7.widget.AppCompatImageView 
         int paddingRight = getPaddingRight();
         int paddingTop = getPaddingTop();
        // Log.i("text",paddingRight+"r");
-        canvas.drawCircle(getWidth()-radius,0+radius,radius,paint);
+        canvas.drawCircle(getMeasuredWidth()-radius,radius,radius,paint);
         num=13;
         String text=Integer.toString(num);
         textPaint.setTextSize(radius);
         textPaint.getTextBounds(text,0,text.length(),rect);
         int width = rect.right - rect.left;
         int height = rect.bottom - rect.top;
-        canvas.drawText(text,num<10?getWidth()-radius-width:getWidth()-radius-width/2,radius+height/2,textPaint);
+       // canvas.drawText(text,num<10?getWidth()-radius-width:getWidth()-radius-width/2,radius+height/2,textPaint);
 
     }
 

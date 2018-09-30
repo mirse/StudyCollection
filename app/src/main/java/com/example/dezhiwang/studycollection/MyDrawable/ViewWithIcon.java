@@ -28,6 +28,10 @@ public class ViewWithIcon extends View {
     private int width;
     private Bitmap bitmap;
     private int offset;
+    private int radius;
+    private Paint paint;
+    private Paint textPaint;
+    private Rect rect;
 
     public ViewWithIcon(Context context) {
         this(context,null);
@@ -43,13 +47,25 @@ public class ViewWithIcon extends View {
         viewImage = typedArray.getDrawable(R.styleable.ViewWithIcon_view_image);
         iconNum = typedArray.getInteger(R.styleable.ViewWithIcon_icon_num, 1);
         typedArray.recycle();
+        init(context);
     }
-        @Override
+
+    private void init(Context context) {
+        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setColor(0xffff4444);
+        textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        textPaint.setColor(Color.WHITE);
+        textPaint.setTextSize(50f);
+        rect = new Rect();
+    }
+
+    @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-            BitmapDrawable bd= (BitmapDrawable) viewImage;
-            bitmap = bd.getBitmap();
-        int realWidthSize=bitmap.getWidth()+bitmap.getWidth()/6;
-        int realHeightSize=bitmap.getHeight()+bitmap.getWidth()/6;
+        BitmapDrawable bd= (BitmapDrawable) viewImage;
+        bitmap = bd.getBitmap();
+        radius = bitmap.getWidth()/6;
+        int realWidthSize=bitmap.getWidth()+bitmap.getWidth()/3;
+        int realHeightSize=bitmap.getHeight()+bitmap.getWidth()/3;
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
         int widthSize = MeasureSpec.getSize(widthMeasureSpec);
@@ -69,22 +85,17 @@ public class ViewWithIcon extends View {
     }
     @Override
     protected void onDraw(Canvas canvas) {
-        int radius=bitmap.getWidth()/6;
-        canvas.translate(radius/2,radius/2);
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColor(0xffff4444);
-        Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        textPaint.setColor(Color.WHITE);
-        Rect rect = new Rect();
-
+        canvas.translate(radius,radius);
         canvas.drawBitmap(bitmap,0,0,null);
-
-        canvas.drawCircle(getWidth(),0,getWidth()/6,paint);
-        int num=1;
-        String text=Integer.toString(num);
+        canvas.drawCircle(bitmap.getWidth(),0,radius,paint);
+        //iconNum=21;
+        String text=Integer.toString(iconNum);
         textPaint.getTextBounds(text,0,text.length(),rect);
         int width = rect.right - rect.left;
         int height = rect.bottom - rect.top;
-        canvas.drawText(text,num<10?getWidth()-radius-width:getWidth()-radius-width/2,radius+height/2,textPaint);
+        canvas.drawText(text,iconNum<10?bitmap.getWidth()-width:bitmap.getWidth()-width/2 ,height/2,textPaint);
+    }
+    public void setNum(int iconNum){
+        this.iconNum=iconNum;
     }
 }

@@ -27,5 +27,17 @@
         <attr name="view_image" format="reference"/>
         <attr name="icon_num" format="integer"/>
     </declare-styleable>
+    
+    //指示器
+    <declare-styleable name="MyIndicatorView">
+        <attr name="indicator_rad" format="dimension"/>
+        <attr name="indicator_border_width" format="dimension"/>
+        <attr name="indicator_space" format="dimension"/>
+        <attr name="indicator_text_color" format="color"/>
+        <attr name="indicator_select_color" format="color"/>
+        <attr name="indicator_normal_color" format="color"/>
+        <attr name="enableIndicatorSwitch" format="boolean"/>
+        <attr name="fill_mode" format="integer"/>
+    </declare-styleable>
 
 </resources>
