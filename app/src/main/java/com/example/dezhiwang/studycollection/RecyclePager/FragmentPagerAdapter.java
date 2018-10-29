@@ -25,19 +25,9 @@ public class FragmentPagerAdapter extends android.support.v4.app.FragmentPagerAd
         super(fm);
         this.listFragment=fragmentArrayList;
       //  listFragment1=new ArrayList<>();
-      //  init(listFragment);
 
     }
 
-    private void init(List<Fragment> listFragment) {
-
-        for (int i=0;i<listFragment.size();i++){
-            listFragment1.add(listFragment.get(i));
-        }
-        if(listFragment1.size() > 1 && listFragment1.size() < 4){
-            init(listFragment);
-        }
-    }
 
     @Override
     public Fragment getItem(int position) {
@@ -48,7 +38,12 @@ public class FragmentPagerAdapter extends android.support.v4.app.FragmentPagerAd
 
     @Override
     public int getCount() {
-        return Integer.MAX_VALUE;
+//        if (listFragment.size()<4){
+//            return listFragment.size()*2;
+//        }else{
+            return Integer.MAX_VALUE;
+//        }
+
     }
 
     @Override
