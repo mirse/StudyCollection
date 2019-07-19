@@ -26,11 +26,11 @@ import com.example.dezhiwang.studycollection.R;
 public class ColorPickerHSV extends View {
 
     private Paint mPaint;
-//    private static final int[] COLOR=new int[]{
-//            Color.RED,Color.BLUE,Color.GREEN,Color.RED
-//    };
-        private static final int[] COLOR = new int[] { 0xFFFF0000, 0xFFFF00FF,
-            0xFF0000FF, 0xFF00FFFF, 0xFF00FF00, 0xFFFFFF00, 0xFFFF0000 };
+    private static final int[] COLOR=new int[]{
+            Color.RED,Color.BLUE,Color.GREEN,Color.RED
+    };
+//        private static final int[] COLOR = new int[] { 0xFFFF0000, 0xFFFF00FF,
+//            0xFF0000FF, 0xFF00FFFF, 0xFF00FF00, 0xFFFFFF00, 0xFFFF0000 };
     private int circleWidth;
     private int offsetX;
     private int offsetY;
@@ -173,7 +173,6 @@ public class ColorPickerHSV extends View {
                     }
                     float[] hsv={0,0,1};
                     hsv[0]= (float) (Math.atan2(y,x)/Math.PI*180f)+180;
-                    //  Log.i("text",hsv[0]+"--hsv0");
                     hsv[1]=Math.max(0f,Math.min(1f,(float) (r/circleWidth)));
                     int color = Color.HSVToColor(hsv);
                     iPaint.setColor(color);
@@ -187,6 +186,7 @@ public class ColorPickerHSV extends View {
             case MotionEvent.ACTION_UP:
                 isMove=false;
                 break;
+                default:break;
         }
         return true;
     }

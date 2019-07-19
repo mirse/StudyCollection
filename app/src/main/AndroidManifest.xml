@@ -29,7 +29,9 @@
         <activity android:name=".RecyclePager.FragmentPagerActivity" />
         <activity android:name=".RecyclePager.ImageRecyclerActivity" />
         <activity android:name=".Activity.LetterIndexActivity" />
-        <activity android:name=".Mvp.MvpActivity"></activity>
+        <activity android:name=".Mvp.LoginTest.MvpActivity" />
+        <activity android:name=".Mvp.Test1.DataActivity" />
+        <activity android:name=".Mvp.WriteAndRead.SavaActivity"></activity>
     </application>
 
 </manifest>

@@ -19,7 +19,9 @@ import com.example.dezhiwang.studycollection.Activity.PageActivity;
 import com.example.dezhiwang.studycollection.Activity.SurfaceViewActivity;
 import com.example.dezhiwang.studycollection.Activity.TabViewActivity;
 import com.example.dezhiwang.studycollection.IndicatorView.IndicatorActivity;
-import com.example.dezhiwang.studycollection.Mvp.MvpActivity;
+import com.example.dezhiwang.studycollection.Mvp.LoginTest.MvpActivity;
+import com.example.dezhiwang.studycollection.Mvp.Test1.DataActivity;
+import com.example.dezhiwang.studycollection.Mvp.WriteAndRead.SavaActivity;
 import com.example.dezhiwang.studycollection.RecyclePager.ImageRecyclerActivity;
 import com.example.dezhiwang.studycollection.RecyclePager.FragmentPagerActivity;
 
@@ -53,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
 
     private void initData() {
         List<MainBean> list = new ArrayList<>();
-        String[][] array={{"自定义View","argb圆","rgbRing圆","hsv圆","SurfaceView","翻页效果","TabView"},{"角标效果","Group实现","View实现","ImageV实现","指示器","fragment循环","viewpage循环"},{"字母索引","列表索引","mvp","","","",""}};
+        String[][] array={{"自定义View","argb圆","rgbRing圆","hsv圆","SurfaceView","翻页效果","TabView"},{"角标效果","Group实现","View实现","ImageV实现","指示器","fragment循环","viewpage循环"},{"字母索引","列表索引","Login-mvp","mvp_test","save_test","",""}};
         for (String[] mArray:array) {
             list.add(new MainBean(mArray[0],mArray[1],mArray[2],mArray[3],mArray[4],mArray[5],mArray[6]));
         }
@@ -116,10 +118,10 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                         startActivity(new Intent(this,MvpActivity.class));
                         break;
                     case R.id.button3:
-                      //  startActivity(new Intent(this,DrawableIconIVActivity.class));
+                        startActivity(new Intent(this,DataActivity.class));
                         break;
                     case R.id.button4:
-                       // startActivity(new Intent(this, IndicatorActivity.class));
+                        startActivity(new Intent(this, SavaActivity.class));
                         break;
                     case R.id.button5:
                       //  startActivity(new Intent(this, FragmentPagerActivity.class));
