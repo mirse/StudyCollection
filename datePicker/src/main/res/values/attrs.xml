@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 自定义的属性-->
+    <declare-styleable name="TipsDialog">
+        <attr name="dialog_title" format="string" />
+        <attr name="dialog_content" format="string" />
+        <attr name="cancel" format="string"/>
+        <attr name="sure" format="string"/>
+    </declare-styleable>
+</resources>

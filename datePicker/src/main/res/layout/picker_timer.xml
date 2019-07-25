@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:background="@drawable/radius"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_cancel"
+            android:layout_alignParentLeft="true"
+            android:src="@mipmap/ic_close"
+            android:layout_width="44dp"
+            android:layout_height="44dp" />
+
+        <TextView
+            android:textSize="17sp"
+            android:textColor="#BABABA"
+            android:text="Pick Time"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/iv_confirm"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/ic_save"
+            android:layout_width="44dp"
+            android:layout_height="44dp" />
+
+    </RelativeLayout>
+
+    <View
+        android:background="#BABABA"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/date_picker_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="20dp"
+        android:paddingEnd="20dp"
+        android:paddingStart="20dp"
+        android:paddingTop="15dp">
+
+
+        <com.example.mychoosedialog.datepicker.PickerView
+            android:id="@+id/dpv_hour"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/picker_view_height"
+            android:layout_weight="3" />
+
+        <TextView
+            android:layout_marginLeft="-50dp"
+            android:id="@+id/tv_hour_unit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="H"
+            android:textColor="#000000"
+            android:textSize="23sp" />
+
+        <com.example.mychoosedialog.datepicker.PickerView
+            android:id="@+id/dpv_minute"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/picker_view_height"
+            android:layout_weight="3" />
+
+        <TextView
+            android:layout_marginLeft="-50dp"
+            android:id="@+id/tv_minute_unit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="M"
+            android:textColor="#000000"
+            android:textSize="23sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -9,6 +9,6 @@ import com.example.dezhiwang.studycollection.Mvp.Test1.view.DataView;
 public interface BasePresenter {
     void attahView(DataView dataView);
     void detachView();
-    void loadData();
+    void loadData(String msg);
 
 }

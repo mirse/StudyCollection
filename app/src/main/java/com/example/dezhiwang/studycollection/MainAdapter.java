@@ -61,6 +61,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
             case 5:
                 setBackGroundColor(holder, R.color.reply_color);
                 break;
+            default:
+                break;
         }
         if (mList.size()<=0)
             return;

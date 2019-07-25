@@ -1,7 +1,8 @@
 package com.example.dezhiwang.studycollection.Mvp.Test1.Presenter;
 
-import com.example.dezhiwang.studycollection.Mvp.Test1.model.IMainModel;
-import com.example.dezhiwang.studycollection.Mvp.Test1.model.ModelImpl;
+import com.example.dezhiwang.studycollection.Mvp.Test1.Token;
+import com.example.dezhiwang.studycollection.Mvp.Test1.model.BaseModel;
+import com.example.dezhiwang.studycollection.Mvp.Test1.model.DataModel;
 import com.example.dezhiwang.studycollection.Mvp.Test1.view.DataView;
 
 /**
@@ -10,9 +11,7 @@ import com.example.dezhiwang.studycollection.Mvp.Test1.view.DataView;
 
 public class MainPresenter implements BasePresenter {
     private DataView dataView;
-    private ModelImpl model;
     public MainPresenter(DataView dataView) {
-        model=new ModelImpl();
         attahView(dataView);
     }
 
@@ -29,14 +28,42 @@ public class MainPresenter implements BasePresenter {
     }
 
     @Override
-    public void loadData() {
+    public void loadData(String msg) {
         dataView.showLoading();
-        model.loadData(new IMainModel.onLoadCompleteListener() {
+
+        DataModel
+                .request(Token.API_USER_DATA)
+                .params(msg)
+                .execute(new BaseModel.onLoadCompleteListener<String>() {
             @Override
             public void onComplete(String body) {
                 dataView.showData(body);
             }
-        });
 
+            @Override
+            public void onFailed(String msg) {
+                dataView.showData(msg);
+            }
+
+
+        });
+    }
+
+
+    public void login(String[] msg){
+        dataView.showLoading();
+        DataModel.request(Token.API_LOGIN_DATA)
+                .params(msg)
+                .execute(new BaseModel.onLoadCompleteListener<String>() {
+                    @Override
+                    public void onComplete(String body) {
+                        dataView.showData(body);
+                    }
+
+                    @Override
+                    public void onFailed(String msg) {
+                        dataView.showData(msg);
+                    }
+                });
     }
 }
