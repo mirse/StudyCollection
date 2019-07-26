@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.dezhiwang.studycollection.Activity.ColorPicker1Activity;
 import com.example.dezhiwang.studycollection.Activity.ColorPicker2Activity;
@@ -26,6 +27,7 @@ import com.example.dezhiwang.studycollection.Mvp.Test1.DataActivity;
 import com.example.dezhiwang.studycollection.Mvp.WriteAndRead.SavaActivity;
 import com.example.dezhiwang.studycollection.RecyclePager.ImageRecyclerActivity;
 import com.example.dezhiwang.studycollection.RecyclePager.FragmentPagerActivity;
+import com.example.dezhiwang.studycollection.RecyclerView.Grid.GridViewActivity;
 import com.example.dezhiwang.studycollection.RecyclerView.RecyclerViewActivity;
 
 import java.util.ArrayList;
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
             supportActionBar.hide();
         }
         initMain();
+        Toast.makeText(this,"瀑布流拖拽problem",Toast.LENGTH_SHORT).show();
     }
 
     private void initMain() {
@@ -58,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
 
     private void initData() {
         List<MainBean> list = new ArrayList<>();
-        String[][] array={{"自定义View","argb圆","rgbRing圆","hsv圆","SurfaceView","翻页效果","TabView"},{"角标效果","Group实现","View实现","ImageV实现","指示器","fragment循环","viewpage循环"},{"字母索引","列表索引","Login-mvp","mvp_test","save_test","选择器","recyclerView"},{"视图","LayoutInflater","","","","",""}};
+        String[][] array={{"自定义View","argb圆","rgbRing圆","hsv圆","SurfaceView","翻页效果","TabView"},{"角标效果","Group实现","View实现","ImageV实现","指示器","fragment循环","viewpage循环"},{"字母索引","列表索引","Login-mvp","mvp_test","save_test","选择器","recyclerView"},{"视图","LayoutInflater","瀑布流","","","",""}};
         for (String[] mArray:array) {
             list.add(new MainBean(mArray[0],mArray[1],mArray[2],mArray[3],mArray[4],mArray[5],mArray[6]));
         }
@@ -146,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                         startActivity(new Intent(this, LayoutInflaterActivity.class));
                         break;
                     case R.id.button2:
-                  //      startActivity(new Intent(this,MvpActivity.class));
+                        startActivity(new Intent(this, GridViewActivity.class));
                         break;
                     case R.id.button3:
                   //      startActivity(new Intent(this,DataActivity.class));

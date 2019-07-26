@@ -1,10 +1,14 @@
 package com.example.dezhiwang.studycollection.RecyclerView;
 
+import android.graphics.Canvas;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -39,7 +43,8 @@ public class RecyclerViewActivity extends AppCompatActivity {
          mRecyclerView.setAdapter(myAdapter);
          mRecyclerView.addItemDecoration(new MyDividerItemDecoration(this,LinearLayoutManager.HORIZONTAL));
          mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
+        itemTouchHelper.attachToRecyclerView(mRecyclerView);
          mBtnAdd.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
@@ -50,7 +55,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
          mBtnDel.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                 myAdapter.deleteItem();
+                 myAdapter.deleteItem(0);
                  mLayoutManager.scrollToPosition(0);
              }
          });
@@ -67,6 +72,66 @@ public class RecyclerViewActivity extends AppCompatActivity {
              }
          });
     }
+
+
+
+    ItemTouchHelper.Callback callback = new ItemTouchHelper.Callback(){
+
+        @Override
+        public boolean isLongPressDragEnabled() {
+            return false;
+        }
+
+        @Override
+        public boolean isItemViewSwipeEnabled() {
+            return true;
+        }
+
+        @Override
+        public void onSelectedChanged(@Nullable RecyclerView.ViewHolder viewHolder, int actionState) {
+            if(actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
+                viewHolder.itemView.setBackgroundResource(R.color.red_deep);
+            }
+            super.onSelectedChanged(viewHolder, actionState);
+        }
+
+        @Override
+        public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+            float x = Math.abs(dX) + 0.5f;
+            float width = viewHolder.itemView.getWidth();
+            float alpha = 1f - x / width;
+            viewHolder.itemView.setAlpha(alpha);
+            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState,
+                    isCurrentlyActive);
+        }
+
+        @Override
+        public void onChildDrawOver(@NonNull Canvas c, @NonNull RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+            super.onChildDrawOver(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+        }
+
+        @Override
+        public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+            return makeMovementFlags(0,ItemTouchHelper.START|ItemTouchHelper.END);
+        }
+
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
+            return true;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+            myAdapter.deleteItem(viewHolder.getAdapterPosition());
+        }
+
+        @Override
+        public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+            viewHolder.itemView.setBackgroundResource(R.color.colorAccent);
+            viewHolder.itemView.setAlpha(1.0f);
+            super.clearView(recyclerView, viewHolder);
+        }
+    };
 
     private void initData() {
         mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);

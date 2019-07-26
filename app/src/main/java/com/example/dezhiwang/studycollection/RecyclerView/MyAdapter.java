@@ -30,12 +30,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         //notifyDataSetChanged();
     }
 
-    public void deleteItem(){
+    public void deleteItem(int position){
         if (mData == null || mData.isEmpty()){
             return;
         }
-        mData.remove(0);
-        notifyItemRemoved(0);
+        mData.remove(position);
+        notifyItemRemoved(position);
     }
 
     public interface onItemClickListener{
