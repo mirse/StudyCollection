@@ -3,7 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/StudyCollection.iml" filepath="$PROJECT_DIR$/StudyCollection.iml" />
+      <module fileurl="file://$PROJECT_DIR$/StudyCollection.iml" filepath="$PROJECT_DIR$/StudyCollection.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/datePicker/datePicker.iml" filepath="$PROJECT_DIR$/datePicker/datePicker.iml" />
       <module fileurl="file://$PROJECT_DIR$/datePicker/datePicker.iml" filepath="$PROJECT_DIR$/datePicker/datePicker.iml" />
     </modules>
   </component>
