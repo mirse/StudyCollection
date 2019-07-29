@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
 
     private void initData() {
         List<MainBean> list = new ArrayList<>();
-        String[][] array={{"自定义View","argb圆","rgbRing圆","hsv圆","SurfaceView","翻页效果","TabView"},{"角标效果","Group实现","View实现","ImageV实现","指示器","fragment循环","viewpage循环"},{"字母索引","列表索引","Login-mvp","mvp_test","save_test","选择器","recyclerView"},{"视图","LayoutInflater","瀑布流","测试是否协同合作","","",""}};
+        String[][] array={{"自定义View","argb圆","rgbRing圆","hsv圆","SurfaceView","翻页效果","TabView"},{"角标效果","Group实现","View实现","ImageV实现","指示器","fragment循环","viewpage循环"},{"字母索引","列表索引","Login-mvp","mvp_test","save_test","选择器","recyclerView"},{"视图","LayoutInflater","瀑布流","测试第二个账号","","",""}};
         for (String[] mArray:array) {
             list.add(new MainBean(mArray[0],mArray[1],mArray[2],mArray[3],mArray[4],mArray[5],mArray[6]));
         }
