@@ -9,14 +9,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.dezhiwang.studycollection.R;
+import com.example.dezhiwang.studycollection.RecyclerView.universal.BaseAdapter;
 
 import java.util.ArrayList;
 
-public class MDStaggeredRvAdapter extends RecyclerView.Adapter<MDStaggeredRvAdapter.ViewHolder> {
+public class MDStaggeredRvAdapter extends BaseAdapter<String> {
 
     private ArrayList<String> mData;
 
     public MDStaggeredRvAdapter(ArrayList<String> data) {
+        super(data);
         this.mData = data;
     }
 
@@ -32,36 +34,25 @@ public class MDStaggeredRvAdapter extends RecyclerView.Adapter<MDStaggeredRvAdap
         return position%2;
     }
 
+
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View view;
+    public int getLayoutId(int viewType) {
+        int layout;
         if (viewType == 1){
-            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.view_rv_staggered_item, viewGroup, false);
+            layout = R.layout.view_rv_staggered_item;
         }
         else{
-            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.view_rv_staggered_item_two, viewGroup, false);
+            layout = R.layout.view_rv_staggered_item_two;
         }
-        ViewHolder viewHolder = new ViewHolder(view);
-        return viewHolder;
+        return layout;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        viewHolder.mTv.setText(mData.get(i));
+    public void convert(VH vh, String data, int position) {
+        vh.setText(R.id.item_tv,data);
+        vh.addOnClickListener(position);
     }
 
-    @Override
-    public int getItemCount() {
-        return mData == null? 0:mData.size();
-    }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView mTv;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            mTv = (TextView) itemView.findViewById(R.id.item_tv);
-        }
-    }
 }
