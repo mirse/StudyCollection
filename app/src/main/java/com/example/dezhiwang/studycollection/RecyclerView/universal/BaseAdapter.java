@@ -9,12 +9,15 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.TextView;
 
+
+import com.example.dezhiwang.studycollection.RecyclerView.MyAdapter;
+
 import java.util.List;
 
 public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseAdapter.VH> {
 
     private List<T> mDatas;
-
+    private static BaseAdapter.onItemClickListener onItemClickListener;
     public BaseAdapter(List<T> datas) {
         this.mDatas = datas;
     }
@@ -39,7 +42,20 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseAdapter.VH
         return mDatas.size();
     }
 
-    static class VH extends RecyclerView.ViewHolder{
+
+
+    public interface onItemClickListener{
+        void onItemClick(View view,int position);
+        void onItemLongClick(View view,int position);
+    }
+
+    public void setOnClickListener(onItemClickListener listener){
+        onItemClickListener = listener;
+    }
+
+
+
+    public static class VH extends RecyclerView.ViewHolder{
         private View mConvertView;
         private SparseArray<View> mView;
         public VH(View view) {
@@ -66,7 +82,18 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseAdapter.VH
         public void setText(int id,String value){
             TextView tv = getView(id);
             tv.setText(value);
-
         }
+
+        public void addOnClickListener(final int position){
+           mConvertView.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   if (onItemClickListener !=null){
+                       onItemClickListener.onItemClick(mConvertView,position);
+                   }
+               }
+           });
+        }
+
     }
 }

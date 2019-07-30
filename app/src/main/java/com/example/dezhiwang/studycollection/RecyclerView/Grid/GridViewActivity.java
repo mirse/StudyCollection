@@ -12,11 +12,13 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.dezhiwang.studycollection.R;
 import com.example.dezhiwang.studycollection.RecyclerView.MyAdapter;
 import com.example.dezhiwang.studycollection.RecyclerView.StaggerGrid.MDStaggeredRvAdapter;
 import com.example.dezhiwang.studycollection.RecyclerView.StaggerGrid.MDStaggeredRvDividerDecotation;
+import com.example.dezhiwang.studycollection.RecyclerView.universal.BaseAdapter;
 
 import java.util.ArrayList;
 
@@ -46,7 +48,17 @@ public class GridViewActivity extends AppCompatActivity {
 
         staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL);
         mdStaggeredRvAdapter = new MDStaggeredRvAdapter(getData());
+        mdStaggeredRvAdapter.setOnClickListener(new BaseAdapter.onItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(getBaseContext(),"点击第"+position+"个",Toast.LENGTH_SHORT).show();
+            }
 
+            @Override
+            public void onItemLongClick(View view, int position) {
+
+            }
+        });
     }
 
     private ArrayList<String> getData() {
@@ -61,13 +73,13 @@ public class GridViewActivity extends AppCompatActivity {
     private void initUI() {
         mRv = findViewById(R.id.recyclerView);
         //标准瀑布流
-        mRv.setLayoutManager(gridLayoutManager);
-        mRv.setAdapter(myAdapter);
-        mRv.addItemDecoration(new GridDividerDecoration(this));
+//        mRv.setLayoutManager(gridLayoutManager);
+//        mRv.setAdapter(myAdapter);
+//        mRv.addItemDecoration(new GridDividerDecoration(this));
 
         //宽高不一的瀑布流
-//        mRv.setLayoutManager(staggeredGridLayoutManager);
-//        mRv.setAdapter(mdStaggeredRvAdapter);
+        mRv.setLayoutManager(staggeredGridLayoutManager);
+        mRv.setAdapter(mdStaggeredRvAdapter);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(mRv);
     }
