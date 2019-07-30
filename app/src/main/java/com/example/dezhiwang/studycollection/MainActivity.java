@@ -20,6 +20,7 @@ import com.example.dezhiwang.studycollection.Activity.LetterIndexActivity;
 import com.example.dezhiwang.studycollection.Activity.PageActivity;
 import com.example.dezhiwang.studycollection.Activity.SurfaceViewActivity;
 import com.example.dezhiwang.studycollection.Activity.TabViewActivity;
+import com.example.dezhiwang.studycollection.Fragment.FragmentActivity;
 import com.example.dezhiwang.studycollection.IndicatorView.IndicatorActivity;
 import com.example.dezhiwang.studycollection.Line4.LayoutInflater.LayoutInflaterActivity;
 import com.example.dezhiwang.studycollection.Mvp.LoginTest.MvpActivity;
@@ -156,10 +157,10 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                         startActivity(new Intent(this, GridViewActivity.class));
                         break;
                     case R.id.button3:
-                  //      startActivity(new Intent(this,DataActivity.class));
+                 //       startActivity(new Intent(this,fragmentac.class));
                         break;
                     case R.id.button4:
-                  //      startActivity(new Intent(this, SavaActivity.class));
+                        startActivity(new Intent(this, FragmentActivity.class));
                         break;
                     case R.id.button5:
                   //      startActivity(new Intent(this, DatePickerActivity.class));

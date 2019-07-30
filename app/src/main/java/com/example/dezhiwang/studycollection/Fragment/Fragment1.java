@@ -13,10 +13,19 @@ import android.widget.TextView;
 
 import com.example.dezhiwang.studycollection.R;
 
+
 public class Fragment1 extends Fragment {
     public static String PARAM = "param_key";
     private String mParam;
     private Activity mActivity;
+
+    public static Fragment getInstance(String value){
+        Fragment1 fragment1 = new Fragment1();
+        Bundle bundle = new Bundle();
+        bundle.putString(PARAM,value);
+        fragment1.setArguments(bundle);
+        return fragment1;
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -34,11 +43,5 @@ public class Fragment1 extends Fragment {
         return view;
     }
 
-    public static Fragment getInstance(String value){
-        Fragment1 fragment1 = new Fragment1();
-        Bundle bundle = new Bundle();
-        bundle.putString(PARAM,value);
-        fragment1.setArguments(bundle);
-        return fragment1;
-    }
+
 }
