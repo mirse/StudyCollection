@@ -19,7 +19,12 @@ public class Fragment1 extends Fragment {
     public static String PARAM = "param_key";
     private String mParam;
     private Activity mActivity;
-
+    private OnFragmentInteractionListener mListener;
+//在Fragment中定义接口，并让Activity实现该接口
+    public interface OnFragmentInteractionListener {
+        //将str从Fragment传递给Activity
+        void onItemClick(String str);
+    }
     public static Fragment getInstance(String value){
         Fragment1 fragment1 = new Fragment1();
         Bundle bundle = new Bundle();
@@ -33,6 +38,12 @@ public class Fragment1 extends Fragment {
         super.onAttach(context);
         mActivity = (Activity) context;
         mParam = getArguments().getString(PARAM);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;//将参数Context强转为OnFragmentInteractionListener对象
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
     }
 
     @Nullable
@@ -45,6 +56,7 @@ public class Fragment1 extends Fragment {
         mBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mListener.onItemClick("回参");
                 getFragmentManager().beginTransaction()
                         .replace(R.id.container,Fragment2.getInstance("f2"),"f2")
                         .addToBackStack(Fragment2.class.getSimpleName())
