@@ -16,7 +16,7 @@ public class FragmentActivity extends AppCompatActivity {
         if (savedInstanceState == null){
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container,Fragment1.getInstance("hello world"),"f1")
-                    .addToBackStack(null)
+                    .addToBackStack(Fragment1.class.getSimpleName())
                     .commit();
         }
     }

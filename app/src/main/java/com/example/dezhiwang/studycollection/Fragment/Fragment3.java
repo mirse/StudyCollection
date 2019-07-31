@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +16,13 @@ import android.widget.TextView;
 import com.example.dezhiwang.studycollection.R;
 
 
-public class Fragment1 extends Fragment {
+public class Fragment3 extends Fragment {
     public static String PARAM = "param_key";
     private String mParam;
     private Activity mActivity;
 
     public static Fragment getInstance(String value){
-        Fragment1 fragment1 = new Fragment1();
+        Fragment3 fragment1 = new Fragment3();
         Bundle bundle = new Bundle();
         bundle.putString(PARAM,value);
         fragment1.setArguments(bundle);
@@ -38,19 +39,19 @@ public class Fragment1 extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_1, container, false);
+        View view = inflater.inflate(R.layout.fragment_3, container, false);
         TextView textView = view.findViewById(R.id.textView6);
         textView.setText(mParam);
-        Button mBtn2 = view.findViewById(R.id.bt2);
-        mBtn2.setOnClickListener(new View.OnClickListener() {
+        Button mBtnNext = view.findViewById(R.id.bt_next);
+
+        mBtnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.container,Fragment2.getInstance("f2"),"f2")
-                        .addToBackStack(Fragment2.class.getSimpleName())
-                        .commit();
+                getFragmentManager().popBackStack(Fragment2.class.getSimpleName(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         });
+
+
         return view;
     }
 
