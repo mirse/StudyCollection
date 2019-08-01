@@ -43,7 +43,14 @@ public class Fragment3 extends Fragment {
         TextView textView = view.findViewById(R.id.textView6);
         textView.setText(mParam);
         Button mBtnNext = view.findViewById(R.id.bt_next);
-
+        Button mBtnShowDialog = view.findViewById(R.id.bt_show_dialog);
+        mBtnShowDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProgressDialogFragment progressDialogFragment = ProgressDialogFragment.getInstance();
+                progressDialogFragment.show(getFragmentManager(),"tag");
+            }
+        });
         mBtnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

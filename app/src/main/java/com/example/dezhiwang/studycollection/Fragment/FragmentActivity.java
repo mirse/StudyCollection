@@ -1,6 +1,7 @@
 package com.example.dezhiwang.studycollection.Fragment;
 
 import android.os.PersistableBundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -8,7 +9,7 @@ import android.widget.Toast;
 import com.example.dezhiwang.studycollection.R;
 
 
-public class FragmentActivity extends AppCompatActivity implements Fragment1.OnFragmentInteractionListener {
+public class FragmentActivity extends AppCompatActivity implements Fragment1.OnFragmentInteractionListener, Fragment1.CallBackValue {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,11 +21,25 @@ public class FragmentActivity extends AppCompatActivity implements Fragment1.OnF
                     .addToBackStack(Fragment1.class.getSimpleName())
                     .commit();
         }
+
     }
 
 
     @Override
     public void onItemClick(String str) {
-        Toast.makeText(getApplicationContext(),str,Toast.LENGTH_SHORT).show();
+
+        Toast.makeText(getApplicationContext(),"fragment -> activity:"+str,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void sendValue2Fragment(String text) {
+        Fragment f2 = Fragment2.getInstance("f2");
+        Bundle bundle = new Bundle();
+        bundle.putString("key",text);
+        f2.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container,f2)
+                .addToBackStack(Fragment2.class.getSimpleName())
+                .commit();
     }
 }

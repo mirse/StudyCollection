@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dezhiwang.studycollection.R;
 
@@ -33,7 +34,10 @@ public class Fragment2 extends Fragment {
         super.onAttach(context);
         mActivity = (Activity) context;
         mParam = getArguments().getString(PARAM);
+        String key = getArguments().getString("key");
+        Toast.makeText(mActivity,"fragment向fragment传值:"+key,Toast.LENGTH_SHORT).show();
     }
+
 
     @Nullable
     @Override
@@ -50,6 +54,9 @@ public class Fragment2 extends Fragment {
                         .replace(R.id.container,Fragment3.getInstance("f3"),"f3")
                         .addToBackStack(Fragment3.class.getSimpleName())
                         .commit();
+
+                Fragment1 rightFragment = (Fragment1) getFragmentManager().findFragmentByTag("f1");
+                rightFragment.setText("123456");
             }
         });
 
