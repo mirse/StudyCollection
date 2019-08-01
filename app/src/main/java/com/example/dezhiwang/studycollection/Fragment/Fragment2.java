@@ -33,9 +33,10 @@ public class Fragment2 extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         mActivity = (Activity) context;
-        mParam = getArguments().getString(PARAM);
-        String key = getArguments().getString("key");
-        Toast.makeText(mActivity,"fragment向fragment传值:"+key,Toast.LENGTH_SHORT).show();
+        // TODO: 2019/8/1 viewpager复用逻辑删除
+        //mParam = getArguments().getString(PARAM);
+//        String key = getArguments().getString("key");
+//        Toast.makeText(mActivity,"fragment向fragment传值:"+key,Toast.LENGTH_SHORT).show();
     }
 
 
@@ -44,7 +45,7 @@ public class Fragment2 extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_2, container, false);
         TextView textView = view.findViewById(R.id.textView6);
-        textView.setText(mParam);
+        //textView.setText(mParam);
         Button mBtnNext = view.findViewById(R.id.bt_next);
 
         mBtnNext.setOnClickListener(new View.OnClickListener() {
