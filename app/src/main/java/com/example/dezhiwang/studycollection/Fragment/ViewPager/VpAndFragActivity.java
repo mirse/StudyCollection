@@ -24,9 +24,9 @@ public class VpAndFragActivity extends AppCompatActivity {
         setContentView(R.layout.activity_vp_and_frag);
         ViewPager mViewPager = findViewById(R.id.viewpager);
         List<Fragment> list = new ArrayList<>();
-        list.add(new Fragment1());
-        list.add(new Fragment2());
-        list.add(new Fragment3());
+        list.add(new f1());
+        list.add(new f2());
+        list.add(new f3());
         mViewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), list));
     }
 

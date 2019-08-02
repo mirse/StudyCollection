@@ -45,20 +45,20 @@ public class Fragment1 extends Fragment {
         super.onAttach(context);
         mActivity = (Activity) context;
         // TODO: 2019/8/1 viewpager复用逻辑删除 
-        //mParam = getArguments().getString(PARAM);
-        //Toast.makeText(getContext(),"activity -> fragment:"+mParam,Toast.LENGTH_SHORT).show();
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;//将参数Context强转为OnFragmentInteractionListener对象
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//        if (context instanceof CallBackValue) {
-//            mCallBack = (CallBackValue) context;//将参数Context强转为OnFragmentInteractionListener对象
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
+        mParam = getArguments().getString(PARAM);
+        Toast.makeText(getContext(),"activity -> fragment:"+mParam,Toast.LENGTH_SHORT).show();
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;//将参数Context强转为OnFragmentInteractionListener对象
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+        if (context instanceof CallBackValue) {
+            mCallBack = (CallBackValue) context;//将参数Context强转为OnFragmentInteractionListener对象
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
     }
 
 
@@ -71,13 +71,13 @@ public class Fragment1 extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_1, container, false);
         TextView textView = view.findViewById(R.id.textView6);
-        //textView.setText(mParam);
+        textView.setText(mParam);
         Button mBtn2 = view.findViewById(R.id.bt2);
         mBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // mListener.onItemClick("回参");
-               // mCallBack.sendValue2Fragment("fragment1告诉fragment2");
+                mListener.onItemClick("回参");
+                mCallBack.sendValue2Fragment("fragment1告诉fragment2");
 
 
 
