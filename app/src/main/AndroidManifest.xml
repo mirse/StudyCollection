@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Fragment.ViewPager.VpAndFragActivity"></activity>
+        <activity android:name=".Fragment.revolve.FixProblemsActivity"></activity>
+        <activity android:name=".Fragment.ViewPager.VpAndFragActivity" />
         <activity android:name=".Fragment.FragmentActivity" />
         <activity android:name=".RecyclerView.Grid.GridViewActivity" />
         <activity android:name=".Line4.LayoutInflater.LayoutInflaterActivity" />
@@ -38,6 +39,7 @@
         <activity android:name=".Mvp.LoginTest.MvpActivity" />
         <activity android:name=".Mvp.Test1.DataActivity" />
         <activity android:name=".Mvp.WriteAndRead.SavaActivity" />
+        <activity android:name=".Fragment.revolve.SavedInstanceStateUsingActivity" />
     </application>
 
 </manifest>

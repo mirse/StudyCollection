@@ -18,7 +18,7 @@ public class FragmentActivity extends AppCompatActivity implements Fragment1.OnF
         if (savedInstanceState == null){
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container,Fragment1.getInstance("f1"),"f1")
-                    .addToBackStack(Fragment1.class.getSimpleName())
+                    //.addToBackStack(Fragment1.class.getSimpleName())
                     .commit();
         }
 

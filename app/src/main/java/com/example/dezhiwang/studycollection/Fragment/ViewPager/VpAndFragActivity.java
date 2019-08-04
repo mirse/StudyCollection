@@ -1,5 +1,6 @@
 package com.example.dezhiwang.studycollection.Fragment.ViewPager;
 
+import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
@@ -30,6 +31,10 @@ public class VpAndFragActivity extends AppCompatActivity {
         mViewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), list));
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+    }
 
     private class ViewPagerAdapter extends FragmentPagerAdapter {
         private List<Fragment> list;

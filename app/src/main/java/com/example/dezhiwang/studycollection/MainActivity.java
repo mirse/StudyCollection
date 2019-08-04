@@ -21,6 +21,8 @@ import com.example.dezhiwang.studycollection.Activity.PageActivity;
 import com.example.dezhiwang.studycollection.Activity.SurfaceViewActivity;
 import com.example.dezhiwang.studycollection.Activity.TabViewActivity;
 import com.example.dezhiwang.studycollection.Fragment.FragmentActivity;
+import com.example.dezhiwang.studycollection.Fragment.revolve.FixProblemsActivity;
+import com.example.dezhiwang.studycollection.Fragment.revolve.SavedInstanceStateUsingActivity;
 import com.example.dezhiwang.studycollection.Fragment.ViewPager.VpAndFragActivity;
 import com.example.dezhiwang.studycollection.IndicatorView.IndicatorActivity;
 import com.example.dezhiwang.studycollection.Line4.LayoutInflater.LayoutInflaterActivity;
@@ -67,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                 {"自定义View","argb圆","rgbRing圆","hsv圆","SurfaceView","翻页效果","TabView"},
                 {"角标效果","Group实现","View实现","ImageV实现","指示器","fragment循环","viewpage循环"},
                 {"字母索引","列表索引","Login-mvp","mvp_test","save_test","选择器","recyclerView"},
-                {"视图","LayoutInflater","瀑布流","万能adapter","Fragment","与viewpager",""}};
+                {"视图","LayoutInflater","瀑布流","界面旋转修复","Fragment","与viewpager","界面旋转"}};
         for (String[] mArray:array) {
             list.add(new MainBean(mArray[0],mArray[1],mArray[2],mArray[3],mArray[4],mArray[5],mArray[6]));
         }
@@ -158,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                         startActivity(new Intent(this, GridViewActivity.class));
                         break;
                     case R.id.button3:
-                 //       startActivity(new Intent(this,fragmentac.class));
+                        startActivity(new Intent(this, FixProblemsActivity.class));
                         break;
                     case R.id.button4:
                         startActivity(new Intent(this, FragmentActivity.class));
@@ -167,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                         startActivity(new Intent(this, VpAndFragActivity.class));
                         break;
                     case R.id.button6:
-                  //      startActivity(new Intent(this, RecyclerViewActivity.class));
+                        startActivity(new Intent(this, SavedInstanceStateUsingActivity.class));
                         break;
                     default:
                         break;
