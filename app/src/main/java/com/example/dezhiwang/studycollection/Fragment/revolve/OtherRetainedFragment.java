@@ -24,7 +24,9 @@ public class OtherRetainedFragment extends Fragment
     {
         super.onCreate(savedInstanceState);
         // retain this fragment
-        setRetainInstance(true);
+
+        /*当设备旋转时，fragment会随托管activity一起销毁并重建。*/
+        setRetainInstance(true);//已保留的fragment不会随着activity一起被销毁；
     }
 
     public void setData(MyAsyncTask data)

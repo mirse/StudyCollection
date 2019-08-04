@@ -87,8 +87,9 @@ public class MyAsyncTask extends AsyncTask<Void, Void, Void>
         // 如果上一个Activity销毁，将与上一个Activity绑定的DialogFragment销毁
         if (activity == null)
         {
-            // TODO: 2019/8/4 原理不了解
-            mLoadingDialog.dismissAllowingStateLoss(); //onSaveInstanceState  不能使用commit
+            // 只要 onSaveInstanceState 被调用之后，再调用 DialogFragment 的 show 方法，就会抛出异常。
+            mLoadingDialog.dismissAllowingStateLoss();
+
         }
         // 设置为当前的Activity
         this.activity = activity;
