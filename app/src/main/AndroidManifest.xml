@@ -14,8 +14,7 @@
         android:theme="@style/AppTheme">
         <service
             android:name=".NetWork.SocketServerService"
-            android:enabled="true"
-            android:exported="true"></service>
+            android:process=":remote"></service>
 
         <activity android:name=".NetWork.SocketClientActivity" />
         <activity android:name=".Fragment.revolve.FixProblemsActivity" />

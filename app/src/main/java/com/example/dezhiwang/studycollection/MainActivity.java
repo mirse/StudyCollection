@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                 {"角标效果","Group实现","View实现","ImageV实现","指示器","fragment循环","viewpage循环"},
                 {"字母索引","列表索引","Login-mvp","mvp_test","save_test","选择器","recyclerView"},
                 {"视图","LayoutInflater","瀑布流","界面旋转修复","Fragment","与viewpager","界面旋转"},
-                {"网络通信","","","","","",""}
+                {"网络通信","Socket通信","","","","",""}
         };
 
         for (String[] mArray:array) {

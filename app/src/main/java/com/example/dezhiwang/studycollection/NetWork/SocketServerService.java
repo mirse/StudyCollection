@@ -22,6 +22,7 @@ public class SocketServerService extends Service {
 
     @Override
     public void onCreate() {
+        new Thread(new TcpServer()).start();
         super.onCreate();
 
     }
@@ -54,7 +55,17 @@ public class SocketServerService extends Service {
                 try {
                     final Socket client = serverSocket.accept();
 
-                    new Thread(new Runnable() {
+//                    new Thread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            try {
+//                                responseClient(client);
+//                            } catch (IOException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    }).start();
+                    new Thread(){
                         @Override
                         public void run() {
                             try {
@@ -63,7 +74,7 @@ public class SocketServerService extends Service {
                                 e.printStackTrace();
                             }
                         }
-                    }).start();
+                    }.start();
 
                 } catch (IOException e) {
                     e.printStackTrace();
