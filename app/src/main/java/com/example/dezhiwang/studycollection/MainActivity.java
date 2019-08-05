@@ -29,6 +29,7 @@ import com.example.dezhiwang.studycollection.Line4.LayoutInflater.LayoutInflater
 import com.example.dezhiwang.studycollection.Mvp.LoginTest.MvpActivity;
 import com.example.dezhiwang.studycollection.Mvp.Test1.DataActivity;
 import com.example.dezhiwang.studycollection.Mvp.WriteAndRead.SavaActivity;
+import com.example.dezhiwang.studycollection.NetWork.SocketClientActivity;
 import com.example.dezhiwang.studycollection.RecyclePager.ImageRecyclerActivity;
 import com.example.dezhiwang.studycollection.RecyclePager.FragmentPagerActivity;
 import com.example.dezhiwang.studycollection.RecyclerView.Grid.GridViewActivity;
@@ -69,7 +70,10 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                 {"自定义View","argb圆","rgbRing圆","hsv圆","SurfaceView","翻页效果","TabView"},
                 {"角标效果","Group实现","View实现","ImageV实现","指示器","fragment循环","viewpage循环"},
                 {"字母索引","列表索引","Login-mvp","mvp_test","save_test","选择器","recyclerView"},
-                {"视图","LayoutInflater","瀑布流","界面旋转修复","Fragment","与viewpager","界面旋转"}};
+                {"视图","LayoutInflater","瀑布流","界面旋转修复","Fragment","与viewpager","界面旋转"},
+                {"网络通信","","","","","",""}
+        };
+
         for (String[] mArray:array) {
             list.add(new MainBean(mArray[0],mArray[1],mArray[2],mArray[3],mArray[4],mArray[5],mArray[6]));
         }
@@ -170,6 +174,30 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                         break;
                     case R.id.button6:
                         startActivity(new Intent(this, SavedInstanceStateUsingActivity.class));
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case 4:
+                switch (view.getId()){
+                    case R.id.button:
+                        startActivity(new Intent(this, SocketClientActivity.class));
+                        break;
+                    case R.id.button2:
+                        //startActivity(new Intent(this, GridViewActivity.class));
+                        break;
+                    case R.id.button3:
+                        //startActivity(new Intent(this, FixProblemsActivity.class));
+                        break;
+                    case R.id.button4:
+                        //startActivity(new Intent(this, FragmentActivity.class));
+                        break;
+                    case R.id.button5:
+                        //startActivity(new Intent(this, VpAndFragActivity.class));
+                        break;
+                    case R.id.button6:
+                        //startActivity(new Intent(this, SavedInstanceStateUsingActivity.class));
                         break;
                     default:
                         break;
