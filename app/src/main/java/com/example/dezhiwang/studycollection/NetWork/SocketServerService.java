@@ -156,16 +156,35 @@ public class SocketServerService extends Service {
                 try {
                     // 接受客户端请求，并且阻塞直到接收到消息
                     final Socket client = serverSocket.accept();
-                    new Thread() {
+//                    new Thread() {
+//                        @Override
+//                        public void run() {
+//                            try {
+//                                responseClient(client);
+//                            } catch (IOException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    }.start();
+
+
+                    new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            try {
-                                responseClient(client);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                            Log.i("tag","Runnable");
+                        }
+                    })
+                    {
+                        @Override
+                        public void run() {
+                            //
+                            super.run();
+                            Log.i("tag","Thread");
+
                         }
                     }.start();
+
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
