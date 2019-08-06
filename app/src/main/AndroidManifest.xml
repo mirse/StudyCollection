@@ -12,9 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".AsyncTask.AsyncTaskActivity"></activity>
+
         <service
             android:name=".NetWork.SocketServerService"
-            android:process=":remote"></service>
+            android:process=":remote" />
 
         <activity android:name=".NetWork.SocketClientActivity" />
         <activity android:name=".Fragment.revolve.FixProblemsActivity" />

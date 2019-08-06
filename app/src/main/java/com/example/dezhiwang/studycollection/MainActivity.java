@@ -20,6 +20,7 @@ import com.example.dezhiwang.studycollection.Activity.LetterIndexActivity;
 import com.example.dezhiwang.studycollection.Activity.PageActivity;
 import com.example.dezhiwang.studycollection.Activity.SurfaceViewActivity;
 import com.example.dezhiwang.studycollection.Activity.TabViewActivity;
+import com.example.dezhiwang.studycollection.AsyncTask.AsyncTaskActivity;
 import com.example.dezhiwang.studycollection.Fragment.FragmentActivity;
 import com.example.dezhiwang.studycollection.Fragment.revolve.FixProblemsActivity;
 import com.example.dezhiwang.studycollection.Fragment.revolve.SavedInstanceStateUsingActivity;
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                 {"角标效果","Group实现","View实现","ImageV实现","指示器","fragment循环","viewpage循环"},
                 {"字母索引","列表索引","Login-mvp","mvp_test","save_test","选择器","recyclerView"},
                 {"视图","LayoutInflater","瀑布流","界面旋转修复","Fragment","与viewpager","界面旋转"},
-                {"网络通信","Socket通信","","","","",""}
+                {"网络通信","Socket通信","AsyncTask","","","",""}
         };
 
         for (String[] mArray:array) {
@@ -185,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                         startActivity(new Intent(this, SocketClientActivity.class));
                         break;
                     case R.id.button2:
-                        //startActivity(new Intent(this, GridViewActivity.class));
+                        startActivity(new Intent(this, AsyncTaskActivity.class));
                         break;
                     case R.id.button3:
                         //startActivity(new Intent(this, FixProblemsActivity.class));

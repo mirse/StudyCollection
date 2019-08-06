@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,6 +25,8 @@ public class SocketClientActivity extends AppCompatActivity {
     private EditText et_receive;
     private TextView tv_message;
     private PrintWriter printWriter;
+    private static final String TAG = "SocketClientActivity";
+    private String msg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +49,16 @@ public class SocketClientActivity extends AppCompatActivity {
         bt_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String msg = et_receive.getText().toString();
-                if (msg!=null && printWriter!=null){
-                    printWriter.println(msg);
+                msg = et_receive.getText().toString();
+                if (msg !=null && printWriter!=null){
+                    new Thread(){
+                        @Override
+                        public void run() {
+                            printWriter.println(msg);
+                        }
+                    }.start();
+//                    MyThread myThread = new MyThread();
+//                    myThread.start();
                     tv_message.setText(tv_message.getText() + "\n" + "客户端：" + msg);
                     et_receive.setText("");
                 }
@@ -64,27 +74,22 @@ public class SocketClientActivity extends AppCompatActivity {
             try {
                 socket = new Socket("localhost", 8688);
                 printWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
+                Log.e(TAG, "服务器连接成功");
             } catch (final IOException e) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        tv_message.setText("error:"+e.toString());
-                    }
-                });
-
                 SystemClock.sleep(1000);
+                Log.e(TAG, "连接TCP服务失败, 重试...");
             }
         }
         try {
             //接收服务器端的消息
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            while (!isFinishing()){
+            while (!SocketClientActivity.this.isFinishing()){
                 final String s = bufferedReader.readLine();
                 if (s != null){
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                         tv_message.setText("服务端："+s);
+                            tv_message.setText(tv_message.getText() + "\n" + "服务端：" + s);
                         }
                     });
                 }
@@ -98,4 +103,11 @@ public class SocketClientActivity extends AppCompatActivity {
         }
 
     }
+
+//    class MyThread extends Thread{
+//        @Override
+//        public void run() {
+//            printWriter.println(msg);
+//        }
+//    }
 }
