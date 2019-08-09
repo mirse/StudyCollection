@@ -156,35 +156,35 @@ public class SocketServerService extends Service {
                 try {
                     // 接受客户端请求，并且阻塞直到接收到消息
                     final Socket client = serverSocket.accept();
-//                    new Thread() {
-//                        @Override
-//                        public void run() {
-//                            try {
-//                                responseClient(client);
-//                            } catch (IOException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//                    }.start();
-
-
-                    new Thread(new Runnable() {
+                    new Thread() {
                         @Override
                         public void run() {
-                            Log.i("tag","Runnable");
-                        }
-                    })
-                    {
-                        @Override
-                        public void run() {
-                            //
-                            super.run();
-                            Log.i("tag","Thread");
-
+                            try {
+                                responseClient(client);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }.start();
 
 
+                    /*.run(),.start()*/
+//                    new Thread().run();
+//
+//                    new Thread(new Runnable() {
+//                        @Override
+//                        public void run() {//实现run方法
+//                            Log.i("tag","Runnable");
+//                        }
+//                    })
+//                    {
+//                        @Override
+//                        public void run() {//重写run方法
+//                            super.run();
+//                            Log.i("tag","Thread");
+//
+//                        }
+//                    }.start();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
