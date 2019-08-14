@@ -36,6 +36,7 @@ import com.example.dezhiwang.studycollection.RecyclePager.ImageRecyclerActivity;
 import com.example.dezhiwang.studycollection.RecyclePager.FragmentPagerActivity;
 import com.example.dezhiwang.studycollection.RecyclerView.Grid.GridViewActivity;
 import com.example.dezhiwang.studycollection.RecyclerView.RecyclerViewActivity;
+import com.example.dezhiwang.studycollection.ViewBase.CoordinateSystemActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +75,8 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                 {"字母索引","列表索引","Login-mvp","mvp_test","save_test","选择器","recyclerView"},
                 {"视图","LayoutInflater","瀑布流","界面旋转修复","Fragment","与viewpager","界面旋转"},
                 {"网络通信","Socket通信","AsyncTask","","","",""},
-                {"数据存储","Sp","","","","",""}
+                {"数据存储","Sp","","","","",""},
+                {"View合集","坐标系","","","","",""}
         };
 
         for (String[] mArray:array) {
@@ -210,6 +212,30 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                 switch (view.getId()){
                     case R.id.button:
                         startActivity(new Intent(this, SharedPreferenceActivity.class));
+                        break;
+                    case R.id.button2:
+                        //startActivity(new Intent(this, AsyncTaskActivity.class));
+                        break;
+                    case R.id.button3:
+                        //startActivity(new Intent(this, FixProblemsActivity.class));
+                        break;
+                    case R.id.button4:
+                        //startActivity(new Intent(this, FragmentActivity.class));
+                        break;
+                    case R.id.button5:
+                        //startActivity(new Intent(this, VpAndFragActivity.class));
+                        break;
+                    case R.id.button6:
+                        //startActivity(new Intent(this, SavedInstanceStateUsingActivity.class));
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case 6:
+                switch (view.getId()){
+                    case R.id.button:
+                        startActivity(new Intent(this, CoordinateSystemActivity.class));
                         break;
                     case R.id.button2:
                         //startActivity(new Intent(this, AsyncTaskActivity.class));
