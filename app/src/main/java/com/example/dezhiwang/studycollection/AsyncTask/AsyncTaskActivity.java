@@ -1,149 +1,118 @@
 package com.example.dezhiwang.studycollection.AsyncTask;
 
-import android.nfc.Tag;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dezhiwang.studycollection.R;
 
-public class AsyncTaskActivity  extends AppCompatActivity {
+import java.util.ArrayList;
 
-    // 线程变量
-    MyTask mTask;
+public class AsyncTaskActivity extends AppCompatActivity {
 
-    // 主布局中的UI组件
-    Button button,cancel; // 加载、取消按钮
-    TextView text; // 更新的UI组件
-    ProgressBar progressBar; // 进度条
-    private static final String TAG = "AsyncTaskActivity";
-    /**
-     * 步骤1：创建AsyncTask子类
-     * 注：
-     *   a. 继承AsyncTask类
-     *   b. 为3个泛型参数指定类型；若不使用，可用java.lang.Void类型代替
-     *      此处指定为：输入参数 = String类型、执行进度 = Integer类型、执行结果 = String类型
-     *   c. 根据需求，在AsyncTask子类内实现核心方法
-     */
-    private class MyTask extends AsyncTask<String, Integer, String> {
+    private ProgressBar[] m_progressBar;
 
-        // 方法1：onPreExecute（）
-        // 作用：执行 线程任务前的操作
-        @Override
-        protected void onPreExecute() {
-            text.setText("加载中");
-            // 执行前显示提示
-        }
+    private ArrayList<AsyncTask> m_taskList;
 
-
-        // 方法2：doInBackground（）
-        // 作用：接收输入参数、执行任务中的耗时操作、返回 线程任务执行的结果
-        // 此处通过计算从而模拟“加载进度”的情况
-        @Override
-        protected String doInBackground(String... params) {
-            try {
-                int count = 0;
-                int length = 1;
-                while (count<99) {
-
-                    count += length;
-                    // 可调用publishProgress（）显示进度, 之后将执行onProgressUpdate（）
-                    publishProgress(count);
-                    // 模拟耗时任务
-                    Thread.sleep(50);
-                }
-            }catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        // 方法3：onProgressUpdate（）
-        // 作用：在主线程 显示线程任务执行的进度
-        @Override
-        protected void onProgressUpdate(Integer... progresses) {
-
-            progressBar.setProgress(progresses[0]);
-            text.setText("loading..." + progresses[0] + "%");
-
-        }
-
-        // 方法4：onPostExecute（）
-        // 作用：接收线程任务执行结果、将执行结果显示到UI组件
-        @Override
-        protected void onPostExecute(String result) {
-            // 执行完毕后，则更新UI
-            text.setText("加载完毕");
-        }
-
-        // 方法5：onCancelled()
-        // 作用：将异步任务设置为：取消状态
-        @Override
-        protected void onCancelled() {
-
-            text.setText("已取消");
-            progressBar.setProgress(0);
-
-        }
-
-    }
+    private int m_prgBarIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-        // 绑定UI组件
         setContentView(R.layout.activity_async_task);
 
-        button = (Button) findViewById(R.id.button);
-        cancel = (Button) findViewById(R.id.cancel);
-        text = (TextView) findViewById(R.id.text);
-        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        m_progressBar = new ProgressBar[7];
+        int[] id = new int[]{R.id.download_prg_bar_1, R.id.download_prg_bar_2, R.id.download_prg_bar_3, R.id.download_prg_bar_4, R.id.download_prg_bar_5, R.id.download_prg_bar_6,R.id.download_prg_bar_7};
+        for(int i = 0; i<7; i++) {
+            m_progressBar[i] = (ProgressBar) findViewById(id[i]);
+        }
 
-        /**
-         * 步骤2：创建AsyncTask子类的实例对象（即 任务实例）
-         * 注：AsyncTask子类的实例必须在UI线程中创建
-         */
-        mTask = new MyTask();
+        m_taskList = new ArrayList<AsyncTask>();
 
-        // 加载按钮按按下时，则启动AsyncTask
-        // 任务完成后更新TextView的文本
-        button.setOnClickListener(new View.OnClickListener() {
+        Button button1 = (Button) findViewById(R.id.begin_download_btn_1);
+        button1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
-                /**
-                 * 步骤3：手动调用execute(Params... params) 从而执行异步线程任务
-                 * 注：
-                 *    a. 必须在UI线程中调用
-                 *    b. 同一个AsyncTask实例对象只能执行1次，若执行第2次将会抛出异常
-                 *    c. 执行任务中，系统会自动调用AsyncTask的一系列方法：onPreExecute() 、doInBackground()、onProgressUpdate() 、onPostExecute()
-                 *    d. 不能手动调用上述方法
-                 */
-                mTask.execute();
+            public void onClick(View view) {
+                if(m_prgBarIndex > 6) {
+                    return;
+                }
+                DownloadTask task = new DownloadTask(m_progressBar[m_prgBarIndex++], AsyncTaskActivity.this);
+                m_taskList.add(task);
+                task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "westworld");
             }
         });
 
-        cancel = (Button) findViewById(R.id.cancel);
-        cancel.setOnClickListener(new View.OnClickListener() {
+        Button button2 = (Button) findViewById(R.id.begin_download_btn_2);
+        button2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                // 取消一个正在执行的任务,onCancelled方法将会被调用
-                mTask.cancel(true);
+            public void onClick(View view) {
+                if(m_prgBarIndex > 5) {
+                    return;
+                }
+                DownloadTask task = new DownloadTask(m_progressBar[m_prgBarIndex++], AsyncTaskActivity.this);
+                m_taskList.add(task);
+                task.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, "westworld");
             }
         });
 
-        Log.i(TAG, Thread.currentThread().getThreadGroup().activeCount()+"");
-
-
+        Button button3 = (Button) findViewById(R.id.clear_btn);
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                m_prgBarIndex = 0;
+                for(int i = 0; i<6; i++) {
+                    m_progressBar[i].setProgress(0);
+                }
+                for(int i = 0; i<m_taskList.size(); i++) {
+                    m_taskList.get(i).cancel(true);
+                }
+                m_taskList.clear();
+            }
+        });
     }
 
+    private class DownloadTask extends AsyncTask<String, Integer, String> {
+
+        private ProgressBar progressBar;
+        private Context context;
+
+        public DownloadTask(ProgressBar progressBar, Context context) {
+            this.progressBar = progressBar;
+            this.context = context;
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            for(int i = 0; i <= 10; i++) {
+                try {
+                    Thread.sleep(1000);
+                }
+                catch (InterruptedException e) {
+
+                }
+                publishProgress(i * 10);
+            }
+            if(strings[0].equals("westworld")) {
+                return "welcome!";
+            }
+            return "reject request!";
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+            progressBar.setProgress(values[0]);
+        }
+    }
 }
