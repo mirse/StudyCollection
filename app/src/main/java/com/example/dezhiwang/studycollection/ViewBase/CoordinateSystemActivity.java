@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.graphics.Rect;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
@@ -23,10 +24,11 @@ public class CoordinateSystemActivity extends AppCompatActivity {
     }
 
     private void initHeight() {
-        WindowManager windowManager = getWindowManager();
-        Display defaultDisplay = windowManager.getDefaultDisplay();
-        int screenWidth = defaultDisplay.getWidth();
-        int screenHeight = defaultDisplay.getHeight();
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        //getRealMetrics 获得真实的宽高度    getMetrics高度需要加状态栏高度
+        int screenHeight = metrics.heightPixels;
+        int screenWidth  = metrics.widthPixels;
         Log.i(TAG,"屏幕宽度："+screenWidth+" 屏幕高度："+screenHeight);
 
         //2340*1080    宽1080 高2232
