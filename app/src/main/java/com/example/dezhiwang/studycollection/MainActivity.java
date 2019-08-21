@@ -37,6 +37,8 @@ import com.example.dezhiwang.studycollection.RecyclePager.FragmentPagerActivity;
 import com.example.dezhiwang.studycollection.RecyclerView.Grid.GridViewActivity;
 import com.example.dezhiwang.studycollection.RecyclerView.RecyclerViewActivity;
 import com.example.dezhiwang.studycollection.ViewBase.CoordinateSystemActivity;
+import com.example.dezhiwang.studycollection.ViewBase.Floating.FloatingViewActivity;
+import com.example.dezhiwang.studycollection.ViewBase.Scroller.ScrollerActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                 {"视图","LayoutInflater","瀑布流","界面旋转修复","Fragment","与viewpager","界面旋转"},
                 {"网络通信","Socket通信","AsyncTask","","","",""},
                 {"数据存储","Sp","","","","",""},
-                {"View合集","坐标系","","","","",""}
+                {"View合集","坐标系","悬浮窗","Scroller","","",""}
         };
 
         for (String[] mArray:array) {
@@ -238,10 +240,10 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                         startActivity(new Intent(this, CoordinateSystemActivity.class));
                         break;
                     case R.id.button2:
-                        //startActivity(new Intent(this, AsyncTaskActivity.class));
+                        startActivity(new Intent(this, FloatingViewActivity.class));
                         break;
                     case R.id.button3:
-                        //startActivity(new Intent(this, FixProblemsActivity.class));
+                        startActivity(new Intent(this, ScrollerActivity.class));
                         break;
                     case R.id.button4:
                         //startActivity(new Intent(this, FragmentActivity.class));
