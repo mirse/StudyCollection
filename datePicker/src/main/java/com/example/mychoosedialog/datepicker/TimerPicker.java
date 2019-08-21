@@ -3,6 +3,7 @@ package com.example.mychoosedialog.datepicker;
 import android.app.Dialog;
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -32,11 +33,13 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
     /**
      * 选择器类型
      */
-    private static final int HOUR_MINUTE = 1;
-    private static final int MINUTE_SECOND = 2;
+    public static final int HOUR_MINUTE = 1;
+    public static final int MINUTE_SECOND = 2;
+    //是否是时钟逻辑 显示（23：59）/计时器逻辑 显示（24：00）
+    public  boolean isClock = true;
 
-    private static int COLUMN1_TYPE = 0;
-    private static  int COLUMN2_TYPE = 0;
+    private static int COLUMN1_TYPE = Calendar.HOUR_OF_DAY;
+    private static  int COLUMN2_TYPE = Calendar.MINUTE;
     /**
      * 时间单位：时、分 二进制
      */
@@ -45,7 +48,7 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
 
 
     private static final String TAG = "TimerPicker";
-
+    private int  minColumn2, maxColumn2;
 
     public interface TimeSelectCallback {
         /**
@@ -129,6 +132,13 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
         }
     }
 
+    /**
+     * @param isClock 是否是时钟逻辑
+     */
+    public void isClock(boolean isClock){
+        this.isClock = isClock;
+    }
+
 
     /**
      * 设置范围值
@@ -138,6 +148,8 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
      * @param maxColumn2 第二列的最大值
      */
     public void setRange(int minColumn1,int maxColumn1,int minColumn2,int maxColumn2){
+        this.minColumn2 = minColumn2;
+        this.maxColumn2 = maxColumn2;
         for (int i = minColumn1; i <= maxColumn1; i++) {
             mHourUnits.add(String.valueOf(i));
         }
@@ -251,9 +263,30 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
         int i = view.getId();
         if (i == R.id.dpv_hour) {
             mSelectedTime.set(COLUMN1_TYPE, timeUnit);
+            if (!isClock){
+                linkageMinuteUnit(timeUnit);
+            }
+
         } else if (i == R.id.dpv_minute) {
             mSelectedTime.set(COLUMN2_TYPE, timeUnit);
         }
+    }
+
+    private void linkageMinuteUnit(int timeUnit){
+        Log.i(TAG,mSelectedTime.get(Calendar.HOUR_OF_DAY)+"");
+        if (timeUnit==24){
+            mMinuteUnits.clear();
+            mMinuteUnits.add(mDecimalFormat.format(0));
+            mDpvMinute.setDataList(mMinuteUnits);
+        }
+        else {
+            mMinuteUnits.clear();
+            for (int i = minColumn2; i <= maxColumn2; i++) {
+                mMinuteUnits.add(mDecimalFormat.format(i));
+            }
+            mDpvMinute.setDataList(mMinuteUnits);
+        }
+
     }
 
 }

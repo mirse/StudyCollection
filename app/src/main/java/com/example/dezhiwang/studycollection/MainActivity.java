@@ -78,7 +78,8 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                 {"视图","LayoutInflater","瀑布流","界面旋转修复","Fragment","与viewpager","界面旋转"},
                 {"网络通信","Socket通信","AsyncTask","","","",""},
                 {"数据存储","Sp","","","","",""},
-                {"View合集","坐标系","悬浮窗","Scroller","","",""}
+                {"View合集","坐标系","悬浮窗","Scroller","","",""},
+                {"动画合集","属性动画","","","","",""}
         };
 
         for (String[] mArray:array) {
@@ -244,6 +245,30 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                         break;
                     case R.id.button3:
                         startActivity(new Intent(this, ScrollerActivity.class));
+                        break;
+                    case R.id.button4:
+                        //startActivity(new Intent(this, FragmentActivity.class));
+                        break;
+                    case R.id.button5:
+                        //startActivity(new Intent(this, VpAndFragActivity.class));
+                        break;
+                    case R.id.button6:
+                        //startActivity(new Intent(this, SavedInstanceStateUsingActivity.class));
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case 7:
+                switch (view.getId()){
+                    case R.id.button:
+                        startActivity(new Intent(this, CoordinateSystemActivity.class));
+                        break;
+                    case R.id.button2:
+                        //startActivity(new Intent(this, FloatingViewActivity.class));
+                        break;
+                    case R.id.button3:
+                        //startActivity(new Intent(this, ScrollerActivity.class));
                         break;
                     case R.id.button4:
                         //startActivity(new Intent(this, FragmentActivity.class));
