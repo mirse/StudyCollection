@@ -20,6 +20,7 @@ import com.example.dezhiwang.studycollection.Activity.LetterIndexActivity;
 import com.example.dezhiwang.studycollection.Activity.PageActivity;
 import com.example.dezhiwang.studycollection.Activity.SurfaceViewActivity;
 import com.example.dezhiwang.studycollection.Activity.TabViewActivity;
+import com.example.dezhiwang.studycollection.Anim.AnimDemoActivity;
 import com.example.dezhiwang.studycollection.AsyncTask.AsyncTaskActivity;
 import com.example.dezhiwang.studycollection.DataSave.SharedPreferenceActivity;
 import com.example.dezhiwang.studycollection.Fragment.FragmentActivity;
@@ -72,12 +73,12 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
     private void initData() {
         List<MainBean> list = new ArrayList<>();
         String[][] array={
-                {"自定义View","argb圆","rgbRing圆","hsv圆","SurfaceView","翻页效果","TabView"},
+                {"1自定义View","argb圆","rgbRing圆","hsv圆","SurfaceView","翻页效果","TabView"},
                 {"角标效果","Group实现","View实现","ImageV实现","指示器","fragment循环","viewpage循环"},
                 {"字母索引","列表索引","Login-mvp","mvp_test","save_test","选择器","recyclerView"},
                 {"视图","LayoutInflater","瀑布流","界面旋转修复","Fragment","与viewpager","界面旋转"},
                 {"网络通信","Socket通信","AsyncTask","","","",""},
-                {"数据存储","Sp","","","","",""},
+                {"数据存储","Sp","Room","","","",""},
                 {"View合集","坐标系","悬浮窗","Scroller","","",""},
                 {"动画合集","属性动画","","","","",""}
         };
@@ -262,7 +263,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
             case 7:
                 switch (view.getId()){
                     case R.id.button:
-                        startActivity(new Intent(this, CoordinateSystemActivity.class));
+                        startActivity(new Intent(this, AnimDemoActivity.class));
                         break;
                     case R.id.button2:
                         //startActivity(new Intent(this, FloatingViewActivity.class));

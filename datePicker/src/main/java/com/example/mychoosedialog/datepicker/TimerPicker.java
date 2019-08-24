@@ -28,16 +28,24 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
     private DecimalFormat mDecimalFormat = new DecimalFormat("00");
 
     private int mScrollUnits = SCROLL_UNIT_HOUR + SCROLL_UNIT_MINUTE;
-
+    /**
+    *  是否刷新分钟栏
+    */
+    private boolean refreshMinute = false;
 
     /**
      * 选择器类型
      */
     public static final int HOUR_MINUTE = 1;
     public static final int MINUTE_SECOND = 2;
-    //是否是时钟逻辑 显示（23：59）/计时器逻辑 显示（24：00）
+    /**
+    * true---时钟逻辑 显示（23：59）/false---计时器逻辑 显示（24：00）
+    */
     public  boolean isClock = true;
-
+    /**
+     * COLUMN1_TYPE-控件第一栏时间格式
+     * COLUMN2_TYPE-第二栏时间格式
+     * */
     private static int COLUMN1_TYPE = Calendar.HOUR_OF_DAY;
     private static  int COLUMN2_TYPE = Calendar.MINUTE;
     /**
@@ -48,7 +56,7 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
 
 
     private static final String TAG = "TimerPicker";
-    private int  minColumn2, maxColumn2;
+    private int  minMinute, maxMinute;
 
     public interface TimeSelectCallback {
         /**
@@ -142,18 +150,18 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
 
     /**
      * 设置范围值
-     * @param minColumn1 第一列的最小值
-     * @param maxColumn1 第一列的最大值
-     * @param minColumn2 第二列的最小值
-     * @param maxColumn2 第二列的最大值
+     * @param minHour 第一列的最小值
+     * @param maxHour 第一列的最大值
+     * @param minMinute 第二列的最小值
+     * @param maxMinute 第二列的最大值
      */
-    public void setRange(int minColumn1,int maxColumn1,int minColumn2,int maxColumn2){
-        this.minColumn2 = minColumn2;
-        this.maxColumn2 = maxColumn2;
-        for (int i = minColumn1; i <= maxColumn1; i++) {
+    public void setRange(int minHour,int maxHour,int minMinute,int maxMinute){
+        this.minMinute = minMinute;
+        this.maxMinute = maxMinute;
+        for (int i = minHour; i <= maxHour; i++) {
             mHourUnits.add(String.valueOf(i));
         }
-        for (int i = minColumn2; i <= maxColumn2; i++) {
+        for (int i = minMinute; i <= maxMinute; i++) {
             mMinuteUnits.add(mDecimalFormat.format(i));
         }
         mDpvHour.setDataList(mHourUnits);
@@ -271,22 +279,40 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
             mSelectedTime.set(COLUMN2_TYPE, timeUnit);
         }
     }
-
+    
     private void linkageMinuteUnit(int timeUnit){
         Log.i(TAG,mSelectedTime.get(Calendar.HOUR_OF_DAY)+"");
         if (timeUnit==24){
             mMinuteUnits.clear();
             mMinuteUnits.add(mDecimalFormat.format(0));
             mDpvMinute.setDataList(mMinuteUnits);
+            refreshMinute = true;
         }
-        else {
+        else if (refreshMinute){
             mMinuteUnits.clear();
-            for (int i = minColumn2; i <= maxColumn2; i++) {
+            for (int i = minMinute; i <= maxMinute; i++) {
                 mMinuteUnits.add(mDecimalFormat.format(i));
             }
             mDpvMinute.setDataList(mMinuteUnits);
+            refreshMinute = false;
+
+            // 确保联动时不会溢出或改变关联选中值
+//            int selectedMinute = getValueInRange(mSelectedTime.get(Calendar.SECOND) + 1, minMinute, maxMinute);
+//            mSelectedTime.set(Calendar.MONTH, selectedMinute - 1);
+//            mDpvMinute.setSelected(selectedMinute - minMinute);
         }
 
+    }
+
+    //阀值界限，防止溢出
+    private int getValueInRange(int value, int minValue, int maxValue) {
+        if (value < minValue) {
+            return minValue;
+        } else if (value > maxValue) {
+            return maxValue;
+        } else {
+            return value;
+        }
     }
 
 }
