@@ -1,24 +1,19 @@
 package com.example.dezhiwang.studycollection.RecyclePager;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.ListFragment;
-import android.util.Log;
+
+
 import android.view.ViewGroup;
 
-import com.example.dezhiwang.studycollection.IndicatorView.Fragment1;
-import com.example.dezhiwang.studycollection.IndicatorView.Fragment2;
-import com.example.dezhiwang.studycollection.IndicatorView.Fragment3;
-import com.example.dezhiwang.studycollection.IndicatorView.Fragment4;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by dezhi.wang on 2018/9/29.
  */
 
-public class FragmentPagerAdapter extends android.support.v4.app.FragmentPagerAdapter {
+public class FragmentPagerAdapter extends androidx.fragment.app.FragmentPagerAdapter {
     private List<Fragment> listFragment;
     private List<Fragment> listFragment1;
     public FragmentPagerAdapter(FragmentManager fm, List<Fragment> fragmentArrayList) {

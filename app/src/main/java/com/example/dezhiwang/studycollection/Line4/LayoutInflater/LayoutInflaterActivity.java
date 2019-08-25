@@ -1,11 +1,13 @@
 package com.example.dezhiwang.studycollection.Line4.LayoutInflater;
 
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.dezhiwang.studycollection.R;
 

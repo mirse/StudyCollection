@@ -10,17 +10,19 @@ import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.Nullable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.ImageView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
+
 /**
  * Created by dezhi.wang on 2018/9/28.
  */
 
-public class ImageWithIcon extends android.support.v7.widget.AppCompatImageView {
+public class ImageWithIcon extends AppCompatImageView {
 
     private Bitmap bitmap;
     private int num;

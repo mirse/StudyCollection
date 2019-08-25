@@ -1,17 +1,16 @@
 package com.example.dezhiwang.studycollection.RecyclePager;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
-import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.dezhiwang.studycollection.IndicatorView.Fragment1;
 import com.example.dezhiwang.studycollection.IndicatorView.Fragment2;
 import com.example.dezhiwang.studycollection.IndicatorView.Fragment3;
 import com.example.dezhiwang.studycollection.IndicatorView.Fragment4;
-import com.example.dezhiwang.studycollection.IndicatorView.FragmentAdapter;
-import com.example.dezhiwang.studycollection.IndicatorView.MyIndicatorView;
 import com.example.dezhiwang.studycollection.R;
 
 import java.util.ArrayList;

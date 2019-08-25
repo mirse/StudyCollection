@@ -1,7 +1,7 @@
 package com.example.dezhiwang.studycollection.ViewBase.Scroller;//package com.example.dezhiwang.studycollection.ViewBase.Scroller;
 
 import android.content.Context;
-import android.support.v4.view.ViewConfigurationCompat;
+import androidx.core.view.ViewConfigurationCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
