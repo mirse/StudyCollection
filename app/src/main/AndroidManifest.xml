@@ -2,10 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dezhiwang.studycollection">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,25 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Anim.AnimDemoActivity"/>
+        <activity android:name=".DataSave.Room.RoomTestActivity"></activity>
+        <activity android:name=".Anim.AnimDemoActivity" />
         <activity android:name=".ViewBase.Scroller.ScrollerActivity" />
 
-        <service
-            android:name=".ViewBase.Floating.FloatingService"
-            android:enabled="true"
-            android:exported="true" />
-
         <activity android:name=".ViewBase.Floating.FloatingViewActivity" />
+
         <activity android:name=".ViewBase.CoordinateSystemActivity" />
         <activity android:name=".DataSave.SharedPreferenceActivity" />
         <activity android:name=".AsyncTask.AsyncTaskActivity" />
-
-        <service
-            android:name=".NetWork.SocketServerService"
-            android:process=":remote" />
-
         <activity android:name=".NetWork.SocketClientActivity" />
+
         <activity android:name=".Fragment.revolve.FixProblemsActivity" />
+
         <activity android:name=".Fragment.ViewPager.VpAndFragActivity" />
         <activity android:name=".Fragment.FragmentActivity" />
         <activity android:name=".RecyclerView.Grid.GridViewActivity" />
@@ -62,6 +52,17 @@
         <activity android:name=".Mvp.Test1.DataActivity" />
         <activity android:name=".Mvp.WriteAndRead.SavaActivity" />
         <activity android:name=".Fragment.revolve.SavedInstanceStateUsingActivity" />
+        <service
+            android:name=".ViewBase.Floating.FloatingService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".NetWork.SocketServerService"
+            android:process=":remote" />
     </application>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

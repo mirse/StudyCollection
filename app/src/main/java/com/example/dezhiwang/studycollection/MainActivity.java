@@ -26,6 +26,7 @@ import com.example.dezhiwang.studycollection.Activity.SurfaceViewActivity;
 import com.example.dezhiwang.studycollection.Activity.TabViewActivity;
 import com.example.dezhiwang.studycollection.Anim.AnimDemoActivity;
 import com.example.dezhiwang.studycollection.AsyncTask.AsyncTaskActivity;
+import com.example.dezhiwang.studycollection.DataSave.Room.RoomTestActivity;
 import com.example.dezhiwang.studycollection.DataSave.SharedPreferenceActivity;
 import com.example.dezhiwang.studycollection.Fragment.FragmentActivity;
 import com.example.dezhiwang.studycollection.Fragment.revolve.FixProblemsActivity;
@@ -224,7 +225,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                         startActivity(new Intent(this, SharedPreferenceActivity.class));
                         break;
                     case R.id.button2:
-                        //startActivity(new Intent(this, AsyncTaskActivity.class));
+                        startActivity(new Intent(this, RoomTestActivity.class));
                         break;
                     case R.id.button3:
                         //startActivity(new Intent(this, FixProblemsActivity.class));
@@ -272,7 +273,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                         startActivity(new Intent(this, AnimDemoActivity.class));
                         break;
                     case R.id.button2:
-                        //startActivity(new Intent(this, FloatingViewActivity.class));
+                        //startActivity(new Intent(this, RoomTestActivity.class));
                         break;
                     case R.id.button3:
                         //startActivity(new Intent(this, ScrollerActivity.class));
