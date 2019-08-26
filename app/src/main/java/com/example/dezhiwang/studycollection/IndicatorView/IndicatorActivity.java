@@ -1,9 +1,10 @@
 package com.example.dezhiwang.studycollection.IndicatorView;
 
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
-import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.dezhiwang.studycollection.R;
 

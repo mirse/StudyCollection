@@ -1,9 +1,11 @@
 package com.example.dezhiwang.studycollection.Activity;
 
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.dezhiwang.studycollection.R;
 import com.example.dezhiwang.studycollection.TurnPage.CoverPageView;

@@ -1,8 +1,10 @@
 package com.example.mychoosedialog.datepicker;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+
 import android.view.Gravity;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mychoosedialog.R;
 

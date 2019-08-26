@@ -1,18 +1,21 @@
 package com.example.dezhiwang.studycollection.RecyclerView.Grid;
 
+import android.annotation.SuppressLint;
 import android.graphics.Canvas;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.OrientationHelper;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.support.v7.widget.helper.ItemTouchHelper;
+
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.OrientationHelper;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.dezhiwang.studycollection.R;
 import com.example.dezhiwang.studycollection.RecyclerView.MyAdapter;
@@ -42,6 +45,7 @@ public class GridViewActivity extends AppCompatActivity {
         initUI();
     }
 
+    @SuppressLint("WrongConstant")
     private void initData() {
         gridLayoutManager = new GridLayoutManager(this, 4, OrientationHelper.VERTICAL, false);
         myAdapter = new MyAdapter(getData());

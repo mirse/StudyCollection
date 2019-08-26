@@ -1,13 +1,17 @@
 package com.example.dezhiwang.studycollection;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dezhiwang.studycollection.Activity.ColorPicker1Activity;
 import com.example.dezhiwang.studycollection.Activity.ColorPicker2Activity;
@@ -48,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
 
     private RecyclerView mRecycleView;
     private MainAdapter mainAdapter;
-
+    private static final String TAG = "MainActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
 
     @Override
     public void onItemClick(View view, int position) {
+        Log.i(TAG,"position:"+position);
         switch (position){
             case 0:
                 switch (view.getId()){
@@ -140,6 +145,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                     default:
                         break;
                 }
+                break;
             case 2:
                 switch (view.getId()){
                     case R.id.button:
