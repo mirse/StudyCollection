@@ -6,12 +6,12 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class Users {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id;
     @ColumnInfo(name = "name")
     private String name;
     @ColumnInfo(name = "release_year")
-    private int releaseYear;
+    private String releaseYear;
     // getters and setters are ignored for brevity but they are required for Room to work.
 
 
@@ -31,16 +31,15 @@ public class Users {
         this.name = name;
     }
 
-    public int getReleaseYear() {
+    public String getReleaseYear() {
         return releaseYear;
     }
 
-    public void setReleaseYear(int releaseYear) {
+    public void setReleaseYear(String releaseYear) {
         this.releaseYear = releaseYear;
     }
 
-    public Users(int id, String name, int releaseYear) {
-        this.id = id;
+    public Users(String name, String releaseYear) {
         this.name = name;
         this.releaseYear = releaseYear;
     }
