@@ -43,4 +43,13 @@ public class Users {
         this.name = name;
         this.releaseYear = releaseYear;
     }
+
+    @Override
+    public String toString() {
+        return "Users{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", releaseYear='" + releaseYear + '\'' +
+                '}';
+    }
 }

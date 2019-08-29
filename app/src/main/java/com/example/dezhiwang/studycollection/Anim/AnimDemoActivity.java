@@ -26,7 +26,8 @@ public class AnimDemoActivity extends AppCompatActivity {
         mBtnValue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //属性动画 valueAnimator
+                //属性动画 Property Animation
+                //ValueAnimator 类是先改变值，然后 手动赋值 给对象的属性从而实现动画；是 间接 对对象属性进行操作；
                 ValueAnimator valueAnimator = ValueAnimator.ofInt(mBtnValue.getLayoutParams().width, 500);
                 valueAnimator.setDuration(2000);
 
@@ -50,6 +51,7 @@ public class AnimDemoActivity extends AppCompatActivity {
         mBtnObject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //ObjectAnimator类是先改变值，然后 自动赋值 给对象的属性从而实现动画；是 直接 对对象属性进行操作；
                 ObjectAnimator scale = ObjectAnimator.ofFloat(mBtnObject, "scaleX", 1, 2,1);
                 scale.setDuration(2000);
                 scale.start();

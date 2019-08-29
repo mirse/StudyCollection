@@ -55,7 +55,7 @@ public class RoomTestActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.bt_insert:
-                new insertAsyncTask(userDao,mEtName,mEtYear).execute();
+                new insertAsyncTask(userDao,mEtName,mEtYear,mTvStatus).execute();
                 break;
             case R.id.bt_search:
                 new loadAsyncTask(userDao,mTvStatus).execute();
@@ -81,49 +81,54 @@ public class RoomTestActivity extends AppCompatActivity {
         protected String doInBackground(Users... users) {
             List<Users> users1 = userDao.loadAll();
             for (int i=0;i<users1.size();i++){
-                publishProgress(users1.get(i).getName());
+                //publishProgress(users1.get(i).getName());
+                return users1.toString();
             }
-            return "";
+           return "";
         }
 
         @Override
         protected void onPostExecute(String aVoid) {
+            mTvText.setText(aVoid);
             super.onPostExecute(aVoid);
         }
 
         @Override
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
-            mTvText.setText(values[0]);
         }
     }
 
 
-    private static class insertAsyncTask extends AsyncTask<Users, Void, Void> {
+    private static class insertAsyncTask extends AsyncTask<Users, Void, String> {
 
         private UserDao userDao;
         private EditText mEtName;
         private EditText mEtYear;
+        private TextView mTvText;
 
-
-        insertAsyncTask(UserDao userDao,EditText mEtName,EditText mEtYear) {
+        insertAsyncTask(UserDao userDao,EditText mEtName,EditText mEtYear,TextView mTvText) {
             this.userDao = userDao;
             this.mEtName = mEtName;
             this.mEtYear = mEtYear;
+            this.mTvText = mTvText;
 
         }
 
         @Override
-        protected Void doInBackground(Users... users) {
+        protected String doInBackground(Users... users) {
             userDao.insertAll(new Users(mEtName.getText().toString(),mEtYear.getText().toString()));
-            return null;
+            return "insert success";
         }
 
+        //doInBackground 执行完成后
         @Override
-        protected void onPostExecute(Void aVoid) {
+        protected void onPostExecute(String aVoid) {
+            mTvText.setText(aVoid);
             super.onPostExecute(aVoid);
         }
 
+        //在publishProgress方法被调用后
         @Override
         protected void onProgressUpdate(Void... values) {
             super.onProgressUpdate(values);

@@ -1,9 +1,11 @@
 package com.example.dezhiwang.studycollection.Anim.Evaluator;
 
 import android.animation.TypeEvaluator;
+
+
 /*
-* 自定义估值器
-* */
+ * 自定义估值器
+ * */
 public class MyEvaluator implements TypeEvaluator {
     @Override
     public Object evaluate(float fraction, Object startValue, Object endValue) {
