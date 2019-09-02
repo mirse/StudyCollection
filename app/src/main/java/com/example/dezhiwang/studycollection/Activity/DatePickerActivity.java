@@ -15,6 +15,7 @@ import com.example.mychoosedialog.datepicker.CalendarPicker;
 import com.example.mychoosedialog.datepicker.DateFormatUtils;
 import com.example.mychoosedialog.datepicker.TimerPicker;
 
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -41,7 +42,7 @@ public class DatePickerActivity extends AppCompatActivity {
                 TimerPicker timerPicker = new TimerPicker(this, new TimerPicker.TimeSelectCallback() {
                     @Override
                     public void onTimeSelected(long hour, long minute) {
-                        Log.i(TAG,"hour:"+hour+" minute:"+minute);
+                        Log.d(TAG,"hour:"+hour+" minute:"+minute);
                     }
 
                     @Override
@@ -57,9 +58,8 @@ public class DatePickerActivity extends AppCompatActivity {
                 // 允许循环滚动
                 timerPicker.setScrollLoop(false);
                 timerPicker.isClock(false);
+                timerPicker.setTime(20,20);
                 timerPicker.show();
-
-
                 break;
             case R.id.bt_show_date:
 
@@ -85,7 +85,6 @@ public class DatePickerActivity extends AppCompatActivity {
                 // 允许滚动动画
                 calendarPicker.setCanShowAnim(true);
                 calendarPicker.show();
-
                 break;
             default:
                 break;

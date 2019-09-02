@@ -13,6 +13,7 @@ import com.example.mychoosedialog.R;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -21,6 +22,7 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
     private Context mContext;
     private TimeSelectCallback mCallback;
     private Calendar  mSelectedTime;
+    private HashMap<String,Integer> map;
     private boolean mCanDialogShow;
     private Dialog mPickerDialog;
     private PickerView mDpvHour, mDpvMinute;
@@ -28,6 +30,9 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
     private DecimalFormat mDecimalFormat = new DecimalFormat("00");
 
     private int mScrollUnits = SCROLL_UNIT_HOUR + SCROLL_UNIT_MINUTE;
+    private int TIME_MIN = 0;
+    private int HOUR_MAX = 24;
+    private int MINUTE_MAX = 59;
     /**
     *  是否刷新分钟栏
     */
@@ -57,6 +62,7 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
 
     private static final String TAG = "TimerPicker";
     private int  minMinute, maxMinute;
+    private int mMinute = 0,mHour = 0;
 
     public interface TimeSelectCallback {
         /**
@@ -64,7 +70,7 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
          * @param hour 小时
          * @param minute 分钟
          */
-        void onTimeSelected(long hour,long minute);
+        void onTimeSelected(long hour, long minute);
 
         /**
          * 点击取消的接口回调
@@ -85,6 +91,7 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
         mContext = context;
         mCallback = callback;
         mSelectedTime = Calendar.getInstance();
+        map = new HashMap<>();
         initView();
         mCanDialogShow = true;
     }
@@ -174,10 +181,35 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
     }
 
     /**
+     * 设置当前的时间
+     * @param hour 设置显示的小时数
+     * @param minute 设置显示的分钟数
+     */
+    public void setTime(int hour,int minute){
+        if (hour>HOUR_MAX){
+            hour = HOUR_MAX;
+        }
+        else if (hour<TIME_MIN){
+            hour = TIME_MIN;
+        }
+        else if (minute>MINUTE_MAX){
+            minute = MINUTE_MAX;
+        }
+        else if (minute<TIME_MIN){
+            minute = TIME_MIN;
+        }
+        mSelectedTime.set(COLUMN1_TYPE, Integer.parseInt(mHourUnits.get(hour)));
+        mSelectedTime.set(COLUMN2_TYPE, Integer.parseInt(mMinuteUnits.get(minute)));
+        mDpvHour.setSelected(hour);
+        mDpvMinute.setSelected(minute);
+        mHour = hour;
+        mMinute = minute;
+    }
+
+    /**
      * 设置是否可以滚动
      */
     private void setCanScroll() {
-
         mDpvHour.setCanScroll(mHourUnits.size() > 1 && (mScrollUnits & SCROLL_UNIT_HOUR) == SCROLL_UNIT_HOUR);
         mDpvMinute.setCanScroll(mMinuteUnits.size() > 1 && (mScrollUnits & SCROLL_UNIT_MINUTE) == SCROLL_UNIT_MINUTE);
     }
@@ -246,7 +278,13 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
         }
         else if (i == R.id.iv_confirm) {
             if (mCallback != null) {
-                mCallback.onTimeSelected(mSelectedTime.get(COLUMN1_TYPE), mSelectedTime.get(COLUMN2_TYPE));
+                if (isClock){
+                    mCallback.onTimeSelected(mSelectedTime.get(COLUMN1_TYPE), mSelectedTime.get(COLUMN2_TYPE));
+                }
+                else{
+                    mCallback.onTimeSelected(mHour, mMinute);
+                }
+
             }
         }
 
@@ -260,7 +298,6 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
         if (view == null || TextUtils.isEmpty(selected)) {
             return;
         }
-
         int timeUnit;
         try {
             timeUnit = Integer.parseInt(selected);
@@ -270,23 +307,27 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
 
         int i = view.getId();
         if (i == R.id.dpv_hour) {
-            mSelectedTime.set(COLUMN1_TYPE, timeUnit);
+
             if (!isClock){
                 linkageMinuteUnit(timeUnit);
             }
+            mHour = timeUnit;
 
         } else if (i == R.id.dpv_minute) {
             mSelectedTime.set(COLUMN2_TYPE, timeUnit);
+            mMinute = timeUnit;
         }
     }
     
     private void linkageMinuteUnit(int timeUnit){
         Log.i(TAG,mSelectedTime.get(Calendar.HOUR_OF_DAY)+"");
-        if (timeUnit==24){
+        if (timeUnit==HOUR_MAX){
             mMinuteUnits.clear();
             mMinuteUnits.add(mDecimalFormat.format(0));
             mDpvMinute.setDataList(mMinuteUnits);
             refreshMinute = true;
+            mHour = HOUR_MAX;
+            mMinute = 0;
         }
         else if (refreshMinute){
             mMinuteUnits.clear();

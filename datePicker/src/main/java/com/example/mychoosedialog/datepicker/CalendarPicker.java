@@ -108,8 +108,6 @@ public class CalendarPicker implements View.OnClickListener, PickerView.OnSelect
         mSelectedTime = Calendar.getInstance();
         //加载数据资源
         initData();
-
-
     }
 
 
