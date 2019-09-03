@@ -64,6 +64,55 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
     private int  minMinute, maxMinute;
     private int mMinute = 0,mHour = 0;
 
+
+//    /*建造者模式*/
+//    private int gravity;
+//    private int type;
+//    private int range;
+//    private boolean cancleable;
+//    private boolean looper;
+//    private boolean ismClock;
+//
+//    public static class Builder{
+//        private int gravity;
+//        private int type;
+//        private int range;
+//        private boolean cancleable;
+//        private boolean looper;
+//        private boolean ismClock;
+//
+//        public Builder(){
+//
+//        }
+//        public Builder setGravity(int gravity){
+//            this.gravity = gravity;
+//            return this;
+//        }
+//        public Builder setType(int type){
+//            this.type = type;
+//            return this;
+//        }
+//        public Builder setRange(int range){
+//            this.range = range;
+//            return this;
+//        }
+//        public Builder setCancelable(boolean cancelable){
+//            this.cancleable = cancelable;
+//            return this;
+//        }
+//        public Builder isClock(boolean ismClock){
+//            this.ismClock = ismClock;
+//            return this;
+//        }
+//        public Builder setTime(){
+//            return this;
+//        }
+//
+//
+//    }
+
+
+
     public interface TimeSelectCallback {
         /**
          * 选择时间的接口回调
@@ -143,7 +192,7 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
                 COLUMN2_TYPE = Calendar.SECOND;
                 break;
             default:
-                    break;
+                break;
         }
     }
 
@@ -300,14 +349,13 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
         }
         int timeUnit;
         try {
-            timeUnit = Integer.parseInt(selected);
+            timeUnit = Integer.parseInt(selected);//将String转为int类型
         } catch (Throwable ignored) {
             return;
         }
 
         int i = view.getId();
         if (i == R.id.dpv_hour) {
-
             if (!isClock){
                 linkageMinuteUnit(timeUnit);
             }

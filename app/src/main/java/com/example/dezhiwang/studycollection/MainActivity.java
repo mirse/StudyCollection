@@ -32,6 +32,7 @@ import com.example.dezhiwang.studycollection.Fragment.FragmentActivity;
 import com.example.dezhiwang.studycollection.Fragment.revolve.FixProblemsActivity;
 import com.example.dezhiwang.studycollection.Fragment.revolve.SavedInstanceStateUsingActivity;
 import com.example.dezhiwang.studycollection.Fragment.ViewPager.VpAndFragActivity;
+import com.example.dezhiwang.studycollection.Handler.HandlerDemoActivity;
 import com.example.dezhiwang.studycollection.IndicatorView.IndicatorActivity;
 import com.example.dezhiwang.studycollection.Line4.LayoutInflater.LayoutInflaterActivity;
 import com.example.dezhiwang.studycollection.Mvp.LoginTest.MvpActivity;
@@ -82,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                 {"角标效果","Group实现","View实现","ImageV实现","指示器","fragment循环","viewpage循环"},
                 {"字母索引","列表索引","Login-mvp","mvp_test","save_test","选择器","recyclerView"},
                 {"视图","LayoutInflater","瀑布流","界面旋转修复","Fragment","与viewpager","界面旋转"},
-                {"网络通信","Socket通信","AsyncTask","","","",""},
+                {"网络通信","Socket通信","AsyncTask","Handler","","",""},
                 {"数据存储","Sp","Room","","","",""},
                 {"View合集","坐标系","悬浮窗","Scroller","","",""},
                 {"动画合集","属性动画","","","","",""}
@@ -204,7 +205,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                         startActivity(new Intent(this, AsyncTaskActivity.class));
                         break;
                     case R.id.button3:
-                        //startActivity(new Intent(this, FixProblemsActivity.class));
+                        startActivity(new Intent(this, HandlerDemoActivity.class));
                         break;
                     case R.id.button4:
                         //startActivity(new Intent(this, FragmentActivity.class));
