@@ -3,6 +3,7 @@ package com.example.dezhiwang.studycollection.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.nfc.tech.TagTechnology;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,7 +27,7 @@ import butterknife.OnClick;
 public class HandlerDemoActivity extends AppCompatActivity {
     @BindView(R.id.bt_handle) Button mBtnHandle;
     @BindView(R.id.tv_msg) TextView mTvMsg;
-
+    @BindView(R.id.bt_clock) Button mBtnClock;
     private static final String TAG = "HandlerDemoActivity";
     private MyHandler mHandler = new MyHandler(this);
 
@@ -112,6 +113,10 @@ public class HandlerDemoActivity extends AppCompatActivity {
 //                    }
 //                }).start();
 
+                break;
+
+            case R.id.bt_clock:
+                startActivity(new Intent(this,CountDownActivity.class));
                 break;
 
             default:
