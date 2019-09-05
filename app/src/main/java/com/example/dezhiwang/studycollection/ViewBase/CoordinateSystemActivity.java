@@ -1,12 +1,17 @@
 package com.example.dezhiwang.studycollection.ViewBase;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
+import android.view.View;
 import android.view.WindowManager;
+import android.webkit.WebView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,9 +24,20 @@ public class CoordinateSystemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coordinate_system);
+
         initHeight();
         getStatusBarHeight();
         getNavigationBarHeight();
+        WebView viewById = findViewById(R.id.web_view);
+        String url = "file:///android_asset/weddingInvitations-master/index.html";
+        Log.i(TAG,url);
+        viewById.getSettings().setJavaScriptEnabled(true); // 允许JavaScript脚本运行
+        viewById.getSettings().setDomStorageEnabled(true); // 开启本地DOM存储
+        viewById.getSettings().setBlockNetworkImage(false);
+        viewById.getSettings().setBlockNetworkLoads(false);
+        viewById.loadUrl(url);
+
+
     }
 
     private void initHeight() {

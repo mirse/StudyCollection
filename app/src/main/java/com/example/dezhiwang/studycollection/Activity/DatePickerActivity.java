@@ -44,7 +44,6 @@ public class DatePickerActivity extends AppCompatActivity {
                     public void onTimeSelected(long hour, long minute) {
                         Log.d(TAG,"hour:"+hour+" minute:"+minute);
                     }
-
                     @Override
                     public void onCancel() {
                     }
