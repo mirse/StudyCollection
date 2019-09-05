@@ -1,5 +1,6 @@
 package com.example.dezhiwang.studycollection.Anim;
 
+import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.dezhiwang.studycollection.R;
 
 public class AnimDemoActivity extends AppCompatActivity {
@@ -57,5 +59,28 @@ public class AnimDemoActivity extends AppCompatActivity {
                 scale.start();
             }
         });
+        LottieAnimationView lottieAnimationView = findViewById(R.id.lottieAnimationView);
+        lottieAnimationView.addAnimatorListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        lottieAnimationView.playAnimation();
     }
 }

@@ -53,12 +53,12 @@ public class DatePickerActivity extends AppCompatActivity {
                 timerPicker.setType(TimerPicker.HOUR_MINUTE);
                 //设置每列显示范围
                 timerPicker.setRange(0,24,0,59);
+                timerPicker.isClock(false);
+                timerPicker.setTime(20,20);
                 // 允许点击屏幕或物理返回键关闭
                 timerPicker.setCancelable(true);
                 // 允许循环滚动
                 timerPicker.setScrollLoop(false);
-                timerPicker.isClock(false);
-                timerPicker.setTime(20,20);
                 timerPicker.show();
                 break;
             case R.id.bt_show_date:

@@ -58,8 +58,6 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
      */
     private static final int SCROLL_UNIT_HOUR = 0b1;
     private static final int SCROLL_UNIT_MINUTE = 0b10;
-
-
     private static final String TAG = "TimerPicker";
     private int  minMinute, maxMinute;
     private int mMinute = 0,mHour = 0;
