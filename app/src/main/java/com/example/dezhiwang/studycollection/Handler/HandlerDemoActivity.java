@@ -2,6 +2,7 @@ package com.example.dezhiwang.studycollection.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.nfc.tech.TagTechnology;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 import com.example.dezhiwang.studycollection.DataSave.Room.RoomTestActivity;
 import com.example.dezhiwang.studycollection.R;
 
+import java.lang.ref.WeakReference;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -25,7 +28,7 @@ public class HandlerDemoActivity extends AppCompatActivity {
     @BindView(R.id.tv_msg) TextView mTvMsg;
 
     private static final String TAG = "HandlerDemoActivity";
-
+    private MyHandler mHandler = new MyHandler(this);
 
     private Handler handler = new Handler(new Handler.Callback() {
         @Override
@@ -41,6 +44,29 @@ public class HandlerDemoActivity extends AppCompatActivity {
             mTvMsg.setText("handler的handleMessage:"+msg.obj);
         }
     };
+
+
+    private static class MyHandler extends Handler{
+        private WeakReference<Context> reference;
+        public MyHandler(Context context) {
+            reference = new WeakReference<>(context);
+        }
+
+        public MyHandler(Callback callback) {
+            super(callback);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            HandlerDemoActivity activity = (HandlerDemoActivity) reference.get();
+            if (activity != null){
+                activity.mTvMsg.setText("handler的handleMessage:"+msg.obj);
+            }
+            super.handleMessage(msg);
+        }
+    }
+
+
     private Handler handler1;
 
     @Override
@@ -82,7 +108,7 @@ public class HandlerDemoActivity extends AppCompatActivity {
 //                        });
                         Message msg = Message.obtain();
                         msg.obj = "我是消息数据";
-                        handler1.sendMessage(msg);
+                        mHandler.sendMessage(msg);
 //                    }
 //                }).start();
 
