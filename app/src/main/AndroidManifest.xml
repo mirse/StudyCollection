@@ -9,23 +9,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Handler.CountDownActivity"></activity>
-        <activity android:name=".Handler.HandlerDemoActivity"></activity>
-        <activity android:name=".DataSave.Room.RoomTestActivity" />
-        <activity android:name=".Anim.AnimDemoActivity" />
-        <activity android:name=".ViewBase.Scroller.ScrollerActivity" />
-        <activity android:name=".ViewBase.Floating.FloatingViewActivity" />
-        <activity android:name=".ViewBase.CoordinateSystemActivity" />
-        <activity android:name=".DataSave.SharedPreferenceActivity" />
-        <activity android:name=".AsyncTask.AsyncTaskActivity" />
-        <activity android:name=".NetWork.SocketClientActivity" />
-        <activity android:name=".Fragment.revolve.FixProblemsActivity" />
-        <activity android:name=".Fragment.ViewPager.VpAndFragActivity" />
-        <activity android:name=".Fragment.FragmentActivity" />
-        <activity android:name=".RecyclerView.Grid.GridViewActivity" />
-        <activity android:name=".Line4.LayoutInflater.LayoutInflaterActivity" />
-        <activity android:name=".RecyclerView.RecyclerViewActivity" />
-        <activity android:name=".Activity.DatePickerActivity" />
+        <activity android:name=".handler.CountDownActivity"></activity>
+        <activity android:name=".handler.HandlerDemoActivity"></activity>
+        <activity android:name=".datasave.room.RoomTestActivity" />
+        <activity android:name=".anim.AnimDemoActivity" />
+        <activity android:name=".viewbase.scroller.ScrollerActivity" />
+        <activity android:name=".viewbase.floating.FloatingViewActivity" />
+        <activity android:name=".viewbase.CoordinateSystemActivity" />
+        <activity android:name=".datasave.SharedPreferenceActivity" />
+        <activity android:name=".asynctask.AsyncTaskActivity" />
+        <activity android:name=".network.SocketClientActivity" />
+        <activity android:name=".fragment.revolve.FixProblemsActivity" />
+        <activity android:name=".fragment.viewpager.VpAndFragActivity" />
+        <activity android:name=".fragment.FragmentActivity" />
+        <activity android:name=".recyclerview.grid.GridViewActivity" />
+        <activity android:name=".myview.LayoutInflaterActivity" />
+        <activity android:name=".recyclerview.RecyclerViewActivity" />
+        <activity android:name=".activity.DatePickerActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,30 +33,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.ColorPickerActivity" />
-        <activity android:name=".Activity.ColorPicker1Activity" />
-        <activity android:name=".Activity.ColorPicker2Activity" />
-        <activity android:name=".Activity.SurfaceViewActivity" />
-        <activity android:name=".Activity.PageActivity" />
-        <activity android:name=".Activity.TabViewActivity" />
-        <activity android:name=".Activity.DrawableWrapperActivity" />
-        <activity android:name=".Activity.DrawableIconActivity" />
-        <activity android:name=".Activity.DrawableIconIVActivity" />
-        <activity android:name=".IndicatorView.IndicatorActivity" />
-        <activity android:name=".RecyclePager.FragmentPagerActivity" />
-        <activity android:name=".RecyclePager.ImageRecyclerActivity" />
-        <activity android:name=".Activity.LetterIndexActivity" />
-        <activity android:name=".Mvp.LoginTest.MvpActivity" />
-        <activity android:name=".Mvp.Test1.DataActivity" />
-        <activity android:name=".Mvp.WriteAndRead.SavaActivity" />
-        <activity android:name=".Fragment.revolve.SavedInstanceStateUsingActivity" />
+        <activity android:name=".activity.ColorPickerActivity" />
+        <activity android:name=".activity.ColorPicker1Activity" />
+        <activity android:name=".activity.ColorPicker2Activity" />
+        <activity android:name=".activity.SurfaceViewActivity" />
+        <activity android:name=".activity.PageActivity" />
+        <activity android:name=".activity.TabViewActivity" />
+        <activity android:name=".activity.DrawableWrapperActivity" />
+        <activity android:name=".activity.DrawableIconActivity" />
+        <activity android:name=".activity.DrawableIconIVActivity" />
+        <activity android:name=".indicatorview.IndicatorActivity" />
+        <activity android:name=".recyclepager.FragmentPagerActivity" />
+        <activity android:name=".recyclepager.ImageRecyclerActivity" />
+        <activity android:name=".activity.LetterIndexActivity" />
+        <activity android:name=".mvp.logintest.MvpActivity" />
+        <activity android:name=".mvp.test1.DataActivity" />
+        <activity android:name=".mvp.writeandread.SavaActivity" />
+        <activity android:name=".fragment.revolve.SavedInstanceStateUsingActivity" />
 
         <service
-            android:name=".ViewBase.Floating.FloatingService"
+            android:name=".viewbase.floating.FloatingService"
             android:enabled="true"
             android:exported="true" />
         <service
-            android:name=".NetWork.SocketServerService"
+            android:name=".network.SocketServerService"
             android:process=":remote" />
     </application> <!-- 粗略定位权限，允许一个程序访问CellID或WiFi热点来获取粗略的位置 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 精确定位权限，允许一个程序访问精良位置(如GPS) -->

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dezhiwang.studycollection.Activity.SurfaceViewActivity">
-<com.example.dezhiwang.studycollection.MyView.SurfaceViewDemo
+    tools:context="com.example.dezhiwang.studycollection.activity.SurfaceViewActivity">
+<com.example.dezhiwang.studycollection.myview.SurfaceViewDemo
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" />
 </RelativeLayout>

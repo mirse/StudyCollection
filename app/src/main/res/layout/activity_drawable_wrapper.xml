@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dezhiwang.studycollection.Activity.DrawableWrapperActivity">
+    tools:context="com.example.dezhiwang.studycollection.activity.DrawableWrapperActivity">
     <TextView
         android:text="组合控件实现"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-<com.example.dezhiwang.studycollection.MyDrawable.IconView
+<com.example.dezhiwang.studycollection.mydrawable.IconView
     android:background="@color/colorPrimary"
     android:layout_centerInParent="true"
     app:icon_num="1"
     app:view_image="@drawable/cartoon"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"></com.example.dezhiwang.studycollection.MyDrawable.IconView>
+    android:layout_height="wrap_content"></com.example.dezhiwang.studycollection.mydrawable.IconView>
 </RelativeLayout>

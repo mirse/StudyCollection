@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dezhiwang.studycollection.R;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 /**
@@ -72,7 +70,7 @@ public class LetterIndexAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         public IndexHolder(View itemView) {
             super(itemView);
             mTVTop = itemView.findViewById(R.id.tv_top);
-            mTvName = itemView.findViewById(R.id.tv_name);
+            mTvName = itemView.findViewById(R.id.tv_pwd);
         }
     }
 }
