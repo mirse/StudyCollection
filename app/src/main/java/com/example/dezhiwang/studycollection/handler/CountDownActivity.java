@@ -2,10 +2,12 @@ package com.example.dezhiwang.studycollection.handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.Observable;
 
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.dezhiwang.studycollection.BR;
 import com.example.dezhiwang.studycollection.handler.model.Login;
 import com.example.dezhiwang.studycollection.R;
 import com.example.dezhiwang.studycollection.databinding.ActivityCountDownBinding;
@@ -13,7 +15,7 @@ import com.example.dezhiwang.studycollection.databinding.ActivityCountDownBindin
 public class CountDownActivity extends AppCompatActivity {
 
     private Login login;
-
+    private static final String TAG = "CountDownActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +24,17 @@ public class CountDownActivity extends AppCompatActivity {
         login = new Login("11", "22","33");
         bind.setLoginInfo(login);
         bind.setLoginHandler(new LoginHandler());
-        //bind.tvName.setText(login);
+        login.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                if (propertyId == com.example.dezhiwang.studycollection.BR.name){
+                    Log.e(TAG, "onPropertyChanged: name");
+                }
+                if (propertyId == com.example.dezhiwang.studycollection.BR.check){
+                    Log.e(TAG, "onPropertyChanged: check");
+                }
+            }
+        });
     }
 
     public class LoginHandler{
