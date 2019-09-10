@@ -2,6 +2,7 @@ package com.example.mychoosedialog.datepicker;
 
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.Gravity;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onCancel() {
+            }
+            @Override
+            public void onTimeSelecting(long hour, long minute) {
             }
         });
         //设置弹窗显示位置

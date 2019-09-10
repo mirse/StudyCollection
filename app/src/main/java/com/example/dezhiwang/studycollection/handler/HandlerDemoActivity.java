@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dezhiwang.studycollection.R;
+import com.example.mychoosedialog.datepicker.TimerPicker;
 
 import java.lang.ref.WeakReference;
 
@@ -24,7 +25,9 @@ import butterknife.OnClick;
 public class HandlerDemoActivity extends AppCompatActivity {
     @BindView(R.id.bt_handle) Button mBtnHandle;
     @BindView(R.id.tv_msg) TextView mTvMsg;
+    @BindView(R.id.bt_databinding) Button mBtnDatabinding;
     @BindView(R.id.bt_clock) Button mBtnClock;
+    @BindView(R.id.bt_clock1) Button mBtnClock1;
     private static final String TAG = "HandlerDemoActivity";
     private MyHandler mHandler = new MyHandler(this);
 
@@ -89,7 +92,7 @@ public class HandlerDemoActivity extends AppCompatActivity {
         }).start();
     }
 
-    @OnClick({R.id.bt_handle,R.id.bt_clock})
+    @OnClick({R.id.bt_handle,R.id.bt_databinding,R.id.bt_clock,R.id.bt_clock1})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_handle:
@@ -112,8 +115,13 @@ public class HandlerDemoActivity extends AppCompatActivity {
 
                 break;
 
+            case R.id.bt_databinding:
+                startActivity(new Intent(this, DataBindingDemoActivity.class));
+                break;
             case R.id.bt_clock:
-                startActivity(new Intent(this,CountDownActivity.class));
+                startActivity(new Intent(this, TimerActivity.class));
+                break;
+            case R.id.bt_clock1:
                 break;
 
             default:

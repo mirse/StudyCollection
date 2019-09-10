@@ -46,6 +46,12 @@ public class DatePickerActivity extends AppCompatActivity {
                     @Override
                     public void onCancel() {
                     }
+
+                    @Override
+                    public void onTimeSelecting(long hour, long minute) {
+                        Log.d(TAG,"正在滑动hour:"+hour+" minute:"+minute);
+                    }
+
                 });
                 timerPicker.setGravity(Gravity.BOTTOM);
                 timerPicker.setType(TimerPicker.HOUR_MINUTE);

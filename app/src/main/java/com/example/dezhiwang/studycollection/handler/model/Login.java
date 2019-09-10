@@ -3,7 +3,6 @@ package com.example.dezhiwang.studycollection.handler.model;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
-import com.example.dezhiwang.studycollection.BR;
 
 public class Login extends BaseObservable {
     //如果是 public 修饰符，则可以直接在成员变量上方加上 @Bindable 注解
@@ -29,7 +28,7 @@ public class Login extends BaseObservable {
 
     public void setName(String name) {
         this.name = name;
-        notifyPropertyChanged(com.example.dezhiwang.studycollection.BR.name);
+        //notifyPropertyChanged(com.example.dezhiwang.studycollection.BR.name);
     }
 
     public void setPwd(String pwd) {

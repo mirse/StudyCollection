@@ -5,24 +5,22 @@
 
     <data>
         <variable
-            name="LoginInfo"
-            type="com.example.dezhiwang.studycollection.handler.model.Login" />
-        <variable
-            name="loginHandler"
-            type="com.example.dezhiwang.studycollection.handler.CountDownActivity.LoginHandler" />
+            name="observableLogin"
+            type="com.example.dezhiwang.studycollection.handler.model.ObservableLogin" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".handler.CountDownActivity">
+        tools:context=".handler.DataBindingDemoActivity">
 
         <TextView
             android:id="@+id/tv_pwd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="@{LoginInfo.name,default=pwd}"
+            android:text="@{observableLogin.name,default=pwd}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +28,7 @@
             app:layout_constraintVertical_bias="0.19" />
 
         <Button
-            android:onClick="@{()->loginHandler.changeLoginName()}"
+
             android:id="@+id/btn_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -42,7 +40,7 @@
             app:layout_constraintVertical_bias="0.18" />
 
         <Button
-            android:onClick="@{()->loginHandler.changeLoginPwd()}"
+
             android:id="@+id/btn_pwd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,7 +60,7 @@
             android:layout_marginTop="92dp"
             android:layout_marginEnd="180dp"
             android:layout_marginRight="180dp"
-            android:text="@{LoginInfo.pwd,default=name}"
+            android:text="@{observableLogin.pwd,default=name}"
             app:layout_constraintBottom_toTopOf="@+id/tv_pwd"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +70,7 @@
             android:id="@+id/tv_check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{LoginInfo.check,default=check}"
+            android:text="@{observableLogin.check,default=check}"
             app:layout_constraintBottom_toTopOf="@+id/btn_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

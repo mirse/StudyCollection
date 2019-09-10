@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dezhiwang.studycollection">
-    <!-- 网络权限，加载网络网页需要联网 -->
+    <!-- 粗略定位权限，允许一个程序访问CellID或WiFi热点来获取粗略的位置 -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".handler.CountDownActivity"></activity>
-        <activity android:name=".handler.HandlerDemoActivity"></activity>
+        <activity android:name=".handler.TimerActivity"></activity>
+        <activity android:name=".handler.DataBindingDemoActivity" />
+        <activity android:name=".handler.HandlerDemoActivity" />
         <activity android:name=".datasave.room.RoomTestActivity" />
         <activity android:name=".anim.AnimDemoActivity" />
         <activity android:name=".viewbase.scroller.ScrollerActivity" />
@@ -58,13 +59,13 @@
         <service
             android:name=".network.SocketServerService"
             android:process=":remote" />
-    </application> <!-- 粗略定位权限，允许一个程序访问CellID或WiFi热点来获取粗略的位置 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 精确定位权限，允许一个程序访问精良位置(如GPS) -->
+    </application> <!-- 精确定位权限，允许一个程序访问精良位置(如GPS) -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
 </manifest>

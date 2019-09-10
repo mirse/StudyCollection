@@ -63,54 +63,6 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
     private int mMinute = 0,mHour = 0;
 
 
-//    /*建造者模式*/
-//    private int gravity;
-//    private int type;
-//    private int range;
-//    private boolean cancleable;
-//    private boolean looper;
-//    private boolean ismClock;
-//
-//    public static class Builder{
-//        private int gravity;
-//        private int type;
-//        private int range;
-//        private boolean cancleable;
-//        private boolean looper;
-//        private boolean ismClock;
-//
-//        public Builder(){
-//
-//        }
-//        public Builder setGravity(int gravity){
-//            this.gravity = gravity;
-//            return this;
-//        }
-//        public Builder setType(int type){
-//            this.type = type;
-//            return this;
-//        }
-//        public Builder setRange(int range){
-//            this.range = range;
-//            return this;
-//        }
-//        public Builder setCancelable(boolean cancelable){
-//            this.cancleable = cancelable;
-//            return this;
-//        }
-//        public Builder isClock(boolean ismClock){
-//            this.ismClock = ismClock;
-//            return this;
-//        }
-//        public Builder setTime(){
-//            return this;
-//        }
-//
-//
-//    }
-
-
-
     public interface TimeSelectCallback {
         /**
          * 选择时间的接口回调
@@ -123,7 +75,13 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
          * 点击取消的接口回调
          */
         void onCancel();
+        /**
+         * 滑动时的时间回调
+         */
+        void onTimeSelecting(long hour,long minute);
     }
+
+
 
     /**
      * 初始化时间选择器
@@ -347,7 +305,8 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
         }
         int timeUnit;
         try {
-            timeUnit = Integer.parseInt(selected);//将String转为int类型
+            //将String转为int类型
+            timeUnit = Integer.parseInt(selected);
         } catch (Throwable ignored) {
             return;
         }
@@ -357,11 +316,16 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
             if (!isClock){
                 linkageMinuteUnit(timeUnit);
             }
+            mSelectedTime.set(COLUMN1_TYPE, timeUnit);
             mHour = timeUnit;
 
         } else if (i == R.id.dpv_minute) {
             mSelectedTime.set(COLUMN2_TYPE, timeUnit);
             mMinute = timeUnit;
+        }
+
+        if (mCallback != null) {
+            mCallback.onTimeSelecting(mHour,mMinute);
         }
     }
     
