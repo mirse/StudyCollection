@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dezhiwang.studycollection.asynctask.AsyncTaskActivity">
+    tools:context="com.wdz.studycollection.asynctask.AsyncTaskActivity">
 
     <Button
         android:layout_width="wrap_content"

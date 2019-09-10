@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dezhiwang.studycollection.activity.DrawableIconActivity">
+    tools:context="com.wdz.studycollection.activity.DrawableIconActivity">
     <TextView
         android:text="自定义View实现"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-<com.example.dezhiwang.studycollection.mydrawable.ViewWithIcon
+<com.wdz.studycollection.mydrawable.ViewWithIcon
     android:id="@+id/viewWithIcon"
     android:background="@color/colorPrimary"
     android:layout_centerInParent="true"

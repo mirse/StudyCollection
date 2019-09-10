@@ -6,14 +6,14 @@
     <data>
         <variable
             name="observableLogin"
-            type="com.example.dezhiwang.studycollection.handler.model.ObservableLogin" />
+            type="com.wdz.studycollection.handler.model.ObservableLogin" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".handler.DataBindingDemoActivity">
+        tools:context="com.wdz.studycollection.handler.DataBindingDemoActivity">
 
         <TextView
             android:id="@+id/tv_pwd"

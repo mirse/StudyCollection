@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.dezhiwang.studycollection.activity.TabViewActivity">
-<com.example.dezhiwang.studycollection.viewgroup.TabGroup
+    tools:context="com.wdz.studycollection.activity.TabViewActivity">
+<com.wdz.studycollection.viewgroup.TabGroup
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"

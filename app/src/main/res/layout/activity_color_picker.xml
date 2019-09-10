@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dezhiwang.studycollection.activity.ColorPickerActivity">
+    tools:context="com.wdz.studycollection.activity.ColorPickerActivity">
 
-    <com.example.dezhiwang.studycollection.myview.ColorPickerRGB
+    <com.wdz.studycollection.myview.ColorPickerRGB
         android:id="@+id/ColorPickerRGB"
         android:background="@color/blue_00aaee"
         android:layout_centerInParent="true"

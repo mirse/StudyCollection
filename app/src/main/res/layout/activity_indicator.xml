@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.dezhiwang.studycollection.indicatorview.IndicatorActivity">
+    tools:context="com.wdz.studycollection.indicatorview.IndicatorActivity">
 
-    <com.example.dezhiwang.studycollection.indicatorview.MyIndicatorView
+    <com.wdz.studycollection.indicatorview.MyIndicatorView
         app:enableIndicatorSwitch="true"
         android:layout_gravity="center_horizontal"
         android:id="@+id/indicator"

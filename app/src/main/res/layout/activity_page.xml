@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dezhiwang.studycollection.activity.PageActivity">
+    tools:context="com.wdz.studycollection.activity.PageActivity">
     <TextView
         android:text="不大清楚原理"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-<com.example.dezhiwang.studycollection.turnpage.CoverPageView
+<com.wdz.studycollection.turnpage.CoverPageView
     android:id="@+id/cpv"
     android:layout_centerInParent="true"
     android:layout_width="wrap_content"

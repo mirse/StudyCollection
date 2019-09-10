@@ -7,11 +7,11 @@
     android:orientation="vertical"
     android:background="@android:color/darker_gray"
     tools:context=".MainActivity">
-    <com.example.mychoosedialog.datepicker.CalendarPicker
+    <com.wdz.mychoosedialog.datepicker.CalendarPicker
         android:layout_marginTop="10dp"
         android:id="@+id/datePicker"
         android:layout_width="match_parent"
-        android:layout_height="235dp"></com.example.mychoosedialog.datepicker.CalendarPicker>
+        android:layout_height="235dp"></com.wdz.mychoosedialog.datepicker.CalendarPicker>
 
 
 
