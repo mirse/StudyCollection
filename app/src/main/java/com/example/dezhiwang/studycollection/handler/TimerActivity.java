@@ -14,6 +14,9 @@ import com.example.dezhiwang.studycollection.R;
 import com.example.dezhiwang.studycollection.databinding.ActivityTimerBinding;
 import com.example.dezhiwang.studycollection.handler.model.ObservableTimer;
 
+
+/*handle+message*/
+
 public class TimerActivity extends AppCompatActivity {
 
     Handler mHandler = new Handler() {

@@ -122,6 +122,7 @@ public class HandlerDemoActivity extends AppCompatActivity {
                 startActivity(new Intent(this, TimerActivity.class));
                 break;
             case R.id.bt_clock1:
+                startActivity(new Intent(this, Timer1Activity.class));
                 break;
 
             default:
