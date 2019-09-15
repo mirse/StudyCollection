@@ -33,7 +33,9 @@ import com.wdz.studycollection.fragment.revolve.FixProblemsActivity;
 import com.wdz.studycollection.fragment.revolve.SavedInstanceStateUsingActivity;
 import com.wdz.studycollection.fragment.viewpager.VpAndFragActivity;
 import com.wdz.studycollection.handler.HandlerDemoActivity;
+import com.wdz.studycollection.handler.LoadPicActivity;
 import com.wdz.studycollection.indicatorview.IndicatorActivity;
+import com.wdz.studycollection.media.NotifyActivity;
 import com.wdz.studycollection.myview.LayoutInflaterActivity;
 import com.wdz.studycollection.mvp.logintest.MvpActivity;
 import com.wdz.studycollection.mvp.test1.DataActivity;
@@ -84,10 +86,11 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                 {"角标效果","Group实现","View实现","ImageV实现","指示器","fragment循环","viewpage循环"},
                 {"字母索引","列表索引","Login-mvp","mvp_test","save_test","选择器","recyclerView"},
                 {"视图","LayoutInflater","瀑布流","界面旋转修复","Fragment","与viewpager","界面旋转"},
-                {"网络通信","Socket通信","AsyncTask","Handler","","",""},
+                {"网络通信","Socket通信","AsyncTask","Handler","handler切换线程","",""},
                 {"数据存储","Sp","Room","","","",""},
                 {"View合集","坐标系","悬浮窗","Scroller","","",""},
-                {"动画合集","属性动画","","","","",""}
+                {"动画合集","属性动画","","","","",""},
+                {"多媒体","通知","","","","",""}
         };
 
         for (String[] mArray:array) {
@@ -209,7 +212,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                         startActivity(new Intent(this, HandlerDemoActivity.class));
                         break;
                     case R.id.button4:
-                        //startActivity(new Intent(this, FragmentActivity.class));
+                        startActivity(new Intent(this, LoadPicActivity.class));
                         break;
                     case R.id.button5:
                         //startActivity(new Intent(this, VpAndFragActivity.class));
@@ -273,6 +276,30 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                 switch (view.getId()){
                     case R.id.button:
                         startActivity(new Intent(this, AnimDemoActivity.class));
+                        break;
+                    case R.id.button2:
+                        //startActivity(new Intent(this, RoomTestActivity.class));
+                        break;
+                    case R.id.button3:
+                        //startActivity(new Intent(this, ScrollerActivity.class));
+                        break;
+                    case R.id.button4:
+                        //startActivity(new Intent(this, FragmentActivity.class));
+                        break;
+                    case R.id.button5:
+                        //startActivity(new Intent(this, VpAndFragActivity.class));
+                        break;
+                    case R.id.button6:
+                        //startActivity(new Intent(this, SavedInstanceStateUsingActivity.class));
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case 8:
+                switch (view.getId()){
+                    case R.id.button:
+                        startActivity(new Intent(this, NotifyActivity.class));
                         break;
                     case R.id.button2:
                         //startActivity(new Intent(this, RoomTestActivity.class));

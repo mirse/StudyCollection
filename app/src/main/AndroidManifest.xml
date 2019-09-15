@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wdz.studycollection">
-    <!-- 精确定位权限，允许一个程序访问精良位置(如GPS) -->
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,64 +9,66 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.wdz.studycollection.handler.Timer1Activity"/>
-        <activity android:name="com.wdz.studycollection.handler.TimerActivity" />
-        <activity android:name="com.wdz.studycollection.handler.DataBindingDemoActivity" />
-        <activity android:name="com.wdz.studycollection.handler.HandlerDemoActivity" />
-        <activity android:name="com.wdz.studycollection.datasave.room.RoomTestActivity" />
-        <activity android:name="com.wdz.studycollection.anim.AnimDemoActivity" />
-        <activity android:name="com.wdz.studycollection.viewbase.scroller.ScrollerActivity" />
-        <activity android:name="com.wdz.studycollection.viewbase.floating.FloatingViewActivity" />
-        <activity android:name="com.wdz.studycollection.viewbase.CoordinateSystemActivity" />
-        <activity android:name="com.wdz.studycollection.datasave.SharedPreferenceActivity" />
-        <activity android:name="com.wdz.studycollection.asynctask.AsyncTaskActivity" />
-        <activity android:name="com.wdz.studycollection.network.SocketClientActivity" />
-        <activity android:name="com.wdz.studycollection.fragment.revolve.FixProblemsActivity" />
-        <activity android:name="com.wdz.studycollection.fragment.viewpager.VpAndFragActivity" />
-        <activity android:name="com.wdz.studycollection.fragment.FragmentActivity" />
-        <activity android:name="com.wdz.studycollection.recyclerview.grid.GridViewActivity" />
-        <activity android:name="com.wdz.studycollection.myview.LayoutInflaterActivity" />
-        <activity android:name="com.wdz.studycollection.recyclerview.RecyclerViewActivity" />
-        <activity android:name="com.wdz.studycollection.activity.DatePickerActivity" />
-        <activity android:name="com.wdz.studycollection.MainActivity">
+        <activity android:name=".media.NotifyActivity"></activity>
+        <activity android:name=".handler.LoadPicActivity" />
+        <activity android:name=".handler.Timer1Activity" />
+        <activity android:name=".handler.TimerActivity" />
+        <activity android:name=".handler.DataBindingDemoActivity" />
+        <activity android:name=".handler.HandlerDemoActivity" />
+        <activity android:name=".datasave.room.RoomTestActivity" />
+        <activity android:name=".anim.AnimDemoActivity" />
+        <activity android:name=".viewbase.scroller.ScrollerActivity" />
+        <activity android:name=".viewbase.floating.FloatingViewActivity" />
+        <activity android:name=".viewbase.CoordinateSystemActivity" />
+        <activity android:name=".datasave.SharedPreferenceActivity" />
+        <activity android:name=".asynctask.AsyncTaskActivity" />
+        <activity android:name=".network.SocketClientActivity" />
+        <activity android:name=".fragment.revolve.FixProblemsActivity" />
+        <activity android:name=".fragment.viewpager.VpAndFragActivity" />
+        <activity android:name=".fragment.FragmentActivity" />
+        <activity android:name=".recyclerview.grid.GridViewActivity" />
+        <activity android:name=".myview.LayoutInflaterActivity" />
+        <activity android:name=".recyclerview.RecyclerViewActivity" />
+        <activity android:name=".activity.DatePickerActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.wdz.studycollection.activity.ColorPickerActivity" />
-        <activity android:name="com.wdz.studycollection.activity.ColorPicker1Activity" />
-        <activity android:name="com.wdz.studycollection.activity.ColorPicker2Activity" />
-        <activity android:name="com.wdz.studycollection.activity.SurfaceViewActivity" />
-        <activity android:name="com.wdz.studycollection.activity.PageActivity" />
-        <activity android:name="com.wdz.studycollection.activity.TabViewActivity" />
-        <activity android:name="com.wdz.studycollection.activity.DrawableWrapperActivity" />
-        <activity android:name="com.wdz.studycollection.activity.DrawableIconActivity" />
-        <activity android:name="com.wdz.studycollection.activity.DrawableIconIVActivity" />
-        <activity android:name="com.wdz.studycollection.indicatorview.IndicatorActivity" />
-        <activity android:name="com.wdz.studycollection.recyclepager.FragmentPagerActivity" />
-        <activity android:name="com.wdz.studycollection.recyclepager.ImageRecyclerActivity" />
-        <activity android:name="com.wdz.studycollection.activity.LetterIndexActivity" />
-        <activity android:name="com.wdz.studycollection.mvp.logintest.MvpActivity" />
-        <activity android:name="com.wdz.studycollection.mvp.test1.DataActivity" />
-        <activity android:name="com.wdz.studycollection.mvp.writeandread.SavaActivity" />
-        <activity android:name="com.wdz.studycollection.fragment.revolve.SavedInstanceStateUsingActivity" />
+        <activity android:name=".activity.ColorPickerActivity" />
+        <activity android:name=".activity.ColorPicker1Activity" />
+        <activity android:name=".activity.ColorPicker2Activity" />
+        <activity android:name=".activity.SurfaceViewActivity" />
+        <activity android:name=".activity.PageActivity" />
+        <activity android:name=".activity.TabViewActivity" />
+        <activity android:name=".activity.DrawableWrapperActivity" />
+        <activity android:name=".activity.DrawableIconActivity" />
+        <activity android:name=".activity.DrawableIconIVActivity" />
+        <activity android:name=".indicatorview.IndicatorActivity" />
+        <activity android:name=".recyclepager.FragmentPagerActivity" />
+        <activity android:name=".recyclepager.ImageRecyclerActivity" />
+        <activity android:name=".activity.LetterIndexActivity" />
+        <activity android:name=".mvp.logintest.MvpActivity" />
+        <activity android:name=".mvp.test1.DataActivity" />
+        <activity android:name=".mvp.writeandread.SavaActivity" />
+        <activity android:name=".fragment.revolve.SavedInstanceStateUsingActivity" />
 
         <service
-            android:name="com.wdz.studycollection.viewbase.floating.FloatingService"
+            android:name=".viewbase.floating.FloatingService"
             android:enabled="true"
             android:exported="true" />
         <service
-            android:name="com.wdz.studycollection.network.SocketServerService"
+            android:name=".network.SocketServerService"
             android:process=":remote" />
     </application>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
 </manifest>

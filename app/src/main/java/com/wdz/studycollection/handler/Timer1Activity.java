@@ -6,7 +6,6 @@ import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-
 import com.wdz.studycollection.R;
 import com.wdz.studycollection.databinding.ActivityTimer1Binding;
 
