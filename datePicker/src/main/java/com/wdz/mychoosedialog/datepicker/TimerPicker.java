@@ -8,6 +8,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
+
 import com.wdz.mychoosedialog.R;
 
 import java.text.DecimalFormat;
@@ -22,7 +24,6 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
     private Context mContext;
     private TimeSelectCallback mCallback;
     private Calendar  mSelectedTime;
-    private HashMap<String,Integer> map;
     private boolean mCanDialogShow;
     private Dialog mPickerDialog;
     private PickerView mDpvHour, mDpvMinute;
@@ -30,9 +31,10 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
     private DecimalFormat mDecimalFormat = new DecimalFormat("00");
 
     private int mScrollUnits = SCROLL_UNIT_HOUR + SCROLL_UNIT_MINUTE;
-    private int TIME_MIN = 0;
-    private int HOUR_MAX = 24;
-    private int MINUTE_MAX = 59;
+//    private int HOUR_MIN = 0;
+//    private int HOUR_MAX = 24;
+//    private int MINUTE_MIN = 0;
+//    private int MINUTE_MAX = 59;
     /**
     *  是否刷新分钟栏
     */
@@ -59,7 +61,7 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
     private static final int SCROLL_UNIT_HOUR = 0b1;
     private static final int SCROLL_UNIT_MINUTE = 0b10;
     private static final String TAG = "TimerPicker";
-    private int  minMinute, maxMinute;
+    private int  minMinute = 0, maxMinute = 59,minHour = 0,maxHour = 23;
     private int mMinute = 0,mHour = 0;
 
 
@@ -88,7 +90,7 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
      * @param context        Activity Context
      * @param callback       选择结果回调
      */
-    public TimerPicker(Context context, TimeSelectCallback callback) {
+    public TimerPicker(String hour,String minute,Context context, TimeSelectCallback callback) {
         if (context == null || callback == null ) {
             mCanDialogShow = false;
             return;
@@ -96,18 +98,24 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
         mContext = context;
         mCallback = callback;
         mSelectedTime = Calendar.getInstance();
-        map = new HashMap<>();
-        initView();
+        initView(hour,minute);
         mCanDialogShow = true;
     }
 
-    private void initView() {
+    private void initView(String hour,String minute) {
         mPickerDialog = new Dialog(mContext, R.style.date_picker_dialog);
         mPickerDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         mPickerDialog.setContentView(R.layout.picker_timer);
 
         setGravity(Gravity.BOTTOM);
-
+        TextView mTvHour = mPickerDialog.findViewById(R.id.tv_hour_unit);
+        TextView mTvMinute = mPickerDialog.findViewById(R.id.tv_minute_unit);
+        if (!TextUtils.isEmpty(hour)){
+            mTvHour.setText(hour);
+        }
+        if (!TextUtils.isEmpty(minute)){
+            mTvMinute.setText(minute);
+        }
         mPickerDialog.findViewById(R.id.iv_cancel).setOnClickListener(this);
         mPickerDialog.findViewById(R.id.iv_confirm).setOnClickListener(this);
 
@@ -170,6 +178,8 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
     public void setRange(int minHour,int maxHour,int minMinute,int maxMinute){
         this.minMinute = minMinute;
         this.maxMinute = maxMinute;
+        this.minHour = minHour;
+        this.maxHour = maxHour;
         for (int i = minHour; i <= maxHour; i++) {
             mHourUnits.add(String.valueOf(i));
         }
@@ -191,22 +201,24 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
      * @param minute 设置显示的分钟数
      */
     public void setTime(int hour,int minute){
-        if (hour>HOUR_MAX){
-            hour = HOUR_MAX;
+        if (hour>maxHour){
+            hour = maxHour;
         }
-        else if (hour<TIME_MIN){
-            hour = TIME_MIN;
+        else if (hour<minHour){
+            hour = minHour;
         }
-        else if (minute>MINUTE_MAX){
-            minute = MINUTE_MAX;
+        else if (minute>maxMinute){
+            minute = maxMinute;
         }
-        else if (minute<TIME_MIN){
-            minute = TIME_MIN;
+        else if (minute<minMinute){
+            minute = minMinute;
         }
-        mSelectedTime.set(COLUMN1_TYPE, Integer.parseInt(mHourUnits.get(hour)));
-        mSelectedTime.set(COLUMN2_TYPE, Integer.parseInt(mMinuteUnits.get(minute)));
-        mDpvHour.setSelected(hour);
-        mDpvMinute.setSelected(minute);
+        mSelectedTime.set(COLUMN1_TYPE, hour);
+        mSelectedTime.set(COLUMN2_TYPE, minute);
+
+        //Log.i(TAG,"Integer.parseInt(mHourUnits.get(hour)):"+);
+        mDpvHour.setSelected(mHourUnits.indexOf(String.valueOf(hour)));
+        mDpvMinute.setSelected(mMinuteUnits.indexOf(String.valueOf(minute)));
         mHour = hour;
         mMinute = minute;
     }
@@ -311,6 +323,7 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
             return;
         }
 
+        Log.i(TAG,"timeUnit:"+timeUnit);
         int i = view.getId();
         if (i == R.id.dpv_hour) {
             if (!isClock){
@@ -330,19 +343,22 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
     }
     
     private void linkageMinuteUnit(int timeUnit){
-        Log.i(TAG,mSelectedTime.get(Calendar.HOUR_OF_DAY)+"");
-        if (timeUnit==HOUR_MAX){
+        Log.i(TAG,"linkageMinuteUnit:"+mSelectedTime.get(Calendar.HOUR_OF_DAY)+"");
+        if (timeUnit==maxHour){
             mMinuteUnits.clear();
             mMinuteUnits.add(mDecimalFormat.format(0));
             mDpvMinute.setDataList(mMinuteUnits);
             refreshMinute = true;
-            mHour = HOUR_MAX;
+            mHour = maxHour;
             mMinute = 0;
         }
         else if (refreshMinute){
             mMinuteUnits.clear();
             for (int i = minMinute; i <= maxMinute; i++) {
                 mMinuteUnits.add(mDecimalFormat.format(i));
+            }
+            if (mMinute==0){
+                mMinute = minMinute;
             }
             mDpvMinute.setDataList(mMinuteUnits);
             refreshMinute = false;

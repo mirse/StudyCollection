@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
         /*使用示例*/
 
-        final TimerPicker mTimerPicker = new TimerPicker(this, new TimerPicker.TimeSelectCallback() {
+        final TimerPicker mTimerPicker = new TimerPicker("M","S",this, new TimerPicker.TimeSelectCallback() {
             @Override
             public void onTimeSelected(long hour, long minute) {
             }

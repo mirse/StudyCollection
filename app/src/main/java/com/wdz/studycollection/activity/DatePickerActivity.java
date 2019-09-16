@@ -38,7 +38,7 @@ public class DatePickerActivity extends AppCompatActivity {
     public void onViewClicked(View view){
         switch (view.getId()){
             case R.id.bt_show_timer:
-                TimerPicker timerPicker = new TimerPicker(this, new TimerPicker.TimeSelectCallback() {
+                TimerPicker timerPicker = new TimerPicker("M","S",this, new TimerPicker.TimeSelectCallback() {
                     @Override
                     public void onTimeSelected(long hour, long minute) {
                         Log.d(TAG,"hour:"+hour+" minute:"+minute);
@@ -54,11 +54,11 @@ public class DatePickerActivity extends AppCompatActivity {
 
                 });
                 timerPicker.setGravity(Gravity.BOTTOM);
-                timerPicker.setType(TimerPicker.HOUR_MINUTE);
+                timerPicker.setType(TimerPicker.MINUTE_SECOND);
                 //设置每列显示范围
-                timerPicker.setRange(0,24,0,59);
+                timerPicker.setRange(0,60,0,59);
                 timerPicker.isClock(false);
-                timerPicker.setTime(20,20);
+                timerPicker.setTime(2,10);
                 // 允许点击屏幕或物理返回键关闭
                 timerPicker.setCancelable(true);
                 // 允许循环滚动

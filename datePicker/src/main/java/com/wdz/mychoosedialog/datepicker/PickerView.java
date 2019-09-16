@@ -29,6 +29,7 @@ import android.os.Message;
 import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -55,6 +56,7 @@ public class PickerView extends View {
     private float mLastTouchY;
     private List<String> mDataList = new ArrayList<>();
     private int mSelectedIndex;
+    private int maxIndex;
     private boolean mCanScroll = true;
     private boolean mCanScrollLoop = false;
     private OnSelectListener mOnSelectListener;
@@ -221,25 +223,37 @@ public class PickerView extends View {
                             invalidate();
                             break;
                         } else {
-                            mSelectedIndex--;
+                            mSelectedIndex-=Math.round(Math.abs(mScrollDistance)/mHalfTextSpacing);
+                            Log.i(TAG,">"+mHalfTextSpacing+" Math.abs(mScrollDistance):"+Math.abs(mScrollDistance)+" mSelectedIndex:"+mSelectedIndex+" --:"+Math.abs(mScrollDistance)/mHalfTextSpacing);
+                            if (mSelectedIndex <= 0){
+                                mSelectedIndex = 0;
+                            }
+                           // mSelectedIndex--;
                         }
                     } else {
                         // 往下滑超过离开距离，将末尾元素移到首位
+                        Log.i(TAG,"往下滑超过离开距离，将末尾元素移到首位");
                         moveTailToHead();
                     }
                     mScrollDistance -= mTextSpacing;
                 } else if (mScrollDistance < -mHalfTextSpacing) {
                     //滑动至末尾
+
                     if (!mCanScrollLoop) {
                         if (mSelectedIndex == mDataList.size() - 1) {
                             mLastTouchY = offsetY;
                             invalidate();
                             break;
                         } else {
-                            mSelectedIndex++;
+                            Log.i(TAG,"<"+mHalfTextSpacing+" Math.abs(mScrollDistance):"+Math.abs(mScrollDistance)+" mSelectedIndex:"+mSelectedIndex+" maxIndex:"+maxIndex);
+//                            mSelectedIndex++;
+                            mSelectedIndex+=Math.round(Math.abs(mScrollDistance)/mHalfTextSpacing);
+                            if (mSelectedIndex >= (maxIndex-1)) {
+                                mSelectedIndex = (maxIndex - 1);
+                            }
                         }
                     } else {
- //                       Log.i(TAG,"往上滑超过离开距离，将首位元素移到末尾");
+                        Log.i(TAG,"往上滑超过离开距离，将首位元素移到末尾");
                         // 往上滑超过离开距离，将首位元素移到末尾
                         moveHeadToTail();
                     }
@@ -291,7 +305,7 @@ public class PickerView extends View {
 
     private void keepScrolling() {
         if (Math.abs(mScrollDistance) < AUTO_SCROLL_SPEED) {
-            //Log.i(TAG,"<");
+
             mScrollDistance = 0;
             if (mTimerTask != null) {
                 cancelTimerTask();
@@ -319,6 +333,8 @@ public class PickerView extends View {
         mDataList = list;
         // 重置 mSelectedIndex，防止溢出
         mSelectedIndex = 0;
+        maxIndex = list.size();
+
         invalidate();
     }
 
