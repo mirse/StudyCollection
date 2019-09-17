@@ -56,6 +56,7 @@ public class NotifyActivity extends AppCompatActivity {
     @TargetApi(Build.VERSION_CODES.O)
     private void createNotificationChannel(String channelId, String channelName, int importance) {
         NotificationChannel channel = new NotificationChannel(channelId, channelName, importance);
+        channel.setShowBadge(true);
         notificationManager = (NotificationManager) getSystemService(
                 NOTIFICATION_SERVICE);
         notificationManager.createNotificationChannel(channel);
@@ -94,6 +95,7 @@ public class NotifyActivity extends AppCompatActivity {
                         .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher))
                         .setAutoCancel(true)
                         .setContentIntent(resultPendingIntent)
+                        .setNumber(2)
                         .build();
 
 
