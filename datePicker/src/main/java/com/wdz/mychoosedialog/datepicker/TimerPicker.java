@@ -84,11 +84,12 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
     }
 
 
-
     /**
      * 初始化时间选择器
-     * @param context        Activity Context
-     * @param callback       选择结果回调
+     * @param hour tv_hour_unit 文字
+     * @param minute tv_minute_unit 文字
+     * @param context Activity Context
+     * @param callback 选择结果回调
      */
     public TimerPicker(String hour,String minute,Context context, TimeSelectCallback callback) {
         if (context == null || callback == null ) {
@@ -160,7 +161,7 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
         }
     }
 
-    /**
+    /**仅针对 TimerPicker.HOUR_MINUTE 生效
      * @param isClock 是否是时钟逻辑
      */
     public void isClock(boolean isClock){
@@ -216,7 +217,6 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
         mSelectedTime.set(COLUMN1_TYPE, hour);
         mSelectedTime.set(COLUMN2_TYPE, minute);
 
-        //Log.i(TAG,"Integer.parseInt(mHourUnits.get(hour)):"+);
         mDpvHour.setSelected(mHourUnits.indexOf(String.valueOf(hour)));
         mDpvMinute.setSelected(mMinuteUnits.indexOf(String.valueOf(minute)));
         mHour = hour;
