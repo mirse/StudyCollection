@@ -6,6 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 
 import com.wdz.studycollection.datasave.room.entity.Users;
+import com.wdz.studycollection.datasave.room.entity.UsersChild;
 
 import java.util.List;
 
@@ -13,12 +14,21 @@ import java.util.List;
 public interface UserDao {
     @Query("SELECT * FROM users")
     List<Users> loadAll();
-    @Query("SELECT * FROM users WHERE id IN (:songIds)")
-    List<Users> loadAllBySongId(int... songIds);
-    @Query("SELECT * FROM users WHERE name LIKE :name AND release_year = :year LIMIT 1")
-    Users loadOneByNameAndReleaseYear(String name, int year);
     @Insert
-    void insertAll(Users... songs);
-    @Delete
-    void delete(Users song);
+    void insertAll(Users... users);
+    @Query("SELECT * FROM users WHERE id LIKE :id LIMIT 1")
+    Users findById(int id);
+
+    @Query("SELECT * FROM USERS")
+    List<Users> findAll();
+
+
+
+    @Query("SELECT * FROM userschild")
+    List<UsersChild> loadAllChild();
+    @Insert
+    void insertAll(UsersChild... users);
+    @Query("SELECT * FROM userschild WHERE childId LIKE :id LIMIT 1")
+    UsersChild findByIdChild(int id);
+
 }

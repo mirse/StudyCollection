@@ -5,6 +5,7 @@ import androidx.room.Room;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.wdz.studycollection.R;
 import com.wdz.studycollection.datasave.room.entity.Users;
+import com.wdz.studycollection.datasave.room.entity.UsersChild;
 
 import java.util.List;
 
@@ -26,14 +28,16 @@ public class RoomTestActivity extends AppCompatActivity {
 
     @BindView(R.id.bt_insert)
     Button mBtnInsert;
-    @BindView(R.id.bt_search)
-    Button mBtnSearch;
-    @BindView(R.id.tv_status)
-    TextView mTvStatus;
+    @BindView(R.id.bt_find)
+    Button mBtnFind;
+    @BindView(R.id.bt_insert_child)
+    Button mBtnInsertChild;
+    @BindView(R.id.et_id)
+    EditText mEtId;
     @BindView(R.id.et_name)
     EditText mEtName;
-    @BindView(R.id.et_year)
-    EditText mEtYear;
+    @BindView(R.id.et_pro)
+    EditText mEtPro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,15 +50,19 @@ public class RoomTestActivity extends AppCompatActivity {
         AppDataBase appDataBase = Room.databaseBuilder(getApplicationContext(), AppDataBase.class, "users.db").build();
         userDao = appDataBase.userDao();
     }
-    @OnClick({R.id.bt_insert,R.id.bt_search})
+    @OnClick({R.id.bt_insert,R.id.bt_find,R.id.bt_insert_child})
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.bt_insert:
-                new insertAsyncTask(userDao,mEtName,mEtYear,mTvStatus).execute();
+                new insertAsyncTask(userDao,mEtId,mEtName,mEtPro).execute();
                 break;
-            case R.id.bt_search:
-                new loadAsyncTask(userDao,mTvStatus).execute();
+            case R.id.bt_insert_child:
+                new insertChildAsyncTask(userDao,mEtId,mEtName,mEtPro).execute();
                 break;
+            case R.id.bt_find:
+                new loadAsyncTask(userDao).execute();
+                break;
+
             default:
                 break;
         }
@@ -64,19 +72,15 @@ public class RoomTestActivity extends AppCompatActivity {
     private static class loadAsyncTask extends AsyncTask<Users, String, String> {
 
         private UserDao userDao;
-        private TextView mTvText;
 
-        loadAsyncTask(UserDao userDao, TextView mTvText) {
+        loadAsyncTask(UserDao userDao) {
             this.userDao = userDao;
-            this.mTvText = mTvText;
-
         }
 
         @Override
         protected String doInBackground(Users... users) {
-            List<Users> users1 = userDao.loadAll();
+            List<Users> users1 = userDao.findAll();
             for (int i=0;i<users1.size();i++){
-                //publishProgress(users1.get(i).getName());
                 return users1.toString();
             }
            return "";
@@ -84,7 +88,7 @@ public class RoomTestActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String aVoid) {
-            mTvText.setText(aVoid);
+            Log.i(TAG,"查询："+aVoid);
             super.onPostExecute(aVoid);
         }
 
@@ -98,28 +102,76 @@ public class RoomTestActivity extends AppCompatActivity {
     private static class insertAsyncTask extends AsyncTask<Users, Void, String> {
 
         private UserDao userDao;
-        private EditText mEtName;
-        private EditText mEtYear;
-        private TextView mTvText;
+        private EditText mEtId,mEtName,mEtPro;
+        private final int id;
+        private final String name;
+        private final String identify;
 
-        insertAsyncTask(UserDao userDao,EditText mEtName,EditText mEtYear,TextView mTvText) {
+        insertAsyncTask(UserDao userDao,EditText mEtId,EditText mEtName,EditText mEtPro) {
             this.userDao = userDao;
             this.mEtName = mEtName;
-            this.mEtYear = mEtYear;
-            this.mTvText = mTvText;
+            this.mEtId = mEtId;
+            this.mEtPro = mEtPro;
+
+            id = Integer.parseInt(mEtId.getText().toString());
+            name = mEtName.getText().toString();
+            identify = mEtPro.getText().toString();
+
 
         }
 
         @Override
         protected String doInBackground(Users... users) {
-            userDao.insertAll(new Users(mEtName.getText().toString(),mEtYear.getText().toString()));
+            userDao.insertAll(new Users(id,name,identify));
             return "insert success";
         }
 
         //doInBackground 执行完成后
         @Override
         protected void onPostExecute(String aVoid) {
-            mTvText.setText(aVoid);
+            Log.i(TAG,"插入："+aVoid);
+            super.onPostExecute(aVoid);
+        }
+
+        //在publishProgress方法被调用后
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+    }
+
+
+    private static class insertChildAsyncTask extends AsyncTask<Users, Void, String> {
+
+        private UserDao userDao;
+        private EditText mEtId,mEtName,mEtPro;
+        private final int id;
+        private final String name;
+        private final String identify;
+
+        insertChildAsyncTask(UserDao userDao,EditText mEtId,EditText mEtName,EditText mEtPro) {
+            this.userDao = userDao;
+            this.mEtName = mEtName;
+            this.mEtId = mEtId;
+            this.mEtPro = mEtPro;
+
+            id = Integer.parseInt(mEtId.getText().toString());
+            name = mEtName.getText().toString();
+            identify = mEtPro.getText().toString();
+
+
+        }
+
+        @Override
+        protected String doInBackground(Users... users) {
+            userDao.insertAll(new UsersChild(id,name,identify));
+            return "insert success";
+        }
+
+        //doInBackground 执行完成后
+        @Override
+        protected void onPostExecute(String aVoid) {
+            Log.i(TAG,"插入："+aVoid);
             super.onPostExecute(aVoid);
         }
 

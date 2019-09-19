@@ -2,18 +2,15 @@ package com.wdz.studycollection.datasave.room.entity;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(indices = {@Index("name")})
 public class Users {
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     private int id;
-    @ColumnInfo(name = "name")
     private String name;
-    @ColumnInfo(name = "release_year")
-    private String releaseYear;
-    // getters and setters are ignored for brevity but they are required for Room to work.
-
+    private String identify;
 
     public int getId() {
         return id;
@@ -31,17 +28,18 @@ public class Users {
         this.name = name;
     }
 
-    public String getReleaseYear() {
-        return releaseYear;
+    public String getIdentify() {
+        return identify;
     }
 
-    public void setReleaseYear(String releaseYear) {
-        this.releaseYear = releaseYear;
+    public void setIdentify(String identify) {
+        this.identify = identify;
     }
 
-    public Users(String name, String releaseYear) {
+    public Users(int id, String name, String identify) {
+        this.id = id;
         this.name = name;
-        this.releaseYear = releaseYear;
+        this.identify = identify;
     }
 
     @Override
@@ -49,7 +47,7 @@ public class Users {
         return "Users{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", releaseYear='" + releaseYear + '\'' +
+                ", identify='" + identify + '\'' +
                 '}';
     }
 }
