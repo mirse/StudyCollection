@@ -35,6 +35,7 @@ import com.wdz.studycollection.fragment.viewpager.VpAndFragActivity;
 import com.wdz.studycollection.handler.HandlerDemoActivity;
 import com.wdz.studycollection.handler.LoadPicActivity;
 import com.wdz.studycollection.indicatorview.IndicatorActivity;
+import com.wdz.studycollection.jetpack.viewmodel.ViewModelActivity;
 import com.wdz.studycollection.materialdesign.DrawerLayoutActivity;
 import com.wdz.studycollection.media.NotifyActivity;
 import com.wdz.studycollection.myview.LayoutInflaterActivity;
@@ -46,7 +47,6 @@ import com.wdz.studycollection.recyclepager.ImageRecyclerActivity;
 import com.wdz.studycollection.recyclepager.FragmentPagerActivity;
 import com.wdz.studycollection.recyclerview.grid.GridViewActivity;
 import com.wdz.studycollection.recyclerview.RecyclerViewActivity;
-import com.wdz.studycollection.R;
 import com.wdz.studycollection.viewbase.CoordinateSystemActivity;
 import com.wdz.studycollection.viewbase.floating.FloatingViewActivity;
 import com.wdz.studycollection.viewbase.scroller.ScrollerActivity;
@@ -92,7 +92,8 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                 {"View合集","坐标系","悬浮窗","Scroller","","",""},
                 {"动画合集","属性动画","","","","",""},
                 {"多媒体","通知","","","","",""},
-                {"Material","抽屉","","","","",""}
+                {"Material","抽屉","","","","",""},
+                {"Jetpack","ViewModel","","","","",""}
         };
 
         for (String[] mArray:array) {
@@ -347,7 +348,30 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                         break;
                 }
                 break;
-
+            case 10:
+                switch (view.getId()){
+                    case R.id.button:
+                        startActivity(new Intent(this, ViewModelActivity.class));
+                        break;
+                    case R.id.button2:
+                        //startActivity(new Intent(this, RoomTestActivity.class));
+                        break;
+                    case R.id.button3:
+                        //startActivity(new Intent(this, ScrollerActivity.class));
+                        break;
+                    case R.id.button4:
+                        //startActivity(new Intent(this, FragmentActivity.class));
+                        break;
+                    case R.id.button5:
+                        //startActivity(new Intent(this, VpAndFragActivity.class));
+                        break;
+                    case R.id.button6:
+                        //startActivity(new Intent(this, SavedInstanceStateUsingActivity.class));
+                        break;
+                    default:
+                        break;
+                }
+                break;
 
             default:
                 break;

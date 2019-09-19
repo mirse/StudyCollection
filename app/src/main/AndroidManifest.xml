@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".materialdesign.DrawerLayoutActivity"></activity>
+        <activity android:name=".jetpack.viewmodel.NewWordActivity"></activity>
+        <activity android:name=".jetpack.viewmodel.ViewModelActivity" />
+        <activity android:name=".materialdesign.DrawerLayoutActivity" />
         <activity android:name=".media.NotifyActivity" />
         <activity android:name=".handler.LoadPicActivity" />
         <activity android:name=".handler.Timer1Activity" />
@@ -64,12 +66,12 @@
             android:name=".network.SocketServerService"
             android:process=":remote" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
 </manifest>

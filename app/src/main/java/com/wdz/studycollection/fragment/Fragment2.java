@@ -37,7 +37,7 @@ public class Fragment2 extends Fragment {
         super.onAttach(context);
         mActivity = (Activity) context;
         mParam = getArguments().getString(PARAM);
-        String key = getArguments().getString("key");
+        String key = getArguments().getString("word");
         Toast.makeText(mActivity,"fragment向fragment传值:"+key,Toast.LENGTH_SHORT).show();
     }
 

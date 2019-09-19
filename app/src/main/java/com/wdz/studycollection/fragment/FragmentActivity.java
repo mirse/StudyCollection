@@ -37,7 +37,7 @@ public class FragmentActivity extends AppCompatActivity implements Fragment1.OnF
     public void sendValue2Fragment(String text) {
         Fragment f2 = Fragment2.getInstance("f2");
         Bundle bundle = new Bundle();
-        bundle.putString("key",text);
+        bundle.putString("word",text);
         f2.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container,f2)

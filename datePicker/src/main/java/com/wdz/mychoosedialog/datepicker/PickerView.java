@@ -224,7 +224,7 @@ public class PickerView extends View {
                             break;
                         } else {
                             mSelectedIndex-=Math.round(Math.abs(mScrollDistance)/mHalfTextSpacing);
-                            Log.i(TAG,">"+mHalfTextSpacing+" Math.abs(mScrollDistance):"+Math.abs(mScrollDistance)+" mSelectedIndex:"+mSelectedIndex+" --:"+Math.abs(mScrollDistance)/mHalfTextSpacing);
+                            //Log.i(TAG,">"+mHalfTextSpacing+" Math.abs(mScrollDistance):"+Math.abs(mScrollDistance)+" mSelectedIndex:"+mSelectedIndex+" --:"+Math.abs(mScrollDistance)/mHalfTextSpacing);
                             if (mSelectedIndex <= 0){
                                 mSelectedIndex = 0;
                             }
@@ -232,7 +232,7 @@ public class PickerView extends View {
                         }
                     } else {
                         // 往下滑超过离开距离，将末尾元素移到首位
-                        Log.i(TAG,"往下滑超过离开距离，将末尾元素移到首位");
+                        //Log.i(TAG,"往下滑超过离开距离，将末尾元素移到首位");
                         moveTailToHead();
                     }
                     mScrollDistance -= mTextSpacing;
@@ -245,7 +245,7 @@ public class PickerView extends View {
                             invalidate();
                             break;
                         } else {
-                            Log.i(TAG,"<"+mHalfTextSpacing+" Math.abs(mScrollDistance):"+Math.abs(mScrollDistance)+" mSelectedIndex:"+mSelectedIndex+" maxIndex:"+maxIndex);
+                            //Log.i(TAG,"<"+mHalfTextSpacing+" Math.abs(mScrollDistance):"+Math.abs(mScrollDistance)+" mSelectedIndex:"+mSelectedIndex+" maxIndex:"+maxIndex);
 //                            mSelectedIndex++;
                             mSelectedIndex+=Math.round(Math.abs(mScrollDistance)/mHalfTextSpacing);
                             if (mSelectedIndex >= (maxIndex-1)) {
@@ -253,7 +253,7 @@ public class PickerView extends View {
                             }
                         }
                     } else {
-                        Log.i(TAG,"往上滑超过离开距离，将首位元素移到末尾");
+                        //Log.i(TAG,"往上滑超过离开距离，将首位元素移到末尾");
                         // 往上滑超过离开距离，将首位元素移到末尾
                         moveHeadToTail();
                     }

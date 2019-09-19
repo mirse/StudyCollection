@@ -3,4 +3,6 @@
     <dimen name="color_wheel_radius">150dp</dimen>
     <dimen name="color_pointer_radius">10dp</dimen>
     <dimen name="color_wheel_thickness">10dp</dimen>
+    <dimen name="small_padding">6dp</dimen>
+    <dimen name="big_padding">16dp</dimen>
 </resources>
