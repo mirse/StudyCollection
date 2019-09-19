@@ -9,6 +9,14 @@ public class UsersAll {
     //内嵌对象
     @Embedded
     public Users users;
-    @Relation(parentColumn = "id",entityColumn = "foreId")
+    @Relation(parentColumn = "id",entityColumn = "childId")
     public List<UsersChild> usersChildren;
+
+    @Override
+    public String toString() {
+        return "UsersAll{" +
+                "users=" + users +
+                ", usersChildren=" + usersChildren +
+                '}';
+    }
 }

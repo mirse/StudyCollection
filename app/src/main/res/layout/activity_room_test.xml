@@ -82,7 +82,7 @@
         android:id="@+id/bt_insert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="添加"
+        android:text="添加Parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -94,9 +94,10 @@
         android:id="@+id/bt_find"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="查询"
+        android:text="查询parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.04"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bt_insert"
         app:layout_constraintVertical_bias="0.100000024" />
@@ -108,7 +109,38 @@
         android:text="添加child"
         app:layout_constraintBottom_toBottomOf="@+id/bt_insert"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/bt_delete"
+        app:layout_constraintTop_toTopOf="@+id/bt_insert" />
+
+    <Button
+        android:id="@+id/bt_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="删除parent"
+        app:layout_constraintBottom_toBottomOf="@+id/bt_insert"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/bt_insert"
         app:layout_constraintTop_toTopOf="@+id/bt_insert" />
+
+    <Button
+        android:id="@+id/bt_find_child"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="查询child"
+        app:layout_constraintBottom_toBottomOf="@+id/bt_find"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/bt_find"
+        app:layout_constraintTop_toTopOf="@+id/bt_find" />
+
+    <Button
+        android:id="@+id/bt_delete_child"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="删除child"
+        app:layout_constraintBottom_toBottomOf="@+id/bt_insert_child"
+        app:layout_constraintStart_toEndOf="@+id/bt_insert_child"
+        app:layout_constraintTop_toTopOf="@+id/bt_insert_child" />
 </androidx.constraintlayout.widget.ConstraintLayout>

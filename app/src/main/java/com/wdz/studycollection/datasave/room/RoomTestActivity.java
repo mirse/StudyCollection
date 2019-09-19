@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.wdz.studycollection.R;
 import com.wdz.studycollection.datasave.room.entity.Users;
+import com.wdz.studycollection.datasave.room.entity.UsersAll;
 import com.wdz.studycollection.datasave.room.entity.UsersChild;
 
 import java.util.List;
@@ -32,6 +33,12 @@ public class RoomTestActivity extends AppCompatActivity {
     Button mBtnFind;
     @BindView(R.id.bt_insert_child)
     Button mBtnInsertChild;
+    @BindView(R.id.bt_delete)
+    Button mBtnDelete;
+    @BindView(R.id.bt_find_child)
+    Button mBtnFindChild;
+
+
     @BindView(R.id.et_id)
     EditText mEtId;
     @BindView(R.id.et_name)
@@ -50,7 +57,7 @@ public class RoomTestActivity extends AppCompatActivity {
         AppDataBase appDataBase = Room.databaseBuilder(getApplicationContext(), AppDataBase.class, "users.db").build();
         userDao = appDataBase.userDao();
     }
-    @OnClick({R.id.bt_insert,R.id.bt_find,R.id.bt_insert_child})
+    @OnClick({R.id.bt_insert,R.id.bt_find,R.id.bt_insert_child,R.id.bt_delete,R.id.bt_delete_child,R.id.bt_find_child})
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.bt_insert:
@@ -60,7 +67,16 @@ public class RoomTestActivity extends AppCompatActivity {
                 new insertChildAsyncTask(userDao,mEtId,mEtName,mEtPro).execute();
                 break;
             case R.id.bt_find:
-                new loadAsyncTask(userDao).execute();
+                new loadAsyncTask(userDao,mEtId).execute();
+                break;
+            case R.id.bt_delete:
+                new deleteAsyncTask(userDao).execute();
+                break;
+            case R.id.bt_delete_child:
+                new deleteChildAsyncTask(userDao).execute();
+                break;
+            case R.id.bt_find_child:
+                new loadChildAsyncTask(userDao).execute();
                 break;
 
             default:
@@ -69,17 +85,102 @@ public class RoomTestActivity extends AppCompatActivity {
     }
 
 
-    private static class loadAsyncTask extends AsyncTask<Users, String, String> {
+    private static class deleteAsyncTask extends AsyncTask<Users, String, String> {
 
         private UserDao userDao;
 
-        loadAsyncTask(UserDao userDao) {
+        deleteAsyncTask(UserDao userDao) {
             this.userDao = userDao;
         }
 
         @Override
         protected String doInBackground(Users... users) {
-            List<Users> users1 = userDao.findAll();
+            userDao.deleteAll();
+            return "success";
+        }
+
+        @Override
+        protected void onPostExecute(String aVoid) {
+            Log.i(TAG,"删除："+aVoid);
+            super.onPostExecute(aVoid);
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            super.onProgressUpdate(values);
+        }
+    }
+
+    private static class deleteChildAsyncTask extends AsyncTask<Users, String, String> {
+
+        private UserDao userDao;
+
+        deleteChildAsyncTask(UserDao userDao) {
+            this.userDao = userDao;
+        }
+
+        @Override
+        protected String doInBackground(Users... users) {
+            userDao.deleteAllChild();
+            return "success";
+        }
+
+        @Override
+        protected void onPostExecute(String aVoid) {
+            Log.i(TAG,"删除child："+aVoid);
+            super.onPostExecute(aVoid);
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            super.onProgressUpdate(values);
+        }
+    }
+
+
+    private static class loadChildAsyncTask extends AsyncTask<Users, String, String> {
+
+        private UserDao userDao;
+
+        loadChildAsyncTask(UserDao userDao) {
+            this.userDao = userDao;
+        }
+
+        @Override
+        protected String doInBackground(Users... users) {
+            List<UsersChild> users1 = userDao.findAllChild();
+            for (int i=0;i<users1.size();i++){
+                return users1.toString();
+            }
+            return "";
+        }
+
+        @Override
+        protected void onPostExecute(String aVoid) {
+            Log.i(TAG,"查询child："+aVoid);
+            super.onPostExecute(aVoid);
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            super.onProgressUpdate(values);
+        }
+    }
+
+
+    private static class loadAsyncTask extends AsyncTask<Users, String, String> {
+
+        private UserDao userDao;
+        //private final int id;
+
+        loadAsyncTask(UserDao userDao,EditText mEtId) {
+            this.userDao = userDao;
+//            id = Integer.parseInt(mEtId.getText().toString());
+        }
+
+        @Override
+        protected String doInBackground(Users... users) {
+            List<UsersAll> users1 = userDao.findAll();
             for (int i=0;i<users1.size();i++){
                 return users1.toString();
             }

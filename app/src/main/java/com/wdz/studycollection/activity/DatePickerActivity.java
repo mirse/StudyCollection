@@ -2,6 +2,7 @@ package com.wdz.studycollection.activity;
 
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -24,6 +25,8 @@ public class DatePickerActivity extends AppCompatActivity {
     @BindView(R.id.bt_show_date) Button mBtnShowDate;
 
     private static final String TAG = "DatePickerActivity";
+    private TimerPicker timerPicker;
+    private Handler handler = new Handler();
 
 
     @Override
@@ -38,10 +41,11 @@ public class DatePickerActivity extends AppCompatActivity {
     public void onViewClicked(View view){
         switch (view.getId()){
             case R.id.bt_show_timer:
-                TimerPicker timerPicker = new TimerPicker("H","M",this, new TimerPicker.TimeSelectCallback() {
+                timerPicker = new TimerPicker("H","M",this, new TimerPicker.TimeSelectCallback() {
                     @Override
                     public void onTimeSelected(long hour, long minute) {
                         Log.d(TAG,"hour:"+hour+" minute:"+minute);
+
                     }
                     @Override
                     public void onCancel() {
@@ -50,6 +54,10 @@ public class DatePickerActivity extends AppCompatActivity {
                     @Override
                     public void onTimeSelecting(long hour, long minute) {
                         Log.d(TAG,"正在滑动hour:"+hour+" minute:"+minute);
+                        if (hour<3){
+                            //优化，滑动时强制转化的动画流畅性
+                            timerPicker.setTime(3,(int) minute);
+                        }
                     }
 
                 });

@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         final TimerPicker mTimerPicker = new TimerPicker("M","S",this, new TimerPicker.TimeSelectCallback() {
             @Override
             public void onTimeSelected(long hour, long minute) {
+
             }
 
             @Override

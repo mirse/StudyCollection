@@ -42,4 +42,13 @@ public class UsersChild {
         this.childName = childName;
         this.childIdentify = childIdentify;
     }
+
+    @Override
+    public String toString() {
+        return "UsersChild{" +
+                "childId=" + childId +
+                ", childName='" + childName + '\'' +
+                ", childIdentify='" + childIdentify + '\'' +
+                '}';
+    }
 }
