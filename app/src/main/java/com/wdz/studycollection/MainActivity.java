@@ -37,6 +37,7 @@ import com.wdz.studycollection.handler.LoadPicActivity;
 import com.wdz.studycollection.indicatorview.IndicatorActivity;
 import com.wdz.studycollection.jetpack.viewmodel.ViewModelActivity;
 import com.wdz.studycollection.materialdesign.DrawerLayoutActivity;
+import com.wdz.studycollection.media.CameraXActivity;
 import com.wdz.studycollection.media.NotifyActivity;
 import com.wdz.studycollection.myview.LayoutInflaterActivity;
 import com.wdz.studycollection.mvp.logintest.MvpActivity;
@@ -91,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                 {"数据存储","Sp","Room","","","",""},
                 {"View合集","坐标系","悬浮窗","Scroller","","",""},
                 {"动画合集","属性动画","","","","",""},
-                {"多媒体","通知","","","","",""},
+                {"多媒体","通知","相机","","","",""},
                 {"Material","抽屉","","","","",""},
                 {"Jetpack","ViewModel","","","","",""}
         };
@@ -305,7 +306,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                         startActivity(new Intent(this, NotifyActivity.class));
                         break;
                     case R.id.button2:
-                        //startActivity(new Intent(this, RoomTestActivity.class));
+                        startActivity(new Intent(this, CameraXActivity.class));
                         break;
                     case R.id.button3:
                         //startActivity(new Intent(this, ScrollerActivity.class));
