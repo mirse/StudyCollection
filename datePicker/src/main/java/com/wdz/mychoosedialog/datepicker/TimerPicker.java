@@ -216,9 +216,9 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
         }
         mSelectedTime.set(COLUMN1_TYPE, hour);
         mSelectedTime.set(COLUMN2_TYPE, minute);
-
+//        Log.i(TAG,"hour:"+mMinuteUnits.toString()+ " minute:"+mHourUnits.indexOf(String.valueOf(hour)));
         mDpvHour.setSelected(mHourUnits.indexOf(String.valueOf(hour)));
-        mDpvMinute.setSelected(mMinuteUnits.indexOf(String.valueOf(minute)));
+        mDpvMinute.setSelected(mMinuteUnits.indexOf(mDecimalFormat.format(minute)));
         mHour = hour;
         mMinute = minute;
     }
