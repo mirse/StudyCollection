@@ -28,7 +28,7 @@ import com.wdz.studycollection.R;
  */
 
 public class ColorPickerRGB extends View {
-
+    private static final String TAG = "ColorPickerRGB";
     private static final String STATE="state";
     private static final String STATE_ANGLE="angle";
 
@@ -112,7 +112,6 @@ public class ColorPickerRGB extends View {
 
         pointPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         pointPaint.setColor(Color.BLACK);
-        //text =myColor.getA()+" "+myColor.getR()+" "+myColor.getG()+" "+myColor.getB();
         text=toHexFromColor(myColor);
         pointPaint.getTextBounds(text,0, text.length(),rect);
         width = rect.right - rect.left;
@@ -131,48 +130,47 @@ public class ColorPickerRGB extends View {
 
     }
 
+    /**
+     * @param mAngle 0~2PI 逆时针减小
+     * @param R
+     * @return
+     */
     private int calculateColor(float mAngle,double R) {      //1、2象限0-π   3、4象限-π-0
-//        int v = (int)(mAngle / (Math.PI * 2));
-//        if (v>0){
-//            mAngle=(float) (mAngle-Math.PI*2*v);
+        //0~0.5 -0.5~0
+        float unit = (float)(mAngle / (Math.PI * 2 ));
+//        if (unit<0){
+//            unit+=1;
 //        }
-
-        float unit = (float)(mAngle / (Math.PI * 2 ));   //0~0.5 -0.5~0
-     //  Log.i("text","unit"+unit);
-        if (unit<0){
-            unit+=1;
-        }
-        if (unit<0){
-            mColor=COLOR[0];
-            myColor=new MyColor();
-             Log.i("text","<<<<0?????????");
-            myColor.setA(Color.alpha(mColor));
-            myColor.setR(Color.red(mColor));
-            myColor.setG(Color.green(mColor));
-            myColor.setB(Color.blue(mColor));
-
-            return COLOR[0];
-        }
-        if (unit==0&&R==0){
-            myColor=new MyColor();
-            myColor.setA(0);
-            myColor.setR(255);
-            myColor.setG(255);
-            myColor.setB(255);
-            return COLOR[0];
-        }
-        if (unit>=1){
-            mColor=COLOR[COLOR.length-1];
-          //  Log.i("text",">>>>!?????????");
-            myColor=new MyColor();
-            myColor.setA(Color.alpha(mColor));
-            myColor.setR(Color.red(mColor));
-            myColor.setG(Color.green(mColor));
-            myColor.setB(Color.blue(mColor));
-
-            return COLOR[COLOR.length-1];
-        }
-        float p = unit * (COLOR.length - 1);  //unit  0~1    p 0~5
+//        Log.i(TAG,"mAngle:"+mAngle+" R:"+R+" unit:"+unit);
+//        if (unit<0){
+//            mColor=COLOR[0];
+//            myColor=new MyColor();
+//            myColor.setA(Color.alpha(mColor));
+//            myColor.setR(Color.red(mColor));
+//            myColor.setG(Color.green(mColor));
+//            myColor.setB(Color.blue(mColor));
+//
+//            return COLOR[0];
+//        }
+//        if (unit==0&&R==0){
+//            myColor=new MyColor();
+//            myColor.setA(0);
+//            myColor.setR(255);
+//            myColor.setG(255);
+//            myColor.setB(255);
+//            return COLOR[0];
+//        }
+//        if (unit>=1){
+//            mColor=COLOR[COLOR.length-1];
+//            myColor=new MyColor();
+//            myColor.setA(Color.alpha(mColor));
+//            myColor.setR(Color.red(mColor));
+//            myColor.setG(Color.green(mColor));
+//            myColor.setB(Color.blue(mColor));
+//
+//            return COLOR[COLOR.length-1];
+//        }
+        float p = unit * (COLOR.length - 1);  //P 0-3
 
         int i = (int) p;
         level = i;
@@ -180,13 +178,10 @@ public class ColorPickerRGB extends View {
 
         int c0=COLOR[i];
         int c1=COLOR[i+1];
-     //   int a=ave(Color.alpha(c0),Color.alpha(c1),p);
-
         int a = (int) Math.round ((255*(R/mcircleWidth)));
         if (a>=255){
             a=255;
         }
-
         int r=ave(Color.red(c0),Color.red(c1),p);
         int g=ave(Color.green(c0),Color.green(c1),p);
         int b=ave(Color.blue(c0),Color.blue(c1),p);
@@ -267,10 +262,6 @@ public class ColorPickerRGB extends View {
         }
         int min = Math.min(width, height);
         offset = min * 0.5f;
-      //  Log.i("text","min=="+min);
-      //  Log.i("text","pointwidth="+pointWidth);
-       // mcircleWidth=min/2-pointWidth/2;
-//        Log.i("text","mcircleWidth"+mcircleWidth);
         setMeasuredDimension(min,min);
 
     }
@@ -278,23 +269,16 @@ public class ColorPickerRGB extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.translate(offset,offset);
-
         canvas.drawCircle(0,0,mcircleWidth,mPaint);
-
         canvas.drawCircle(0,0,mcircleWidth,radialPaint);
-        //canvas.drawCircle(0,0,circleWidth,mPaint);
         canvas.drawCircle(centerX,centerY,pointWidth,pointPaint);
 
-        canvas.drawLine(-mcircleWidth,0,mcircleWidth,0,pointPaint);//中心轴坐标
-        canvas.drawLine(0,-mcircleWidth,0,mcircleWidth,pointPaint);
+
+//        canvas.drawLine(-mcircleWidth,0,mcircleWidth,0,pointPaint);//中心轴坐标
+//        canvas.drawLine(0,-mcircleWidth,0,mcircleWidth,pointPaint);
 
         pointPaint.setTextSize(40);
-
-        //text =myColor.getA()+" "+myColor.getR()+" "+myColor.getG()+" "+myColor.getB();
         text=toHexFromColor(myColor);
-
-        //Log.i("text","myColor.getA()="+myColor.getA()+" myColor.getR()"+myColor.getR());
-      //  text =myColor.getR()+" "+myColor.getG()+" "+myColor.getB();
         pointPaint.getTextBounds(text,0, text.length(),rect);
         width = rect.right - rect.left;
         height = rect.bottom - rect.top;
@@ -361,20 +345,20 @@ public class ColorPickerRGB extends View {
 
                     mAngle=(float)Math.atan2(y,x);   //1、2象限0-π   3、4象限-π-0
 
-                  //  pointPaint.setColor(calculateColor(mAngle));
-                   // Log.i("text","-----mAngle"+mAngle);
                     if (mAngle<0){
                         mAngle+=Math.PI*2;
                     }
-                   // Log.i("text","mAngle"+mAngle);
+                    //Log.i(TAG,"atan2:"+mAngle);
                     calculateColor(mAngle,r);
                     invalidate();
-                     //colorChangeListener.onRGBChange(myColor);
+                    colorChangeListener.onRGBChange(myColor);
                 }
                 break;
             case MotionEvent.ACTION_UP:
                 isMoving=false;
                 invalidate();
+                break;
+            default:
                 break;
         }
         return true;

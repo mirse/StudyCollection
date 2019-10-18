@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.wdz.studycollection.R;
+import com.wdz.studycollection.jetpack.bean.Word;
 
 import java.util.List;
 

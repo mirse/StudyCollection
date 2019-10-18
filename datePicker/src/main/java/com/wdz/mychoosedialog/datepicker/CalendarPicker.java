@@ -43,13 +43,15 @@ public class CalendarPicker implements View.OnClickListener, PickerView.OnSelect
     private static final long LINKAGE_DELAY_DEFAULT = 100L;
     private long beginTimestamp;
     private long endTimestamp;
-    private static final String TAG = "CustomDatePickerTest";
+    private static final String TAG = "CalendarPicker";
     private Dialog mCalendarPicker;
     private final boolean mCanDialogShow;
     private Callback mCallBack;
     private List<String> mYearUnits;
     private List<String> mMonthUnits;
     private List<String> mDayUnits;
+    private String[] monthArray;
+
     /**
      * 时间选择结果回调接口
      */
@@ -112,7 +114,7 @@ public class CalendarPicker implements View.OnClickListener, PickerView.OnSelect
 
 
     private void initData() {
-
+        monthArray = mContext.getResources().getStringArray(R.array.month);
         mYearUnits = new ArrayList<>();
         mMonthUnits = new ArrayList<>();
         mDayUnits = new ArrayList<>();
@@ -272,35 +274,41 @@ public class CalendarPicker implements View.OnClickListener, PickerView.OnSelect
      * @return 数字月份
      */
     private int month2Num(String month){
-        switch (month){
-            case "January":
-                return 1;
-            case "February":
-                return 2;
-            case "March":
-                return 3;
-            case "April":
-                return 4;
-            case "May":
-                return 5;
-            case "June":
-                return 6;
-            case "July":
-                return 7;
-            case "August":
-                return 8;
-            case "September":
-                return 9;
-            case "October":
-                return 10;
-            case "November":
-                return 11;
-            case "December":
-                return 12;
-            default:
-                return 0;
-
+        for (int i=0;i<monthArray.length;i++){
+            if (month.equals(monthArray[i])){
+                return i;
+            }
         }
+        return 0;
+//        switch (month){
+//            case "January":
+//                return 1;
+//            case "February":
+//                return 2;
+//            case "March":
+//                return 3;
+//            case "April":
+//                return 4;
+//            case "May":
+//                return 5;
+//            case "June":
+//                return 6;
+//            case "July":
+//                return 7;
+//            case "August":
+//                return 8;
+//            case "September":
+//                return 9;
+//            case "October":
+//                return 10;
+//            case "November":
+//                return 11;
+//            case "December":
+//                return 12;
+//            default:
+//                return 0;
+//
+//        }
     }
 
 
@@ -313,7 +321,7 @@ public class CalendarPicker implements View.OnClickListener, PickerView.OnSelect
             mYearUnits.add(String.valueOf(i));
         }
         for (int i = mBeginMonth; i <= endMonth; i++) {
-            mMonthUnits.add(monthFormat(i));
+            mMonthUnits.add(monthArray[i-1]);
         }
 
         for (int i = mBeginDay; i <= endDay; i++) {
@@ -362,7 +370,7 @@ public class CalendarPicker implements View.OnClickListener, PickerView.OnSelect
         // 重新初始化时间单元容器
         mMonthUnits.clear();
         for (int i = minMonth; i <= maxMonth; i++) {
-            mMonthUnits.add(monthFormat(i));
+            mMonthUnits.add(monthArray[i-1]);
         }
         mDpvMonth.setDataList(mMonthUnits);
 

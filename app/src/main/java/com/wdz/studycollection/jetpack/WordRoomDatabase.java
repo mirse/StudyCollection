@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.wdz.studycollection.jetpack.bean.Word;
+
 import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
@@ -34,7 +36,7 @@ public abstract class WordRoomDatabase extends RoomDatabase {
             super.onOpen(db);
             Log.i(TAG,"数据库初始化......");
             //由于不能对UI线程执行Room数据库操作
-            new PopulateDbAsync(INSTANCE).execute();
+            //new PopulateDbAsync(INSTANCE).execute();
         }
     };
 

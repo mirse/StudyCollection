@@ -1,4 +1,4 @@
-package com.wdz.studycollection.jetpack;
+package com.wdz.studycollection.jetpack.bean;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -21,4 +21,10 @@ public class Word {
         return mWord;
     }
 
+    @Override
+    public String toString() {
+        return "Word{" +
+                "mWord='" + mWord + '\'' +
+                '}';
+    }
 }

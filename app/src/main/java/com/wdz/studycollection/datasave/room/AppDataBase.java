@@ -1,13 +1,14 @@
 package com.wdz.studycollection.datasave.room;
 
+import com.wdz.studycollection.datasave.room.entity.Clothes;
+import com.wdz.studycollection.datasave.room.entity.Person;
+
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
 
-import com.wdz.studycollection.datasave.room.entity.Users;
-import com.wdz.studycollection.datasave.room.entity.UsersChild;
 
-
-@Database(entities = {Users.class,UsersChild.class},version = 1)
+@Database(entities = {Person.class, Clothes.class},version = 1)
 public abstract class AppDataBase extends RoomDatabase {
-    public abstract UserDao userDao();
+    public abstract PersonDao personDao();
+    public abstract ClothesDao clothesDao();
 }

@@ -29,11 +29,18 @@ import androidx.annotation.Nullable;
 public class ColorPickerHSV extends View {
 
     private Paint mPaint;
-    private static final int[] COLOR=new int[]{
-            Color.RED,Color.BLUE,Color.GREEN,Color.RED
-    };
+//    private static final int[] COLOR=new int[]{
+//            Color.RED,Color.BLUE,Color.GREEN,Color.RED
+//    };
 //        private static final int[] COLOR = new int[] { 0xFFFF0000, 0xFFFF00FF,
 //            0xFF0000FF, 0xFF00FFFF, 0xFF00FF00, 0xFFFFFF00, 0xFFFF0000 };
+    private static final int[] COLOR = new int[]{
+        Color.rgb(0, 255, 255), Color.rgb(0, 0, 255),
+        Color.rgb(255, 0, 255), Color.rgb(255, 0, 0),
+        Color.rgb(255, 255, 0), Color.rgb(0, 255, 0),
+        Color.rgb(0, 255, 255)
+    };
+
     private int circleWidth;
     private int offsetX;
     private int offsetY;
@@ -74,16 +81,27 @@ public class ColorPickerHSV extends View {
 
         //绘制颜色
         int colorCount = 12;
+        //== 12
         int colorAngleStep = 360 / 12;
         int colors[] = new int[colorCount];
         float hsv[] = new float[]{0f, 1f, 1f};
         for (int i = 0; i < colors.length; i++) {
             hsv[0] = (i * colorAngleStep + 180) % 360;
+            Log.i("text","hsv:["+i+"]"+hsv[0]);
             colors[i] = Color.HSVToColor(hsv);
+            int red = (colors[i] & 0xff0000) >> 16;
+            int green = (colors[i] & 0x00ff00) >> 8;
+            int blue = (colors[i] & 0x0000ff);
+        }
+        float[] hsv1 = new float[3];//定义一个长度为3的数组
+        for (int i=0;i<COLOR.length;i++){
+
+            Color.colorToHSV(COLOR[i],hsv1);
         }
 
 
-        SweepGradient sweepGradient = new SweepGradient(0, 0, colors, null);
+
+        SweepGradient sweepGradient = new SweepGradient(0, 0, COLOR, null);
         RadialGradient radialGradient = new RadialGradient(0, 0, circleWidth, Color.WHITE, 0x00FFFFFF, Shader.TileMode.CLAMP);
         mPaint.setShader(sweepGradient);
         sPaint.setShader(radialGradient);
@@ -174,7 +192,7 @@ public class ColorPickerHSV extends View {
                         lastY = y;
                         invalidate();
                     }
-                    float[] hsv={0,0,1};
+                    float[] hsv={0,1,1};
                     hsv[0]= (float) (Math.atan2(y,x)/Math.PI*180f)+180;
                     hsv[1]=Math.max(0f,Math.min(1f,(float) (r/circleWidth)));
                     int color = Color.HSVToColor(hsv);
@@ -183,7 +201,7 @@ public class ColorPickerHSV extends View {
                     int red = (color & 0xff0000) >> 16;
                     int green = (color & 0x00ff00) >> 8;
                     int blue = (color & 0x0000ff);
-                    Log.i("text","red="+red+" green"+green+" blue"+blue);
+                    Log.i("text","red="+red+" green"+green+" blue"+blue+" hsv:"+hsv[0]);
                 }
                 break;
             case MotionEvent.ACTION_UP:

@@ -6,14 +6,23 @@
     android:layout_height="match_parent"
     tools:context="com.wdz.studycollection.datasave.room.RoomTestActivity">
 
+    <EditText
+        android:id="@+id/et_father_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        app:layout_constraintBottom_toBottomOf="@+id/textView10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView10"
+        app:layout_constraintTop_toTopOf="@+id/textView10" />
+
     <TextView
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
         android:layout_marginTop="24dp"
-        android:text="户口id:"
+        android:text="person_name:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -22,11 +31,10 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/et_id"
+        android:id="@+id/et_person_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="户口id"
         app:layout_constraintBottom_toBottomOf="@+id/textView12"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView12"
@@ -37,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="姓名："
+        android:text="person_age:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textView12"
         app:layout_constraintStart_toStartOf="@+id/textView12"
@@ -45,11 +53,10 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/et_name"
+        android:id="@+id/et_person_age"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="姓名"
         app:layout_constraintBottom_toBottomOf="@+id/textView13"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView13"
@@ -60,7 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="身份："
+        android:text="clothes_color:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textView13"
         app:layout_constraintStart_toStartOf="@+id/textView13"
@@ -68,79 +75,84 @@
         app:layout_constraintVertical_bias="0.00999999" />
 
     <EditText
-        android:id="@+id/et_pro"
+        android:id="@+id/et_clothes_color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="身份"
         app:layout_constraintBottom_toBottomOf="@+id/textView14"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView14"
         app:layout_constraintTop_toTopOf="@+id/textView14" />
 
-    <Button
-        android:id="@+id/bt_insert"
+    <TextView
+        android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="添加Parent"
+        android:layout_marginTop="24dp"
+        android:text="father_id:"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textView14"
+        app:layout_constraintStart_toStartOf="@+id/textView14"
+        app:layout_constraintTop_toBottomOf="@+id/textView14"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/bt_add_person"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="添加person"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_pro"
-        app:layout_constraintVertical_bias="0.07999998" />
+        app:layout_constraintTop_toBottomOf="@+id/textView10"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/bt_find"
+        android:id="@+id/bt_add_clothes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="查询parent"
+        android:layout_marginStart="24dp"
+        android:text="添加clothes"
+        app:layout_constraintBottom_toBottomOf="@+id/bt_add_person"
+        app:layout_constraintStart_toEndOf="@+id/bt_add_person"
+        app:layout_constraintTop_toTopOf="@+id/bt_add_person" />
+
+    <Button
+        android:id="@+id/bt_find_person"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="18dp"
+        android:text="查询person"
+        app:layout_constraintEnd_toEndOf="@+id/bt_add_person"
+        app:layout_constraintStart_toStartOf="@+id/bt_add_person"
+        app:layout_constraintTop_toBottomOf="@+id/bt_add_person" />
+
+    <TextView
+        android:id="@+id/tv_db"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.04"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bt_insert"
-        app:layout_constraintVertical_bias="0.100000024" />
+        app:layout_constraintTop_toBottomOf="@+id/bt_find_person"
+        app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:id="@+id/bt_insert_child"
+    <TextView
+        android:id="@+id/tv_clothes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="添加child"
-        app:layout_constraintBottom_toBottomOf="@+id/bt_insert"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/bt_delete"
-        app:layout_constraintTop_toTopOf="@+id/bt_insert" />
+        android:layout_marginTop="32dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tv_db"
+        app:layout_constraintStart_toStartOf="@+id/tv_db"
+        app:layout_constraintTop_toBottomOf="@+id/tv_db"
+        app:layout_constraintVertical_bias="0.13" />
 
-    <Button
-        android:id="@+id/bt_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="删除parent"
-        app:layout_constraintBottom_toBottomOf="@+id/bt_insert"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/bt_insert"
-        app:layout_constraintTop_toTopOf="@+id/bt_insert" />
-
-    <Button
-        android:id="@+id/bt_find_child"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="查询child"
-        app:layout_constraintBottom_toBottomOf="@+id/bt_find"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/bt_find"
-        app:layout_constraintTop_toTopOf="@+id/bt_find" />
-
-    <Button
-        android:id="@+id/bt_delete_child"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="删除child"
-        app:layout_constraintBottom_toBottomOf="@+id/bt_insert_child"
-        app:layout_constraintStart_toEndOf="@+id/bt_insert_child"
-        app:layout_constraintTop_toTopOf="@+id/bt_insert_child" />
 </androidx.constraintlayout.widget.ConstraintLayout>

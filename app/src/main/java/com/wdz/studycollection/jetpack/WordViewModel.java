@@ -1,8 +1,9 @@
 package com.wdz.studycollection.jetpack;
 
 import android.app.Application;
-import android.nfc.Tag;
 import android.util.Log;
+
+import com.wdz.studycollection.jetpack.bean.Word;
 
 import java.util.List;
 
@@ -24,5 +25,8 @@ public class WordViewModel extends AndroidViewModel {
     public LiveData<List<Word>> getAllWords() { return allWords; }
     public void insert(Word word){
         wordRepository.insert(word);
+    }
+    public void delete(Word word){
+        wordRepository.delete(word);
     }
 }

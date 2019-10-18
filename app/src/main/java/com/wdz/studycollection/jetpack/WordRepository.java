@@ -3,6 +3,8 @@ package com.wdz.studycollection.jetpack;
 import android.app.Application;
 import android.os.AsyncTask;
 
+import com.wdz.studycollection.jetpack.bean.Word;
+
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
@@ -21,9 +23,28 @@ public class WordRepository {
     LiveData<List<Word>> getAllWords() {
         return allWords;
     }
+    public void delete(Word word){
+        new deleteAsyncTask(wordDao).execute(word);
+    }
+
+
 
     public void insert(Word word){
         new insertAsyncTask(wordDao).execute(word);
+    }
+
+    public static class deleteAsyncTask extends AsyncTask<Word,Void,Void>{
+        private WordDao mSyncTaskDao;
+
+        public deleteAsyncTask(WordDao wordDao) {
+            mSyncTaskDao = wordDao;
+        }
+
+        @Override
+        protected Void doInBackground(Word... words) {
+            mSyncTaskDao.delete(words[0]);
+            return null;
+        }
     }
 
     public static class insertAsyncTask extends AsyncTask<Word,Void,Void>{

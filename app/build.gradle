@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 29
     defaultConfig {
-        applicationId "com.example.dezhiwang.studycollection"
+        applicationId "com.wdz.studycollection"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
@@ -53,7 +53,6 @@ dependencies {
     implementation "androidx.room:room-guava:$room_version"
     // Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
-
 
 
     implementation 'com.airbnb.android:lottie:3.0.7'

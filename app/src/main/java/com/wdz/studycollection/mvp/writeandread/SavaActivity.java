@@ -25,7 +25,7 @@ public class SavaActivity extends AppCompatActivity implements BaseView{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sava);
-        mId = findViewById(R.id.et_id);
+        mId = findViewById(R.id.et_person_name);
         mFirst = findViewById(R.id.et_first);
         mLast = findViewById(R.id.et_last);
         btSava = findViewById(R.id.bt_sava);
