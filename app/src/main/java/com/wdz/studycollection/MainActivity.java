@@ -49,6 +49,7 @@ import com.wdz.studycollection.recyclepager.ImageRecyclerActivity;
 import com.wdz.studycollection.recyclepager.FragmentPagerActivity;
 import com.wdz.studycollection.recyclerview.grid.GridViewActivity;
 import com.wdz.studycollection.recyclerview.RecyclerViewActivity;
+import com.wdz.studycollection.rxjava.RxDemoActivity;
 import com.wdz.studycollection.viewbase.CoordinateSystemActivity;
 import com.wdz.studycollection.viewbase.floating.FloatingViewActivity;
 import com.wdz.studycollection.viewbase.scroller.ScrollerActivity;
@@ -95,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                 {"动画合集","属性动画","","","","",""},
                 {"多媒体","通知","相机","","","",""},
                 {"Material","抽屉","","","","",""},
-                {"Jetpack","ViewModel","","","","",""}
+                {"Jetpack","ViewModel","RxJava","","","",""}
         };
 
         for (String[] mArray:array) {
@@ -356,7 +357,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                         startActivity(new Intent(this, ViewModelActivity.class));
                         break;
                     case R.id.button2:
-                        //startActivity(new Intent(this, RoomTestActivity.class));
+                        startActivity(new Intent(this, RxDemoActivity.class));
                         break;
                     case R.id.button3:
                         //startActivity(new Intent(this, ScrollerActivity.class));

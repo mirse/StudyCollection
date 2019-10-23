@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".datasave.parcelable.ParcelableNextActivity"></activity>
+        <activity android:name=".rxjava.RxDemoActivity"></activity>
+        <activity android:name=".datasave.parcelable.ParcelableNextActivity" />
         <activity android:name=".datasave.parcelable.ParcelableDemoActivity" />
         <activity android:name=".media.CameraXActivity" />
         <activity android:name=".jetpack.viewmodel.NewWordActivity" />
@@ -61,7 +62,8 @@
         <activity android:name=".mvp.test1.DataActivity" />
         <activity android:name=".mvp.writeandread.SavaActivity" />
         <activity android:name=".fragment.revolve.SavedInstanceStateUsingActivity" />
-        <activity android:name=".base.PermissionActivity"/>
+        <activity android:name=".base.PermissionActivity" />
+
         <service
             android:name=".viewbase.floating.FloatingService"
             android:enabled="true"
@@ -76,8 +78,9 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
 </manifest>
