@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import com.wdz.mychoosedialog.datepicker.DatePicker;
 import com.wdz.studycollection.R;
 import com.wdz.mychoosedialog.datepicker.CalendarPicker;
 import com.wdz.mychoosedialog.datepicker.DateFormatUtils;
@@ -133,7 +133,7 @@ public class DatePickerActivity extends AppCompatActivity {
                 break;
             case R.id.bt_show_date:
 
-                CalendarPicker calendarPicker = new CalendarPicker(this, new CalendarPicker.Callback() {
+                new DatePicker(this, new CalendarPicker.Callback() {
                     @Override
                     public void selectDate(Long date) {
                         Log.i(TAG,"data:"+System.currentTimeMillis());
@@ -143,19 +143,36 @@ public class DatePickerActivity extends AppCompatActivity {
                     public void onCancel() {
 
                     }
-                });
-                //设置显示范围
-//                calendarPicker.setTime(DateFormatUtils.str2Long("1999-05-03"),System.currentTimeMillis());
-                calendarPicker.setTime(System.currentTimeMillis(),System.currentTimeMillis()+DAY_6);
-                //设置当前显示日期
-                calendarPicker.showTime(DateFormatUtils.long2Str(System.currentTimeMillis()));
-                //允许点击屏幕或物理返回键关闭
-                calendarPicker.setCancelable(true);
-                // 允许循环滚动
-                calendarPicker.setScrollLoop(false);
-                // 允许滚动动画
-                calendarPicker.setCanShowAnim(true);
-                calendarPicker.show();
+                })
+                        .setTime(System.currentTimeMillis(),System.currentTimeMillis()+DAY_6)
+                        .showTime(DateFormatUtils.long2Str(System.currentTimeMillis()))
+                        .isCancelable(true)
+                        .isScrollLoop(true)
+                        .create();
+
+//                CalendarPicker calendarPicker = new CalendarPicker(this, new CalendarPicker.Callback() {
+//                    @Override
+//                    public void selectDate(Long date) {
+//                        Log.i(TAG,"data:"+System.currentTimeMillis());
+//                    }
+//
+//                    @Override
+//                    public void onCancel() {
+//
+//                    }
+//                });
+//                //设置显示范围
+////                calendarPicker.setTime(DateFormatUtils.str2Long("1999-05-03"),System.currentTimeMillis());
+//                calendarPicker.setTime(System.currentTimeMillis(),System.currentTimeMillis()+DAY_6);
+//                //设置当前显示日期
+//                calendarPicker.showTime(DateFormatUtils.long2Str(System.currentTimeMillis()));
+//                //允许点击屏幕或物理返回键关闭
+//                calendarPicker.setCancelable(true);
+//                // 允许循环滚动
+//                calendarPicker.setScrollLoop(false);
+//                // 允许滚动动画
+//                calendarPicker.setCanShowAnim(true);
+//                calendarPicker.show();
                 break;
             default:
                 break;

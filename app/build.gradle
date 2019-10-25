@@ -68,5 +68,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation 'com.google.android.material:material:1.0.0'
 
+    //okhttp
+    implementation("com.squareup.okhttp3:okhttp:4.2.1")
 
 }

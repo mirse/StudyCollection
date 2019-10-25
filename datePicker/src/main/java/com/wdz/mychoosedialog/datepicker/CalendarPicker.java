@@ -31,6 +31,11 @@ public class CalendarPicker implements View.OnClickListener, PickerView.OnSelect
     private DecimalFormat mDecimalFormat = new DecimalFormat("00");
 
 
+    //属性
+    public boolean isCancelable;
+    public boolean isScrollLoop;
+    public String showTime;
+
 
     /**
      * 时间单位的最大显示值
@@ -51,6 +56,8 @@ public class CalendarPicker implements View.OnClickListener, PickerView.OnSelect
     private List<String> mMonthUnits;
     private List<String> mDayUnits;
     private String[] monthArray;
+
+
 
     /**
      * 时间选择结果回调接口
