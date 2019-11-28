@@ -66,21 +66,23 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             public void onClick(View v) {
                 if (onItemClickListener !=null){
                     int position = viewHolder.getLayoutPosition();
+                    onItemClickListener.onItemLongClick(viewHolder.itemView, position);
                     onItemClickListener.onItemClick(viewHolder.itemView,position);
+
                 }
             }
         });
 
-        viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                if (onItemClickListener != null) {
-                    int position = viewHolder.getLayoutPosition();
-                    onItemClickListener.onItemLongClick(viewHolder.itemView, position);
-                }
-                return true;
-            }
-        });
+//        viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                if (onItemClickListener != null) {
+//                    int position = viewHolder.getLayoutPosition();
+//                    //onItemClickListener.onItemLongClick(viewHolder.itemView, position);
+//                }
+//                return true;
+//            }
+//        });
 
     }
 

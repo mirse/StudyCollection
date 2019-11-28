@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -48,19 +49,34 @@ public class GridViewActivity extends AppCompatActivity {
     private void initData() {
         gridLayoutManager = new GridLayoutManager(this, 4, OrientationHelper.VERTICAL, false);
         myAdapter = new MyAdapter(getData());
+        myAdapter.setOnClickListener(new MyAdapter.onItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Log.i("click:","onItemClick第"+position+"个");
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+                Log.i("click:","onItemLongClick第"+position+"个");
+            }
+        });
+
 
         staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL);
         mdStaggeredRvAdapter = new MDStaggeredRvAdapter(getData());
         mdStaggeredRvAdapter.setOnClickListener(new BaseAdapter.onItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
-                Toast.makeText(getBaseContext(),"点击第"+position+"个",Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
             public void onItemLongClick(View view, int position) {
-
+                Log.i("click:","onItemLongClick第"+position+"个");
+                //Toast.makeText(getBaseContext(),"onItemLongClick第"+position+"个",Toast.LENGTH_SHORT).show();
             }
+            @Override
+            public void onItemClick(View view, int position) {
+                Log.i("click:","onItemClick第"+position+"个");
+                //Toast.makeText(getBaseContext(),"onItemClick第"+position+"个",Toast.LENGTH_SHORT).show();
+            }
+
+
         });
     }
 
@@ -76,13 +92,13 @@ public class GridViewActivity extends AppCompatActivity {
     private void initUI() {
         mRv = findViewById(R.id.recyclerView);
         //标准瀑布流
-//        mRv.setLayoutManager(gridLayoutManager);
-//        mRv.setAdapter(myAdapter);
-//        mRv.addItemDecoration(new GridDividerDecoration(this));
+        mRv.setLayoutManager(gridLayoutManager);
+        mRv.setAdapter(myAdapter);
+        mRv.addItemDecoration(new GridDividerDecoration(this));
 
         //宽高不一的瀑布流
-        mRv.setLayoutManager(staggeredGridLayoutManager);
-        mRv.setAdapter(mdStaggeredRvAdapter);
+//        mRv.setLayoutManager(staggeredGridLayoutManager);
+//        mRv.setAdapter(mdStaggeredRvAdapter);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(mRv);
     }

@@ -12,7 +12,11 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            // true - 打开混淆
+            minifyEnabled true
+            // true - 打开资源压缩
+            shrinkResources true
+            // 用于设置Proguard的规划路径；
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
