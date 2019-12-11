@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.TimeUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -18,6 +19,9 @@ import io.reactivex.functions.Function;
 import io.reactivex.functions.Function3;
 import io.reactivex.schedulers.Schedulers;
 import kotlin.Unit;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -25,6 +29,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -473,28 +478,59 @@ public class RxDemoActivity extends AppCompatActivity {
 
 
         //throttleFirst()
-        RxView.clicks(mBtnStart)
-                .throttleFirst(2,TimeUnit.SECONDS)
-                .subscribe(new Observer<Unit>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
 
-                    }
 
-                    @Override
-                    public void onNext(Unit unit) {
-                        Log.d(TAG, "发送了网络请求" );
-                    }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.d(TAG, "对Error事件作出响应" + e.toString());
-                    }
+//        RxView.clicks(mBtnStart)
+//                .throttleFirst(2,TimeUnit.SECONDS)
+//                .subscribe(new Observer<Unit>() {
+//                    @Override
+//                    public void onSubscribe(Disposable d) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onNext(Unit unit) {
+//                        Log.d(TAG, "发送了网络请求" );
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        Log.d(TAG, "对Error事件作出响应" + e.toString());
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//                        Log.d(TAG, "对Complete事件作出响应");
+//                    }
+//                });
+    }
+    @OnClick(R.id.bt_start)
+    private void onClick(View view){
+        switch (view.getId()){
+            case R.id.bt_start:
+                request();
+                break;
+        }
+    }
 
-                    @Override
-                    public void onComplete() {
-                        Log.d(TAG, "对Complete事件作出响应");
-                    }
-                });
+    private void request() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://fy.iciba.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        GetRequestInterfaceRetrofit getRequestInterfaceRetrofit = retrofit.create(GetRequestInterfaceRetrofit.class);
+        Call<Translation> call = getRequestInterfaceRetrofit.getCall();
+        call.enqueue(new Callback<Translation>() {
+            @Override
+            public void onResponse(Call<Translation> call, Response<Translation> response) {
+                Log.i(TAG,"response:"+response.body().toString());
+            }
+
+            @Override
+            public void onFailure(Call<Translation> call, Throwable t) {
+                Log.i(TAG,"failed");
+            }
+        });
     }
 }

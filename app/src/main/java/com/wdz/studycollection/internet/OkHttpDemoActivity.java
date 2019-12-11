@@ -54,7 +54,7 @@ public class OkHttpDemoActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
     }
-    @OnClick({R.id.btn_get,R.id.btn_post,R.id.bt_startDown})
+    @OnClick({R.id.btn_get,R.id.btn_post,R.id.bt_startDown,R.id.bt_pauseDown,R.id.bt_cancelDown})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.btn_get:
@@ -67,6 +67,7 @@ public class OkHttpDemoActivity extends AppCompatActivity {
                 testInterceptor();
                 break;
             case R.id.bt_startDown:
+                startDownload();
                 new DownLoadTask(new DownLoadListener() {
                     @Override
                     void onProgress(int progress) {
@@ -75,24 +76,30 @@ public class OkHttpDemoActivity extends AppCompatActivity {
 
                     @Override
                     void onSuccess() {
-
+                        Log.i(TAG,"file existed");
                     }
 
                     @Override
                     void onFailed() {
-
+                        Log.i(TAG,"download fail");
                     }
 
                     @Override
                     void onPaused() {
-
+                        Log.i(TAG,"download pause");
                     }
 
                     @Override
                     void onCanceled() {
-
+                        Log.i(TAG,"download cancel");
                     }
                 }).execute(downUrl);
+                break;
+            case R.id.bt_pauseDown:
+                pauseDownload();
+                break;
+            case R.id.bt_cancelDown:
+                cancelDownload();
                 break;
         }
     }
@@ -269,6 +276,7 @@ public class OkHttpDemoActivity extends AppCompatActivity {
             if (file.exists()){
                 downloadLength = file.length();
             }
+            //获取文件大小
             long contentSize = getContentSize(downUrl);
             if (contentSize == 0){
                 return TYPE_FAILED;
@@ -286,7 +294,7 @@ public class OkHttpDemoActivity extends AppCompatActivity {
                 if (response!=null){
                     inputStream = response.body().byteStream();
                     savedFile = new RandomAccessFile(file, "rw");
-                    savedFile.seek(downloadLength);
+                    savedFile.seek(downloadLength);//跳过已下载的字节
                     byte[] bytes = new byte[1024];
                     int total = 0;
                     int length;
@@ -334,6 +342,7 @@ public class OkHttpDemoActivity extends AppCompatActivity {
         @Override
         protected void onProgressUpdate(Integer... values) {
             int progress = values[0];
+            Log.i(TAG,"progress:"+progress);
             if (progress>lastProgress){
                 downloadListener.onProgress(progress);
                 lastProgress = progress;
@@ -359,6 +368,10 @@ public class OkHttpDemoActivity extends AppCompatActivity {
         }
     }
 
+    public void startDownload(){
+        isPaused = false;
+        isCanceled = false;
+    }
     public void pauseDownload(){
         isPaused = true;
     }
