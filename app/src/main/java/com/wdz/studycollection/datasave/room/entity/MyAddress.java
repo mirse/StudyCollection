@@ -5,6 +5,7 @@ public class MyAddress {
     public String street;
 
 
+
     public MyAddress(String city, String street) {
         this.city = city;
         this.street = street;

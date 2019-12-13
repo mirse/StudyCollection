@@ -152,7 +152,7 @@ public class RoomTestActivity extends PermissionActivity {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.bt_add_person:
-                new insertPersonAsyncTask().execute(new Person(mEtPersonName.getText().toString(),Integer.parseInt(mEtPersonAge.getText().toString())));
+                new insertPersonAsyncTask().execute(new Person(mEtPersonName.getText().toString(),Integer.parseInt(mEtPersonAge.getText().toString()),new byte[256]));
                 break;
             case R.id.bt_add_clothes:
                 new insertClothesAsyncTask(personDao,mEtClothesColor,mEtFatherId).execute();

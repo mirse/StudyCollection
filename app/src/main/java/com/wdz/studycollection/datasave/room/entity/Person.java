@@ -1,5 +1,7 @@
 package com.wdz.studycollection.datasave.room.entity;
 
+import java.util.Arrays;
+
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -11,6 +13,7 @@ public class Person {
     public int uid;
     public String name;
     public int age;
+    public byte[] uuid;
     @Ignore
     public int money;
     @Embedded
@@ -21,9 +24,18 @@ public class Person {
     }
 
     @Ignore
-    public Person(String name, int age) {
+    public Person(String name, int age,byte[] uuid) {
         this.name = name;
         this.age = age;
+        this.uuid = uuid;
+    }
+
+    public byte[] getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(byte[] uuid) {
+        this.uuid = uuid;
     }
 
     @Override
@@ -32,6 +44,7 @@ public class Person {
                 "uid=" + uid +
                 ", name='" + name + '\'' +
                 ", age=" + age +
+                ", uuid=" + Arrays.toString(uuid) +
                 ", money=" + money +
                 ", address=" + address +
                 '}';
