@@ -29,6 +29,8 @@ import com.wdz.studycollection.asynctask.AsyncTaskActivity;
 import com.wdz.studycollection.datasave.parcelable.ParcelableDemoActivity;
 import com.wdz.studycollection.datasave.room.RoomTestActivity;
 import com.wdz.studycollection.datasave.SharedPreferenceActivity;
+import com.wdz.studycollection.eventbus.MessageEvent;
+import com.wdz.studycollection.eventbus.RxBus;
 import com.wdz.studycollection.fragment.FragmentActivity;
 import com.wdz.studycollection.fragment.revolve.FixProblemsActivity;
 import com.wdz.studycollection.fragment.revolve.SavedInstanceStateUsingActivity;
@@ -55,14 +57,23 @@ import com.wdz.studycollection.viewbase.CoordinateSystemActivity;
 import com.wdz.studycollection.viewbase.floating.FloatingViewActivity;
 import com.wdz.studycollection.viewbase.scroller.ScrollerActivity;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 public class MainActivity extends AppCompatActivity implements MainAdapter.ItemClickListener {
 
     private RecyclerView mRecycleView;
     private MainAdapter mainAdapter;
     private static final String TAG = "MainActivity";
+    private RxBus rxBus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,8 +83,46 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
             supportActionBar.hide();
         }
         initMain();
+
+        initRxBus();
+        //EventBus.getDefault().register(this);
         Toast.makeText(this,"瀑布流拖拽problem",Toast.LENGTH_SHORT).show();
     }
+
+    private void initRxBus() {
+        rxBus = RxBus.getInstance();
+        Disposable disposable = rxBus.doSubscribe(String.class, new Consumer<String>() {
+            @Override
+            public void accept(String integer) throws Exception {
+                Log.d(TAG, integer + "");
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                Log.e(TAG, throwable.toString());
+            }
+        });
+        rxBus.addSubscription(this,disposable);
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+        rxBus.unSubscription(this);
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onSubscribe(MessageEvent messageEvent){
+        Log.i(TAG,messageEvent.getMessage());
+    }
+
+    @Subscribe(threadMode = ThreadMode.POSTING,sticky = true)
+    public void onStickySubscribe(MessageEvent messageEvent){
+        Log.i(TAG,"sticky:"+messageEvent.getMessage());
+    }
+
+
 
     private void initMain() {
         mRecycleView = findViewById(R.id.rv);
@@ -115,6 +164,8 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                 switch (view.getId()){
                     case R.id.button:
                         startActivity(new Intent(this,ColorPickerActivity.class));
+                        //eventBus 订阅粘性事件
+                        EventBus.getDefault().register(this);
                         break;
                     case R.id.button2:
                         startActivity(new Intent(this,ColorPicker1Activity.class));

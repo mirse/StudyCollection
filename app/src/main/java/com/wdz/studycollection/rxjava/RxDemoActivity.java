@@ -38,7 +38,12 @@ import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.jakewharton.rxbinding3.view.RxView;
 import com.jakewharton.rxbinding3.widget.RxTextView;
 import com.wdz.studycollection.R;
+import com.wdz.studycollection.eventbus.MessageEvent;
+import com.wdz.studycollection.eventbus.RxBus;
 import com.wdz.studycollection.rxjava.bean.Translation;
+import com.wdz.studycollection.rxjava.bean.TranslationEnToCh;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -506,14 +511,39 @@ public class RxDemoActivity extends AppCompatActivity {
 //                });
     }
     @OnClick(R.id.bt_start)
-    private void onClick(View view){
+    public void onClick(View view){
         switch (view.getId()){
             case R.id.bt_start:
-                request();
+                en2Ch();
+                //EventBus.getDefault().post(new MessageEvent("eventbus 回调了"));
+                //EventBus.getDefault().postSticky(new MessageEvent("sticky eventbus 回调"));
+                RxBus.getInstance().post("I am Rxbus");
                 break;
         }
     }
 
+    private void en2Ch(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://fanyi.youdao.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        GetRequestInterfaceRetrofit getRequestInterfaceRetrofit = retrofit.create(GetRequestInterfaceRetrofit.class);
+        Call<TranslationEnToCh> call = getRequestInterfaceRetrofit.getCall_2("I love you");
+        call.enqueue(new Callback<TranslationEnToCh>() {
+            @Override
+            public void onResponse(Call<TranslationEnToCh> call, Response<TranslationEnToCh> response) {
+                Log.i(TAG,"response:"+response.body().toString());
+            }
+
+            @Override
+            public void onFailure(Call<TranslationEnToCh> call, Throwable t) {
+                Log.i(TAG,"failed");
+            }
+        });
+    }
+    /**
+     * eng -> chinese
+     */
     private void request() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://fy.iciba.com/")
