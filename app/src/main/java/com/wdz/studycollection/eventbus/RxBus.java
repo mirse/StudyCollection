@@ -20,6 +20,7 @@ public class RxBus {
     private HashMap<String, CompositeDisposable> mHashMap;
 
     private RxBus(){
+        //转换成一个线程安全的Subject对象
         mSubject = PublishSubject.create().toSerialized();
     }
     public static RxBus getInstance(){
@@ -35,7 +36,13 @@ public class RxBus {
     public void post(Object object){
         mSubject.onNext(object);
     }
-
+    /**
+     * 返回指定类型的带背压的Flowable实例
+     *
+     * @param <T>
+     * @param type
+     * @return
+     */
     public <T>Flowable<T> getObservable(Class<T> type){
         return mSubject.toFlowable(BackpressureStrategy.BUFFER)
                 .ofType(type);

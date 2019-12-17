@@ -39,6 +39,7 @@ import com.wdz.studycollection.handler.HandlerDemoActivity;
 import com.wdz.studycollection.handler.LoadPicActivity;
 import com.wdz.studycollection.indicatorview.IndicatorActivity;
 import com.wdz.studycollection.internet.OkHttpDemoActivity;
+import com.wdz.studycollection.internet.glide.GlideActivity;
 import com.wdz.studycollection.jetpack.viewmodel.ViewModelActivity;
 import com.wdz.studycollection.materialdesign.DrawerLayoutActivity;
 import com.wdz.studycollection.media.CameraXActivity;
@@ -140,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                 {"角标效果","Group实现","View实现","ImageV实现","指示器","fragment循环","viewpage循环"},
                 {"字母索引","列表索引","Login-mvp","mvp_test","save_test","选择器","recyclerView"},
                 {"视图","LayoutInflater","瀑布流","界面旋转修复","Fragment","与viewpager","界面旋转"},
-                {"网络通信","Socket通信","AsyncTask","Handler","handler切换线程","OkHttp",""},
+                {"网络通信","Socket通信","AsyncTask","Handler","handler切换线程","OkHttp","Glide"},
                 {"数据存储","Sp","Room","序列化","","",""},
                 {"View合集","坐标系","悬浮窗","Scroller","","",""},
                 {"动画合集","属性动画","","","","",""},
@@ -276,7 +277,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                         startActivity(new Intent(this, OkHttpDemoActivity.class));
                         break;
                     case R.id.button6:
-                        //startActivity(new Intent(this, SavedInstanceStateUsingActivity.class));
+                        startActivity(new Intent(this, GlideActivity.class));
                         break;
                     default:
                         break;

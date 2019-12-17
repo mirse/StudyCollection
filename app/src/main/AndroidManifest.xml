@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".internet.OkHttpDemoActivity"></activity>
+        <activity android:name=".internet.glide.GlideActivity"></activity>
+        <activity android:name=".internet.OkHttpDemoActivity" />
         <activity android:name=".rxjava.RxDemoActivity" />
         <activity android:name=".datasave.parcelable.ParcelableNextActivity" />
         <activity android:name=".datasave.parcelable.ParcelableDemoActivity" />
