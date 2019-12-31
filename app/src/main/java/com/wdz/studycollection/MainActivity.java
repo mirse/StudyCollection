@@ -1,9 +1,13 @@
 package com.wdz.studycollection;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 
+import android.content.ServiceConnection;
 import android.os.Bundle;
 
+import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -88,6 +92,23 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
         initRxBus();
         //EventBus.getDefault().register(this);
         Toast.makeText(this,"瀑布流拖拽problem",Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(this, MainService.class);
+        MyServiceConnection myServiceConnection = new MyServiceConnection();
+        bindService(intent, myServiceConnection, Context.BIND_NOT_FOREGROUND);
+    }
+
+    class MyServiceConnection implements ServiceConnection{
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
     }
 
     private void initRxBus() {

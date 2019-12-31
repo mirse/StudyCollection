@@ -16,7 +16,7 @@ public class DBInstance {
         if (appDataBase==null){
             synchronized (DBInstance.class){
                 appDataBase = Room.databaseBuilder(MyApplication.getInstance(),AppDataBase.class,DB_NAME)
-                        .addMigrations(MIGRATION_1_2)
+                        //.addMigrations(MIGRATION_1_2)
                         .build();
             }
         }
@@ -25,9 +25,9 @@ public class DBInstance {
     static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
-            //此处对于数据库中的所有更新都需要写下面的代码
-            database.execSQL("ALTER TABLE person "
-                    + " ADD COLUMN uuid BLOB ");
+            //exec增加新列
+//            database.execSQL("ALTER TABLE person "
+//                    + " ADD COLUMN uuid BLOB ");
 
 
         }

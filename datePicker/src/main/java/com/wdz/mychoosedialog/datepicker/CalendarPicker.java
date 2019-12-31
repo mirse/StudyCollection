@@ -3,7 +3,9 @@ package com.wdz.mychoosedialog.datepicker;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.nfc.Tag;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -41,6 +43,7 @@ public class CalendarPicker implements View.OnClickListener, PickerView.OnSelect
      * 时间单位的最大显示值
      */
     private static final int MAX_MONTH_UNIT = 12;
+    private static final int MIN_MONTH_UNIT = 1;
 
     /**
      * 级联滚动延迟时间
@@ -140,6 +143,9 @@ public class CalendarPicker implements View.OnClickListener, PickerView.OnSelect
         boolean canSpanYear = mBeginYear != mEndYear;
         boolean canSpanMon = !canSpanYear && mBeginMonth != mEndMonth;
         boolean canSpanDay = !canSpanMon && mBeginDay != mEndDay;
+        Log.i(TAG,"canSpanYear:"+canSpanYear+" mBeginYear:"+mBeginYear+" mEndYear:"+mEndYear);
+        Log.i(TAG,"canSpanMon:"+canSpanMon+" mBeginMonth:"+mBeginMonth+" mEndMonth:"+mEndMonth);
+        Log.i(TAG,"canSpanDay:"+canSpanDay+" mBeginDay:"+mBeginDay+" mEndDay:"+mEndDay);
         if (canSpanYear) {
             initDateUnits(MAX_MONTH_UNIT, mBeginTime.getActualMaximum(Calendar.DAY_OF_MONTH));
         }
@@ -327,13 +333,48 @@ public class CalendarPicker implements View.OnClickListener, PickerView.OnSelect
         for (int i = mBeginYear; i <= mEndYear; i++) {
             mYearUnits.add(String.valueOf(i));
         }
-        for (int i = mBeginMonth; i <= endMonth; i++) {
-            mMonthUnits.add(monthArray[i-1]);
-        }
+        Log.i(TAG,"mBeginMonth:"+mBeginMonth+" mEndMonth:"+mEndMonth);
+        //2019.12 - 2020.1
+//        if (mBeginMonth<mEndMonth){
+//            for (int i = mBeginMonth; i <= mEndMonth; i++) {
+//                mMonthUnits.add(monthArray[i-1]);
+//            }
+//        }
+//        else{
+//            for (int i = mBeginMonth; i <= MAX_MONTH_UNIT; i++) {
+//                mMonthUnits.add(monthArray[i-1]);
+//            }
+//            for (int i = 1; i <= mEndMonth; i++) {
+//                mMonthUnits.add(monthArray[i-1]);
+//            }
+//        }
 
-        for (int i = mBeginDay; i <= endDay; i++) {
+         for (int i = mBeginMonth; i <= mEndMonth; i++) {
+             mMonthUnits.add(monthArray[i-1]);
+         }
+
+        Log.i(TAG,"mBeginDay:"+mBeginDay+" mEndDay:"+mEndDay);
+        //12.31-1.1
+//        if (mBeginDay<mEndDay){
+//            for (int i = mBeginDay; i <= endDay; i++) {
+//                mDayUnits.add(mDecimalFormat.format(i));
+//            }
+//        }
+//        else{
+//            for (int i = mBeginDay; i <= endDay; i++) {
+//                mDayUnits.add(mDecimalFormat.format(i));
+//            }
+//            for (int i = 1; i <= mEndDay; i++) {
+//                mDayUnits.add(mDecimalFormat.format(i));
+//            }
+//        }
+
+
+        for (int i = mBeginDay; i <= mEndDay; i++) {
             mDayUnits.add(mDecimalFormat.format(i));
         }
+
+
         mDpvYear.setDataList(mYearUnits);
         mDpvYear.setSelected(0);
         mDpvMonth.setDataList(mMonthUnits);
@@ -344,6 +385,7 @@ public class CalendarPicker implements View.OnClickListener, PickerView.OnSelect
     }
 
     private void setCanScroll() {
+        Log.i(TAG,"canSpanYear:"+(mYearUnits.size())+" canSpanMon:"+ (mMonthUnits.size())+" canSpanDay----------"+(mDayUnits.size()));
         mDpvYear.setCanScroll(mYearUnits.size() > 1);
         mDpvMonth.setCanScroll(mMonthUnits.size() > 1);
         mDpvDay.setCanScroll(mDayUnits.size() > 1);
