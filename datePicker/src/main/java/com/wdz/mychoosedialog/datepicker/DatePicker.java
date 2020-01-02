@@ -6,8 +6,11 @@ public class DatePicker {
 
     private final CalendarPicker calendarPicker;
 
-    public DatePicker(Context context, CalendarPicker.Callback callback) {
-        calendarPicker = new CalendarPicker(context,callback);
+    public DatePicker(Context context) {
+        calendarPicker = new CalendarPicker(context);
+    }
+    public void setOnSelectListener(CalendarPicker.Callback callback){
+        calendarPicker.mCallBack = callback;
     }
     public DatePicker isCancelable(boolean isCancekable){
         calendarPicker.isCancelable = isCancekable;
@@ -25,7 +28,8 @@ public class DatePicker {
         calendarPicker.setTime(beginTime,endTime);
         return this;
     }
-    public void create(){
+    public DatePicker create(){
         calendarPicker.show();
+        return this;
     }
 }

@@ -27,7 +27,12 @@ public class DatePickerActivity extends AppCompatActivity {
     private static final String TAG = "DatePickerActivity";
     private TimerPicker timerPicker;
     private Handler handler = new Handler();
-    private int DAY_6 = 6*24*60*60*1000;
+
+
+    /**
+     * 6天为一单位，long
+     */
+    private long DAY_6 = 6*24*60*60*1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,23 +137,28 @@ public class DatePickerActivity extends AppCompatActivity {
 
                 break;
             case R.id.bt_show_date:
-
-                new DatePicker(this, new CalendarPicker.Callback() {
-                    @Override
-                    public void selectDate(Long date) {
-                        Log.i(TAG,"data:"+System.currentTimeMillis());
-                    }
-
-                    @Override
-                    public void onCancel() {
-
-                    }
-                })
-                        .setTime(System.currentTimeMillis(),System.currentTimeMillis()+DAY_6)
+                Log.i(TAG,"System.currentTimeMillis():"+System.currentTimeMillis());
+                Log.i(TAG,"6*DAY_6:"+6*DAY_6);
+                Log.i(TAG, "start:"+(System.currentTimeMillis()-6*DAY_6));
+                Log.i(TAG, "end:"+(System.currentTimeMillis()+DAY_6));
+                new DatePicker(this)
+                        .setTime((System.currentTimeMillis()-60*DAY_6),System.currentTimeMillis()+DAY_6)
                         .showTime(DateFormatUtils.long2Str(System.currentTimeMillis()))
                         .isCancelable(true)
                         .isScrollLoop(true)
-                        .create();
+                        .create()
+                        .setOnSelectListener(new CalendarPicker.Callback() {
+                            @Override
+                            public void selectDate(Long date) {
+                                Log.i(TAG,"data:"+System.currentTimeMillis());
+                            }
+
+                            @Override
+                            public void onCancel() {
+
+                            }
+                        });
+
 
 //                CalendarPicker calendarPicker = new CalendarPicker(this, new CalendarPicker.Callback() {
 //                    @Override

@@ -44,6 +44,7 @@ public class CalendarPicker implements View.OnClickListener, PickerView.OnSelect
      */
     private static final int MAX_MONTH_UNIT = 12;
     private static final int MIN_MONTH_UNIT = 1;
+    private static final int MIN_DAY_UNIT = 1;
 
     /**
      * 级联滚动延迟时间
@@ -54,7 +55,7 @@ public class CalendarPicker implements View.OnClickListener, PickerView.OnSelect
     private static final String TAG = "CalendarPicker";
     private Dialog mCalendarPicker;
     private final boolean mCanDialogShow;
-    private Callback mCallBack;
+    public Callback mCallBack;
     private List<String> mYearUnits;
     private List<String> mMonthUnits;
     private List<String> mDayUnits;
@@ -79,15 +80,17 @@ public class CalendarPicker implements View.OnClickListener, PickerView.OnSelect
     }
 
 
-
-    public CalendarPicker(Context context,  Callback callback) {
-
-        if (context == null || callback == null ) {
+    /**
+     * @param context
+     * 默认初始日期2000.01.01
+     *     终止日期当前日期
+     */
+    public CalendarPicker(Context context) {
+        if (context == null) {
             mCanDialogShow = false;
             return;
         }
         mContext = context;
-        mCallBack = callback;
         //起始时间
         mBeginTime = Calendar.getInstance();
         beginTimestamp = DateFormatUtils.str2Long("2000-01-01");
@@ -104,57 +107,6 @@ public class CalendarPicker implements View.OnClickListener, PickerView.OnSelect
         initData();
 
         mCanDialogShow = true;
-
-    }
-    public void setTime(long beginTime,long endTime){
-        //起始时间
-        mBeginTime = Calendar.getInstance();
-        beginTimestamp =beginTime;
-        mBeginTime.setTimeInMillis(beginTimestamp);
-        //终止时间
-        mEndTime = Calendar.getInstance();
-        endTimestamp = endTime;
-        mEndTime.setTimeInMillis(endTimestamp);
-        //选择时间
-        mSelectedTime = Calendar.getInstance();
-        //加载数据资源
-        initData();
-    }
-
-
-
-    private void initData() {
-        monthArray = mContext.getResources().getStringArray(R.array.month);
-        mYearUnits = new ArrayList<>();
-        mMonthUnits = new ArrayList<>();
-        mDayUnits = new ArrayList<>();
-
-        mSelectedTime.setTimeInMillis(mBeginTime.getTimeInMillis());
-
-        mBeginYear = mBeginTime.get(Calendar.YEAR);
-        // Calendar.MONTH 值为 0-11
-        mBeginMonth = mBeginTime.get(Calendar.MONTH) + 1;
-        mBeginDay = mBeginTime.get(Calendar.DAY_OF_MONTH);
-        mEndYear = mEndTime.get(Calendar.YEAR);
-        mEndMonth = mEndTime.get(Calendar.MONTH) + 1;
-        mEndDay = mEndTime.get(Calendar.DAY_OF_MONTH);
-
-
-        boolean canSpanYear = mBeginYear != mEndYear;
-        boolean canSpanMon = !canSpanYear && mBeginMonth != mEndMonth;
-        boolean canSpanDay = !canSpanMon && mBeginDay != mEndDay;
-        Log.i(TAG,"canSpanYear:"+canSpanYear+" mBeginYear:"+mBeginYear+" mEndYear:"+mEndYear);
-        Log.i(TAG,"canSpanMon:"+canSpanMon+" mBeginMonth:"+mBeginMonth+" mEndMonth:"+mEndMonth);
-        Log.i(TAG,"canSpanDay:"+canSpanDay+" mBeginDay:"+mBeginDay+" mEndDay:"+mEndDay);
-        if (canSpanYear) {
-            initDateUnits(MAX_MONTH_UNIT, mBeginTime.getActualMaximum(Calendar.DAY_OF_MONTH));
-        }
-        else if (canSpanMon) {
-            initDateUnits(mEndMonth, mBeginTime.getActualMaximum(Calendar.DAY_OF_MONTH));
-        }
-        else if (canSpanDay) {
-            initDateUnits(mEndMonth, mEndDay);
-        }
 
     }
 
@@ -192,6 +144,100 @@ public class CalendarPicker implements View.OnClickListener, PickerView.OnSelect
         }
     }
 
+    public void setTime(long beginTime,long endTime){
+        //起始时间
+        mBeginTime = Calendar.getInstance();
+        beginTimestamp =beginTime;
+        mBeginTime.setTimeInMillis(beginTimestamp);
+        //终止时间
+        mEndTime = Calendar.getInstance();
+        endTimestamp = endTime;
+        mEndTime.setTimeInMillis(endTimestamp);
+        //选择器选择时间
+        mSelectedTime = Calendar.getInstance();
+        //加载数据资源
+        initData();
+    }
+
+
+
+    private void initData() {
+        monthArray = mContext.getResources().getStringArray(R.array.month);
+        mYearUnits = new ArrayList<>();
+        mMonthUnits = new ArrayList<>();
+        mDayUnits = new ArrayList<>();
+
+        mSelectedTime.setTimeInMillis(mBeginTime.getTimeInMillis());
+
+        mBeginYear = mBeginTime.get(Calendar.YEAR);
+        // Calendar.MONTH 值为 0-11
+        mBeginMonth = mBeginTime.get(Calendar.MONTH) + 1;
+        mBeginDay = mBeginTime.get(Calendar.DAY_OF_MONTH);
+        mEndYear = mEndTime.get(Calendar.YEAR);
+        mEndMonth = mEndTime.get(Calendar.MONTH) + 1;
+        mEndDay = mEndTime.get(Calendar.DAY_OF_MONTH);
+
+
+        boolean canSpanYear = mBeginYear != mEndYear;
+        boolean canSpanMon = !canSpanYear && mBeginMonth != mEndMonth;
+        boolean canSpanDay = !canSpanMon && mBeginDay != mEndDay;
+        Log.i(TAG,"canSpanYear:"+canSpanYear+" mBeginYear:"+mBeginYear+" mEndYear:"+mEndYear);
+        Log.i(TAG,"canSpanMon:"+canSpanMon+" mBeginMonth:"+mBeginMonth+" mEndMonth:"+mEndMonth);
+        Log.i(TAG,"canSpanDay:"+canSpanDay+" mBeginDay:"+mBeginDay+" mEndDay:"+mEndDay);
+        if (canSpanYear) {
+            initDateUnits(mEndMonth, mBeginTime.getActualMaximum(Calendar.DAY_OF_MONTH));
+        }
+        else if (canSpanMon) {
+            initDateUnits(mEndMonth, mBeginTime.getActualMaximum(Calendar.DAY_OF_MONTH));
+        }
+        else if (canSpanDay) {
+            initDateUnits(mEndMonth, mEndDay);
+        }
+
+    }
+
+    /**
+     * @param endMonth 当前设置的最后月份
+     * @param endDay  指定日期的当月总天数
+     */
+    private void initDateUnits(int endMonth, int endDay) {
+        mYearUnits.clear();
+        mMonthUnits.clear();
+        mDayUnits.clear();
+        for (int i = mBeginYear; i <= mEndYear; i++) {
+            mYearUnits.add(String.valueOf(i));
+        }
+        Log.i(TAG,"mBeginMonth:"+mBeginMonth+" endMonth:"+endMonth);
+        Log.i(TAG,"mBeginDay:"+mBeginDay+" endDay:"+endDay);
+        // TODO: 2020/1/2 当前是否可以滑动
+        if (mBeginMonth<endMonth){
+            for (int i = mBeginMonth; i <= endMonth; i++) {
+                mMonthUnits.add(monthArray[i-1]);
+            }
+        }
+        if (mBeginDay<endDay){
+            for (int i = mBeginDay; i <= endDay; i++) {
+                mDayUnits.add(mDecimalFormat.format(i));
+            }
+        }
+        mDpvYear.setDataList(mYearUnits);
+        mDpvYear.setSelected(0);
+        mDpvMonth.setDataList(mMonthUnits);
+        mDpvMonth.setSelected(0);
+        mDpvDay.setDataList(mDayUnits);
+        mDpvDay.setSelected(0);
+        setCanScroll();
+    }
+
+    private void setCanScroll() {
+        Log.i(TAG,"canSpanYear:"+(mYearUnits.size())+" canSpanMon:"+ (mMonthUnits.size())+" canSpanDay----------"+(mDayUnits.size()));
+        mDpvYear.setCanScroll(mYearUnits.size() > 1);
+        mDpvMonth.setCanScroll(mMonthUnits.size() > 1);
+        mDpvDay.setCanScroll(mDayUnits.size() > 1);
+    }
+
+
+
     @Override
     public void onClick(View v) {
         int i = v.getId();
@@ -218,11 +264,6 @@ public class CalendarPicker implements View.OnClickListener, PickerView.OnSelect
         }
 
         int timeUnit;
-//        try {
-//            timeUnit = Integer.parseInt(selected);
-//        } catch (Throwable ignored) {
-//            return;
-//        }
 
         int i = view.getId();
         if (i == R.id.dpv_year) {
@@ -231,8 +272,8 @@ public class CalendarPicker implements View.OnClickListener, PickerView.OnSelect
             linkageMonthUnit(true, LINKAGE_DELAY_DEFAULT);
         }
         else if (i == R.id.dpv_month) {
-            timeUnit = month2Num(selected);
-            // 防止类似 2018/12/31 滚动到11月时因溢出变成 2018/12/01
+            timeUnit = month2Num(selected)+1;
+            // TODO: 2020/1/2 修改选择时间位置
             int lastSelectedMonth = mSelectedTime.get(Calendar.MONTH) + 1;
             mSelectedTime.add(Calendar.MONTH, timeUnit - lastSelectedMonth);
             linkageDayUnit(true, LINKAGE_DELAY_DEFAULT);
@@ -293,103 +334,11 @@ public class CalendarPicker implements View.OnClickListener, PickerView.OnSelect
             }
         }
         return 0;
-//        switch (month){
-//            case "January":
-//                return 1;
-//            case "February":
-//                return 2;
-//            case "March":
-//                return 3;
-//            case "April":
-//                return 4;
-//            case "May":
-//                return 5;
-//            case "June":
-//                return 6;
-//            case "July":
-//                return 7;
-//            case "August":
-//                return 8;
-//            case "September":
-//                return 9;
-//            case "October":
-//                return 10;
-//            case "November":
-//                return 11;
-//            case "December":
-//                return 12;
-//            default:
-//                return 0;
-//
-//        }
     }
 
 
 
-    private void initDateUnits(int endMonth, int endDay) {
-        mYearUnits.clear();
-        mMonthUnits.clear();
-        mDayUnits.clear();
-        for (int i = mBeginYear; i <= mEndYear; i++) {
-            mYearUnits.add(String.valueOf(i));
-        }
-        Log.i(TAG,"mBeginMonth:"+mBeginMonth+" mEndMonth:"+mEndMonth);
-        //2019.12 - 2020.1
-//        if (mBeginMonth<mEndMonth){
-//            for (int i = mBeginMonth; i <= mEndMonth; i++) {
-//                mMonthUnits.add(monthArray[i-1]);
-//            }
-//        }
-//        else{
-//            for (int i = mBeginMonth; i <= MAX_MONTH_UNIT; i++) {
-//                mMonthUnits.add(monthArray[i-1]);
-//            }
-//            for (int i = 1; i <= mEndMonth; i++) {
-//                mMonthUnits.add(monthArray[i-1]);
-//            }
-//        }
 
-         for (int i = mBeginMonth; i <= mEndMonth; i++) {
-             mMonthUnits.add(monthArray[i-1]);
-         }
-
-        Log.i(TAG,"mBeginDay:"+mBeginDay+" mEndDay:"+mEndDay);
-        //12.31-1.1
-//        if (mBeginDay<mEndDay){
-//            for (int i = mBeginDay; i <= endDay; i++) {
-//                mDayUnits.add(mDecimalFormat.format(i));
-//            }
-//        }
-//        else{
-//            for (int i = mBeginDay; i <= endDay; i++) {
-//                mDayUnits.add(mDecimalFormat.format(i));
-//            }
-//            for (int i = 1; i <= mEndDay; i++) {
-//                mDayUnits.add(mDecimalFormat.format(i));
-//            }
-//        }
-
-
-        for (int i = mBeginDay; i <= mEndDay; i++) {
-            mDayUnits.add(mDecimalFormat.format(i));
-        }
-
-
-        mDpvYear.setDataList(mYearUnits);
-        mDpvYear.setSelected(0);
-        mDpvMonth.setDataList(mMonthUnits);
-        mDpvMonth.setSelected(0);
-        mDpvDay.setDataList(mDayUnits);
-        mDpvDay.setSelected(0);
-        setCanScroll();
-    }
-
-    private void setCanScroll() {
-        Log.i(TAG,"canSpanYear:"+(mYearUnits.size())+" canSpanMon:"+ (mMonthUnits.size())+" canSpanDay----------"+(mDayUnits.size()));
-        mDpvYear.setCanScroll(mYearUnits.size() > 1);
-        mDpvMonth.setCanScroll(mMonthUnits.size() > 1);
-        mDpvDay.setCanScroll(mDayUnits.size() > 1);
-    }
 
     /**
      * 联动“月”变化
@@ -427,9 +376,13 @@ public class CalendarPicker implements View.OnClickListener, PickerView.OnSelect
         int selectedMonth = getValueInRange(mSelectedTime.get(Calendar.MONTH) + 1, minMonth, maxMonth);
         mSelectedTime.set(Calendar.MONTH, selectedMonth - 1);
         mDpvMonth.setSelected(selectedMonth - minMonth);
+        // TODO: 2020/1/2 添加滑动判断
+        setCanScroll();
         if (showAnim) {
             mDpvMonth.startAnim();
         }
+
+
 
         // 联动“日”变化
         mDpvMonth.postDelayed(new Runnable() {
@@ -475,6 +428,8 @@ public class CalendarPicker implements View.OnClickListener, PickerView.OnSelect
         int selectedDay = getValueInRange(mSelectedTime.get(Calendar.DAY_OF_MONTH), minDay, maxDay);
         mSelectedTime.set(Calendar.DAY_OF_MONTH, selectedDay);
         mDpvDay.setSelected(selectedDay - minDay);
+        // TODO: 2020/1/2 添加滑动判断
+        setCanScroll();
         if (showAnim) {
             mDpvDay.startAnim();
         }

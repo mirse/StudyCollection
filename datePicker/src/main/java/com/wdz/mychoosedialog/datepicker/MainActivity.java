@@ -44,28 +44,28 @@ public class MainActivity extends AppCompatActivity {
         mTimerPicker.setScrollLoop(false);
 
 
-
-        final CalendarPicker mCalendarPicker = new CalendarPicker(this, new CalendarPicker.Callback() {
-            @Override
-            public void selectDate(Long str) {
-
-            }
-
-            @Override
-            public void onCancel() {
-
-            }
-        });
-        //设置显示范围
-        mCalendarPicker.setTime(DateFormatUtils.str2Long("1999-05-03"),System.currentTimeMillis());
-        //设置当前显示日期
-        mCalendarPicker.showTime(DateFormatUtils.long2Str(System.currentTimeMillis()));
-        //允许点击屏幕或物理返回键关闭
-        mCalendarPicker.setCancelable(true);
-        // 允许循环滚动
-        mCalendarPicker.setScrollLoop(false);
-        // 允许滚动动画
-        mCalendarPicker.setCanShowAnim(true);
+//
+//        final CalendarPicker mCalendarPicker = new CalendarPicker(this, new CalendarPicker.Callback() {
+//            @Override
+//            public void selectDate(Long str) {
+//
+//            }
+//
+//            @Override
+//            public void onCancel() {
+//
+//            }
+//        });
+//        //设置显示范围
+//        mCalendarPicker.setTime(DateFormatUtils.str2Long("1999-05-03"),System.currentTimeMillis());
+//        //设置当前显示日期
+//        mCalendarPicker.showTime(DateFormatUtils.long2Str(System.currentTimeMillis()));
+//        //允许点击屏幕或物理返回键关闭
+//        mCalendarPicker.setCancelable(true);
+//        // 允许循环滚动
+//        mCalendarPicker.setScrollLoop(false);
+//        // 允许滚动动画
+//        mCalendarPicker.setCanShowAnim(true);
 
 
 
