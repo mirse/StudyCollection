@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".datasave.service.ServiceDemoActivity">
+
+    <Button
+        android:id="@+id/bt_start_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Start_Service"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/bt_stop_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Stop_Service"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/bt_start_service"
+        app:layout_constraintStart_toStartOf="@+id/bt_start_service"
+        app:layout_constraintTop_toBottomOf="@+id/bt_start_service"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/bt_bind_service1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Bind_Service_1"
+        app:layout_constraintEnd_toEndOf="@+id/bt_stop_service"
+        app:layout_constraintStart_toStartOf="@+id/bt_stop_service"
+        app:layout_constraintTop_toBottomOf="@+id/bt_stop_service" />
+
+    <Button
+        android:id="@+id/bt_unbind_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Unbind_Service"
+        app:layout_constraintEnd_toEndOf="@+id/bt_bind_service3"
+        app:layout_constraintStart_toStartOf="@+id/bt_bind_service3"
+        app:layout_constraintTop_toBottomOf="@+id/bt_bind_service3" />
+
+    <Button
+        android:id="@+id/bt_bind_service2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Bind_Service_2"
+        app:layout_constraintEnd_toEndOf="@+id/bt_bind_service1"
+        app:layout_constraintStart_toStartOf="@+id/bt_bind_service1"
+        app:layout_constraintTop_toBottomOf="@+id/bt_bind_service1" />
+
+    <Button
+        android:id="@+id/bt_bind_service3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Bind_Service_3"
+        app:layout_constraintEnd_toEndOf="@+id/bt_bind_service2"
+        app:layout_constraintStart_toStartOf="@+id/bt_bind_service2"
+        app:layout_constraintTop_toBottomOf="@+id/bt_bind_service2" />
+</androidx.constraintlayout.widget.ConstraintLayout>

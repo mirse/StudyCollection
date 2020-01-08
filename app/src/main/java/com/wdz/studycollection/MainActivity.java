@@ -33,6 +33,7 @@ import com.wdz.studycollection.asynctask.AsyncTaskActivity;
 import com.wdz.studycollection.datasave.parcelable.ParcelableDemoActivity;
 import com.wdz.studycollection.datasave.room.RoomTestActivity;
 import com.wdz.studycollection.datasave.SharedPreferenceActivity;
+import com.wdz.studycollection.datasave.service.ServiceDemoActivity;
 import com.wdz.studycollection.eventbus.MessageEvent;
 import com.wdz.studycollection.eventbus.RxBus;
 import com.wdz.studycollection.fragment.FragmentActivity;
@@ -163,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                 {"字母索引","列表索引","Login-mvp","mvp_test","save_test","选择器","recyclerView"},
                 {"视图","LayoutInflater","瀑布流","界面旋转修复","Fragment","与viewpager","界面旋转"},
                 {"网络通信","Socket通信","AsyncTask","Handler","handler切换线程","OkHttp","Glide"},
-                {"数据存储","Sp","Room","序列化","","",""},
+                {"数据存储","Sp","Room","序列化","Service","",""},
                 {"View合集","坐标系","悬浮窗","Scroller","","",""},
                 {"动画合集","属性动画","","","","",""},
                 {"多媒体","通知","相机","","","",""},
@@ -316,7 +317,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                         startActivity(new Intent(this, ParcelableDemoActivity.class));
                         break;
                     case R.id.button4:
-                        //startActivity(new Intent(this, FragmentActivity.class));
+                        startActivity(new Intent(this, ServiceDemoActivity.class));
                         break;
                     case R.id.button5:
                         //startActivity(new Intent(this, VpAndFragActivity.class));
