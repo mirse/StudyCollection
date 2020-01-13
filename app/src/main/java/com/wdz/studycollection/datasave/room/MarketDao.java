@@ -1,6 +1,9 @@
 package com.wdz.studycollection.datasave.room;
 
+import com.wdz.studycollection.datasave.room.entity.Market;
 import com.wdz.studycollection.datasave.room.entity.Person;
+
+import java.util.List;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -10,27 +13,25 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import java.util.List;
 //Person
 @Dao
-interface PersonDao {
+interface MarketDao {
 
       @Insert(onConflict = OnConflictStrategy.REPLACE)
-      void insertPerson(Person... person);
+      void insertMarket(Market... market);
 
       @Delete
-      void deletePerson(Person person);
+      void deleteMarket(Market market);
 
       @Update
-      void updatePerson(Person person);
+      void updateMarket(Market market);
 
-      @Query("select * from person where uid=:uid")
-      List<Person> findPersonByUid(int uid);
 
-      @Query("delete from person where uid=:uid")
-      int deletePersonById(int uid);
 
-      @Query("select * from person")
-      LiveData<List<Person>> findPerson();
+      @Query("delete from market where marketId=:id")
+      int deleteMarketById(int id);
+
+      @Query("select * from market")
+      LiveData<List<Market>> findMarket();
 
 }

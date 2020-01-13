@@ -5,15 +5,15 @@ import java.util.Arrays;
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(indices = {@Index(value = {"uid"})})
 public class Person {
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     public int uid;
     public String name;
     public int age;
-    public byte[] uuid;
     @Ignore
     public int money;
     @Embedded
@@ -24,19 +24,13 @@ public class Person {
     }
 
     @Ignore
-    public Person(String name, int age,byte[] uuid) {
+    public Person(String name, int age,int uid) {
+        this.uid = uid;
         this.name = name;
         this.age = age;
-        this.uuid = uuid;
+        //this.uuid = uuid;
     }
 
-    public byte[] getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(byte[] uuid) {
-        this.uuid = uuid;
-    }
 
     @Override
     public String toString() {
@@ -44,7 +38,7 @@ public class Person {
                 "uid=" + uid +
                 ", name='" + name + '\'' +
                 ", age=" + age +
-                ", uuid=" + Arrays.toString(uuid) +
+                //", uuid=" + Arrays.toString(uuid) +
                 ", money=" + money +
                 ", address=" + address +
                 '}';
