@@ -221,7 +221,8 @@
         android:layout_marginTop="16dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_clothes"
         app:layout_constraintTop_toBottomOf="@+id/tv_clothes" />
 
     <Button
@@ -234,13 +235,6 @@
         app:layout_constraintStart_toEndOf="@+id/bt_add_clothes"
         app:layout_constraintTop_toTopOf="@+id/bt_add_clothes" />
 
-    <Button
-        android:id="@+id/bt_add_clothes2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:text="addclothes2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bt_add_market" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

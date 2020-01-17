@@ -78,6 +78,13 @@ public class RoomTestActivity extends PermissionActivity {
                 mTvClothes.setText(people.toString());
             }
         });
+
+        DBInstance.getInstance().marketDao().findAllMarket().observe(this, new Observer<List<Market>>() {
+            @Override
+            public void onChanged(List<Market> markets) {
+                mTvMarket.setText(markets.toString());
+            }
+        });
     }
 
     @Override
@@ -96,7 +103,7 @@ public class RoomTestActivity extends PermissionActivity {
             }
         });
 
-        DBInstance.getInstance().marketDao().findMarket().observe(this, new Observer<List<Market>>() {
+        DBInstance.getInstance().marketDao().findAllMarket().observe(this, new Observer<List<Market>>() {
             @Override
             public void onChanged(List<Market> markets) {
                 mTvMarket.setText(markets.toString());
@@ -167,17 +174,13 @@ public class RoomTestActivity extends PermissionActivity {
             case R.id.bt_add_person:
 //                new insertPersonAsyncTask().execute(new Person(mEtPersonName.getText().toString(),Integer.parseInt(mEtPersonAge.getText().toString()),Integer.parseInt(mEtPersonid.getText().toString()),new byte[0]));
                 new insertPersonAsyncTask().execute(new Person(mEtPersonName.getText().toString(),Integer.parseInt(mEtPersonAge.getText().toString()),Integer.parseInt(mEtPersonid.getText().toString())));
-
-
                 break;
-            case R.id.bt_add_clothes2:
-                //new insertClothes2AsyncTask(mEtFatherId).execute();
-                break;
+
             case R.id.bt_add_clothes:
-                new insertClothesAsyncTask(mEtClothesColor,mEtFatherId).execute();
+                new insertClothesAsyncTask(new Clothes(mEtClothesColor.getText().toString(),Integer.parseInt(mEtPersonid.getText().toString()),Integer.parseInt(mEtFatherId.getText().toString()))).execute();
                 break;
             case R.id.bt_add_market:
-                new insertMarketAsyncTask().execute();
+                new insertMarketAsyncTask(new Market(Integer.parseInt(mEtFatherId.getText().toString()),"街道market")).execute();
                 break;
             case R.id.bt_find_person:
                 new getPersonInfoTask(mEtFatherId).execute();
@@ -278,81 +281,40 @@ public class RoomTestActivity extends PermissionActivity {
 
     private static class insertClothesAsyncTask extends AsyncTask<Person, Void, String> {
 
-        private PersonDao personDao;
-        private EditText mEtClothesColor,mEtFatherId;
-        private String clothesColor;
-        private int fatherId;
 
-        insertClothesAsyncTask(EditText mEtClothesColor, EditText mEtFatherId) {
-            clothesColor = mEtClothesColor.getText().toString();
-            fatherId = Integer.parseInt(mEtFatherId.getText().toString());
+        private final Clothes clothes1;
 
-
+        insertClothesAsyncTask(Clothes clothes) {
+            clothes1 = clothes;
         }
 
         @Override
         protected String doInBackground(Person... person) {
-            DBInstance.getInstance().clothesDao().insertClothes(new Clothes(clothesColor,1,2));
+            DBInstance.getInstance().clothesDao().insertClothes(clothes1);
             return "insert success";
         }
 
-        //doInBackground 执行完成后
         @Override
         protected void onPostExecute(String aVoid) {
             Log.i(TAG,"插入："+aVoid);
             super.onPostExecute(aVoid);
         }
 
-        //在publishProgress方法被调用后
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-        }
-    }
 
-    private static class insertClothes2AsyncTask extends AsyncTask<Person, Void, String> {
-
-
-        private int fatherId;
-
-        insertClothes2AsyncTask(EditText mEtFatherId) {
-
-            fatherId = Integer.parseInt(mEtFatherId.getText().toString());
-
-
-        }
-
-        @Override
-        protected String doInBackground(Person... person) {
-           // DBInstance.getInstance().clothesDao().insertClothes(new Clothes("红",1));
-            return "insert success";
-        }
-
-        //doInBackground 执行完成后
-        @Override
-        protected void onPostExecute(String aVoid) {
-            Log.i(TAG,"插入："+aVoid);
-            super.onPostExecute(aVoid);
-        }
-
-        //在publishProgress方法被调用后
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-        }
     }
 
     private static class insertMarketAsyncTask extends AsyncTask<Person, Void, String> {
 
 
-        insertMarketAsyncTask() {
+        private final Market market1;
 
-
+        insertMarketAsyncTask(Market market) {
+            market1 = market;
         }
 
         @Override
         protected String doInBackground(Person... person) {
-            DBInstance.getInstance().marketDao().insertMarket(new Market(2,"xx街道"));
+            DBInstance.getInstance().marketDao().insertMarket(market1);
             return "insert success";
         }
 
@@ -363,11 +325,6 @@ public class RoomTestActivity extends PermissionActivity {
             super.onPostExecute(aVoid);
         }
 
-        //在publishProgress方法被调用后
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-        }
     }
 
 

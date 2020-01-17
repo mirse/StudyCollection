@@ -6,10 +6,10 @@ import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(indices = {@Index(value = {"marketId"})})
+@Entity(indices = {@Index(value = {"uidu"})})
 public class Market {
     @PrimaryKey
-    public int marketId;
+    public int uidu;
     public String address;
 
 
@@ -19,15 +19,15 @@ public class Market {
     }
 
 
-    public Market(int marketId, String address) {
-        this.marketId = marketId;
+    public Market(int uid, String address) {
+        this.uidu = uid;
         this.address = address;
     }
 
     @Override
     public String toString() {
         return "Market{" +
-                "marketId=" + marketId +
+                "uidu=" + uidu +
                 ", address='" + address + '\'' +
                 '}';
     }

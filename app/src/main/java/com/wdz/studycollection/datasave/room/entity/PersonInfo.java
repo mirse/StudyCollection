@@ -9,7 +9,7 @@ public class PersonInfo {
     @Embedded
     public Person person;
 
-    @Relation(parentColumn = "uid",entityColumn = "father_id")
+    @Relation(parentColumn = "uid",entityColumn = "persionId")
     public List<Clothes> clothes;
 
 

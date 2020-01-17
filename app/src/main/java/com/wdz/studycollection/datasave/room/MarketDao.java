@@ -28,10 +28,10 @@ interface MarketDao {
 
 
 
-      @Query("delete from market where marketId=:id")
+      @Query("delete from market where uidu=:id")
       int deleteMarketById(int id);
 
-      @Query("select * from market")
-      LiveData<List<Market>> findMarket();
 
+      @Query("select * from market")
+      LiveData<List<Market>> findAllMarket();
 }

@@ -9,49 +9,38 @@ import static androidx.room.ForeignKey.CASCADE;
 import static androidx.room.ForeignKey.RESTRICT;
 
 @Entity(tableName = "clothes",
-        primaryKeys = { "father_id", "fathers_id" },
+        primaryKeys = { "persionId","marketId"},
         foreignKeys = {
                 @ForeignKey(entity = Person.class,
                         parentColumns = "uid",
-                        childColumns = "father_id",
-                        onUpdate = RESTRICT
+                        childColumns = "persionId",
+                        onDelete = CASCADE
                 ),
                 @ForeignKey(entity = Market.class,
-                        parentColumns = "marketId",
-                        childColumns = "fathers_id",
-                        onUpdate = RESTRICT
+                        parentColumns = "uidu",
+                        childColumns = "marketId",
+                        onDelete = CASCADE
                 )
-        },
-        indices = {@Index(value = {"fathers_id"})}
+        }
         )
 public class Clothes {
-    public int id;
     public String color;
-    public int father_id;
-    public int fathers_id;
+    public int persionId;
+    public int marketId;
 
 
-
-//    public Clothes(String color, int father_id) {
-//        this.color = color;
-//        this.father_id = father_id;
-//    }
-    public Clothes(String color, int father_id,int father_id1) {
+    public Clothes(String color, int persionId, int marketId) {
         this.color = color;
-        this.father_id = father_id;
-        this.fathers_id = father_id1;
+        this.persionId = persionId;
+        this.marketId = marketId;
     }
-//    public Clothes(String color,int fathers1_id) {
-//        this.color = color;
-//        this.fathers_id = fathers1_id;
-//    }
 
     @Override
     public String toString() {
         return "Clothes{" +
-                "id=" + id +
-                ", color='" + color + '\'' +
-                ", father_id=" + father_id +
+                "color='" + color + '\'' +
+                ", persionId=" + persionId +
+                ", marketId=" + marketId +
                 '}';
     }
 }
