@@ -1,20 +1,13 @@
 package com.wdz.studycollection.datasave.room;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 
 import android.Manifest;
-import android.content.Context;
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.wdz.studycollection.R;
 import com.wdz.studycollection.base.PermissionActivity;
@@ -41,18 +34,26 @@ public class RoomTestActivity extends PermissionActivity {
     EditText mEtPersonName;
     @BindView(R.id.et_person_age)
     EditText mEtPersonAge;
-    @BindView(R.id.et_clothes_color)
-    EditText mEtClothesColor;
-    @BindView(R.id.et_father_id)
-    EditText mEtFatherId;
-    @BindView(R.id.et_modify_id)
-    EditText mEtModifyId;
-    @BindView(R.id.tv_db)
-    TextView mTvDb;
-    @BindView(R.id.tv_clothes)
-    TextView mTvClothes;
-    @BindView(R.id.tv_market)
-    TextView mTvMarket;
+
+    @BindView(R.id.et_market_id)
+    EditText mEtMarketId;
+    @BindView(R.id.et_market_add)
+    EditText mEtMarketAdd;
+
+    @BindView(R.id.et_vendor_id)
+    EditText mEtVendorId;
+    @BindView(R.id.et_vendor_name)
+    EditText mEtVendorName;
+
+    @BindView(R.id.et_clo_per_id)
+    EditText mEtCloPerId;
+    @BindView(R.id.et_clo_mar_id)
+    EditText mEtCloMarId;
+    @BindView(R.id.et_clo_color)
+    EditText mEtCloColor;
+
+    @BindView(R.id.tv_status)
+    EditText mTvStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,27 +118,23 @@ public class RoomTestActivity extends PermissionActivity {
     }
 
 
-    @OnClick({R.id.bt_add_person,R.id.bt_add_clothes,R.id.bt_find_person,R.id.bt_delete_person,R.id.bt_add_market})
+    @OnClick({R.id.bt_add_person,R.id.bt_add_market,R.id.bt_add_vendor,R.id.bt_add_person})
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.bt_add_person:
-//                new insertPersonAsyncTask().execute(new Person(mEtPersonName.getText().toString(),Integer.parseInt(mEtPersonAge.getText().toString()),Integer.parseInt(mEtPersonid.getText().toString()),new byte[0]));
                 new insertPersonAsyncTask().execute(new Person(mEtPersonName.getText().toString(),Integer.parseInt(mEtPersonAge.getText().toString()),Integer.parseInt(mEtPersonid.getText().toString())));
                 break;
 
-            case R.id.bt_add_clothes:
+            case R.id.bt_add_market:
                 new insertClothesAsyncTask(new Clothes(mEtClothesColor.getText().toString(),Integer.parseInt(mEtPersonid.getText().toString()),Integer.parseInt(mEtFatherId.getText().toString()))).execute();
                 break;
-            case R.id.bt_add_market:
+            case R.id.bt_add_vendor:
                 new insertMarketAsyncTask(new Market(Integer.parseInt(mEtFatherId.getText().toString()),"街道market")).execute();
                 break;
-            case R.id.bt_find_person:
+            case R.id.bt_add_person:
                 new getPersonInfoTask(mEtFatherId).execute();
                 break;
 
-            case R.id.bt_delete_person:
-                new deletePersonAsyncTask(mEtModifyId).execute();
-                break;
 
             default:
                 break;
