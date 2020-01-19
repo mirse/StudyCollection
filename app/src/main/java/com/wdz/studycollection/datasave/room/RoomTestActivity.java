@@ -116,57 +116,6 @@ public class RoomTestActivity extends PermissionActivity {
         finish();
     }
 
-//    private void initPermission() {
-//        int hasWriteStoragePermission  = ContextCompat.checkSelfPermission(getApplication(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
-//        if (hasWriteStoragePermission == PackageManager.PERMISSION_GRANTED){
-//
-//            DBInstance.getInstance().personDao().findPerson().observe(this, new Observer<List<Person>>() {
-//                @Override
-//                public void onChanged(List<Person> people) {
-//                    mTvDb.setText(people.toString());
-//                }
-//            });
-//
-//            DBInstance.getInstance().clothesDao().findAllClothes().observe(this, new Observer<List<Clothes>>() {
-//                @Override
-//                public void onChanged(List<Clothes> people) {
-//                    mTvClothes.setText(people.toString());
-//                }
-//            });
-//
-//        }
-//        else{
-//            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},0);
-//        }
-//    }
-//
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//        if (requestCode==0){
-//            if (grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_GRANTED){
-//
-//                DBInstance.getInstance().personDao().findPerson().observe(this, new Observer<List<Person>>() {
-//                    @Override
-//                    public void onChanged(List<Person> people) {
-//                        mTvDb.setText(people.toString());
-//                    }
-//                });
-//
-//                DBInstance.getInstance().clothesDao().findAllClothes().observe(this, new Observer<List<Clothes>>() {
-//                    @Override
-//                    public void onChanged(List<Clothes> people) {
-//                        mTvClothes.setText(people.toString());
-//                    }
-//                });
-//
-//            }
-//            else{
-//                finish();
-//            }
-//        }
-//    }
-
 
     @OnClick({R.id.bt_add_person,R.id.bt_add_clothes,R.id.bt_find_person,R.id.bt_delete_person,R.id.bt_add_market})
     public void onClick(View view) {
