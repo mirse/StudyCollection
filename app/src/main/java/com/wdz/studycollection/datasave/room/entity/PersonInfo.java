@@ -9,15 +9,18 @@ public class PersonInfo {
     @Embedded
     public Person person;
 
-    @Relation(parentColumn = "uid",entityColumn = "persionId")
-    public List<Clothes> clothes;
+    @Relation(parentColumn = "uid",entityColumn = "uidu")
+    public List<Market> markets;
 
+    @Relation(parentColumn = "uid",entityColumn = "vendorId")
+    public List<Vendor> vendors;
 
     @Override
     public String toString() {
         return "PersonInfo{" +
                 "person=" + person +
-                ", clothes=" + clothes +
+                ", markets=" + markets +
+                ", vendors=" + vendors +
                 '}';
     }
 }

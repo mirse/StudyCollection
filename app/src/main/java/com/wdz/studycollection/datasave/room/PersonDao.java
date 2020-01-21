@@ -1,6 +1,7 @@
 package com.wdz.studycollection.datasave.room;
 
 import com.wdz.studycollection.datasave.room.entity.Person;
+import com.wdz.studycollection.datasave.room.entity.PersonInfo;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -31,6 +32,10 @@ interface PersonDao {
       int deletePersonById(int uid);
 
       @Query("select * from person")
-      LiveData<List<Person>> findPerson();
+      LiveData<List<Person>> findAllPerson();
+
+
+      @Query("select * from person WHERE person.uid = :id")
+      List<PersonInfo> loadAllInfoById(int id);
 
 }

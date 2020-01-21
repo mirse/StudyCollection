@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.wdz.studycollection.R;
 import com.wdz.studycollection.base.PermissionActivity;
@@ -16,7 +17,9 @@ import com.wdz.studycollection.datasave.room.entity.Market;
 import com.wdz.studycollection.datasave.room.entity.MyAddress;
 import com.wdz.studycollection.datasave.room.entity.Person;
 import com.wdz.studycollection.datasave.room.entity.PersonInfo;
+import com.wdz.studycollection.datasave.room.entity.Vendor;
 
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -52,8 +55,15 @@ public class RoomTestActivity extends PermissionActivity {
     @BindView(R.id.et_clo_color)
     EditText mEtCloColor;
 
-    @BindView(R.id.tv_status)
-    EditText mTvStatus;
+    @BindView(R.id.tv_person_status)
+    TextView mTvPersonStatus;
+    @BindView(R.id.tv_market_status)
+    TextView mTvMarketStatus;
+    @BindView(R.id.tv_vendor_status)
+    TextView mTvVendorStatus;
+    @BindView(R.id.tv_clothes_status)
+    TextView mTvClothesStatus;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,50 +76,45 @@ public class RoomTestActivity extends PermissionActivity {
 
     @Override
     protected void alreadyGetPermission() {
-        DBInstance.getInstance().personDao().findPerson().observe(this, new Observer<List<Person>>() {
+        refreshUI();
+        new getPersonInfoTask().execute();
+
+    }
+
+    private void refreshUI() {
+        DBInstance.getInstance().personDao().findAllPerson().observe(this, new Observer<List<Person>>() {
             @Override
             public void onChanged(List<Person> people) {
-                mTvDb.setText(people.toString());
+                mTvPersonStatus.setText(people.toString());
+            }
+        });
+
+
+        DBInstance.getInstance().marketDao().findAllMarket().observe(this, new Observer<List<Market>>() {
+            @Override
+            public void onChanged(List<Market> markets) {
+                mTvMarketStatus.setText(markets.toString());
+            }
+        });
+
+        DBInstance.getInstance().vendorDao().findAllVendor().observe(this, new Observer<List<Vendor>>() {
+            @Override
+            public void onChanged(List<Vendor> people) {
+                mTvVendorStatus.setText(people.toString());
             }
         });
 
         DBInstance.getInstance().clothesDao().findAllClothes().observe(this, new Observer<List<Clothes>>() {
             @Override
             public void onChanged(List<Clothes> people) {
-                mTvClothes.setText(people.toString());
-            }
-        });
-
-        DBInstance.getInstance().marketDao().findAllMarket().observe(this, new Observer<List<Market>>() {
-            @Override
-            public void onChanged(List<Market> markets) {
-                mTvMarket.setText(markets.toString());
+                mTvClothesStatus.setText(people.toString());
             }
         });
     }
 
     @Override
     protected void onGetPermission() {
-        DBInstance.getInstance().personDao().findPerson().observe(this, new Observer<List<Person>>() {
-            @Override
-            public void onChanged(List<Person> people) {
-                mTvDb.setText(people.toString());
-            }
-        });
-
-        DBInstance.getInstance().clothesDao().findAllClothes().observe(this, new Observer<List<Clothes>>() {
-            @Override
-            public void onChanged(List<Clothes> people) {
-                mTvClothes.setText(people.toString());
-            }
-        });
-
-        DBInstance.getInstance().marketDao().findAllMarket().observe(this, new Observer<List<Market>>() {
-            @Override
-            public void onChanged(List<Market> markets) {
-                mTvMarket.setText(markets.toString());
-            }
-        });
+        refreshUI();
     }
 
     @Override
@@ -118,7 +123,7 @@ public class RoomTestActivity extends PermissionActivity {
     }
 
 
-    @OnClick({R.id.bt_add_person,R.id.bt_add_market,R.id.bt_add_vendor,R.id.bt_add_person})
+    @OnClick({R.id.bt_add_person,R.id.bt_add_market,R.id.bt_add_vendor,R.id.bt_add_clo})
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.bt_add_person:
@@ -126,13 +131,13 @@ public class RoomTestActivity extends PermissionActivity {
                 break;
 
             case R.id.bt_add_market:
-                new insertClothesAsyncTask(new Clothes(mEtClothesColor.getText().toString(),Integer.parseInt(mEtPersonid.getText().toString()),Integer.parseInt(mEtFatherId.getText().toString()))).execute();
+                new insertMarketAsyncTask().execute(new Market(Integer.parseInt(mEtMarketId.getText().toString()),mEtMarketAdd.getText().toString()));
                 break;
             case R.id.bt_add_vendor:
-                new insertMarketAsyncTask(new Market(Integer.parseInt(mEtFatherId.getText().toString()),"街道market")).execute();
+                new insertVendorAsyncTask().execute(new Vendor(Integer.parseInt(mEtVendorId.getText().toString()),mEtVendorName.getText().toString()));
                 break;
-            case R.id.bt_add_person:
-                new getPersonInfoTask(mEtFatherId).execute();
+            case R.id.bt_add_clo:
+                new insertClothesAsyncTask().execute(new Clothes(mEtCloColor.getText().toString(),Integer.parseInt(mEtCloPerId.getText().toString()),Integer.parseInt(mEtCloMarId.getText().toString())));
                 break;
 
 
@@ -147,59 +152,37 @@ public class RoomTestActivity extends PermissionActivity {
 
 
 
-    private static class getPersonInfoTask extends AsyncTask<Person, String, PersonInfo> {
+    private static class getPersonInfoTask extends AsyncTask<Person, String, List<PersonInfo>> {
 
 
-        int fatherId;
-        getPersonInfoTask(EditText mEtFatherId) {
-            fatherId = Integer.parseInt(mEtFatherId.getText().toString());
+        getPersonInfoTask() {
         }
 
         @Override
-        protected PersonInfo doInBackground(Person... person) {
-            PersonInfo personInfo = DBInstance.getInstance().clothesDao().getPersonInfo(fatherId);
+        protected List<PersonInfo> doInBackground(Person... person) {
+            List<PersonInfo> personInfos = DBInstance.getInstance().personDao().loadAllInfoById(1);
 
-            return personInfo;
+            return personInfos;
         }
 
         @Override
-        protected void onPostExecute(PersonInfo personInfo) {
-            Log.i(TAG,"查询："+personInfo.toString());
-            super.onPostExecute(personInfo);
+        protected void onPostExecute(List<PersonInfo> personInfos) {
+            Log.i(TAG,"查询："+personInfos.size());
+            if (personInfos.size()!=0){
+                for (PersonInfo personInfo:personInfos) {
+                    Log.i(TAG,personInfo.toString());
+                }
+            }
+            super.onPostExecute(personInfos);
         }
 
     }
 
-    private static class deletePersonAsyncTask extends AsyncTask<Person, Void, String> {
-
-
-        private final int modifyId;
-
-        deletePersonAsyncTask (EditText mEtModifyId){
-            modifyId = Integer.parseInt(mEtModifyId.getText().toString());
-        }
-
-        @Override
-        protected String doInBackground(Person... person) {
-            DBInstance.getInstance().personDao().deletePersonById(modifyId);
-            return "delete success";
-        }
-
-        //doInBackground 执行完成后
-        @Override
-        protected void onPostExecute(String aVoid) {
-            Log.i(TAG,"删除："+aVoid);
-            super.onPostExecute(aVoid);
-        }
-
-    }
 
 
     private static class insertPersonAsyncTask extends AsyncTask<Person, Void, String> {
-
-
-
     insertPersonAsyncTask (){
+
     }
 
     @Override
@@ -217,50 +200,17 @@ public class RoomTestActivity extends PermissionActivity {
         Log.i(TAG,"插入："+aVoid);
         super.onPostExecute(aVoid);
     }
-
-    //在publishProgress方法被调用insert success后
-    @Override
-    protected void onProgressUpdate(Void... values) {
-        super.onProgressUpdate(values);
-    }
-}
-
-    private static class insertClothesAsyncTask extends AsyncTask<Person, Void, String> {
-
-
-        private final Clothes clothes1;
-
-        insertClothesAsyncTask(Clothes clothes) {
-            clothes1 = clothes;
-        }
-
-        @Override
-        protected String doInBackground(Person... person) {
-            DBInstance.getInstance().clothesDao().insertClothes(clothes1);
-            return "insert success";
-        }
-
-        @Override
-        protected void onPostExecute(String aVoid) {
-            Log.i(TAG,"插入："+aVoid);
-            super.onPostExecute(aVoid);
-        }
-
-
     }
 
-    private static class insertMarketAsyncTask extends AsyncTask<Person, Void, String> {
+    private static class insertMarketAsyncTask extends AsyncTask<Market, Void, String> {
 
+        public insertMarketAsyncTask() {
 
-        private final Market market1;
-
-        insertMarketAsyncTask(Market market) {
-            market1 = market;
         }
 
         @Override
-        protected String doInBackground(Person... person) {
-            DBInstance.getInstance().marketDao().insertMarket(market1);
+        protected String doInBackground(Market... markets) {
+            DBInstance.getInstance().marketDao().insertMarket(markets[0]);
             return "insert success";
         }
 
@@ -270,8 +220,52 @@ public class RoomTestActivity extends PermissionActivity {
             Log.i(TAG,"插入："+aVoid);
             super.onPostExecute(aVoid);
         }
+    }
+
+    private static class insertVendorAsyncTask extends AsyncTask<Vendor, Void, String> {
+
+        public insertVendorAsyncTask() {
+
+        }
+
+        @Override
+        protected String doInBackground(Vendor... vendors) {
+            DBInstance.getInstance().vendorDao().insertVendor(vendors[0]);
+            return "insert success";
+        }
+
+        //doInBackground 执行完成后
+        @Override
+        protected void onPostExecute(String aVoid) {
+            Log.i(TAG,"插入："+aVoid);
+            super.onPostExecute(aVoid);
+        }
+    }
+
+    private static class insertClothesAsyncTask extends AsyncTask<Clothes, Void, String> {
+
+
+
+        insertClothesAsyncTask() {
+
+        }
+
+        @Override
+        protected String doInBackground(Clothes... clothes) {
+            DBInstance.getInstance().clothesDao().insertClothes(clothes[0]);
+            return "insert success";
+        }
+
+        @Override
+        protected void onPostExecute(String aVoid) {
+            Log.i(TAG,"插入："+aVoid);
+            super.onPostExecute(aVoid);
+        }
+
 
     }
+
+
 
 
 

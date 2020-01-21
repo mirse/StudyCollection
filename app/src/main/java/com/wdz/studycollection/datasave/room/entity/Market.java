@@ -13,11 +13,8 @@ public class Market {
     public String address;
 
 
-
     public Market() {
-
     }
-
 
     public Market(int uid, String address) {
         this.uidu = uid;

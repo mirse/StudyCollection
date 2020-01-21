@@ -69,4 +69,32 @@
         app:layout_constraintEnd_toEndOf="@+id/bt_bind_service2"
         app:layout_constraintStart_toStartOf="@+id/bt_bind_service2"
         app:layout_constraintTop_toBottomOf="@+id/bt_bind_service2" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BIND_AUTO_CREATE"
+        app:layout_constraintBottom_toBottomOf="@+id/bt_bind_service1"
+        app:layout_constraintStart_toEndOf="@+id/bt_bind_service1"
+        app:layout_constraintTop_toTopOf="@+id/bt_bind_service1" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BIND_DEBUG_UNBIND"
+        app:layout_constraintBottom_toBottomOf="@+id/bt_bind_service2"
+        app:layout_constraintStart_toEndOf="@+id/bt_bind_service2"
+        app:layout_constraintTop_toTopOf="@+id/bt_bind_service2" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:text="BIND_NOT_FOREGROUND"
+        app:layout_constraintBottom_toBottomOf="@+id/bt_bind_service3"
+        app:layout_constraintStart_toEndOf="@+id/bt_bind_service3"
+        app:layout_constraintTop_toTopOf="@+id/bt_bind_service3" />
 </androidx.constraintlayout.widget.ConstraintLayout>
