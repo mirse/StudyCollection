@@ -16,7 +16,8 @@ public class DBInstance {
         if (appDataBase==null){
             synchronized (DBInstance.class){
                 appDataBase = Room.databaseBuilder(MyApplication.getInstance(),AppDataBase.class,DB_NAME)
-                        //.addMigrations(MIGRATION_1_2)
+                        .addMigrations(MIGRATION_1_2)
+                        //.fallbackToDestructiveMigration() //清空数据库
                         .build();
             }
         }
@@ -25,11 +26,15 @@ public class DBInstance {
     static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
-            //exec增加新列
+            //1、普通方式更新数据库 exec增加新列
 //            database.execSQL("ALTER TABLE person "
 //                    + " ADD COLUMN uuid BLOB ");
 
-
+            //2、新建表迁移数据库以更新数据库
+            database.execSQL("CREATE TABLE shop_new(shopAddress TEXT NOT NULL,shopId INTEGER NOT NULL PRIMARY KEY )");
+            database.execSQL("INSERT INTO shop_new(shopId,shopAddress) SELECT shopId,shopAddress FROM OnlineShop");
+            database.execSQL("DROP TABLE OnlineShop");
+            database.execSQL("ALTER TABLE shop_new RENAME TO OnlineShop");
         }
     };
 }
