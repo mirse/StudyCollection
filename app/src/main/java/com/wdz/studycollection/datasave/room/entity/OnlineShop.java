@@ -14,6 +14,7 @@ public class OnlineShop {
     @PrimaryKey
     @NonNull
     public int shopId;
-    public String shopAddress;
+    public int shopAddress;
+    public int id;
 
 }

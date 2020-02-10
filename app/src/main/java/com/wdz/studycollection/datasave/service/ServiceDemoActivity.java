@@ -18,24 +18,30 @@ public class ServiceDemoActivity extends AppCompatActivity {
 
 
     private Intent myService;
-
+    private Intent myServiceIntent;
+    private static final String ACTION_FOO = "com.wdz.studycollection.datasave.service.action.FOO";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_demo);
         ButterKnife.bind(this);
         myService = new Intent(this, MyService.class);
+        myServiceIntent = new Intent(this, MyIntentService.class);
 
     }
+    //关闭service前需要先解绑service?
 
-    @OnClick({R.id.bt_start_service,R.id.bt_stop_service,R.id.bt_bind_service1,R.id.bt_bind_service2,R.id.bt_bind_service3,R.id.bt_unbind_service})
+
+    @OnClick({R.id.bt_start_service,R.id.bt_stop_service,R.id.bt_bind_service1,R.id.bt_bind_service2,R.id.bt_bind_service3,R.id.bt_unbind_service,R.id.bt_start_intent_service,R.id.bt_stop_intent_service})
     public void onClick(View view){
+
         switch (view.getId()){
             case R.id.bt_start_service:
                 startService(myService);
                 break;
             case R.id.bt_stop_service:
                 stopService(myService);
+                //finish();
                 break;
             case R.id.bt_bind_service1:
                 bindService(myService,mServiceConnection,BIND_AUTO_CREATE);
@@ -48,6 +54,16 @@ public class ServiceDemoActivity extends AppCompatActivity {
                 break;
             case R.id.bt_unbind_service:
                 unbindService(mServiceConnection);
+            case R.id.bt_start_intent_service:
+                myServiceIntent.setAction(ACTION_FOO);
+                startService(myServiceIntent);
+                break;
+            case R.id.bt_stop_intent_service:
+                stopService(myServiceIntent);
+
+                break;
+
+            default:
                 break;
         }
     }
@@ -65,4 +81,10 @@ public class ServiceDemoActivity extends AppCompatActivity {
 
         }
     };
+
+    @Override
+    protected void onPause() {
+        //unbindService(mServiceConnection);
+        super.onPause();
+    }
 }

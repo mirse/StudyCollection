@@ -41,10 +41,10 @@ public class RecyclerViewActivity extends AppCompatActivity {
         Button mBtnAdd = findViewById(R.id.bt_add);
         Button mBtnDel = findViewById(R.id.bt_delete);
         mRecyclerView = findViewById(R.id.recyclerView);
-         mRecyclerView.setLayoutManager(mLayoutManager);
-         mRecyclerView.setAdapter(myAdapter);
-         mRecyclerView.addItemDecoration(new MyDividerItemDecoration(this,LinearLayoutManager.HORIZONTAL));
-         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(myAdapter);
+        mRecyclerView.addItemDecoration(new MyDividerItemDecoration(this,LinearLayoutManager.HORIZONTAL));
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
          mBtnAdd.setOnClickListener(new View.OnClickListener() {

@@ -31,7 +31,7 @@ public class DBInstance {
 //                    + " ADD COLUMN uuid BLOB ");
 
             //2、新建表迁移数据库以更新数据库
-            database.execSQL("CREATE TABLE shop_new(shopAddress TEXT NOT NULL,shopId INTEGER NOT NULL PRIMARY KEY )");
+            database.execSQL("CREATE TABLE shop_new(shopId INTEGER NOT NULL PRIMARY KEY,shopAddress INTEGER NOT NULL,id INTEGER NOT NULL)");
             database.execSQL("INSERT INTO shop_new(shopId,shopAddress) SELECT shopId,shopAddress FROM OnlineShop");
             database.execSQL("DROP TABLE OnlineShop");
             database.execSQL("ALTER TABLE shop_new RENAME TO OnlineShop");

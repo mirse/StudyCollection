@@ -68,10 +68,13 @@
         <activity android:name=".fragment.revolve.SavedInstanceStateUsingActivity" />
         <activity android:name=".base.PermissionActivity" />
         <service
+            android:name=".datasave.service.MyIntentService"
+            android:exported="false"></service>
+
+        <service
             android:name=".datasave.service.MyService"
             android:enabled="true"
-            android:exported="true"></service>
-
+            android:exported="true" />
         <service
             android:name=".MainService"
             android:enabled="true"
