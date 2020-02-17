@@ -28,8 +28,11 @@ public class ParcelableDemoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_parcelable_demo);
         ButterKnife.bind(this);
         ArrayList<String> mYears = new ArrayList<>();
-        mYears.add("1990");
-        mYears.add("2019");
+        for(int i=0;i<=201900;i++){
+            mYears.add(i+"年");
+        }
+//        mYears.add("1990");
+//        mYears.add("2019");
         book = new Book("书名", 100);
         book.years=mYears;
 

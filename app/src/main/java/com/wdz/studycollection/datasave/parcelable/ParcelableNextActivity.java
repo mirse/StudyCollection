@@ -27,6 +27,7 @@ public class ParcelableNextActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Log.i(TAG,intent.toString());
         Book book = getIntent().getParcelableExtra(BOOK);
-        mTvShow.setText(book.bookName+" 价格："+book.price+" years:"+book.years.toString());
+        Log.i(TAG,book.toString());
+        //mTvShow.setText(book.bookName+" 价格："+book.price+" years:"+book.years.toString());
     }
 }

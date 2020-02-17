@@ -14,34 +14,18 @@ public class Book implements Parcelable {
     public List<String> years=new ArrayList<>();
 
 
-
-    protected Book(Parcel in) {
-        bookName = in.readString();
-        price = in.readInt();
-       // years = in.createStringArrayList();
-        in.readStringList(years);
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public static final Creator<Book> CREATOR = new Creator<Book>() {
-        @Override
-        public Book createFromParcel(Parcel in) {
-            return new Book(in);
-        }
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.bookName);
+        dest.writeInt(this.price);
+        dest.writeStringList(this.years);
 
-        @Override
-        public Book[] newArray(int size) {
-            return new Book[size];
-        }
-    };
-
-    public Book(String bookName, int price) {
-        this.bookName = bookName;
-        this.price = price;
     }
-
-
-
-
 
     @Override
     public String toString() {
@@ -52,15 +36,26 @@ public class Book implements Parcelable {
                 '}';
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public Book(String bookName, int price) {
+        this.bookName = bookName;
+        this.price = price;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(bookName);
-        dest.writeInt(price);
-        dest.writeStringList(years);
+    protected Book(Parcel in) {
+        this.bookName = in.readString();
+        this.price = in.readInt();
+        this.years = in.createStringArrayList();
     }
+
+    public static final Parcelable.Creator<Book> CREATOR = new Parcelable.Creator<Book>() {
+        @Override
+        public Book createFromParcel(Parcel source) {
+            return new Book(source);
+        }
+
+        @Override
+        public Book[] newArray(int size) {
+            return new Book[size];
+        }
+    };
 }
