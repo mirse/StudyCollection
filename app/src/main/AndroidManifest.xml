@@ -10,8 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.SplashActivity"></activity>
         <activity android:name=".datasave.service.ServiceDemoActivity" />
-
         <activity android:name=".internet.glide.GlideActivity" />
         <activity android:name=".internet.OkHttpDemoActivity" />
         <activity android:name=".rxjava.RxDemoActivity" />
@@ -67,10 +67,10 @@
         <activity android:name=".mvp.writeandread.SavaActivity" />
         <activity android:name=".fragment.revolve.SavedInstanceStateUsingActivity" />
         <activity android:name=".base.PermissionActivity" />
+
         <service
             android:name=".datasave.service.MyIntentService"
-            android:exported="false"></service>
-
+            android:exported="false" />
         <service
             android:name=".datasave.service.MyService"
             android:enabled="true"

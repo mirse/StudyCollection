@@ -26,6 +26,7 @@ import com.wdz.studycollection.activity.DrawableIconIVActivity;
 import com.wdz.studycollection.activity.DrawableWrapperActivity;
 import com.wdz.studycollection.activity.LetterIndexActivity;
 import com.wdz.studycollection.activity.PageActivity;
+import com.wdz.studycollection.activity.SplashActivity;
 import com.wdz.studycollection.activity.SurfaceViewActivity;
 import com.wdz.studycollection.activity.TabViewActivity;
 import com.wdz.studycollection.anim.AnimDemoActivity;
@@ -166,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                 {"网络通信","Socket通信","AsyncTask","Handler","handler切换线程","OkHttp","Glide"},
                 {"数据存储","Sp","Room","序列化","Service","",""},
                 {"View合集","坐标系","悬浮窗","Scroller","","",""},
-                {"动画合集","属性动画","","","","",""},
+                {"动画合集","属性动画","splash","","","",""},
                 {"多媒体","通知","相机","","","",""},
                 {"Material","抽屉","","","","",""},
                 {"Jetpack","ViewModel","RxJava","","","",""}
@@ -359,7 +360,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                         startActivity(new Intent(this, AnimDemoActivity.class));
                         break;
                     case R.id.button2:
-                        //startActivity(new Intent(this, RoomTestActivity.class));
+                        startActivity(new Intent(this, SplashActivity.class));
                         break;
                     case R.id.button3:
                         //startActivity(new Intent(this, ScrollerActivity.class));
