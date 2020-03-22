@@ -4,18 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/darker_gray"
+    android:background="@android:color/holo_blue_dark"
     tools:context=".activity.SplashActivity">
 
     <ImageView
-        android:src="@mipmap/img_welcome"
+        android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/holo_red_dark"
+        android:src="@mipmap/img_welcome"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.48000002" />
+        app:layout_constraintVertical_bias="0.120000005" />
+
+    <TextView
+        android:id="@+id/setBar1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="0.100000024" />
+
+    <TextView
+        android:id="@+id/setBar2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="37dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/setBar1"
+        app:layout_constraintStart_toStartOf="@+id/setBar1"
+        app:layout_constraintTop_toBottomOf="@+id/setBar1" />
+
+    <TextView
+        android:id="@+id/setBar3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="37dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/setBar2"
+        app:layout_constraintStart_toStartOf="@+id/setBar2"
+        app:layout_constraintTop_toBottomOf="@+id/setBar2" />
+
+    <TextView
+        android:id="@+id/setBar4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/setBar3"
+        app:layout_constraintStart_toStartOf="@+id/setBar3"
+        app:layout_constraintTop_toBottomOf="@+id/setBar3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

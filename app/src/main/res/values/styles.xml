@@ -9,6 +9,13 @@
         <item name="android:listDivider">@drawable/md_divider</item>
     </style>
 
+    <style name="AppFullTheme" parent="AppTheme">
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+
     <style name="word_title">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">26dp</item>

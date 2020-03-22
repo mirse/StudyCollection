@@ -2,11 +2,15 @@ package com.wdz.studycollection;
 
 import android.app.Application;
 
-public class MyApplication extends Application{
+import androidx.multidex.MultiDex;
+import androidx.multidex.MultiDexApplication;
+
+public class MyApplication extends MultiDexApplication {
     public static MyApplication context;
     @Override
     public void onCreate() {
         super.onCreate();
+        MultiDex.install(this);
         context = this;
     }
     public static MyApplication getInstance(){

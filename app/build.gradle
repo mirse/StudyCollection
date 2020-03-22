@@ -4,11 +4,12 @@ android {
     compileSdkVersion 29
     defaultConfig {
         applicationId "com.wdz.studycollection"
-        minSdkVersion 21
+        minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -81,5 +82,7 @@ dependencies {
     //glide
     implementation 'com.github.bumptech.glide:glide:4.10.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
+
+    implementation 'com.android.support:multidex:1.0.3'
 
 }
