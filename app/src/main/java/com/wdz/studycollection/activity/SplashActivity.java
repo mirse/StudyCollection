@@ -59,35 +59,35 @@ public class SplashActivity extends AppCompatActivity {
 
         decorView = window.getDecorView();
 
-        ActionBar supportActionBar = getSupportActionBar();
-        supportActionBar.hide();
+//        ActionBar supportActionBar = getSupportActionBar();
+//        if (supportActionBar!=null){
+//            supportActionBar.hide();
+//        }
 
-        getWindow().getDecorView().setSystemUiVisibility(system_ui_flag_fullscreen);
-        WindowManager.LayoutParams lp = getWindow().getAttributes();
-        lp.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
-        getWindow().setAttributes(lp);
-        //window.setStatusBarColor(Color.TRANSPARENT);
 
     }
     @OnClick({R.id.setBar1,R.id.setBar2,R.id.setBar3,R.id.setBar4})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.setBar1:
+                //android4.4 - android5.0
+                decorView.setSystemUiVisibility(system_ui_flag_fullscreen|system_ui_flag_hide_navigation);
 
-
-                decorView.setSystemUiVisibility(system_ui_flag_fullscreen);
-                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                window.setStatusBarColor(Color.TRANSPARENT);
                 break;
             case R.id.setBar2:
-                decorView.setSystemUiVisibility(system_ui_flag_fullscreen);
-                break;
-            case R.id.setBar3:
+                //android5.0 ->
                 decorView.setSystemUiVisibility(system_ui_flag_layout_fullscreen);
                 window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
                 window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                window.setStatusBarColor(Color.TRANSPARENT);
+                window.setStatusBarColor(getResources().getColor(R.color.holo_blue_dark));
+                break;
+            case R.id.setBar3:
+                //全面屏适配
+                getWindow().getDecorView().setSystemUiVisibility(system_ui_flag_layout_fullscreen);
+                WindowManager.LayoutParams lp = getWindow().getAttributes();
+                lp.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+                getWindow().setAttributes(lp);
+                //window.setStatusBarColor(Color.TRANSPARENT);
                 break;
             case R.id.setBar4:
                 decorView.setSystemUiVisibility(system_ui_flag_layout_fullscreen);

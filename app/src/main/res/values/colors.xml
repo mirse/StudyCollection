@@ -111,7 +111,7 @@
     <color name="rainbow_purple">#452b72</color>
 
     <color name="buttonLabel">#d3d3d3</color>
-
+    <color name="holo_blue_dark">#ff0099cc</color>
     <integer-array name="rainbow">
         <item>@color/rainbow_red</item>
         <item>@color/rainbow_yellow</item>

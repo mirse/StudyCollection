@@ -9,6 +9,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
 
 import java.util.List;
@@ -31,10 +32,11 @@ interface PersonDao {
       @Query("delete from person where uid=:uid")
       int deletePersonById(int uid);
 
+     // @Transaction
       @Query("select * from person")
       LiveData<List<Person>> findAllPerson();
 
-
+      @Transaction
       @Query("select * from person WHERE person.uid = :id")
       List<PersonInfo> loadAllInfoById(int id);
 
