@@ -26,7 +26,8 @@ import com.wdz.studycollection.activity.DrawableIconIVActivity;
 import com.wdz.studycollection.activity.DrawableWrapperActivity;
 import com.wdz.studycollection.activity.LetterIndexActivity;
 import com.wdz.studycollection.activity.PageActivity;
-import com.wdz.studycollection.activity.SplashActivity;
+import com.wdz.studycollection.immersive.MainSplashActivity;
+import com.wdz.studycollection.immersive.SplashImageActivity;
 import com.wdz.studycollection.activity.SurfaceViewActivity;
 import com.wdz.studycollection.activity.TabViewActivity;
 import com.wdz.studycollection.anim.AnimDemoActivity;
@@ -360,7 +361,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                         startActivity(new Intent(this, AnimDemoActivity.class));
                         break;
                     case R.id.button2:
-                        startActivity(new Intent(this, SplashActivity.class));
+                        startActivity(new Intent(this, MainSplashActivity.class));
                         break;
                     case R.id.button3:
                         //startActivity(new Intent(this, ScrollerActivity.class));
