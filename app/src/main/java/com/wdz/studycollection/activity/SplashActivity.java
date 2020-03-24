@@ -59,10 +59,11 @@ public class SplashActivity extends AppCompatActivity {
 
         decorView = window.getDecorView();
 
-//        ActionBar supportActionBar = getSupportActionBar();
-//        if (supportActionBar!=null){
-//            supportActionBar.hide();
-//        }
+        ActionBar supportActionBar = getSupportActionBar();
+        if (supportActionBar!=null){
+            supportActionBar.hide();
+        }
+
 
 
     }
@@ -87,10 +88,13 @@ public class SplashActivity extends AppCompatActivity {
                 WindowManager.LayoutParams lp = getWindow().getAttributes();
                 lp.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
                 getWindow().setAttributes(lp);
-                //window.setStatusBarColor(Color.TRANSPARENT);
+                window.setStatusBarColor(Color.TRANSPARENT);
                 break;
             case R.id.setBar4:
-                decorView.setSystemUiVisibility(system_ui_flag_layout_fullscreen);
+                window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                WindowManager.LayoutParams lp1 = getWindow().getAttributes();
+                lp1.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+                getWindow().setAttributes(lp1);
                 break;
         }
     }

@@ -11,9 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:name=".activity.SplashActivity"
             >
+
         </activity>
         <activity android:name=".datasave.service.ServiceDemoActivity" />
         <activity android:name=".internet.glide.GlideActivity" />
@@ -49,7 +49,6 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
