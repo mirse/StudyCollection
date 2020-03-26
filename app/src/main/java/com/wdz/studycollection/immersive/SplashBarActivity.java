@@ -63,19 +63,19 @@ public class SplashBarActivity extends AppCompatActivity {
         switch (view.getId()){
             case R.id.setBar1:
                 //android4.4 - android5.0
-                decorView.setSystemUiVisibility(system_ui_flag_fullscreen|system_ui_flag_hide_navigation);
+                decorView.setSystemUiVisibility(system_ui_flag_fullscreen|system_ui_flag_layout_stable|system_ui_flag_immersive_sticky);
 
                 break;
             case R.id.setBar2:
                 //android5.0 ->
-                decorView.setSystemUiVisibility(system_ui_flag_layout_fullscreen);
+                //decorView.setSystemUiVisibility(system_ui_flag_layout_fullscreen);
                 window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
                 window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
                 window.setStatusBarColor(getResources().getColor(R.color.holo_blue_dark));
                 break;
             case R.id.setBar3:
                 //全面屏适配
-                getWindow().getDecorView().setSystemUiVisibility(system_ui_flag_layout_fullscreen);
+                getWindow().getDecorView().setSystemUiVisibility(system_ui_flag_layout_fullscreen|system_ui_flag_layout_stable);
                 WindowManager.LayoutParams lp = getWindow().getAttributes();
                 lp.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
                 getWindow().setAttributes(lp);
