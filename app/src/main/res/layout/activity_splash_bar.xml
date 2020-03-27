@@ -5,9 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/container"
+
     tools:context=".immersive.SplashImageActivity">
 
     <include
+
         android:id="@+id/include"
         layout="@layout/toolbar" />
 
