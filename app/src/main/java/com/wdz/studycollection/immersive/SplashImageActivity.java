@@ -63,30 +63,26 @@ public class SplashImageActivity extends AppCompatActivity {
         switch (view.getId()){
             case R.id.setBar1:
                 //android4.4 - android5.0
-                decorView.setSystemUiVisibility(system_ui_flag_fullscreen|system_ui_flag_layout_stable);
-                window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+                getWindow().getDecorView().setSystemUiVisibility(system_ui_flag_fullscreen|system_ui_flag_hide_navigation);
                 break;
             case R.id.setBar2:
                 //android5.0 ->
-                decorView.setSystemUiVisibility(system_ui_flag_layout_fullscreen);
-                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                window.setStatusBarColor(Color.TRANSPARENT);
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+                getWindow().getDecorView().setSystemUiVisibility(system_ui_flag_fullscreen|system_ui_flag_hide_navigation);
                 break;
             case R.id.setBar3:
                 //全面屏适配
-                getWindow().getDecorView().setSystemUiVisibility(system_ui_flag_fullscreen);
-                WindowManager.LayoutParams lp = getWindow().getAttributes();
-                lp.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
-                getWindow().setAttributes(lp);
-                window.setStatusBarColor(Color.TRANSPARENT);
+                window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+                StatusBarUtils.displayEdges(this);
+                getWindow().getDecorView().setSystemUiVisibility(system_ui_flag_fullscreen|system_ui_flag_hide_navigation);
                 break;
             case R.id.setBar4:
                 window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-                WindowManager.LayoutParams lp1 = getWindow().getAttributes();
-                lp1.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
-                getWindow().setAttributes(lp1);
+                StatusBarUtils.displayEdges(this);
                 break;
         }
     }

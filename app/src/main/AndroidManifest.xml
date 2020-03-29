@@ -10,11 +10,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".immersive.MainSplashActivity"></activity>
-        <activity android:name=".immersive.SplashImageActivity"></activity>
-        <activity android:name=".immersive.SplashBarActivity"
-            android:theme="@style/Theme.AppCompat.Light"
-            ></activity>
+        <activity android:name=".handler.HandlerThreadActivity"></activity>
+        <activity android:name=".immersive.MainSplashActivity" />
+        <activity android:name=".immersive.SplashImageActivity" />
+        <activity
+            android:name=".immersive.SplashBarActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".datasave.service.ServiceDemoActivity" />
         <activity android:name=".internet.glide.GlideActivity" />
         <activity android:name=".internet.OkHttpDemoActivity" />

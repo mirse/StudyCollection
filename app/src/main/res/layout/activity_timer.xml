@@ -34,5 +34,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button_handler_thread"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="HandlerThread"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bt_start_timer" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
