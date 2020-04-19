@@ -190,7 +190,7 @@ public class RoomTestActivity extends PermissionActivity {
         Log.i(TAG,person[0].toString());
         person[0].address = new MyAddress("厦门","海沧");
         person[0].money = 100;
-        DBInstance.getInstance().personDao().insertPerson(person[0]);
+        DBInstance.getInstance().personDao().insertPerson(person[0],new Clothes("红衣服",1,1));
         return "insert success";
     }
 

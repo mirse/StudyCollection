@@ -1,5 +1,6 @@
 package com.wdz.studycollection.datasave.room;
 
+import com.wdz.studycollection.datasave.room.entity.Clothes;
 import com.wdz.studycollection.datasave.room.entity.Person;
 import com.wdz.studycollection.datasave.room.entity.PersonInfo;
 
@@ -18,7 +19,7 @@ import java.util.List;
 interface PersonDao {
 
       @Insert(onConflict = OnConflictStrategy.REPLACE)
-      void insertPerson(Person... person);
+      void insertPerson(Person person,Clothes clothes);
 
       @Delete
       void deletePerson(Person person);

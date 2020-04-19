@@ -16,11 +16,11 @@ import static androidx.room.ForeignKey.RESTRICT;
                         childColumns = "persionId",
                         onDelete = CASCADE
                 ),
-                @ForeignKey(entity = Market.class,
-                        parentColumns = "uidu",
-                        childColumns = "marketId",
-                        onDelete = CASCADE
-                )
+//                @ForeignKey(entity = Market.class,
+//                        parentColumns = "uidu",
+//                        childColumns = "marketId",
+//                        onDelete = CASCADE
+//                )
         }
         )
 public class Clothes {

@@ -1,5 +1,6 @@
 package com.wdz.studycollection.handler;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -45,6 +46,13 @@ public class HandlerDemoActivity extends AppCompatActivity {
             mTvMsg.setText("handler的handleMessage:"+msg.obj);
         }
     };
+
+    private class mHandler extends Handler{
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            //do somethings on UI thread
+        }
+    }
 
 
     private static class MyHandler extends Handler{
@@ -109,7 +117,9 @@ public class HandlerDemoActivity extends AppCompatActivity {
 //                        });
                         Message msg = Message.obtain();
                         msg.obj = "我是消息数据";
+
                         mHandler.sendMessage(msg);
+
 //                    }
 //                }).start();
 
