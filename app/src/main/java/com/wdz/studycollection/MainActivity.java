@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                 {"View合集","坐标系","悬浮窗","Scroller","","",""},
                 {"动画合集","属性动画","splash","","","",""},
                 {"多媒体","通知","相机","","","",""},
-                {"Material","抽屉","","","","",""},
+                {"Material","抽屉","折叠视图","","","",""},
                 {"Jetpack","ViewModel","RxJava","","","",""}
         };
 
