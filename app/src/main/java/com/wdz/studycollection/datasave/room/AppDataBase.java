@@ -12,7 +12,7 @@ import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 
-@Database(entities = {Person.class, Clothes.class, Market.class, Vendor.class, OnlineShop.class},version = 2,exportSchema = false)
+@Database(entities = {Person.class, Clothes.class, Market.class, Vendor.class, OnlineShop.class},version = 1,exportSchema = true)
 public abstract class AppDataBase extends RoomDatabase {
     public abstract PersonDao personDao();
     public abstract ClothesDao clothesDao();

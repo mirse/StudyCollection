@@ -30,7 +30,7 @@ public class HandlerDemoActivity extends AppCompatActivity {
     @BindView(R.id.bt_clock) Button mBtnClock;
     @BindView(R.id.bt_clock1) Button mBtnClock1;
     private static final String TAG = "HandlerDemoActivity";
-    private MyHandler mHandler = new MyHandler(this);
+    private MyHandler mHandler = new MyHandler();
 
     private Handler handler = new Handler(new Handler.Callback() {
         @Override
@@ -55,22 +55,11 @@ public class HandlerDemoActivity extends AppCompatActivity {
     }
 
 
-    private static class MyHandler extends Handler{
-        private WeakReference<Context> reference;
-        public MyHandler(Context context) {
-            reference = new WeakReference<>(context);
-        }
-
-        public MyHandler(Callback callback) {
-            super(callback);
-        }
+    private class MyHandler extends Handler{
 
         @Override
         public void handleMessage(Message msg) {
-            HandlerDemoActivity activity = (HandlerDemoActivity) reference.get();
-            if (activity != null){
-                activity.mTvMsg.setText("handler的handleMessage:"+msg.obj);
-            }
+            mTvMsg.setText("handler的handleMessage:"+msg.obj);
             super.handleMessage(msg);
         }
     }
@@ -118,7 +107,7 @@ public class HandlerDemoActivity extends AppCompatActivity {
                         Message msg = Message.obtain();
                         msg.obj = "我是消息数据";
 
-                        mHandler.sendMessage(msg);
+                        mHandler.sendMessageDelayed(msg,2000);
 
 //                    }
 //                }).start();

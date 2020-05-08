@@ -19,6 +19,7 @@ public class Person {
     @Embedded
     public MyAddress address;
 
+
     public Person() {
 
     }
