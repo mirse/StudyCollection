@@ -1,5 +1,6 @@
-package com.wdz.studycollection.rxjava;
+package com.wdz.studycollection.rxjava.http;
 
+import com.wdz.studycollection.rxjava.bean.BaseResponse;
 import com.wdz.studycollection.rxjava.bean.Translation;
 import com.wdz.studycollection.rxjava.bean.TranslationEnToCh;
 
@@ -11,13 +12,19 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 
-public interface GetRequestInterfaceRetrofit {
-    @GET("ajax.php?a=fy&f=auto&t=auto&w=hi%20register")
-    Call<Translation> getCall();
+public interface ApiService {
+
+    String baseUrl="";
+    int HTTP_TIME_OUT = 0;
+
+
+    @FormUrlEncoded
+    @POST("ajax.php?a=fy&f=auto&t=auto")
+    Observable<BaseResponse<TranslationEnToCh>> en2ch(  @Field("w") String context);
 
 
     // 网络请求2
     @POST("translate?doctype=json&jsonversion=&type=&keyfrom=&model=&mid=&imei=&vendor=&screen=&ssid=&network=&abtest=")
     @FormUrlEncoded
-    Call<TranslationEnToCh> getCall_2(@Field("i") String targetSentence);
+    Observable<TranslationEnToCh> getCall_2(@Field("i") String targetSentence);
 }

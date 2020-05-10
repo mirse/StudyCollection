@@ -56,5 +56,12 @@
         android:layout_height="wrap_content"
         android:text="发起网络请求" />
 
+    <TextView
+        android:textSize="20sp"
+        android:id="@+id/result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="result" />
+
 
 </LinearLayout>
