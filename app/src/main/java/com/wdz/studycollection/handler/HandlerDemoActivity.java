@@ -30,42 +30,28 @@ public class HandlerDemoActivity extends AppCompatActivity {
     @BindView(R.id.bt_clock) Button mBtnClock;
     @BindView(R.id.bt_clock1) Button mBtnClock1;
     private static final String TAG = "HandlerDemoActivity";
-    private MyHandler mHandler = new MyHandler();
+    private MyHandler mHandler = new MyHandler(this);
 
-    private Handler handler = new Handler(new Handler.Callback() {
-        @Override
-        public boolean handleMessage(Message msg) {
-            //主线程
-            mTvMsg.setText("handler的callback:"+msg.obj);
-            return true;
+
+    private static class MyHandler extends Handler{
+
+        public final WeakReference<HandlerDemoActivity> handlerDemoActivity;
+
+        public MyHandler(HandlerDemoActivity handlerDemoActivity) {
+            this.handlerDemoActivity = new WeakReference<>(handlerDemoActivity);
         }
-    })
-    {
-        @Override
-        public void handleMessage(Message msg) {
-            mTvMsg.setText("handler的handleMessage:"+msg.obj);
-        }
-    };
-
-    private class mHandler extends Handler{
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            //do somethings on UI thread
-        }
-    }
-
-
-    private class MyHandler extends Handler{
 
         @Override
         public void handleMessage(Message msg) {
-            mTvMsg.setText("handler的handleMessage:"+msg.obj);
             super.handleMessage(msg);
+            HandlerDemoActivity handlerDemoActivity = this.handlerDemoActivity.get();
+            if (handlerDemoActivity!=null){
+                handlerDemoActivity.mTvMsg.setText("handler的handleMessage:"+msg.obj);
+            }
+
         }
     }
 
-
-    private Handler handler1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,45 +59,16 @@ public class HandlerDemoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_handler_demo);
         ButterKnife.bind(this);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Looper.prepare();
-                handler1 = new Handler(){
-                    @Override
-                    public void handleMessage(Message msg) {
-                        //mTvMsg.setText("我是子线程的handler:"+msg.obj);
-                        Toast.makeText(getBaseContext(),"我是子线程的handler:"+msg.obj,Toast.LENGTH_SHORT).show();
-                    }
-                };
-                Looper.loop();
-            }
-        }).start();
+
     }
 
     @OnClick({R.id.bt_handle,R.id.bt_databinding,R.id.bt_clock,R.id.bt_clock1})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_handle:
-                //开启一个子线程
-//                new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-                        //在子线程发送一个消息。
-//                        Message msg = Message.obtain(handler, new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                Log.i(TAG,"message自身");
-//                            }
-//                        });
-                        Message msg = Message.obtain();
-                        msg.obj = "我是消息数据";
-
-                        mHandler.sendMessageDelayed(msg,2000);
-
-//                    }
-//                }).start();
-
+                Message msg = Message.obtain();
+                msg.obj = "我是消息数据";
+                mHandler.sendMessageDelayed(msg,2000);
                 break;
 
             case R.id.bt_databinding:

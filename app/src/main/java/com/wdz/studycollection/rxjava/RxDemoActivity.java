@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,25 +32,19 @@ import com.wdz.studycollection.rxjava.http.ApiService;
 import com.wdz.studycollection.rxjava.http.BaseObserver;
 import com.wdz.studycollection.rxjava.http.RetrofitFactory;
 
+import java.util.concurrent.TimeUnit;
+
 public class RxDemoActivity extends AppCompatActivity {
     private static final String TAG = "RxDemoActivity";
     private Disposable mDisposable;
     @SuppressLint("CheckResult")
 
-    @BindView(R.id.name)
-    TextView name;
-    @BindView(R.id.age)
-    TextView age;
-    @BindView(R.id.job)
-    TextView job;
-    @BindView(R.id.list)
-    Button mBtnList;
     @BindView(R.id.ed)
     EditText mEd;
-    @BindView(R.id.tv)
-    TextView mTv;
     @BindView(R.id.bt_start)
     Button mBtnStart;
+    @BindView(R.id.bt_interval)
+    Button mBtnInterval;
     @BindView(R.id.result)
     TextView mTvResult;
 
@@ -57,28 +54,32 @@ public class RxDemoActivity extends AppCompatActivity {
     private int i=0;
     private RetrofitFactory retrofitFactory;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rx_demo);
         ButterKnife.bind(this);
         retrofitFactory = RetrofitFactory.getInstance();
+
+
+
+
+
     }
-    @OnClick(R.id.bt_start)
+    @OnClick({R.id.bt_start,R.id.bt_interval})
     public void onClick(View view){
+        String word = mEd.getText().toString();
+        if (word.equals("")){
+            word = "love";
+        }
         switch (view.getId()){
             case R.id.bt_start:
-
-                String word = mEd.getText().toString();
-
-                if (word.equals("")){
-                    word = "love";
-                }
-
                 en2Ch(word);
-                //EventBus.getDefault().post(new MessageEvent("eventbus 回调了"));
-                //EventBus.getDefault().postSticky(new MessageEvent("sticky eventbus 回调"));
                 RxBus.getInstance().post("I am Rxbus");
+                break;
+            case R.id.bt_interval:
+                en2ChByInterval(word);
                 break;
             default:
                 break;
@@ -87,8 +88,6 @@ public class RxDemoActivity extends AppCompatActivity {
 
     private void en2Ch(String word){
         retrofitFactory.eng2Chinese(word,new BaseObserver<BaseResponse<TranslationEnToCh>>() {
-
-
             @Override
             protected void onSuccess(BaseResponse tBaseResponse) {
                 TranslationEnToCh translationEnToCh = (TranslationEnToCh) tBaseResponse.getContent();
@@ -106,26 +105,29 @@ public class RxDemoActivity extends AppCompatActivity {
 
         });
     }
-//    /**
-//     * eng -> chinese
-//     */
-//    private void request() {
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl("http://fy.iciba.com/")
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//        ApiService getRequestInterfaceRetrofit = retrofit.create(ApiService.class);
-//        Call<Translation> call = getRequestInterfaceRetrofit.getCall();
-//        call.enqueue(new Callback<Translation>() {
-//            @Override
-//            public void onResponse(Call<Translation> call, Response<Translation> response) {
-//                Log.i(TAG,"response:"+response.body().toString());
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Translation> call, Throwable t) {
-//                Log.i(TAG,"failed");
-//            }
-//        });
-//    }
+
+    private void en2ChByInterval(String word){
+
+
+
+
+        retrofitFactory.eng2ChineseByInterval(word,new BaseObserver<BaseResponse<TranslationEnToCh>>() {
+            @Override
+            protected void onSuccess(BaseResponse tBaseResponse) {
+                TranslationEnToCh translationEnToCh = (TranslationEnToCh) tBaseResponse.getContent();
+                mTvResult.setText(translationEnToCh.getWord_mean().get(0));
+                Log.i(TAG, "onSuccess: "+translationEnToCh.getWord_mean().get(0));
+            }
+
+            @Override
+            protected void onFailure(BaseResponse tBaseResponse) {
+                TranslationEnToCh translationEnToCh = (TranslationEnToCh) tBaseResponse.getContent();
+                mTvResult.setText(translationEnToCh.getOut());
+                Log.i(TAG, "onFailure: ");
+            }
+
+
+        });
+    }
+
 }

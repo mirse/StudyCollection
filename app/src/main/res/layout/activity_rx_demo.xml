@@ -7,34 +7,6 @@
     android:orientation="vertical"
     tools:context=".rxjava.RxDemoActivity">
 
-    <EditText
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="请填写姓名"
-        />
-
-    <EditText
-        android:id="@+id/age"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="请填写年龄"
-        />
-
-    <EditText
-        android:id="@+id/job"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="请填写职业"
-        />
-
-    <Button
-        android:id="@+id/list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="提交"
-        android:enabled="false"
-        />
 
 
     <EditText
@@ -44,11 +16,11 @@
         android:hint="输入搜索字段"
         />
 
-    <TextView
-        android:id="@+id/tv"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/bt_interval"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+        android:text="无条件请求轮询" />
 
     <Button
         android:id="@+id/bt_start"

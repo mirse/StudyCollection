@@ -1,5 +1,7 @@
 package com.wdz.studycollection.rxjava.http;
 
+import android.util.Log;
+
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.wdz.studycollection.rxjava.bean.BaseResponse;
 import com.wdz.studycollection.rxjava.bean.TranslationEnToCh;
@@ -9,14 +11,18 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
+import io.reactivex.Observer;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitFactory {
+    private static final String TAG = "RetrofitFactory";
     private static RetrofitFactory retrofitFactory;
     private final ApiService apiService;
 
@@ -66,6 +72,44 @@ public class RetrofitFactory {
         getApi().en2ch(word)
                 .compose(observableTransformer())
                 .subscribe(baseResponseBaseObserver);
+    }
+
+    public void eng2ChineseByInterval(String word,BaseObserver<BaseResponse<TranslationEnToCh>> baseResponseBaseObserver){
+        Observable.interval(2,1,TimeUnit.SECONDS)
+                .doOnNext(new Consumer<Long>() {
+                    @Override
+                    public void accept(Long aLong) throws Exception {
+                        Log.i(TAG, "accept: "+aLong);
+                        getApi().en2ch(word)
+                                .compose(observableTransformer())
+                                .subscribe(baseResponseBaseObserver);
+
+                    }
+                }).subscribe(new Observer<Long>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(Long aLong) {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
+    public void eng2ChineseByConditional(String word,BaseObserver<BaseResponse<TranslationEnToCh>> baseResponseBaseObserver){
+
     }
 
 

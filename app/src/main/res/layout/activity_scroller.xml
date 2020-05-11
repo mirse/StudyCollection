@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.wdz.studycollection.viewbase.scroller.ScrollerLayout
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    
-    <Button
-        android:text="this is first view"
-        android:layout_width="match_parent"
-        android:layout_height="100dp" />
-    <Button
-        android:text="this is two view"
-        android:layout_width="match_parent"
-        android:layout_height="100dp" />
-    <Button
-        android:text="this is third view"
-        android:layout_width="match_parent"
-        android:layout_height="100dp" />
 
-</com.wdz.studycollection.viewbase.scroller.ScrollerLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/red_deep" />
+
+</LinearLayout>
