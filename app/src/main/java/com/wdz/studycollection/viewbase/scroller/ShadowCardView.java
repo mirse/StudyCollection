@@ -22,22 +22,52 @@ public class ShadowCardView extends FrameLayout {
 //    private static final int CARD_COLOR =R.color.card_color;
     private static final int CORNERS_RADIUS = 0;
     private static final int SHADOW_RADIUS = 20;
-    private static final int SHADOW_TOP_HEIGHT = 5;
-    private static final int SHADOW_LEFT_HEIGHT = 5;
-    private static final int SHADOW_RIGHT_HEIGHT = 5;
-    private static final int SHADOW_BOTTOM_HEIGHT = 5;
-    private static final int SHADOW_OFFSET_Y = 0;
-    private static final int SHADOW_OFFSET_X = SHADOW_TOP_HEIGHT / 3;
+    private static final int SHADOW_TOP_HEIGHT = 10;
+    private static final int SHADOW_LEFT_HEIGHT = 10;
+    private static final int SHADOW_RIGHT_HEIGHT = 10;
+    private static final int SHADOW_BOTTOM_HEIGHT = 10;
+    private static final int SHADOW_OFFSET_Y = 5;
+    private static final int SHADOW_OFFSET_X = 0;
 
+    /**
+     * 圆角半径
+     */
     private int cornersRadius;
+    /**
+     * 阴影颜色
+     */
     private int shadowColor;
+    /**
+     * view颜色
+     */
     private int cardColor;
+    /**
+     * 阴影模糊度
+     */
     private int shadowRadius;
+    /**
+     * 阴影偏移y轴距离
+     */
     private int shadowOffsetY;
+    /**
+     * 阴影偏移x轴距离
+     */
     private int shadowOffsetX;
+    /**
+     * 阴影距上部分距离
+     */
     private int shadowTopHeight;
+    /**
+     * 阴影距左部分距离
+     */
     private int shadowLeftHeight;
+    /**
+     * 阴影距右部分距离
+     */
     private int shadowRightHeight;
+    /**
+     * 阴影距下部分距离
+     */
     private int shadowBottomHeight;
 
     public ShadowCardView(Context context) {
@@ -53,60 +83,10 @@ public class ShadowCardView extends FrameLayout {
         initView(context, attrs);
     }
 
-    public ShadowCardView setShadowColor(int shadowColor) {
-        this.shadowColor = shadowColor;
-        return this;
-    }
-
-    public ShadowCardView setCardColor(int cardColor) {
-        this.cardColor = cardColor;
-        return this;
-    }
-
-    public ShadowCardView setCornersRadius(int cornersRadius) {
-        this.cornersRadius = cornersRadius;
-        return this;
-    }
-
-    public ShadowCardView setShadowRadius(int shadowRadius) {
-        this.shadowRadius = shadowRadius;
-        return this;
-    }
-
-    public ShadowCardView setShadowTopHeight(int shadowTopHeight) {
-        this.shadowTopHeight = shadowTopHeight;
-        return this;
-    }
-
-    public ShadowCardView setShadowLeftHeight(int shadowLeftHeight) {
-        this.shadowLeftHeight = shadowLeftHeight;
-        return this;
-    }
-
-    public ShadowCardView setShadowRightHeight(int shadowRightHeight) {
-        this.shadowRightHeight = shadowRightHeight;
-        return this;
-    }
-
-    public ShadowCardView setShadowBottomHeight(int shadowBottomHeight) {
-        this.shadowBottomHeight = shadowBottomHeight;
-        return this;
-    }
-
-    public ShadowCardView setShadowOffsetY(int shadowOffsetY) {
-        this.shadowOffsetY = shadowOffsetY;
-        return this;
-    }
-
-    public ShadowCardView setShadowOffsetX(int shadowOffsetX) {
-        this.shadowOffsetX = shadowOffsetX;
-        return this;
-    }
-
     private void initView(Context context, AttributeSet attrs) {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ShadowCardView);
         cornersRadius = typedArray.getDimensionPixelSize(R.styleable.ShadowCardView_cornersRadius, CORNERS_RADIUS);
-        shadowColor = typedArray.getColor(R.styleable.ShadowCardView_shadowColor, getResources().getColor(R.color.grey_d));
+        shadowColor = typedArray.getColor(R.styleable.ShadowCardView_shadowColor, getResources().getColor(R.color.shadow_color));
         cardColor = typedArray.getColor(R.styleable.ShadowCardView_cardColor, getResources().getColor(R.color.black_deep));
         shadowTopHeight = typedArray.getDimensionPixelSize(R.styleable.ShadowCardView_shadowTopHeight, dp2px(context, SHADOW_TOP_HEIGHT));
         shadowLeftHeight = typedArray.getDimensionPixelSize(R.styleable.ShadowCardView_shadowLeftHeight, dp2px(context, SHADOW_LEFT_HEIGHT));
@@ -121,6 +101,9 @@ public class ShadowCardView extends FrameLayout {
         setLayerType(LAYER_TYPE_SOFTWARE, null);
     }
 
+    /**
+     * dp->px
+     */
     public static int dp2px(Context context, float dipValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dipValue * scale + 0.5f);
@@ -138,6 +121,8 @@ public class ShadowCardView extends FrameLayout {
 
     @Override
     protected void dispatchDraw(Canvas canvas) {
+        int i = dp2px(getContext(), 100);
+        Log.i(TAG, "dispatchDraw: width:"+getWidth()+" height:"+getHeight()+" i:"+i);
         Paint paint = new Paint();
         paint.setColor(cardColor);
         paint.setStyle(Paint.Style.FILL);
@@ -146,16 +131,26 @@ public class ShadowCardView extends FrameLayout {
         float top = shadowTopHeight;
         float right = getWidth() - shadowRightHeight;
         float bottom = getHeight() - shadowBottomHeight;
-
-        paint.setShadowLayer(shadowRadius, 0, 0, shadowColor);
+        //偏离上半部分-1，达到ui效果
+        paint.setShadowLayer(shadowRadius, 0, -1, shadowColor);
         RectF rectF = new RectF(left, top, right, bottom);
         canvas.drawRoundRect(rectF, cornersRadius, cornersRadius, paint);
 
-//        Paint paint1 = new Paint();
-//
-//        Bitmap mBackGround = ((BitmapDrawable) this.getResources().getDrawable(R.mipmap.img_avatar_adddevice_a60)).getBitmap(); //获取背景图片
-//        mBackGround= resizeBitmap(mBackGround);
-//        canvas.drawBitmap(mBackGround, shadowLeftHeight, shadowTopHeight, paint1);
+        Paint paint1 = new Paint();
+        paint1.setColor(cardColor);
+        paint1.setStyle(Paint.Style.FILL);
+        paint1.setAntiAlias(true);
+
+
+        paint1.setShadowLayer(shadowRadius, shadowOffsetX, shadowOffsetY, shadowColor);
+
+        rectF = new RectF(left, top, right, bottom);
+        canvas.drawRoundRect(rectF, cornersRadius, cornersRadius, paint1);
+
+        Paint paint2 = new Paint();
+        Bitmap mBackGround = ((BitmapDrawable) this.getResources().getDrawable(R.mipmap.img_avatar_adddevice_a60)).getBitmap(); //获取背景图片
+        mBackGround= resizeBitmap(mBackGround);
+        canvas.drawBitmap(mBackGround, shadowLeftHeight, shadowTopHeight, paint2);
 
 
         canvas.save();

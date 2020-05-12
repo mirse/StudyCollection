@@ -8,8 +8,8 @@
 
     <com.wdz.studycollection.viewbase.scroller.ShadowCardView
         android:id="@+id/shadowCardView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
 
         app:cardColor="@color/white"
         app:cornersRadius="50dp"
