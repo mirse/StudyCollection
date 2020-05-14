@@ -4,4 +4,7 @@
     <string name="button_save">Save</string>
     <string name="button_delete">Delete</string>
     <string name="empty_not_saved">Word not saved because it is empty.</string>
+
+    <string name="behavior_sample_title">com.wdz.studycollection.materialdesign.CustomBehavior</string>
+    <string name="behavior_translate_title">com.wdz.studycollection.materialdesign.TranslateBehavior</string>
 </resources>

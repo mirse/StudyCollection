@@ -27,6 +27,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
+import static android.view.View.SYSTEM_UI_FLAG_FULLSCREEN;
+import static android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
+
 public class ScrollerActivity extends AppCompatActivity {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -42,6 +45,13 @@ public class ScrollerActivity extends AppCompatActivity {
         Locale locale = Locale.getDefault();
         String language = locale.getLanguage() + "-" + locale.getCountry();
 
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+        getWindow().setAttributes(lp);
+        getWindow().getDecorView().setSystemUiVisibility(SYSTEM_UI_FLAG_FULLSCREEN|SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+
         initUi();
     }
 
@@ -51,36 +61,47 @@ public class ScrollerActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerViewAdapter = new RecyclerViewAdapter(getData());
+        recyclerViewAdapter = new RecyclerViewAdapter(getData(),getBaseContext());
         recyclerView.setAdapter(recyclerViewAdapter);
+
+
+        recyclerViewAdapter.setOnClickListener(new RecyclerViewAdapter.onItemClickListener() {
+
+
+            @Override
+            public void onItemClick(Device device, int pagePosition, int devicePosition) {
+                List<Page> pages = recyclerViewAdapter.getPages();
+                for (Page page:pages) {
+                    for (Device device1:page.getDevice()) {
+                        device1.setSelected(false);
+                    }
+                }
+
+                pages.get(pagePosition).getDevice().get(devicePosition).setSelected(true);
+                recyclerViewAdapter.setPages(pages);
+
+
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+
+            }
+        });
     }
     private List<Page> getData() {
         List<Page> mPages= new ArrayList<>();
         String temp = "item";
         page = new Page();
         List<Device> mDevice = new ArrayList<>();
-        for (int j=0;j<7;j++){
+        for (int j=0;j<3;j++){
             Device device = new Device();
             device.setName("device"+j);
-            device.setSelected(true);
-            mDevice.add(device);
-        }
-        page.setDevice(mDevice);
-        mPages.add(page);
-
-        page = new Page();
-
-        mDevice = new ArrayList<>();
-        for (int j=0;j<6;j++){
-            Device device = new Device();
-            device.setName("device1"+j);
             device.setSelected(false);
             mDevice.add(device);
         }
         page.setDevice(mDevice);
         mPages.add(page);
-
-
 
         return mPages;
     }
@@ -90,7 +111,7 @@ public class ScrollerActivity extends AppCompatActivity {
     public void onClick(View view){
         switch (view.getId()){
             case R.id.bt_add:
-                //recyclerViewAdapter.insertDevice();
+                recyclerViewAdapter.insertDevice(new Device("1",false,2));
 
 
                 break;

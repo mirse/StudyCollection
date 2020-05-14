@@ -22,10 +22,10 @@ public class ShadowCardView extends FrameLayout {
 //    private static final int CARD_COLOR =R.color.card_color;
     private static final int CORNERS_RADIUS = 0;
     private static final int SHADOW_RADIUS = 20;
-    private static final int SHADOW_TOP_HEIGHT = 10;
-    private static final int SHADOW_LEFT_HEIGHT = 10;
-    private static final int SHADOW_RIGHT_HEIGHT = 10;
-    private static final int SHADOW_BOTTOM_HEIGHT = 10;
+    private static final int SHADOW_TOP_HEIGHT = 15;
+    private static final int SHADOW_LEFT_HEIGHT = 15;
+    private static final int SHADOW_RIGHT_HEIGHT = 15;
+    private static final int SHADOW_BOTTOM_HEIGHT = 15;
     private static final int SHADOW_OFFSET_Y = 5;
     private static final int SHADOW_OFFSET_X = 0;
 
@@ -69,6 +69,11 @@ public class ShadowCardView extends FrameLayout {
      * 阴影距下部分距离
      */
     private int shadowBottomHeight;
+    private Drawable src;
+    private Paint bitmapPaint;
+    private Paint shadowDownPaint;
+    private Paint shadowUpPaint;
+    private boolean isSetShadow = false;
 
     public ShadowCardView(Context context) {
         this(context, null);
@@ -83,6 +88,21 @@ public class ShadowCardView extends FrameLayout {
         initView(context, attrs);
     }
 
+    /**
+     * 设置是否显示阴影
+     * @param isSetShadow
+     */
+    public void setShadowColor(boolean isSetShadow) {
+        this.isSetShadow = isSetShadow;
+        invalidate();
+    }
+
+    public void setBitmap(Drawable drawable) {
+        this.src = drawable;
+        invalidate();
+    }
+
+
     private void initView(Context context, AttributeSet attrs) {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ShadowCardView);
         cornersRadius = typedArray.getDimensionPixelSize(R.styleable.ShadowCardView_cornersRadius, CORNERS_RADIUS);
@@ -95,10 +115,35 @@ public class ShadowCardView extends FrameLayout {
         shadowOffsetX = typedArray.getDimensionPixelSize(R.styleable.ShadowCardView_shadowOffsetX, dp2px(context, SHADOW_OFFSET_X));
         shadowOffsetY = typedArray.getDimensionPixelSize(R.styleable.ShadowCardView_shadowOffsetY, dp2px(context, SHADOW_OFFSET_Y));
         shadowRadius = typedArray.getInteger(R.styleable.ShadowCardView_shadowRadius, SHADOW_RADIUS);
+        src = typedArray.getDrawable(R.styleable.ShadowCardView_src);
 
         typedArray.recycle();
         setPadding(shadowLeftHeight, shadowTopHeight, shadowRightHeight, shadowBottomHeight);
         setLayerType(LAYER_TYPE_SOFTWARE, null);
+
+    }
+
+    private void initPaint() {
+        shadowUpPaint = new Paint();
+        shadowUpPaint.setColor(cardColor);
+        shadowUpPaint.setStyle(Paint.Style.FILL);
+        shadowUpPaint.setAntiAlias(true);
+
+
+
+        shadowDownPaint = new Paint();
+        shadowDownPaint.setColor(cardColor);
+        shadowDownPaint.setStyle(Paint.Style.FILL);
+        shadowDownPaint.setAntiAlias(true);
+
+        if (isSetShadow){
+            //偏离上半部分-1，达到ui效果
+            shadowUpPaint.setShadowLayer(shadowRadius, 0, -1, shadowColor);
+            shadowDownPaint.setShadowLayer(shadowRadius, shadowOffsetX, shadowOffsetY, shadowColor);
+        }
+
+
+        bitmapPaint = new Paint();
     }
 
     /**
@@ -121,36 +166,30 @@ public class ShadowCardView extends FrameLayout {
 
     @Override
     protected void dispatchDraw(Canvas canvas) {
+        initPaint();
+
         int i = dp2px(getContext(), 100);
         Log.i(TAG, "dispatchDraw: width:"+getWidth()+" height:"+getHeight()+" i:"+i);
-        Paint paint = new Paint();
-        paint.setColor(cardColor);
-        paint.setStyle(Paint.Style.FILL);
-        paint.setAntiAlias(true);
+
         float left = shadowLeftHeight;
         float top = shadowTopHeight;
         float right = getWidth() - shadowRightHeight;
         float bottom = getHeight() - shadowBottomHeight;
-        //偏离上半部分-1，达到ui效果
-        paint.setShadowLayer(shadowRadius, 0, -1, shadowColor);
+
         RectF rectF = new RectF(left, top, right, bottom);
-        canvas.drawRoundRect(rectF, cornersRadius, cornersRadius, paint);
-
-        Paint paint1 = new Paint();
-        paint1.setColor(cardColor);
-        paint1.setStyle(Paint.Style.FILL);
-        paint1.setAntiAlias(true);
+        canvas.drawRoundRect(rectF, cornersRadius, cornersRadius, shadowUpPaint);
 
 
-        paint1.setShadowLayer(shadowRadius, shadowOffsetX, shadowOffsetY, shadowColor);
 
         rectF = new RectF(left, top, right, bottom);
-        canvas.drawRoundRect(rectF, cornersRadius, cornersRadius, paint1);
+        canvas.drawRoundRect(rectF, cornersRadius, cornersRadius, shadowDownPaint);
 
-        Paint paint2 = new Paint();
-        Bitmap mBackGround = ((BitmapDrawable) this.getResources().getDrawable(R.mipmap.img_avatar_adddevice_a60)).getBitmap(); //获取背景图片
-        mBackGround= resizeBitmap(mBackGround);
-        canvas.drawBitmap(mBackGround, shadowLeftHeight, shadowTopHeight, paint2);
+        if (src!=null){
+            Bitmap mBackGround = ((BitmapDrawable) src).getBitmap();
+            mBackGround= resizeBitmap(mBackGround);
+            canvas.drawBitmap(mBackGround, (float) (getWidth()-mBackGround.getWidth())/2, (float) (getHeight()-mBackGround.getHeight())/2, bitmapPaint);
+
+        }
 
 
         canvas.save();
@@ -158,14 +197,24 @@ public class ShadowCardView extends FrameLayout {
     }
 
 
+    /**
+     * 原始ui宽度，以此为参考
+     */
+    private final int originWidth = dp2px(getContext(), 100);
+    /**
+     * 原始ui高度，以此为参考
+     */
+    private final int originHeight = dp2px(getContext(), 100);
+
     public Bitmap resizeBitmap(Bitmap bitmap) {
         if (bitmap != null) {
             int width = bitmap.getWidth();
             int height = bitmap.getHeight();
             int newWidth = getWidth()-shadowLeftHeight-shadowRightHeight;
             int newHeight = getHeight()-shadowTopHeight-shadowBottomHeight;
-            float scaleWight = ((float) newWidth) / width;
-            float scaleHeight = ((float) newHeight) / height;
+            float scaleWight = ((float) newWidth) / originWidth;
+            float scaleHeight = ((float) newHeight) / originHeight;
+            Log.i(TAG, "resizeBitmap: newWidth:"+newWidth+" newHeight:"+newHeight);
             Log.i(TAG, "resizeBitmap: scaleWight:"+scaleWight+" scaleHeight:"+scaleHeight);
             Matrix matrix = new Matrix();
             matrix.postScale(scaleWight, scaleHeight);

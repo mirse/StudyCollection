@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+
+
+    <com.wdz.studycollection.viewbase.scroller.ShadowCardView
+        android:id="@+id/img_scan_device1"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginStart="38dp"
+        android:visibility="gone"
+        app:cardColor="@color/white"
+        app:cornersRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.7"
+        app:src="@mipmap/img_avatar_adddevice_a60" />
+
+    <com.wdz.studycollection.viewbase.scroller.ShadowCardView
+        android:id="@+id/img_scan_device2"
+        android:layout_width="105dp"
+        android:layout_height="105dp"
+        android:layout_marginStart="243dp"
+        android:visibility="gone"
+        app:cardColor="@color/white"
+        app:cornersRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.06999999"
+        app:src="@mipmap/img_avatar_adddevice_a60" />
+
+    <com.wdz.studycollection.viewbase.scroller.ShadowCardView
+        android:id="@+id/img_scan_device3"
+        android:layout_width="105dp"
+        android:layout_height="105dp"
+        android:layout_marginStart="205dp"
+        android:visibility="gone"
+        app:cardColor="@color/white"
+        app:cornersRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9"
+        app:src="@mipmap/img_avatar_adddevice_a60" />
+
+    <com.wdz.studycollection.viewbase.scroller.ShadowCardView
+        android:id="@+id/img_scan_device4"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="284dp"
+        android:visibility="gone"
+        app:cardColor="@color/white"
+        app:cornersRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.58000004"
+        app:src="@mipmap/img_avatar_adddevice_a60" />
+
+    <com.wdz.studycollection.viewbase.scroller.ShadowCardView
+        android:id="@+id/img_scan_device5"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="130dp"
+        android:visibility="gone"
+        app:cardColor="@color/white"
+        app:cornersRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.35000002"
+        app:src="@mipmap/img_avatar_adddevice_a60" />
+
+    <com.wdz.studycollection.viewbase.scroller.ShadowCardView
+        android:id="@+id/img_scan_device6"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="75dp"
+        android:visibility="gone"
+        app:cardColor="@color/white"
+        app:cornersRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.18"
+        app:src="@mipmap/img_avatar_adddevice_a60" />
+
+    <com.wdz.studycollection.viewbase.scroller.ShadowCardView
+        android:id="@+id/img_scan_device7"
+        android:layout_width="105dp"
+        android:layout_height="105dp"
+        android:layout_marginStart="330dp"
+        android:visibility="gone"
+        app:cardColor="@color/white"
+        app:cornersRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.29000002"
+        app:src="@mipmap/img_avatar_adddevice_a60" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

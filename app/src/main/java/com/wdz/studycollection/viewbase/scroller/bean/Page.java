@@ -1,12 +1,13 @@
 package com.wdz.studycollection.viewbase.scroller.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by dezhi.wang on 2020/5/12.
  */
 public class Page {
-    private List<Device> device;
+    private List<Device> device = new ArrayList<>();
 
     public List<Device> getDevice() {
         return device;
