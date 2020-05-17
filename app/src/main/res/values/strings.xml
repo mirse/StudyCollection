@@ -7,4 +7,15 @@
 
     <string name="behavior_sample_title">com.wdz.studycollection.materialdesign.CustomBehavior</string>
     <string name="behavior_translate_title">com.wdz.studycollection.materialdesign.TranslateBehavior</string>
+    <string name="behavior_title">com.wdz.studycollection.materialdesign.TitleBehavior</string>
+
+    <string name="behavior_sample_header">com.wdz.studycollection.materialdesign.testBehavior.SampleHeaderBehavior</string>
+    <string name="behavior_recyclerview">com.wdz.studycollection.materialdesign.testBehavior.RecyclerViewBehavior</string>
+
+
+    <string name="behavior_main_content">com.wdz.studycollection.materialdesign.testBehavior.MainContentBehavior</string>
+    <string name="behavior_main_header">com.wdz.studycollection.materialdesign.testBehavior.MainHeaderBehavior</string>
+    <string name="behavior_xiami_comment">com.wdz.studycollection.materialdesign.testBehavior.XiamiCommentBehavior</string>
+
+
 </resources>

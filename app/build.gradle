@@ -89,4 +89,6 @@ dependencies {
     //leakcanary
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.2'
 
+    implementation 'com.othershe:BaseAdapter:1.1.5'
+
 }

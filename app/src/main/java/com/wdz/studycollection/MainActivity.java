@@ -50,6 +50,7 @@ import com.wdz.studycollection.internet.glide.GlideActivity;
 import com.wdz.studycollection.jetpack.viewmodel.ViewModelActivity;
 import com.wdz.studycollection.materialdesign.CoordinatorLayoutActivity;
 import com.wdz.studycollection.materialdesign.DrawerLayoutActivity;
+import com.wdz.studycollection.materialdesign.testBehavior.TestActivity;
 import com.wdz.studycollection.media.CameraXActivity;
 import com.wdz.studycollection.media.NotifyActivity;
 import com.wdz.studycollection.myview.LayoutInflaterActivity;
@@ -414,7 +415,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                         startActivity(new Intent(this, CoordinatorLayoutActivity.class));
                         break;
                     case R.id.button3:
-                        //startActivity(new Intent(this, ScrollerActivity.class));
+                        startActivity(new Intent(this, TestActivity.class));
                         break;
                     case R.id.button4:
                         //startActivity(new Intent(this, FragmentActivity.class));
