@@ -22,6 +22,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".materialdesign.testBehavior.TestActivity"></activity>
         <activity android:name=".materialdesign.CoordinatorLayoutActivity" />
+        <activity android:name=".materialdesign.test.CoordinatorLayoutTestActivity" />
         <activity android:name=".handler.HandlerThreadActivity" />
         <activity android:name=".immersive.MainSplashActivity" />
         <activity android:name=".immersive.SplashImageActivity" />

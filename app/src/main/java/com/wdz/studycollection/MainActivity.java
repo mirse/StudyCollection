@@ -50,6 +50,7 @@ import com.wdz.studycollection.internet.glide.GlideActivity;
 import com.wdz.studycollection.jetpack.viewmodel.ViewModelActivity;
 import com.wdz.studycollection.materialdesign.CoordinatorLayoutActivity;
 import com.wdz.studycollection.materialdesign.DrawerLayoutActivity;
+import com.wdz.studycollection.materialdesign.test.CoordinatorLayoutTestActivity;
 import com.wdz.studycollection.materialdesign.testBehavior.TestActivity;
 import com.wdz.studycollection.media.CameraXActivity;
 import com.wdz.studycollection.media.NotifyActivity;

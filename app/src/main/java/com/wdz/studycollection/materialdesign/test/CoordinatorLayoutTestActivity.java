@@ -1,6 +1,23 @@
-package com.wdz.studycollection.materialdesign;
+package com.wdz.studycollection.materialdesign.test;
 
-import androidx.annotation.NonNull;
+import android.content.Context;
+import android.os.Build;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.wdz.studycollection.R;
+import com.wdz.studycollection.materialdesign.MoodSettingAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -13,35 +30,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import android.content.Context;
-import android.graphics.Color;
-import android.os.Build;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-
-import androidx.appcompat.widget.Toolbar;
-
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.othershe.baseadapter.ViewHolder;
-import com.othershe.baseadapter.base.CommonBaseAdapter;
-import com.wdz.studycollection.R;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import static android.view.View.SYSTEM_UI_FLAG_FULLSCREEN;
 import static android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
 
-public class CoordinatorLayoutActivity extends AppCompatActivity {
+public class CoordinatorLayoutTestActivity extends AppCompatActivity {
     private static final String TAG = "CoordinatorLayoutActivi";
     @BindView(R.id.relativeLayout1)
     ConstraintLayout relativeLayout1;
@@ -57,14 +49,16 @@ public class CoordinatorLayoutActivity extends AppCompatActivity {
     ImageView ivBulb;
     @BindView(R.id.rv_mood)
     RecyclerView mRvMood;
-    private MoodSettingAdapter mMoodSettingAdapter;
+    @BindView(R.id.ll_root)
+    LinearLayout llRoot;
+    private MoodSettingTestAdapter mMoodSettingAdapter;
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_coordinator_layout);
+        setContentView(R.layout.activity_coordinator_test_layout);
         ButterKnife.bind(this);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -79,6 +73,8 @@ public class CoordinatorLayoutActivity extends AppCompatActivity {
         int h = View.MeasureSpec.makeMeasureSpec(0,
                 View.MeasureSpec.UNSPECIFIED);
         relativeLayout.measure(w, h);
+
+
         int height = relativeLayout.getMeasuredHeight();
         CoordinatorLayout.LayoutParams lp1 = (CoordinatorLayout.LayoutParams) relativeLayout.getLayoutParams();
         lp1.height = getStatusBarHeight()+height;
@@ -92,11 +88,10 @@ public class CoordinatorLayoutActivity extends AppCompatActivity {
         relativeLayout1.setLayoutParams(lp2);
         relativeLayout1.setPadding(0,getStatusBarHeight(),0,0);
 
-        CoordinatorLayout.LayoutParams lp3 = (CoordinatorLayout.LayoutParams) ivBulb.getLayoutParams();
+//        CoordinatorLayout.LayoutParams lp3 = (CoordinatorLayout.LayoutParams) ivBulb.getLayoutParams();
+//        lp3.topMargin = getStatusBarHeight()+height;
+        CollapsingToolbarLayout.LayoutParams lp3 = (CollapsingToolbarLayout.LayoutParams) llRoot.getLayoutParams();
         lp3.topMargin = getStatusBarHeight()+height;
-
-
-
 
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3, RecyclerView.VERTICAL, false);
@@ -104,12 +99,42 @@ public class CoordinatorLayoutActivity extends AppCompatActivity {
         moods.add(new Mood());
         moods.add(new Mood());
         moods.add(new Mood());
-        mMoodSettingAdapter = new MoodSettingAdapter(moods,this);
+        mMoodSettingAdapter = new MoodSettingTestAdapter(moods,this);
         mRvMood.setLayoutManager(gridLayoutManager);
         mRvMood.setAdapter(mMoodSettingAdapter);
 
 
-        //banAppBarScroll(false);
+
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
+                Log.i(TAG, "onOffsetChanged: "+ivBulb.getHeight()+" ivBulb.getTop():"+ivBulb.getTop());
+                float scale =1 - (float) Math.abs(i)/ivBulb.getHeight();
+
+                ivBulb.setScaleX(scale);
+                ivBulb.setScaleY(scale);
+                Log.i(TAG, "onOffsetChanged: i:"+i+" appBarLayout:"+appBarLayout.getTotalScrollRange());
+            }
+        });
+
+        mRvMood.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                RecyclerView.LayoutManager layoutManager = mRvMood.getLayoutManager();
+                if (layoutManager instanceof LinearLayoutManager) {
+                    LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
+                    int childCount = linearManager.getChildCount();
+                    int itemCount = linearManager.getItemCount();
+                    Log.i(TAG, "onScrollChange: childCount:"+childCount+" itemCount:"+itemCount);
+                    int lastVisibleItemPosition = linearManager.findLastVisibleItemPosition();
+                    int lastCompletelyVisibleItemPosition = linearManager.findLastCompletelyVisibleItemPosition();
+                    Log.i(TAG, "onScrollChange: lastVisibleItemPosition:"+lastVisibleItemPosition+"lastCompletelyVisibleItemPosition:"+lastCompletelyVisibleItemPosition);
+                }
+            }
+        });
+
+
+       // banAppBarScroll(false);
 
 
     }
