@@ -4,13 +4,10 @@
     android:id="@+id/root_head"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:background="@color/transparent"
     android:layout_height="wrap_content">
 
     <ImageView
-        android:background="@color/red_deep"
         android:scaleType="centerInside"
-        android:layout_centerInParent="true"
         android:id="@+id/iv_bulb"
         android:layout_width="200dp"
         android:layout_height="200dp"

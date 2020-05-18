@@ -40,7 +40,7 @@ public class TestActivity extends AppCompatActivity {
     LinearLayout linearLayout2;
     @BindView(R.id.relativeLayout1)
     ConstraintLayout relativeLayout1;
-    public int starti =0;
+    public float newScale = 1;
     public int translate = 0;
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -87,6 +87,7 @@ public class TestActivity extends AppCompatActivity {
 
         roootHead.measure(w,h);
         ivBulb.measure(w,h);
+        linearLayout2.measure(w,h);
 
         RecyclerView.LayoutParams lp3 = (RecyclerView.LayoutParams) roootHead.getLayoutParams();
         Log.i(TAG, "onCreate: statusHeight:"+getStatusBarHeight()+" height:"+height+" lp3.height:"+roootHead.getMeasuredHeight());
@@ -99,41 +100,28 @@ public class TestActivity extends AppCompatActivity {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-
                 float y = linearLayout2.getY();
-
                 float translateY = y - dy;
-                Log.i(TAG, "onScrollChange: dy:"+dy+" y:"+y+" translateY:"+translateY+" height:"+linearLayout2.getHeight()+" lp3.topMargin:"+lp3.topMargin);
-                linearLayout2.setTranslationY(translateY);;
-                Log.i(TAG, "onScrolled: "+ivBulb.getHeight()+" ivBulb.getTop():"+ivBulb.getY());
+                linearLayout2.setTranslationY(translateY);
+                float scale = 1 + (translateY)/(ivBulb.getMeasuredHeight());
+                Log.i(TAG, "onScrolled: "+scale);
+                if (scale<=0.1){
+                    relativeLayout1.setBackgroundResource(R.drawable.bg_title);
+                    scale = 0;
+                }
+                else{
+                    relativeLayout1.setBackgroundColor(getResources().getColor(R.color.transparent));
+                }
 
-                float scale = 1+ (translateY)/(ivBulb.getHeight());
 
-                translate = dy-starti;
-                starti = translate;
-
-                ivBulb.setPivotY(lp3.topMargin+600-translate);
+                translate +=dy;
                 ivBulb.setScaleX(scale);
                 ivBulb.setScaleY(scale);
 
+                ivBulb.setPivotX((float) ivBulb.getMeasuredWidth()/2);
+                ivBulb.setPivotY(ivBulb.getMeasuredHeight());
 
-//                //获得Bitmap的高和宽
-//                int bmpWidth=bitmap.getWidth();
-//                int bmpHeight=bitmap.getHeight();
-//
-////设置缩小比例
-//
-////计算出这次要缩小的比例
-//                float scaleWidth=(float)(bmpWidth*scale);
-//                float scaleHeight=(float)(bmpHeight*scale);
-//
-////产生resize后的Bitmap对象
-//                Matrix matrix=new Matrix();
-//                matrix.postScale(scaleWidth, scaleHeight);
-//                Bitmap resizeBmp=Bitmap.createBitmap(bitmap, 0, 0, bmpWidth, bmpHeight, matrix, true);
-//
-//                ivBulb.setImageBitmap(resizeBmp);
-//
+
 
 
             }
