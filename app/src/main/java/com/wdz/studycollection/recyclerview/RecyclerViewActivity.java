@@ -1,5 +1,6 @@
 package com.wdz.studycollection.recyclerview;
 
+import android.content.Intent;
 import android.graphics.Canvas;
 
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wdz.studycollection.R;
+import com.wdz.studycollection.recyclerview.updownrecyclerview.UpDownRecyclerViewActivity;
 
 import java.util.ArrayList;
 
@@ -40,6 +42,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
     private void initView() {
         Button mBtnAdd = findViewById(R.id.bt_add);
         Button mBtnDel = findViewById(R.id.bt_delete);
+        Button mBtnRecyclerView = findViewById(R.id.bt_recyclerview);
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(myAdapter);
@@ -61,6 +64,12 @@ public class RecyclerViewActivity extends AppCompatActivity {
                  mLayoutManager.scrollToPosition(0);
              }
          });
+        mBtnRecyclerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RecyclerViewActivity.this, UpDownRecyclerViewActivity.class));
+            }
+        });
 
          myAdapter.setOnClickListener(new MyAdapter.onItemClickListener() {
              @Override
