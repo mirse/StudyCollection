@@ -1,8 +1,7 @@
 package com.wdz.studycollection.datasave.room;
 
 import com.wdz.studycollection.datasave.room.entity.Clothes;
-import com.wdz.studycollection.datasave.room.entity.Person;
-import com.wdz.studycollection.datasave.room.entity.PersonInfo;
+import com.wdz.studycollection.datasave.room.entity.embedded.PersonInfo;
 
 import java.util.List;
 

@@ -1,4 +1,8 @@
-package com.wdz.studycollection.datasave.room.entity;
+package com.wdz.studycollection.datasave.room.entity.embedded;
+
+import com.wdz.studycollection.datasave.room.entity.Market;
+import com.wdz.studycollection.datasave.room.entity.Person;
+import com.wdz.studycollection.datasave.room.entity.Vendor;
 
 import java.util.List;
 

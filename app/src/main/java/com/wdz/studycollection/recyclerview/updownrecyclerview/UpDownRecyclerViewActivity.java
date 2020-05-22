@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.wdz.studycollection.R;
@@ -22,18 +23,23 @@ public class UpDownRecyclerViewActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     private List<Device> mList = new ArrayList<>();
     private UpDownAdapter upDownAdapter;
-    private Device device;
+    private final int DEVICE_TITLE = 0;
+    private final int DEVICE_BULB = 1;
+    private final int DEVICE_GATEWAY = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_up_down_recycler_view);
         ButterKnife.bind(this);
-        device = new Device();
-        upDownAdapter = new UpDownAdapter(device, this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,  RecyclerView.VERTICAL, false);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        upDownAdapter = new UpDownAdapter(mList, this);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,  3,RecyclerView.VERTICAL, false);
+
+        recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(upDownAdapter);
+
+        View view = LayoutInflater.from(this).inflate(R.layout.layout_header, recyclerView, false);
+        upDownAdapter.setHeaderView(view);
 
     }
 
@@ -41,14 +47,16 @@ public class UpDownRecyclerViewActivity extends AppCompatActivity {
     public void onClick(View view){
         switch (view.getId()){
             case R.id.bt_add_bulb:
-                Bulb bulb = new Bulb();
-                device.getBulbList().add(bulb);
-                upDownAdapter.updateDevice(device);
+                Device device1 = new Device();
+                device1.deviceType = DEVICE_BULB;
+                mList.add(device1);
+                upDownAdapter.updateDevice(mList);
                 break;
             case R.id.bt_add_gateway:
-                Gateway gateway = new Gateway();
-                device.getGatewayList().add(gateway);
-                upDownAdapter.updateDevice(device);
+                Device device = new Device();
+                device.deviceType = DEVICE_GATEWAY;
+                mList.add(device);
+                upDownAdapter.updateDevice(mList);
                 break;
             default:
                 break;
@@ -56,33 +64,25 @@ public class UpDownRecyclerViewActivity extends AppCompatActivity {
     }
 
 
-    class Device{
+    static class Device{
+
+        public Device() {
+        }
+
+        public Device(int deviceType) {
+            this.deviceType = deviceType;
+        }
+
         public int deviceType;
-        public List<Bulb> bulbList = new ArrayList<>();
-        public List<Gateway> gatewayList = new ArrayList<>();
 
-        public List<Bulb> getBulbList() {
-            return bulbList;
+
+        @Override
+        public String toString() {
+            return "Device{" +
+                    "deviceType=" + deviceType +
+                    '}';
         }
-
-        public void setBulbList(List<Bulb> bulbList) {
-            this.bulbList = bulbList;
-        }
-
-        public List<Gateway> getGatewayList() {
-            return gatewayList;
-        }
-
-        public void setGatewayList(List<Gateway> gatewayList) {
-            this.gatewayList = gatewayList;
-        }
-
     }
 
-    class Bulb{
 
-    }
-    class Gateway{
-
-    }
 }

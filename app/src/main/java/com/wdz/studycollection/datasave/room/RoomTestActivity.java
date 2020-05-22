@@ -16,10 +16,9 @@ import com.wdz.studycollection.datasave.room.entity.Clothes;
 import com.wdz.studycollection.datasave.room.entity.Market;
 import com.wdz.studycollection.datasave.room.entity.MyAddress;
 import com.wdz.studycollection.datasave.room.entity.Person;
-import com.wdz.studycollection.datasave.room.entity.PersonInfo;
+import com.wdz.studycollection.datasave.room.entity.embedded.PersonInfo;
 import com.wdz.studycollection.datasave.room.entity.Vendor;
 
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -123,7 +122,7 @@ public class RoomTestActivity extends PermissionActivity {
     }
 
 
-    @OnClick({R.id.bt_add_person,R.id.bt_add_market,R.id.bt_add_vendor,R.id.bt_add_clo})
+    @OnClick({R.id.bt_add_person,R.id.bt_add_market,R.id.bt_add_vendor,R.id.bt_add_clo,R.id.btn_delete})
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.bt_add_person:
@@ -138,6 +137,9 @@ public class RoomTestActivity extends PermissionActivity {
                 break;
             case R.id.bt_add_clo:
                 new insertClothesAsyncTask().execute(new Clothes(mEtCloColor.getText().toString(),Integer.parseInt(mEtCloPerId.getText().toString()),Integer.parseInt(mEtCloMarId.getText().toString())));
+                break;
+            case R.id.btn_delete:
+                //new deletePersonAsyncTask().execute(Integer.parseInt(mEtPersonid.getText().toString()))
                 break;
 
 
@@ -181,9 +183,9 @@ public class RoomTestActivity extends PermissionActivity {
 
 
     private static class insertPersonAsyncTask extends AsyncTask<Person, Void, String> {
-    insertPersonAsyncTask (){
+        insertPersonAsyncTask (){
 
-    }
+        }
 
     @Override
     protected String doInBackground(Person... person) {
@@ -200,6 +202,21 @@ public class RoomTestActivity extends PermissionActivity {
         Log.i(TAG,"插入："+aVoid);
         super.onPostExecute(aVoid);
     }
+    }
+
+    private static class deletePersonAsyncTask extends AsyncTask<Person, Void, String>{
+
+        @Override
+        protected String doInBackground(Person... people) {
+            //DBInstance.getInstance().personDao().deletePersonById()
+            return "success";
+        }
+        //doInBackground 执行完成后
+        @Override
+        protected void onPostExecute(String aVoid) {
+            Log.i(TAG,"删除："+aVoid);
+            super.onPostExecute(aVoid);
+        }
     }
 
     private static class insertMarketAsyncTask extends AsyncTask<Market, Void, String> {

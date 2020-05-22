@@ -18,8 +18,6 @@ import com.wdz.studycollection.R;
 
 public class ShadowCardView extends FrameLayout {
     private static final String TAG = "ShadowCardView";
-    //    private static final int SHADOW_COLOR = R.color.shadow_color;
-//    private static final int CARD_COLOR =R.color.card_color;
     private static final int CORNERS_RADIUS = 0;
     private static final int SHADOW_RADIUS = 20;
     private static final int SHADOW_TOP_HEIGHT = 15;
@@ -167,9 +165,6 @@ public class ShadowCardView extends FrameLayout {
     @Override
     protected void dispatchDraw(Canvas canvas) {
         initPaint();
-
-        int i = dp2px(getContext(), 100);
-        Log.i(TAG, "dispatchDraw: width:"+getWidth()+" height:"+getHeight()+" i:"+i);
 
         float left = shadowLeftHeight;
         float top = shadowTopHeight;

@@ -239,36 +239,36 @@
 
     <Button
         android:id="@+id/bt_add_person"
-        android:layout_width="wrap_content"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="添加person"
+        android:text="添加\nperson"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_clo_color" />
 
     <Button
         android:id="@+id/bt_add_market"
-        android:layout_width="wrap_content"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
-        android:text="添加Market"
+        android:text="添加\nMarket"
         app:layout_constraintBottom_toBottomOf="@+id/bt_add_person"
         app:layout_constraintStart_toEndOf="@+id/bt_add_person"
         app:layout_constraintTop_toTopOf="@+id/bt_add_person" />
 
     <Button
         android:id="@+id/bt_add_vendor"
-        android:layout_width="wrap_content"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
-        android:text="添加vendor"
+        android:text="添加\nvendor"
         app:layout_constraintBottom_toBottomOf="@+id/bt_add_market"
         app:layout_constraintStart_toEndOf="@+id/bt_add_market"
         app:layout_constraintTop_toTopOf="@+id/bt_add_market" />
 
     <Button
         android:id="@+id/bt_add_clo"
-        android:layout_width="wrap_content"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
-        android:text="添加clo"
+        android:text="添加\nclo"
         app:layout_constraintBottom_toBottomOf="@+id/bt_add_vendor"
         app:layout_constraintStart_toEndOf="@+id/bt_add_vendor"
         app:layout_constraintTop_toTopOf="@+id/bt_add_vendor" />
@@ -308,4 +308,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_vendor_status" />
+
+    <Button
+        android:id="@+id/btn_delete"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:text="删除"
+        app:layout_constraintBottom_toBottomOf="@+id/bt_add_clo"
+        app:layout_constraintStart_toEndOf="@+id/bt_add_clo"
+        app:layout_constraintTop_toTopOf="@+id/bt_add_clo" />
 </androidx.constraintlayout.widget.ConstraintLayout>
