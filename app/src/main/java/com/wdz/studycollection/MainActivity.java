@@ -26,6 +26,7 @@ import com.wdz.studycollection.activity.DrawableIconIVActivity;
 import com.wdz.studycollection.activity.DrawableWrapperActivity;
 import com.wdz.studycollection.activity.LetterIndexActivity;
 import com.wdz.studycollection.activity.PageActivity;
+import com.wdz.studycollection.componentization.ARouterDemoActivity;
 import com.wdz.studycollection.immersive.MainSplashActivity;
 import com.wdz.studycollection.immersive.SplashImageActivity;
 import com.wdz.studycollection.activity.SurfaceViewActivity;
@@ -65,6 +66,7 @@ import com.wdz.studycollection.recyclerview.grid.GridViewActivity;
 import com.wdz.studycollection.recyclerview.RecyclerViewActivity;
 import com.wdz.studycollection.rxjava.RxDemoActivity;
 import com.wdz.studycollection.viewbase.CoordinateSystemActivity;
+import com.wdz.studycollection.viewbase.EditTextDemoActivity;
 import com.wdz.studycollection.viewbase.floating.FloatingViewActivity;
 import com.wdz.studycollection.viewbase.scroller.ScrollerActivity;
 
@@ -96,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
         initMain();
 
         initRxBus();
+        Log.d(TAG, "onCreate: ");
         //EventBus.getDefault().register(this);
         Toast.makeText(this,"瀑布流拖拽problem",Toast.LENGTH_SHORT).show();
 
@@ -170,11 +173,12 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                 {"视图","LayoutInflater","瀑布流","界面旋转修复","Fragment","与viewpager","界面旋转"},
                 {"网络通信","Socket通信","AsyncTask","Handler","handler切换线程","OkHttp","Glide"},
                 {"数据存储","Sp","Room","序列化","Service","",""},
-                {"View合集","坐标系","悬浮窗","Scroller","","",""},
+                {"View合集","坐标系","悬浮窗","Scroller","软键盘","",""},
                 {"动画合集","属性动画","splash","","","",""},
                 {"多媒体","通知","相机","","","",""},
                 {"Material","抽屉","折叠视图","","","",""},
-                {"Jetpack","ViewModel","RxJava","","","",""}
+                {"Jetpack","ViewModel","RxJava","","","",""},
+                {"组件化","ARouter","","","","",""}
         };
 
         for (String[] mArray:array) {
@@ -346,7 +350,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                         startActivity(new Intent(this, ScrollerActivity.class));
                         break;
                     case R.id.button4:
-                        //startActivity(new Intent(this, FragmentActivity.class));
+                        startActivity(new Intent(this, EditTextDemoActivity.class));
                         break;
                     case R.id.button5:
                         //startActivity(new Intent(this, VpAndFragActivity.class));
@@ -438,6 +442,30 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                         break;
                     case R.id.button2:
                         startActivity(new Intent(this, RxDemoActivity.class));
+                        break;
+                    case R.id.button3:
+                        //startActivity(new Intent(this, ScrollerActivity.class));
+                        break;
+                    case R.id.button4:
+                        //startActivity(new Intent(this, FragmentActivity.class));
+                        break;
+                    case R.id.button5:
+                        //startActivity(new Intent(this, VpAndFragActivity.class));
+                        break;
+                    case R.id.button6:
+                        //startActivity(new Intent(this, SavedInstanceStateUsingActivity.class));
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case 11:
+                switch (view.getId()){
+                    case R.id.button:
+                        startActivity(new Intent(this, ARouterDemoActivity.class));
+                        break;
+                    case R.id.button2:
+                        //startActivity(new Intent(this, RxDemoActivity.class));
                         break;
                     case R.id.button3:
                         //startActivity(new Intent(this, ScrollerActivity.class));

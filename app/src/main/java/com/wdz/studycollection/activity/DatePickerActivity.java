@@ -10,11 +10,15 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.wdz.mychoosedialog.datepicker.DatePicker;
+import com.wdz.mychoosedialog.datepicker.RoomPicker;
 import com.wdz.studycollection.R;
 import com.wdz.mychoosedialog.datepicker.CalendarPicker;
 import com.wdz.mychoosedialog.datepicker.DateFormatUtils;
 import com.wdz.mychoosedialog.datepicker.TimerPicker;
 
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,16 +37,23 @@ public class DatePickerActivity extends AppCompatActivity {
      * 6天为一单位，long
      */
     private long DAY_6 = 6*24*60*60*1000;
+    private List<String> mList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_date_picker);
         ButterKnife.bind(this);
+        mList = new ArrayList<>();
+        mList.add("客厅");
+        mList.add("卧室");
+        mList.add("厨房");
+        mList.add("浴室");
+        mList.add("餐厅");
 
     }
 
-    @OnClick({R.id.bt_show_timer,R.id.bt_show_date})
+    @OnClick({R.id.bt_show_timer,R.id.bt_show_date,R.id.bt_show_room})
     public void onViewClicked(View view){
         switch (view.getId()){
             case R.id.bt_show_timer:
@@ -183,6 +194,25 @@ public class DatePickerActivity extends AppCompatActivity {
 //                // 允许滚动动画
 //                calendarPicker.setCanShowAnim(true);
 //                calendarPicker.show();
+                break;
+            case R.id.bt_show_room:
+                RoomPicker roomPicker = new RoomPicker("取消","保存",mList, DatePickerActivity.this, new RoomPicker.TimeSelectCallback() {
+                    @Override
+                    public void onRoomSelected(String roomName) {
+                        Log.i(TAG, "onRoomSelected: "+roomName);
+                    }
+
+                    @Override
+                    public void onCancel() {
+
+                    }
+
+                    @Override
+                    public void onRoomSelecting(String roomName) {
+                        Log.i(TAG, "onRoomSelecting: "+roomName);
+                    }
+                });
+                roomPicker.show();
                 break;
             default:
                 break;

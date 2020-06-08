@@ -15,7 +15,7 @@
  */
 
 
-package com.wdz.mychoosedialog.datepicker;
+package com.wdz.mychoosedialog.datepicker.base;
 
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
@@ -24,12 +24,11 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
+import android.graphics.Typeface;
 import android.os.Handler;
 import android.os.Message;
-import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -41,8 +40,13 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import androidx.core.content.ContextCompat;
 
-public class PickerView extends View {
+
+/**
+ * @author dezhi.wang
+ */
+public class RoomPickerView extends View {
 
     private Context mContext;
 
@@ -73,12 +77,8 @@ public class PickerView extends View {
      */
     private static final float AUTO_SCROLL_SPEED = 50;
 
-    /**
-     * 透明度：最小 120，最大 255，极差 135
-     */
-    private static final int TEXT_ALPHA_MIN = 120;
-    private static final int TEXT_ALPHA_RANGE = 135;
     private int height;
+    private float maxTextSize;
 
     /**
      * 选择结果回调接口
@@ -97,29 +97,32 @@ public class PickerView extends View {
         @Override
         public void run() {
             Handler handler = mWeakHandler.get();
-            if (handler == null) return;
+            if (handler == null){
+                return;
+            }
             handler.sendEmptyMessage(0);
         }
     }
 
     private static class ScrollHandler extends Handler {
-        private WeakReference<PickerView> mWeakView;
+        private WeakReference<RoomPickerView> mWeakView;
 
-        private ScrollHandler(PickerView view) {
+        private ScrollHandler(RoomPickerView view) {
             mWeakView = new WeakReference<>(view);
         }
 
         @Override
         public void handleMessage(Message msg) {
-            PickerView view = mWeakView.get();
-            if (view == null) return;
+            RoomPickerView view = mWeakView.get();
+            if (view == null){
+                return;
+            }
             view.keepScrolling();
         }
     }
 
-    public PickerView(Context context, AttributeSet attrs) {
+    public RoomPickerView(Context context, AttributeSet attrs) {
         super(context, attrs);
-
         mContext = context;
         initPaint();
     }
@@ -131,8 +134,8 @@ public class PickerView extends View {
         mPaint.setStyle(Style.FILL);
         //居中显示
         mPaint.setTextAlign(Align.CENTER);
-        mLightColor = ContextCompat.getColor(mContext, R.color.date_picker_text_light);
-        mDarkColor = ContextCompat.getColor(mContext, R.color.date_picker_text_dark);
+        mLightColor = ContextCompat.getColor(mContext, R.color.room_picker_text_light);
+        mDarkColor = ContextCompat.getColor(mContext, R.color.room_picker_text_dark);
     }
 
     @Override
@@ -142,7 +145,7 @@ public class PickerView extends View {
         mHalfWidth = getMeasuredWidth() / 2f;
         height = getMeasuredHeight();
         mHalfHeight = height / 2f;
-        float maxTextSize = height / 7f;
+        maxTextSize = height / 5f;
         mMinTextSize = maxTextSize / 2.2f;
         mTextSpacing = mMinTextSize * 2f;
         mHalfTextSpacing = mTextSpacing / 2f;
@@ -151,48 +154,78 @@ public class PickerView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-       // Log.i(TAG,mDataList.toString());
 
-        if (mSelectedIndex >= mDataList.size()) return;
+        if (mSelectedIndex >= mDataList.size()){
+            return;
+        }
 
         // 绘制选中的 text
-        drawText(canvas, mLightColor, mScrollDistance, mDataList.get(mSelectedIndex),0);
-
+        drawText(canvas, mDarkColor, mScrollDistance, mDataList.get(mSelectedIndex));
         // 绘制选中上方的 text
         for (int i = 1; i <= mSelectedIndex; i++) {
-            drawText(canvas, mDarkColor, mScrollDistance - i * mTextSpacing,
-                    mDataList.get(mSelectedIndex - i),-i);
+            drawText(canvas, mLightColor, mScrollDistance - i * mTextSpacing,
+                    mDataList.get(mSelectedIndex - i));
         }
 
         // 绘制选中下方的 text
         int size = mDataList.size() - mSelectedIndex;
         for (int i = 1; i < size; i++) {
-            drawText(canvas, mDarkColor, mScrollDistance + i * mTextSpacing,
-                    mDataList.get(mSelectedIndex + i),-i);
+            drawText(canvas, mLightColor, mScrollDistance + i * mTextSpacing,
+                    mDataList.get(mSelectedIndex + i));
         }
+        drawLine(canvas);
+
     }
 
-    private void drawText(Canvas canvas, int textColor, float offsetY, String text,int scale) {
-        if (TextUtils.isEmpty(text)) return;
+    private void drawLine(Canvas canvas){
+        Paint paint = new Paint();
+        paint.setStrokeWidth(dip2px(1));
+        paint.setColor( ContextCompat.getColor(mContext, R.color.room_picker_line));
+        canvas.drawLine(0,mHalfHeight-maxTextSize/2,getMeasuredWidth(),mHalfHeight-maxTextSize/2,paint);
+        canvas.drawLine(0,mHalfHeight+maxTextSize/2,getMeasuredWidth(),mHalfHeight+maxTextSize/2,paint);
+    }
 
-//        float scale = 1 - (float) Math.pow(offsetY / mQuarterHeight, 2);
-//        scale = scale < 0 ? 0 : scale;
+    private void drawText(Canvas canvas, int textColor, float offsetY, String text) {
+        if (TextUtils.isEmpty(text)){
+            return;
+        }
+        if (textColor == mLightColor){
+            mPaint.setTypeface(Typeface.DEFAULT);
+        }
+        else{
+            mPaint.setTypeface(Typeface.DEFAULT_BOLD);
+        }
 
-//        mPaint.setTextSize(mMinTextSize + mTextSizeRange * scale);
-        mPaint.setTextSize(dip2px(23+4*scale));
+        mPaint.setTextSize(sp2px(15));
         mPaint.setColor(textColor);
-        //mPaint.setAlpha(TEXT_ALPHA_MIN + (int) (TEXT_ALPHA_RANGE * scale));
 
         // text 居中绘制，mHalfHeight + offsetY 是 text 的中心坐标
         Paint.FontMetrics fm = mPaint.getFontMetrics();
-        float baseline = mHalfHeight + offsetY - (fm.ascent + fm.descent) / 2f;//底线坐标
+        //底线坐标
+        float baseline = mHalfHeight + offsetY - (fm.ascent + fm.descent) / 2f;
         canvas.drawText(text, mHalfWidth, baseline, mPaint);
 
     }
-    public int dip2px(int dp)
-    {
-        float density = mContext.getResources().getDisplayMetrics().density;
-        return (int) (dp*density+0.5);
+
+    /**
+     * dx->px
+     * @param dpValue
+     * @return
+     */
+    public int dip2px(float dpValue) {
+        final float scale = mContext.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
+
+    /**
+     * 将sp值转换为px值，保证文字大小不变
+     *
+     * @param spValue
+     * @return
+     */
+    public int sp2px(float spValue) {
+        final float fontScale = mContext.getResources().getDisplayMetrics().scaledDensity;
+        return (int) (spValue * fontScale + 0.5f);
     }
 
 
@@ -221,36 +254,29 @@ public class PickerView extends View {
                             break;
                         } else {
                             mSelectedIndex-=Math.round(Math.abs(mScrollDistance)/mHalfTextSpacing);
-                            //Log.i(TAG,">"+mHalfTextSpacing+" Math.abs(mScrollDistance):"+Math.abs(mScrollDistance)+" mSelectedIndex:"+mSelectedIndex+" --:"+Math.abs(mScrollDistance)/mHalfTextSpacing);
                             if (mSelectedIndex <= 0){
                                 mSelectedIndex = 0;
                             }
-                           // mSelectedIndex--;
                         }
                     } else {
                         // 往下滑超过离开距离，将末尾元素移到首位
-                        //Log.i(TAG,"往下滑超过离开距离，将末尾元素移到首位");
                         moveTailToHead();
                     }
                     mScrollDistance -= mTextSpacing;
                 } else if (mScrollDistance < -mHalfTextSpacing) {
                     //滑动至末尾
-
                     if (!mCanScrollLoop) {
                         if (mSelectedIndex == mDataList.size() - 1) {
                             mLastTouchY = offsetY;
                             invalidate();
                             break;
                         } else {
-                            //Log.i(TAG,"<"+mHalfTextSpacing+" Math.abs(mScrollDistance):"+Math.abs(mScrollDistance)+" mSelectedIndex:"+mSelectedIndex+" maxIndex:"+maxIndex);
-//                            mSelectedIndex++;
                             mSelectedIndex+=Math.round(Math.abs(mScrollDistance)/mHalfTextSpacing);
                             if (mSelectedIndex >= (maxIndex-1)) {
                                 mSelectedIndex = (maxIndex - 1);
                             }
                         }
                     } else {
-                        //Log.i(TAG,"往上滑超过离开距离，将首位元素移到末尾");
                         // 往上滑超过离开距离，将首位元素移到末尾
                         moveHeadToTail();
                     }
@@ -270,6 +296,8 @@ public class PickerView extends View {
                 mTimerTask = new ScrollTimerTask(mHandler);
                 mTimer.schedule(mTimerTask, 0, 10);
                 break;
+            default:
+                break;
         }
         return true;
     }
@@ -285,7 +313,9 @@ public class PickerView extends View {
     }
 
     private void moveTailToHead() {
-        if (!mCanScrollLoop || mDataList.isEmpty()) return;
+        if (!mCanScrollLoop || mDataList.isEmpty()){
+            return;
+        }
 
         String tail = mDataList.get(mDataList.size() - 1);
         mDataList.remove(mDataList.size() - 1);
@@ -293,7 +323,9 @@ public class PickerView extends View {
     }
 
     private void moveHeadToTail() {
-        if (!mCanScrollLoop || mDataList.isEmpty()) return;
+        if (!mCanScrollLoop || mDataList.isEmpty()){
+            return;
+        }
 
         String head = mDataList.get(0);
         mDataList.remove(0);
@@ -326,7 +358,9 @@ public class PickerView extends View {
      * 设置数据源
      */
     public void setDataList(List<String> list) {
-        if (list == null || list.isEmpty()) return;
+        if (list == null || list.isEmpty()){
+            return;
+        }
         mDataList = list;
         // 重置 mSelectedIndex，防止溢出
         mSelectedIndex = 0;
@@ -339,7 +373,9 @@ public class PickerView extends View {
      * 选择选中项
      */
     public void setSelected(int index) {
-        if (index >= mDataList.size()) return;
+        if (index >= mDataList.size()){
+            return;
+        }
 
         mSelectedIndex = index;
 
@@ -393,7 +429,9 @@ public class PickerView extends View {
      * 执行滚动动画
      */
     public void startAnim() {
-        if (!mCanShowAnim) return;
+        if (!mCanShowAnim){
+            return;
+        }
 
         if (mScrollAnim == null) {
             PropertyValuesHolder alpha = PropertyValuesHolder.ofFloat("alpha", 1f, 0f, 1f);

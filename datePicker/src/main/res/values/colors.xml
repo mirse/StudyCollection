@@ -15,4 +15,8 @@
     <color name="current_time_bg">#FFFFFF</color>
     <color name="current_time_text">#666666</color>
     <color name="selected_time_text">#57C5E8</color>
+
+    <color name="room_picker_line">#D8E3FB</color>
+    <color name="room_picker_text_light">#333333</color>
+    <color name="room_picker_text_dark">#3A72E9</color>
 </resources>
