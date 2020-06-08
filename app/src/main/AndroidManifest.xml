@@ -11,7 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".viewbase.EditTextDemoActivity"></activity>
-        <activity android:name=".componentization.activity.TwoActivity" />
+            android:windowSoftInputMode="adjustResize|adjustPan"
+            ></activity>
+     	<activity android:name=".componentization.activity.TwoActivity" />
         <activity android:name=".componentization.activity.FirstActivity" />
         <activity android:name=".componentization.ARouterDemoActivity" />
         <activity android:name=".recyclerview.updownrecyclerview.UpDownRecyclerViewActivity" />

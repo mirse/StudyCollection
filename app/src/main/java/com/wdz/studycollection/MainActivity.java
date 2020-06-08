@@ -69,6 +69,7 @@ import com.wdz.studycollection.viewbase.CoordinateSystemActivity;
 import com.wdz.studycollection.viewbase.EditTextDemoActivity;
 import com.wdz.studycollection.viewbase.floating.FloatingViewActivity;
 import com.wdz.studycollection.viewbase.scroller.ScrollerActivity;
+import com.wdz.studycollection.viewbase.scroller.edittext.EditTextDemoActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
