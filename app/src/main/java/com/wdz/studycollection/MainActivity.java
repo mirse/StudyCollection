@@ -66,7 +66,6 @@ import com.wdz.studycollection.recyclerview.grid.GridViewActivity;
 import com.wdz.studycollection.recyclerview.RecyclerViewActivity;
 import com.wdz.studycollection.rxjava.RxDemoActivity;
 import com.wdz.studycollection.viewbase.CoordinateSystemActivity;
-import com.wdz.studycollection.viewbase.EditTextDemoActivity;
 import com.wdz.studycollection.viewbase.floating.FloatingViewActivity;
 import com.wdz.studycollection.viewbase.scroller.ScrollerActivity;
 import com.wdz.studycollection.viewbase.scroller.edittext.EditTextDemoActivity;
