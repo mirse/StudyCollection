@@ -1,6 +1,7 @@
 package com.wdz.studycollection.datasave.room;
 
 import com.wdz.studycollection.datasave.room.entity.Clothes;
+import com.wdz.studycollection.datasave.room.entity.Market;
 import com.wdz.studycollection.datasave.room.entity.Person;
 import com.wdz.studycollection.datasave.room.entity.embedded.PersonInfo;
 
@@ -22,7 +23,7 @@ interface PersonDao {
       void insertPerson(Person person,Clothes clothes);
 
       @Delete
-      void deletePerson(Person person);
+      void deletePerson(Person person, Market market);
 
       @Update
       void updatePerson(Person person);

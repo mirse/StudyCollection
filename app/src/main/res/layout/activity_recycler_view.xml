@@ -58,4 +58,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bt_delete"
         app:layout_constraintVertical_bias="0.39" />
+
+    <Button
+        android:id="@+id/banner_recycler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="上下结构\nrecyclerview"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bt_recyclerview"
+        app:layout_constraintVertical_bias="0.84000003" />
 </androidx.constraintlayout.widget.ConstraintLayout>

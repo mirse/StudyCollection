@@ -62,6 +62,8 @@ public class RoomTestActivity extends PermissionActivity {
     TextView mTvVendorStatus;
     @BindView(R.id.tv_clothes_status)
     TextView mTvClothesStatus;
+    private Person person;
+    private Market market;
 
 
     @Override
@@ -126,11 +128,13 @@ public class RoomTestActivity extends PermissionActivity {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.bt_add_person:
-                new insertPersonAsyncTask().execute(new Person(mEtPersonName.getText().toString(),Integer.parseInt(mEtPersonAge.getText().toString()),Integer.parseInt(mEtPersonid.getText().toString())));
+                person = new Person(mEtPersonName.getText().toString(), Integer.parseInt(mEtPersonAge.getText().toString()), Integer.parseInt(mEtPersonid.getText().toString()));
+                new insertPersonAsyncTask().execute(person);
                 break;
 
             case R.id.bt_add_market:
-                new insertMarketAsyncTask().execute(new Market(Integer.parseInt(mEtMarketId.getText().toString()),mEtMarketAdd.getText().toString()));
+                market = new Market(Integer.parseInt(mEtMarketId.getText().toString()), mEtMarketAdd.getText().toString());
+                new insertMarketAsyncTask().execute(market);
                 break;
             case R.id.bt_add_vendor:
                 new insertVendorAsyncTask().execute(new Vendor(Integer.parseInt(mEtVendorId.getText().toString()),mEtVendorName.getText().toString()));
@@ -139,7 +143,7 @@ public class RoomTestActivity extends PermissionActivity {
                 new insertClothesAsyncTask().execute(new Clothes(mEtCloColor.getText().toString(),Integer.parseInt(mEtCloPerId.getText().toString()),Integer.parseInt(mEtCloMarId.getText().toString())));
                 break;
             case R.id.btn_delete:
-                //new deletePersonAsyncTask().execute(Integer.parseInt(mEtPersonid.getText().toString()))
+                new deletePersonAsyncTask().execute();
                 break;
 
 
@@ -204,11 +208,11 @@ public class RoomTestActivity extends PermissionActivity {
     }
     }
 
-    private static class deletePersonAsyncTask extends AsyncTask<Person, Void, String>{
+    private class deletePersonAsyncTask extends AsyncTask<Person, Void, String>{
 
         @Override
         protected String doInBackground(Person... people) {
-            //DBInstance.getInstance().personDao().deletePersonById()
+            DBInstance.getInstance().personDao().deletePerson(person,market);
             return "success";
         }
         //doInBackground 执行完成后

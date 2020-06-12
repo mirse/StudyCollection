@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wdz.studycollection.R;
+import com.wdz.studycollection.recyclerview.snaphelper.SnapHelperActivity;
 import com.wdz.studycollection.recyclerview.updownrecyclerview.UpDownRecyclerViewActivity;
 
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
         Button mBtnAdd = findViewById(R.id.bt_add);
         Button mBtnDel = findViewById(R.id.bt_delete);
         Button mBtnRecyclerView = findViewById(R.id.bt_recyclerview);
+        Button mBtnBanner = findViewById(R.id.banner_recycler);
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(myAdapter);
@@ -68,6 +70,12 @@ public class RecyclerViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(RecyclerViewActivity.this, UpDownRecyclerViewActivity.class));
+            }
+        });
+        mBtnBanner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RecyclerViewActivity.this, SnapHelperActivity.class));
             }
         });
 
