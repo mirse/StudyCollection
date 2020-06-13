@@ -1,20 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="10dp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="150dp">
 
     <LinearLayout
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:background="@color/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        android:background="@color/gray_holo_light"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="75dp">
+        <ViewStub
+            android:id="@+id/stub1"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout="@layout/item_snap_in"
+            android:layout_height="match_parent"/>
+        <ViewStub
+            android:layout="@layout/item_snap_in"
+            android:id="@+id/stub2"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+        <ViewStub
+            android:layout="@layout/item_snap_in"
+            android:id="@+id/stub3"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+        <ViewStub
+            android:layout="@layout/item_snap_in"
+            android:id="@+id/stub4"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="@color/yellow"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="75dp">
+        <ViewStub
+            android:layout="@layout/item_snap_in"
+            android:id="@+id/stub5"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+        <ViewStub
+            android:layout="@layout/item_snap_in"
+            android:id="@+id/stub6"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+        <ViewStub
+            android:layout="@layout/item_snap_in"
+            android:id="@+id/stub7"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+        <ViewStub
+            android:layout="@layout/item_snap_in"
+            android:id="@+id/stub8"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+</LinearLayout>
