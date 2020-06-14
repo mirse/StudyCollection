@@ -1,8 +1,10 @@
 package com.wdz.studycollection.recyclerview.snaphelper;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewStub;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,17 +16,19 @@ import com.wdz.studycollection.recyclerview.universal.BaseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SnapAdapter extends BaseAdapter<SnapHelperActivity.Page> {
+public class SnapAdapter extends BaseAdapter<PageRecyclerView.Page> {
     private static final String TAG = "SnapAdapter";
-    List<SnapHelperActivity.Page> datas = new ArrayList<>();
+    List<PageRecyclerView.Page> datas = new ArrayList<>();
     private OnClickListener onClickListener;
-    public SnapAdapter(List<SnapHelperActivity.Page> datas) {
+    private Context context;
+    public SnapAdapter(List<PageRecyclerView.Page> datas, Context context) {
         super(datas);
         this.datas = datas;
+        this.context = context;
         //Log.i(TAG, "SnapAdapter: "+datas.toString());
     }
 
-    public void refreshStatus(List<SnapHelperActivity.Page> datas){
+    public void refreshStatus(List<PageRecyclerView.Page> datas){
         this.datas = datas;
         notifyDataSetChanged();
     }
@@ -35,26 +39,35 @@ public class SnapAdapter extends BaseAdapter<SnapHelperActivity.Page> {
     }
 
     @Override
-    public void convert(VH vh, SnapHelperActivity.Page data, int position) {
-        List<View> views = new ArrayList<>();
-        views.add(vh.getView(R.id.stub1));
-        views.add(vh.getView(R.id.stub2));
-        views.add(vh.getView(R.id.stub3));
-        views.add(vh.getView(R.id.stub4));
-        views.add(vh.getView(R.id.stub5));
-        views.add(vh.getView(R.id.stub6));
-        views.add(vh.getView(R.id.stub7));
-        views.add(vh.getView(R.id.stub8));
+    public void convert(VH vh, PageRecyclerView.Page data, int position) {
+        List<FrameLayout> views = new ArrayList<>();
+        FrameLayout view1 = vh.getView(R.id.stub1);
+        FrameLayout view2 = vh.getView(R.id.stub2);
+        FrameLayout view3 = vh.getView(R.id.stub3);
+        FrameLayout view4 = vh.getView(R.id.stub4);
+        FrameLayout view5 = vh.getView(R.id.stub5);
+        FrameLayout view6 = vh.getView(R.id.stub6);
+        FrameLayout view7 = vh.getView(R.id.stub7);
+        FrameLayout view8 = vh.getView(R.id.stub8);
+        views.add(view1);
+        views.add(view2);
+        views.add(view3);
+        views.add(view4);
+        views.add(view5);
+        views.add(view6);
+        views.add(view7);
+        views.add(view8);
+        for (FrameLayout frameLayout:views) {
+            frameLayout.removeAllViews();
+        }
 
 
         for (int i = 0; i <data.itemList.size() ; i++) {
             int i1 = i;
-            ViewStub view = (ViewStub) views.get(i);
-            if (view!=null){
-
-            }
-            View view1 = view.inflate();
-            TextView tv = view1.findViewById(R.id.tv);
+            FrameLayout view =views.get(i);
+            View mView = View.inflate(context, R.layout.item_snap_in, null);
+            view.addView(mView);
+            TextView tv = mView.findViewById(R.id.tv);
             tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -64,7 +77,15 @@ public class SnapAdapter extends BaseAdapter<SnapHelperActivity.Page> {
 
                 }
             });
-            Log.i(TAG, "convert: "+data.itemList.toString());
+
+//            if (data.itemList.get(i).isSelect()){
+//                tv.setSelected(true);
+//            }
+//            else{
+//                tv.setSelected(false);
+//            }
+
+            Log.i(TAG, "convert: size:"+data.itemList.size()+"toString:"+data.itemList.toString());
             tv.setText(data.itemList.get(i).getName());
         }
 

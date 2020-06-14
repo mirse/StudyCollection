@@ -1,6 +1,7 @@
 package com.wdz.studycollection.recyclerview.universal;
 
 
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,10 +11,12 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.wdz.studycollection.handler.model.Login;
+
 import java.util.List;
 
 public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseAdapter.VH> {
-
+    private static final String TAG = "BaseAdapter";
     private List<T> mDatas;
     private static BaseAdapter.onItemClickListener onItemClickListener;
     public BaseAdapter(List<T> datas) {
@@ -37,6 +40,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseAdapter.VH
 
     @Override
     public int getItemCount() {
+        Log.i(TAG, "getItemCount: "+mDatas.size());
         return mDatas.size();
     }
 
