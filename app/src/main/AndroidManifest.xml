@@ -20,7 +20,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".recyclerview.snaphelper.SnapHelperActivity"></activity>
+        <activity android:name=".recyclerview.delete.DeleteRecyclerViewActivity"></activity>
+        <activity android:name=".recyclerview.snaphelper.SnapHelperActivity" />
         <activity android:name=".viewbase.scroller.edittext.EditTextDemoActivity" />
         <activity android:name=".componentization.activity.TwoActivity" />
         <activity android:name=".componentization.activity.FirstActivity" />

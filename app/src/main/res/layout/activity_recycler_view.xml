@@ -63,9 +63,18 @@
         android:id="@+id/banner_recycler"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="上下结构\nrecyclerview"
+        android:text="翻页\nrecyclerview"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bt_recyclerview"
-        app:layout_constraintVertical_bias="0.84000003" />
+        app:layout_constraintVertical_bias="0.26" />
+
+    <Button
+        android:id="@+id/delete_recycler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="侧滑删除\nrecyclerview"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/banner_recycler" />
 </androidx.constraintlayout.widget.ConstraintLayout>
