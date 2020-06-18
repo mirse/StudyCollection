@@ -38,7 +38,7 @@ public class DeleteRecyclerViewActivity extends AppCompatActivity {
 
     private void initData() {
         mList = new ArrayList<>();
-        for (int i=0;i<10;i++){
+        for (int i=0;i<1;i++){
             mList.add(String.valueOf(i));
         }
         //mList.clear();

@@ -51,46 +51,78 @@ public class DeleteRecyclerViewItem extends HorizontalScrollView {
     }
 
 
-    //恢复状态
-    public void reset(){
-        isLeft=true;
-        scrollTo(0,0);
-    }
-
-
+    //手指按下的点为(x1, y1)手指离开屏幕的点为(x2, y2)
+    float x1 = 0;
+    float x2 = 0;
+    float y1 = 0;
+    float y2 = 0;
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        if (ev.getAction()== MotionEvent.ACTION_DOWN)
-        {
-            Log.i(getClass().getSimpleName(), "down");
-            return true;
+        Log.i(getClass().getSimpleName(), "onTouchEvent: "+ev.getAction());
+        if(ev.getAction() == MotionEvent.ACTION_DOWN) {
+            //当手指按下的时候
+            x1 = ev.getX();
+            y1 = ev.getY();
         }
-        if (ev.getAction()==MotionEvent.ACTION_CANCEL || ev.getAction()== MotionEvent.ACTION_UP)
-        {
-            Log.i(getClass().getSimpleName(), "up");
-            int range=10;
-            if (isLeft)
-            {
-                if (getScrollX()>range)
-                {
-                    isLeft=false;
-                    smoothScrollTo(buttonWidth, 0);
-                }else {
-                    smoothScrollTo(0,0);
-                }
-            }else {
-                if (getScrollX()< (buttonWidth-range))
-                {
-                    isLeft=true;
-                    smoothScrollTo(0,0);
-                }else {
-                    smoothScrollTo(buttonWidth, 0);
-                }
+        if (ev.getAction() == MotionEvent.ACTION_MOVE){
+            //当手指离开的时候
+            x2 = ev.getX();
+            y2 = ev.getY();
+            if(x1-x2>Math.abs(y2-y1)) {
+                isLeft = true;
+                Log.i(getClass().getSimpleName(), "left");
+            } else if(x2-x1>Math.abs(y2-y1)) {
+                isLeft = false;
+                Log.i(getClass().getSimpleName(), "right");
+            }
+            x1 = x2;
+            y1 = y2;
+        }
+        if(ev.getAction() == MotionEvent.ACTION_UP) {
+            if (isLeft){
+                smoothScrollTo(buttonWidth,0);
+            }
+            else{
+                smoothScrollTo(0, 0);
             }
             return true;
         }
-        Log.i(getClass().getSimpleName(), "end");
         return super.onTouchEvent(ev);
+//        if (ev.getAction()== MotionEvent.ACTION_DOWN)
+//        {
+//            Log.i(getClass().getSimpleName(), "down");
+//            return true;
+//        }
+//
+//        if (ev.getAction()==MotionEvent.ACTION_CANCEL || ev.getAction()== MotionEvent.ACTION_UP)
+//        {
+//
+//            int range=10;
+//            Log.i(getClass().getSimpleName(), "up");
+//            Log.i(getClass().getSimpleName(), "onTouchEvent: "+getScrollX());
+//
+//            if (isLeft)
+//            {
+//                if (getScrollX()>range)
+//                {
+//                    isLeft=false;
+//                    smoothScrollTo(buttonWidth, 0);
+//                }else {
+//                    smoothScrollTo(0,0);
+//                }
+//            }else {
+//                if (getScrollX()< (buttonWidth-range))
+//                {
+//                    isLeft=true;
+//                    smoothScrollTo(0,0);
+//                }else {
+//                    smoothScrollTo(buttonWidth, 0);
+//                }
+//            }
+//            return true;
+//        }
+//        Log.i(getClass().getSimpleName(), "end");
+//        return super.onTouchEvent(ev);
     }
 
 
