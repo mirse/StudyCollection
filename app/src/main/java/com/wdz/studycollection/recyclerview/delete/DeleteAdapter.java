@@ -10,8 +10,8 @@ import com.wdz.studycollection.recyclerview.universal.BaseRecyclerViewAdapter;
 
 import java.util.List;
 
-public class DeleteAdapter extends BaseRecyclerViewAdapter {
-    public DeleteAdapter(Context context, List list) {
+public class DeleteAdapter extends BaseRecyclerViewAdapter<String> {
+    public DeleteAdapter(Context context, List<String> list) {
         super(context, list);
     }
 
@@ -50,8 +50,4 @@ public class DeleteAdapter extends BaseRecyclerViewAdapter {
         return false;
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
-    }
 }

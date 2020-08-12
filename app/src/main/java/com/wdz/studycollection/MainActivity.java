@@ -59,6 +59,7 @@ import com.wdz.studycollection.myview.LayoutInflaterActivity;
 import com.wdz.studycollection.mvp.logintest.MvpActivity;
 import com.wdz.studycollection.mvp.test1.DataActivity;
 import com.wdz.studycollection.mvp.writeandread.SavaActivity;
+import com.wdz.studycollection.myview.LineChartActivity;
 import com.wdz.studycollection.network.SocketClientActivity;
 import com.wdz.studycollection.recyclepager.ImageRecyclerActivity;
 import com.wdz.studycollection.recyclepager.FragmentPagerActivity;
@@ -173,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                 {"视图","LayoutInflater","瀑布流","界面旋转修复","Fragment","与viewpager","界面旋转"},
                 {"网络通信","Socket通信","AsyncTask","Handler","handler切换线程","OkHttp","Glide"},
                 {"数据存储","Sp","Room","序列化","Service","",""},
-                {"View合集","坐标系","悬浮窗","Scroller","软键盘","",""},
+                {"View合集","坐标系","悬浮窗","Scroller","软键盘","折线图",""},
                 {"动画合集","属性动画","splash","","","",""},
                 {"多媒体","通知","相机","","","",""},
                 {"Material","抽屉","折叠视图","","","",""},
@@ -353,7 +354,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                         startActivity(new Intent(this, EditTextDemoActivity.class));
                         break;
                     case R.id.button5:
-                        //startActivity(new Intent(this, VpAndFragActivity.class));
+                        startActivity(new Intent(this, LineChartActivity.class));
                         break;
                     case R.id.button6:
                         //startActivity(new Intent(this, SavedInstanceStateUsingActivity.class));

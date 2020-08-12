@@ -17,19 +17,21 @@ import butterknife.ButterKnife;
 public class DeleteRecyclerViewActivity extends AppCompatActivity {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    private List<String> mList;
+    private List<String> mList = new ArrayList<>();
+    private DeleteAdapter deleteAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete_recycler_view);
         ButterKnife.bind(this);
-        initData();
+
         initView();
+        initData();
     }
 
     private void initView() {
-        DeleteAdapter deleteAdapter = new DeleteAdapter(this, mList);
+        deleteAdapter = new DeleteAdapter(this, mList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(deleteAdapter);
@@ -38,9 +40,10 @@ public class DeleteRecyclerViewActivity extends AppCompatActivity {
 
     private void initData() {
         mList = new ArrayList<>();
-        for (int i=0;i<1;i++){
+        for (int i=0;i<5;i++){
             mList.add(String.valueOf(i));
         }
+        deleteAdapter.refreshList(mList);
         //mList.clear();
     }
 }

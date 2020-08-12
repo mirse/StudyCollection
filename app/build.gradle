@@ -78,7 +78,7 @@ dependencies {
     implementation 'com.jakewharton.rxbinding3:rxbinding:3.0.0'
 
 
-    implementation 'com.airbnb.android:lottie:3.0.7'
+    implementation 'com.airbnb.android:lottie:3.4.1'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation 'com.google.android.material:material:1.0.0'
 
