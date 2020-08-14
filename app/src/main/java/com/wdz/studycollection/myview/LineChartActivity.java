@@ -19,6 +19,7 @@ public class LineChartActivity extends AppCompatActivity {
     private List<String> xList = new ArrayList<>();
 
     private List<String> datas = new ArrayList<>();
+    private List<String> errorList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,11 +30,21 @@ public class LineChartActivity extends AppCompatActivity {
         }
 
         for (int i=0;i<10;i++){
-            xList.add(String.valueOf(i));
+            xList.add("day"+i);
         }
-        datas.add("1,2");
-        datas.add("2,8.3");
+        datas.add("day0,2");
+        datas.add("day1,4.5");
+        datas.add("day2,4.5");
+        datas.add("day3,4.5");
+
+        datas.add("day5,4.5");
+        datas.add("day6,4.5");
+
+        datas.add("day8,4.5");
         lineChartView.setXYDataList(xList,yList);
         lineChartView.setDataList(datas);
+        errorList.add("day4,4.5");
+        errorList.add("day7,6");
+        lineChartView.setErrorList(errorList);
     }
 }

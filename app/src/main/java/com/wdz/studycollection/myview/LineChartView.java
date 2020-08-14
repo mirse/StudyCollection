@@ -9,7 +9,10 @@ import android.graphics.DashPathEffect;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.RadialGradient;
+import android.graphics.Rect;
 import android.graphics.Shader;
 import android.graphics.SweepGradient;
 import android.util.AttributeSet;
@@ -19,9 +22,9 @@ import android.view.View;
 import androidx.annotation.Nullable;
 
 import com.wdz.studycollection.R;
-import com.wdz.studycollection.handler.model.Login;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -40,12 +43,18 @@ public class LineChartView extends View {
     private List<Integer> yList = new ArrayList<>();
     private List<String> xList = new ArrayList<>();
     private List<String> mDatas = new ArrayList<>();
-    private float lineSpace = (float) getHeight()/(yList.size()-1);
-    private float verticalLineSpace = (float) getWidth()/(xList.size()-1);
+    private List<String> errorList = new ArrayList<>();
+    private float lineSpace;
+    private float verticalLineSpace;
     private Context mContext;
     private float textHeight;
-    //
+    /*
+    * 图表高度 即屏幕范围可见图表高度 = realHeight 距离底侧编剧
+    */
     private int lineChartHeight;
+    /*
+     * 图表宽度 即屏幕范围可见图表宽度 = realWidth -  距离左侧边距
+     */
     private int lineChartWidth;
     /**
      * 实际宽度 即控件在屏幕显示的宽度
@@ -55,8 +64,22 @@ public class LineChartView extends View {
      * 实际高度 即控件在屏幕显示的高度
      */
     private int realHeight;
+
+    private int leftMargin = dp2px(getContext(),32);
+    //y轴文字左边距
+    private int yTextLeftMargin = dp2px(getContext(),13);
+    //x轴文字底边距
+    private int xTextBottomMargin = dp2px(getContext(),20);
+    private int bottomMargin = dp2px(getContext(),51);
+    private int rightMargin = dp2px(getContext(),3);
+
+    private int circleRadius = dp2px(getContext(),3);
+
+    /*
+    * x轴显示列数
+    */
+    private int xCount = 7;
     private Paint polyLinePaint;
-    private float dataSpace;
 
     public LineChartView(Context context) {
         super(context);
@@ -94,6 +117,15 @@ public class LineChartView extends View {
         invalidate();
     }
 
+    /**
+     * 设置异常点数据源
+     * @param errorList
+     */
+    public void setErrorList(List<String> errorList) {
+        this.errorList = errorList;
+        invalidate();
+    }
+
 
     private void init(Context context,AttributeSet attrs, int defStyleAttr) {
         mContext = context;
@@ -124,6 +156,7 @@ public class LineChartView extends View {
         //获取文字高度
         Paint.FontMetrics fontMetrics = textPaint.getFontMetrics();
         textHeight = fontMetrics.bottom - fontMetrics.top;
+
         //折线paint
         linePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         linePaint.setStrokeWidth(dp2px(mContext,2));
@@ -132,7 +165,7 @@ public class LineChartView extends View {
 
         //折线paint
         polyLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        polyLinePaint.setStrokeWidth(dp2px(mContext,2));
+        polyLinePaint.setStrokeWidth(dp2px(mContext,1));
         polyLinePaint.setStyle (Paint.Style.FILL) ;
         polyLinePaint.setColor(getResources().getColor(R.color.color_418FDE));
         polyLinePaint.setShadowLayer(20, 10,10, R.drawable.line_chart_shadow);
@@ -144,8 +177,8 @@ public class LineChartView extends View {
         circlePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         circlePaint.setColor(circleColor);
         circlePaint.setStrokeWidth(dp2px(mContext,1));
-        circlePaint.setStrokeCap(Paint.Cap.ROUND);
-        circlePaint.setStyle(Paint.Style.STROKE);
+        //circlePaint.setStyle(Paint.Style.STROKE);
+        circlePaint.setColor(getResources().getColor(R.color.color_418FDE));
 
         //异常圆点 paint
         errorCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -156,16 +189,13 @@ public class LineChartView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
-        lineChartHeight = realHeight-sp2px(getContext(),12)-dp2px(getContext(),20);
-        lineChartWidth = realWidth-sp2px(getContext(),31)-dp2px(getContext(),1);
+        //折线图表高度
+        lineChartHeight = realHeight-bottomMargin;
+        lineChartWidth = realWidth-leftMargin;
         lineSpace = (float) lineChartHeight/(yList.size());
-        dataSpace = (float) lineChartHeight/(yList.get(yList.get(yList.size()-1))*10);
-
-        Log.i(TAG, "onDraw: dataSpace:"+dataSpace);
-        verticalLineSpace =  (float) lineChartWidth/6;
+        verticalLineSpace =  (float) lineChartWidth/xCount;
         canvas.drawColor(getResources().getColor(R.color.white));
-        drawXLine(canvas);
+        drawChart(canvas);
 
     }
 
@@ -212,65 +242,257 @@ public class LineChartView extends View {
      * 绘制x轴线
      * @param canvas
      */
-    private void drawXLine(Canvas canvas) {
+    int realIndex = -1;
+    private void drawChart(Canvas canvas) {
         Log.i(TAG, "drawXLine: "+lineSpace+"lineChartHeight:"+lineChartHeight);
         for (int i=0;i<yList.size();i++){
-            Log.i(TAG, "String.valueOf(yList.get(i)): "+String.valueOf(yList.get(i)));
-
             if (i==0){
-                canvas.drawLine(dp2px(mContext,32),lineChartHeight-lineSpace*i,getWidth()-dp2px(mContext,5),lineChartHeight-lineSpace*i,linePaint);
+                //i=0 即第一条x轴线，为实线
+                canvas.drawLine(leftMargin,lineChartHeight-lineSpace*i,getWidth()-rightMargin,lineChartHeight-lineSpace*i,linePaint);
             }
             else {
                 linePaint.setStrokeWidth(dp2px(mContext,1));
                 linePaint.setPathEffect(new DashPathEffect(new float[]{5,2},0));
                 //canvas.drawLine绘画不了虚线
                 Path linePath = new Path();
-                linePath.moveTo(dp2px(mContext,32),lineChartHeight-lineSpace*i);
-                linePath.lineTo(getWidth()-dp2px(mContext,5),lineChartHeight-lineSpace*i);
+                linePath.moveTo(leftMargin,lineChartHeight-lineSpace*i);
+                linePath.lineTo(getWidth()-rightMargin,lineChartHeight-lineSpace*i);
                 canvas.drawPath(linePath,linePaint);
             }
-            //绘制x轴对应文字
-            canvas.drawText(String.valueOf(yList.get(i)),dp2px(mContext,13),lineChartHeight-lineSpace*i+textHeight/3,textPaint);
+            //绘制y轴对应文字
+            canvas.drawText(String.valueOf(yList.get(i)),yTextLeftMargin,lineChartHeight-lineSpace*i+textHeight/3,textPaint);
 
         }
 
 
         Log.i(TAG, "verticalLineSpace: "+verticalLineSpace);
         for (int y=0;y<xList.size();y++){
-            //绘制y轴对应文字
-            canvas.drawText(String.valueOf(xList.get(y)),dp2px(mContext,30)+verticalLineSpace*y,getHeight(),textPaint);
-
-
-
-
-
-
+            //绘制x轴对应文字
+            canvas.drawText(String.valueOf(xList.get(y)),leftMargin+verticalLineSpace*y,realHeight - xTextBottomMargin,textPaint);
         }
 
+
+        drawPolyLine(canvas);
+        drawCircle(canvas);
+        drawErrorCircle(canvas);
+
+    }
+
+    /**
+     * 画正常坐标点
+     * @param canvas
+     */
+    private void drawCircle(Canvas canvas) {
+        //画圆
         for (int i=0;i<mDatas.size();i++){
-            String s = mDatas.get(i);
-            String[] split = s.split(",");
+            String currentCircle = mDatas.get(i);
+            String[] split = currentCircle.split(",");
+            int x = 0;
+            float power = 0;
             if (split.length==2){
                 //日期
-                String day = split[0];
+                x = xList.indexOf(split[0]);
                 //电量
-                String power = split[1];
-                int y = yList.indexOf(Integer.parseInt(day));
-                float powerFloat = Float.parseFloat(power);
+                power = Float.parseFloat(split[1]);
 
-                canvas.drawCircle(dp2px(mContext,30)+verticalLineSpace*y,lineChartHeight-dataSpace*powerFloat,dp2px(mContext,3),circlePaint);
-
-//                if (i>0){
-//                    canvas.drawLine(dp2px(mContext,30)+verticalLineSpace*(y-1),lineChartHeight-lineSpace*(y-1),dp2px(mContext,30)+verticalLineSpace*y,lineChartHeight-lineSpace*y,polyLinePaint);
-//                }
             }
+            Rect rect = new Rect();
+            textPaint.getTextBounds(split[0],0,split[0].length(),rect);
+            int measureWidth = rect.width();
+            float textWidthHalf = (float) measureWidth/2;
+
+            circlePaint.setStyle(Paint.Style.FILL);
+            circlePaint.setColor(getResources().getColor(R.color.white));
+            canvas.drawCircle(leftMargin+verticalLineSpace*x+textWidthHalf,lineChartHeight-lineSpace*power,circleRadius,circlePaint);
+            circlePaint.setStyle(Paint.Style.STROKE);
+            circlePaint.setColor(getResources().getColor(R.color.color_418FDE));
+            canvas.drawCircle(leftMargin+verticalLineSpace*x+textWidthHalf,lineChartHeight-lineSpace*power,circleRadius,circlePaint);
 
 
-
+        //    canvas.drawLine(leftMargin+verticalLineSpace*x+textWidthHalf,lineChartHeight-lineSpace*power,leftMargin+verticalLineSpace*x+textWidthHalf,getHeight(),circlePaint);
 
         }
     }
 
+    /**
+     * 画异常坐标点
+     * @param canvas
+     */
+    private void drawErrorCircle(Canvas canvas) {
+        for (int i=0;i<errorList.size();i++){
+            String currentCircle = errorList.get(i);
+            String[] split = currentCircle.split(",");
+            int x = 0;
+            float power = 0;
+            if (split.length==2){
+                //日期
+                x = xList.indexOf(split[0]);
+                //电量
+                power = Float.parseFloat(split[1]);
+
+            }
+            Rect rect = new Rect();
+            textPaint.getTextBounds(split[0],0,split[0].length(),rect);
+            int measureWidth = rect.width();
+            float textWidthHalf = (float) measureWidth/2;
+
+            circlePaint.setStyle(Paint.Style.FILL);
+            circlePaint.setColor(getResources().getColor(R.color.red_deep));
+            canvas.drawCircle(leftMargin+verticalLineSpace*x+textWidthHalf,lineChartHeight-lineSpace*power,circleRadius,circlePaint);
+
+
+            //    canvas.drawLine(leftMargin+verticalLineSpace*x+textWidthHalf,lineChartHeight-lineSpace*power,leftMargin+verticalLineSpace*x+textWidthHalf,getHeight(),circlePaint);
+
+        }
+    }
+
+
+    List<String> mCircles = new ArrayList<>();
+    /**
+     * 画折线
+     * @param canvas
+     */
+    private void drawPolyLine(Canvas canvas) {
+        mCircles.addAll(mDatas);
+        mCircles.addAll(errorList);
+        Collections.sort(mCircles);
+        Log.i(TAG, "drawPolyLine: "+mCircles);
+
+
+        for (int i=0;i<mCircles.size();i++){
+            String currentCircle = mCircles.get(i);
+
+            String[] split = currentCircle.split(",");
+            int x = 0;
+            float power = 0;
+            if (split.length==2){
+                //日期
+                x = xList.indexOf(split[0]);
+                //电量
+                power = Float.parseFloat(split[1]);
+
+//                String xValue = "";
+//                //当矫正位置>0,说明有偏移继续判断下一位置是否偏移
+//                if (realIndex>0){
+//                    realIndex +=1;
+//                    xValue = xList.get(realIndex).split(",")[0];
+//                }
+//                else {
+//                    xValue = xList.get(i).split(",")[0];
+//                }
+//
+//                if (!split[0].equals(xValue)){
+//                    //如果当前数据位置 与实际X轴位置不符，不画线，矫正位置
+//                    realIndex = xList.indexOf(split[0]);
+//                    continue;
+//                }
+//                else{
+//                    ;
+//                }
+
+
+                Rect rect = new Rect();
+                textPaint.getTextBounds(split[0],0,split[0].length(),rect);
+                int measureWidth = rect.width();
+                float textWidthHalf = (float) measureWidth/2;
+
+
+                int lastX = 0;
+                float lastPower = 0;
+                float lastTextWidthHalf = 0;
+                //当是第二个点时，需要画连接线
+                if (i>0){
+                    String lastCircles = mCircles.get(i - 1);
+                    String[] lastCircle =  mCircles.get(i-1).split(",");
+                    if (lastCircle.length == 2){
+                        //日期
+                        lastX = xList.indexOf(lastCircle[0]);
+                        //电量
+                        lastPower = Float.parseFloat(lastCircle[1]);
+
+                        Rect rect1 = new Rect();
+                        textPaint.getTextBounds(lastCircle[0],0,lastCircle[0].length(),rect1);
+                        lastTextWidthHalf = (float) rect1.width()/2;
+                        Log.i(TAG, "drawChart: lastTextWidthHalf:"+lastTextWidthHalf);
+
+                        if (errorList.contains(currentCircle)|| errorList.contains(lastCircles)){
+                            polyLinePaint.setColor(getResources().getColor(R.color.transparent));
+                            canvas.drawLine(leftMargin+verticalLineSpace*lastX+lastTextWidthHalf,lineChartHeight-lineSpace*lastPower,leftMargin+verticalLineSpace*x+textWidthHalf,lineChartHeight-lineSpace*power,polyLinePaint);
+                        }
+
+                        else{
+                            polyLinePaint.setColor(getResources().getColor(R.color.color_418FDE));
+                            canvas.drawLine(leftMargin+verticalLineSpace*lastX+lastTextWidthHalf,lineChartHeight-lineSpace*lastPower,leftMargin+verticalLineSpace*x+textWidthHalf,lineChartHeight-lineSpace*power,polyLinePaint);
+                        }
+
+                    }
+
+                }
+            }
+        }
+
+
+
+//        for (int i=0;i<mDatas.size();i++){
+//            String currentCircle = mDatas.get(i);
+//            String[] split = currentCircle.split(",");
+//            int x = 0;
+//            float power = 0;
+//            if (split.length==2){
+//                //日期
+//                x = xList.indexOf(split[0]);
+//                //电量
+//                power = Float.parseFloat(split[1]);
+//
+//                String xValue = "";
+//                //当矫正位置>0,说明有偏移继续判断下一位置是否偏移
+//                if (realIndex>0){
+//                    realIndex +=1;
+//                    xValue = xList.get(realIndex).split(",")[0];
+//                }
+//                else {
+//                    xValue = xList.get(i).split(",")[0];
+//                }
+//
+//                if (!split[0].equals(xValue)){
+//                    //如果当前数据位置 与实际X轴位置不符，不画线，矫正位置
+//                    realIndex = xList.indexOf(split[0]);
+//                    continue;
+//                }
+//                else{
+//                    ;
+//                }
+//
+//                Rect rect = new Rect();
+//                textPaint.getTextBounds(split[0],0,split[0].length(),rect);
+//                int measureWidth = rect.width();
+//                float textWidthHalf = (float) measureWidth/2;
+//
+//
+//                int lastX = 0;
+//                float lastPower = 0;
+//                float lastTextWidthHalf = 0;
+//                //当是第二个点时，需要画连接线
+//                if (i>0){
+//                    String[] lastCircle =  mDatas.get(i-1).split(",");
+//                    if (lastCircle.length == 2){
+//                        //日期
+//                        lastX = xList.indexOf(lastCircle[0]);
+//                        //电量
+//                        lastPower = Float.parseFloat(lastCircle[1]);
+//
+//                        Rect rect1 = new Rect();
+//                        textPaint.getTextBounds(lastCircle[0],0,lastCircle[0].length(),rect1);
+//                        lastTextWidthHalf = (float) rect1.width()/2;
+//                        Log.i(TAG, "drawChart: lastTextWidthHalf:"+lastTextWidthHalf);
+//
+//                        canvas.drawLine(leftMargin+verticalLineSpace*lastX+lastTextWidthHalf,lineChartHeight-lineSpace*lastPower,leftMargin+verticalLineSpace*x+textWidthHalf,lineChartHeight-lineSpace*power,polyLinePaint);
+//                    }
+//
+//                }
+//            }
+//        }
+    }
 
 
     /**
@@ -291,4 +513,6 @@ public class LineChartView extends View {
         final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (spValue * fontScale + 0.5f);
     }
+
+
 }
