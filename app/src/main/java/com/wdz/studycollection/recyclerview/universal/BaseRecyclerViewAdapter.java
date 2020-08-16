@@ -57,6 +57,28 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Ba
 
     }
 
+    public void addData(T t){
+        mList.add(new MyItem(t,false,VIEW_TYPE_NORMAL));
+        notifyDataSetChanged();
+    }
+    public void deleteData(T t){
+
+        for (int i=0;i<mList.size();i++){
+            if (mList.get(i).t.equals(t)){
+                mList.remove(mList.get(i));
+                break;
+            }
+        }
+//        for (MyItem myItem:mList) {
+//            if (myItem.t.equals(t)){
+//                mList.remove(myItem);
+//            }
+//        }
+
+        //mList.remove(new MyItem(t,false,VIEW_TYPE_NORMAL));
+        notifyDataSetChanged();
+    }
+
     /**
      * 获取头view
      * @return =0 代表没有headView

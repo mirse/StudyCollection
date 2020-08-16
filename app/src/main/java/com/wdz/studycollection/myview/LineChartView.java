@@ -80,6 +80,14 @@ public class LineChartView extends View {
     */
     private int xCount = 7;
     private Paint polyLinePaint;
+    private float[] xPoint;
+    private float[] yPoint;
+    private Path shadowPath;
+    private Paint shadowPaint;
+    /**
+     * 图标圆点集合
+     */
+    List<String> mCircles = new ArrayList<>();
 
     public LineChartView(Context context) {
         super(context);
@@ -168,8 +176,6 @@ public class LineChartView extends View {
         polyLinePaint.setStrokeWidth(dp2px(mContext,1));
         polyLinePaint.setStyle (Paint.Style.FILL) ;
         polyLinePaint.setColor(getResources().getColor(R.color.color_418FDE));
-        polyLinePaint.setShadowLayer(20, 10,10, R.drawable.line_chart_shadow);
-
 
 
 
@@ -184,11 +190,14 @@ public class LineChartView extends View {
         errorCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         errorCirclePaint.setColor(errorCircleColor);
 
+        shadowPaint = new Paint();
+        shadowPaint.setAntiAlias(true);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        shadowPath = new Path();
         //折线图表高度
         lineChartHeight = realHeight-bottomMargin;
         lineChartWidth = realWidth-leftMargin;
@@ -244,6 +253,19 @@ public class LineChartView extends View {
      */
     int realIndex = -1;
     private void drawChart(Canvas canvas) {
+        drawShadow(canvas);
+        drawXLine(canvas);
+        drawYLine(canvas);
+        drawPolyLine(canvas);
+        drawCircle(canvas);
+        drawErrorCircle(canvas);
+    }
+
+    /**
+     * 绘制X轴方向线及对应Y轴刻度值
+     * @param canvas
+     */
+    private void drawXLine(Canvas canvas) {
         Log.i(TAG, "drawXLine: "+lineSpace+"lineChartHeight:"+lineChartHeight);
         for (int i=0;i<yList.size();i++){
             if (i==0){
@@ -263,20 +285,20 @@ public class LineChartView extends View {
             canvas.drawText(String.valueOf(yList.get(i)),yTextLeftMargin,lineChartHeight-lineSpace*i+textHeight/3,textPaint);
 
         }
+    }
 
-
+    /**
+     * 绘制Y轴方向线及对应X轴刻度值
+     * @param canvas
+     */
+    private void drawYLine(Canvas canvas) {
         Log.i(TAG, "verticalLineSpace: "+verticalLineSpace);
         for (int y=0;y<xList.size();y++){
             //绘制x轴对应文字
             canvas.drawText(String.valueOf(xList.get(y)),leftMargin+verticalLineSpace*y,realHeight - xTextBottomMargin,textPaint);
         }
-
-
-        drawPolyLine(canvas);
-        drawCircle(canvas);
-        drawErrorCircle(canvas);
-
     }
+
 
     /**
      * 画正常坐标点
@@ -307,9 +329,6 @@ public class LineChartView extends View {
             circlePaint.setStyle(Paint.Style.STROKE);
             circlePaint.setColor(getResources().getColor(R.color.color_418FDE));
             canvas.drawCircle(leftMargin+verticalLineSpace*x+textWidthHalf,lineChartHeight-lineSpace*power,circleRadius,circlePaint);
-
-
-        //    canvas.drawLine(leftMargin+verticalLineSpace*x+textWidthHalf,lineChartHeight-lineSpace*power,leftMargin+verticalLineSpace*x+textWidthHalf,getHeight(),circlePaint);
 
         }
     }
@@ -347,7 +366,7 @@ public class LineChartView extends View {
     }
 
 
-    List<String> mCircles = new ArrayList<>();
+
     /**
      * 画折线
      * @param canvas
@@ -366,45 +385,25 @@ public class LineChartView extends View {
             int x = 0;
             float power = 0;
             if (split.length==2){
+                //当前圆点
                 //日期
                 x = xList.indexOf(split[0]);
                 //电量
                 power = Float.parseFloat(split[1]);
 
-//                String xValue = "";
-//                //当矫正位置>0,说明有偏移继续判断下一位置是否偏移
-//                if (realIndex>0){
-//                    realIndex +=1;
-//                    xValue = xList.get(realIndex).split(",")[0];
-//                }
-//                else {
-//                    xValue = xList.get(i).split(",")[0];
-//                }
-//
-//                if (!split[0].equals(xValue)){
-//                    //如果当前数据位置 与实际X轴位置不符，不画线，矫正位置
-//                    realIndex = xList.indexOf(split[0]);
-//                    continue;
-//                }
-//                else{
-//                    ;
-//                }
-
-
                 Rect rect = new Rect();
                 textPaint.getTextBounds(split[0],0,split[0].length(),rect);
                 int measureWidth = rect.width();
                 float textWidthHalf = (float) measureWidth/2;
-
-
-                int lastX = 0;
-                float lastPower = 0;
-                float lastTextWidthHalf = 0;
+                int lastX;
+                float lastPower;
+                float lastTextWidthHalf;
                 //当是第二个点时，需要画连接线
                 if (i>0){
                     String lastCircles = mCircles.get(i - 1);
                     String[] lastCircle =  mCircles.get(i-1).split(",");
                     if (lastCircle.length == 2){
+                        //上一个圆点
                         //日期
                         lastX = xList.indexOf(lastCircle[0]);
                         //电量
@@ -414,6 +413,8 @@ public class LineChartView extends View {
                         textPaint.getTextBounds(lastCircle[0],0,lastCircle[0].length(),rect1);
                         lastTextWidthHalf = (float) rect1.width()/2;
                         Log.i(TAG, "drawChart: lastTextWidthHalf:"+lastTextWidthHalf);
+
+
 
                         if (errorList.contains(currentCircle)|| errorList.contains(lastCircles)){
                             polyLinePaint.setColor(getResources().getColor(R.color.transparent));
@@ -428,70 +429,87 @@ public class LineChartView extends View {
                     }
 
                 }
+
             }
         }
 
+    }
+
+    /**
+     * 画折线下方阴影部分
+     * @param canvas
+     */
+    private void drawShadow(Canvas canvas) {
+        int maxHeightPoint = 0;
+        float maxHeight = 0;
+        mCircles.addAll(mDatas);
+        mCircles.addAll(errorList);
+
+        xPoint = new float[mCircles.size()];
+        yPoint = new float[mCircles.size()];
+        Collections.sort(mCircles);
+        Log.i(TAG, "drawPolyLine: "+mCircles);
 
 
-//        for (int i=0;i<mDatas.size();i++){
-//            String currentCircle = mDatas.get(i);
-//            String[] split = currentCircle.split(",");
-//            int x = 0;
-//            float power = 0;
-//            if (split.length==2){
-//                //日期
-//                x = xList.indexOf(split[0]);
-//                //电量
-//                power = Float.parseFloat(split[1]);
-//
-//                String xValue = "";
-//                //当矫正位置>0,说明有偏移继续判断下一位置是否偏移
-//                if (realIndex>0){
-//                    realIndex +=1;
-//                    xValue = xList.get(realIndex).split(",")[0];
-//                }
-//                else {
-//                    xValue = xList.get(i).split(",")[0];
-//                }
-//
-//                if (!split[0].equals(xValue)){
-//                    //如果当前数据位置 与实际X轴位置不符，不画线，矫正位置
-//                    realIndex = xList.indexOf(split[0]);
-//                    continue;
-//                }
-//                else{
-//                    ;
-//                }
-//
-//                Rect rect = new Rect();
-//                textPaint.getTextBounds(split[0],0,split[0].length(),rect);
-//                int measureWidth = rect.width();
-//                float textWidthHalf = (float) measureWidth/2;
-//
-//
-//                int lastX = 0;
-//                float lastPower = 0;
-//                float lastTextWidthHalf = 0;
-//                //当是第二个点时，需要画连接线
-//                if (i>0){
-//                    String[] lastCircle =  mDatas.get(i-1).split(",");
-//                    if (lastCircle.length == 2){
-//                        //日期
-//                        lastX = xList.indexOf(lastCircle[0]);
-//                        //电量
-//                        lastPower = Float.parseFloat(lastCircle[1]);
-//
-//                        Rect rect1 = new Rect();
-//                        textPaint.getTextBounds(lastCircle[0],0,lastCircle[0].length(),rect1);
-//                        lastTextWidthHalf = (float) rect1.width()/2;
-//                        Log.i(TAG, "drawChart: lastTextWidthHalf:"+lastTextWidthHalf);
-//
-//                        canvas.drawLine(leftMargin+verticalLineSpace*lastX+lastTextWidthHalf,lineChartHeight-lineSpace*lastPower,leftMargin+verticalLineSpace*x+textWidthHalf,lineChartHeight-lineSpace*power,polyLinePaint);
-//                    }
-//
-//                }
-//            }
-//        }
+        for (int i=0;i<mCircles.size();i++){
+            String currentCircle = mCircles.get(i);
+
+            String[] split = currentCircle.split(",");
+            int x = 0;
+            float power = 0;
+            if (split.length==2){
+                //当前圆点
+                //日期
+                x = xList.indexOf(split[0]);
+                //电量
+                power = Float.parseFloat(split[1]);
+
+                Rect rect = new Rect();
+                textPaint.getTextBounds(split[0],0,split[0].length(),rect);
+                int measureWidth = rect.width();
+                float textWidthHalf = (float) measureWidth/2;
+                float lastTextWidthHalf;
+                //当是第二个点时，需要画连接线
+                if (i>0){
+                    String[] lastCircle =  mCircles.get(i-1).split(",");
+                    if (lastCircle.length == 2){
+
+                        Rect rect1 = new Rect();
+                        textPaint.getTextBounds(lastCircle[0],0,lastCircle[0].length(),rect1);
+                        lastTextWidthHalf = (float) rect1.width()/2;
+                        Log.i(TAG, "drawChart: lastTextWidthHalf:"+lastTextWidthHalf);
+                        shadowPath.lineTo(leftMargin+verticalLineSpace*x+lastTextWidthHalf,lineChartHeight-lineSpace*power);
+                        xPoint[i] = leftMargin+verticalLineSpace*x+lastTextWidthHalf;
+                        yPoint[i] = lineChartHeight-lineSpace*power ;
+
+                        if (maxHeight<yPoint[i]){
+                            maxHeight = yPoint[i];
+                            maxHeightPoint = i;
+                        }
+                    }
+
+                }
+                else {
+                    shadowPath.moveTo(leftMargin+verticalLineSpace*x+textWidthHalf,lineChartHeight-lineSpace*power);
+                    xPoint[i] = leftMargin+verticalLineSpace*x+textWidthHalf;
+                    yPoint[i] = lineChartHeight-lineSpace*power ;
+                    maxHeight = yPoint[i];
+                }
+            }
+        }
+
+        if (maxHeight == yPoint[0] && maxHeight!=lineChartHeight){
+            maxHeight+=dp2px(getContext(),30);
+        }
+        shadowPath.lineTo(xPoint[xPoint.length-1],maxHeight);
+        shadowPath.lineTo(xPoint[0],maxHeight);
+        shadowPath.close();
+
+
+        //绘制阴影
+        Shader lShader = new LinearGradient(0, 0, 0, maxHeight, Color.parseColor("#418FDE"), Color.parseColor("#FFFFFF"), Shader.TileMode.REPEAT);
+        shadowPaint.setShader(lShader);
+        canvas.drawPath(shadowPath, shadowPaint);
     }
 
 

@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.wdz.studycollection.R;
 
@@ -13,11 +14,12 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class DeleteRecyclerViewActivity extends AppCompatActivity {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    private List<String> mList = new ArrayList<>();
+    private List<String> mList;
     private DeleteAdapter deleteAdapter;
 
     @Override
@@ -25,9 +27,8 @@ public class DeleteRecyclerViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete_recycler_view);
         ButterKnife.bind(this);
-
-        initView();
         initData();
+        initView();
     }
 
     private void initView() {
@@ -36,14 +37,27 @@ public class DeleteRecyclerViewActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(deleteAdapter);
 
+
+    }
+    @OnClick({R.id.add_item,R.id.delete_item})
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.add_item:
+                deleteAdapter.addData("");
+                break;
+            case R.id.delete_item:
+                deleteAdapter.deleteData("");
+                break;
+            default:
+                break;
+        }
     }
 
     private void initData() {
         mList = new ArrayList<>();
-        for (int i=0;i<5;i++){
+        for (int i=0;i<1;i++){
             mList.add(String.valueOf(i));
         }
-        deleteAdapter.refreshList(mList);
         //mList.clear();
     }
 }

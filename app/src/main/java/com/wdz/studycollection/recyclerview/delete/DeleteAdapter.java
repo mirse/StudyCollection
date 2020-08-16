@@ -50,4 +50,5 @@ public class DeleteAdapter extends BaseRecyclerViewAdapter<String> {
         return false;
     }
 
+
 }

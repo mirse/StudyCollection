@@ -32,15 +32,15 @@ public class LineChartActivity extends AppCompatActivity {
         for (int i=0;i<10;i++){
             xList.add("day"+i);
         }
-        datas.add("day0,2");
-        datas.add("day1,4.5");
+        datas.add("day0,0");
+        datas.add("day1,0");
         datas.add("day2,4.5");
         datas.add("day3,4.5");
 
         datas.add("day5,4.5");
         datas.add("day6,4.5");
 
-        datas.add("day8,4.5");
+        datas.add("day8,0");
         lineChartView.setXYDataList(xList,yList);
         lineChartView.setDataList(datas);
         errorList.add("day4,4.5");

@@ -83,10 +83,16 @@ public class RoomTestActivity extends PermissionActivity {
     }
 
     private void refreshUI() {
-        DBInstance.getInstance().personDao().findAllPerson().observe(this, new Observer<List<Person>>() {
+        DBInstance.getInstance().personDao().findAllPerson().observe(this, new Observer<List<?>>() {
             @Override
-            public void onChanged(List<Person> people) {
-                mTvPersonStatus.setText(people.toString());
+            public void onChanged(List<?> people) {
+                if (people instanceof Person){
+                    Log.i(TAG, "onChanged: "+person.toString());
+                }
+                else if (people instanceof Clothes){
+                    Log.i(TAG, "onChanged: "+person.toString());
+                }
+//                mTvPersonStatus.setText(people.toString());
             }
         });
 
