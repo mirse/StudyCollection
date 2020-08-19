@@ -40,7 +40,7 @@ public class ARouterDemoActivity extends AppCompatActivity {
     public void onClick(View view){
         switch (view.getId()){
             case R.id.bt_router:
-                ARouter.getInstance().build("/test/firstActivity")
+                ARouter.getInstance().build("/test1/mainActivity")
                         .withString("key","1111111")
                         .navigation(this, new NavigationCallback() {
                             @Override
