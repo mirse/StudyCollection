@@ -1,10 +1,10 @@
-apply plugin: 'com.android.application'
 
+apply plugin: 'com.android.library'
+apply plugin:'com.jakewharton.butterknife'
 android {
     compileSdkVersion 29
 
     defaultConfig {
-        applicationId "com.example.testarouter"
         minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
@@ -22,13 +22,14 @@ android {
 
     buildTypes {
         release {
-            // true - 打开混淆
-            minifyEnabled true
-            // true - 打开资源压缩
-            shrinkResources true
-            // 用于设置Proguard的规划路径；
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
         }
+    }
+
+    //buildToolsVersion '27.0.3'
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
 }
@@ -45,4 +46,7 @@ dependencies {
     //alibaba arouter
     implementation 'com.alibaba:arouter-api:1.5.0'
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
+
+    implementation 'com.jakewharton:butterknife:10.0.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
 }
