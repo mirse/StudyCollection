@@ -5,22 +5,84 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.wdz.studycollection.R;
 
-public class AnimDemoActivity extends AppCompatActivity {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
+public class AnimDemoActivity extends AppCompatActivity {
+    @BindView(R.id.iv_add)
+    ImageView ivAdd;
+    @BindView(R.id.cl_fab_add)
+    ConstraintLayout clFabAdd;
+    private Animation showAnimation;
+    private Animation hideAnimation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anim_demo);
+        ButterKnife.bind(this);
         initUI();
+        initAnim();
+    }
+
+    /**
+     * 初始化动画
+     */
+    private void initAnim() {
+        showAnimation = AnimationUtils.loadAnimation(this,R.anim.fab_add_show);
+        hideAnimation = AnimationUtils.loadAnimation(this,R.anim.fab_add_hide);
+        showAnimation.setDuration(100);
+        hideAnimation.setDuration(100);
+        showAnimation.setFillAfter(true);
+        hideAnimation.setFillAfter(true);
+    }
+    @OnClick({R.id.iv_add,R.id.cl_root})
+    public void onClick(View view){
+        if (R.id.iv_add == view.getId()){
+            if (isOpenFabMore) {
+                hideFab();
+            } else {
+                showFab();
+            }
+        }
+        else if (R.id.cl_root == view.getId()){
+            if (isOpenFabMore){
+                hideFab();
+            }
+
+        }
+
+    }
+    private boolean isOpenFabMore = false;
+    /**
+     * 开启fab视图
+     */
+    private void showFab() {
+        isOpenFabMore = true;
+        ivAdd.setImageResource(R.mipmap.fab_add_pressed);
+        clFabAdd.startAnimation(showAnimation);
+    }
+
+    /**
+     * 关闭fab视图
+     */
+    private void hideFab() {
+        isOpenFabMore = false;
+        clFabAdd.startAnimation(hideAnimation);
+        ivAdd.setImageResource(R.mipmap.fab_add);
     }
 
     private void initUI() {

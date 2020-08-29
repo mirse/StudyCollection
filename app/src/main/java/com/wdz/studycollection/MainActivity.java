@@ -48,6 +48,7 @@ import com.wdz.studycollection.handler.LoadPicActivity;
 import com.wdz.studycollection.indicatorview.IndicatorActivity;
 import com.wdz.studycollection.internet.OkHttpDemoActivity;
 import com.wdz.studycollection.internet.glide.GlideActivity;
+import com.wdz.studycollection.iot.GattDemoActivity;
 import com.wdz.studycollection.jetpack.viewmodel.ViewModelActivity;
 import com.wdz.studycollection.materialdesign.CoordinatorLayoutActivity;
 import com.wdz.studycollection.materialdesign.DrawerLayoutActivity;
@@ -179,7 +180,8 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                 {"多媒体","通知","相机","","","",""},
                 {"Material","抽屉","折叠视图","","","",""},
                 {"Jetpack","ViewModel","RxJava","","","",""},
-                {"组件化","ARouter","","","","",""}
+                {"组件化","ARouter","","","","",""},
+                {"Iot","gatt","","","","",""}
         };
 
         for (String[] mArray:array) {
@@ -464,6 +466,30 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                 switch (view.getId()){
                     case R.id.button:
                         startActivity(new Intent(this, ARouterDemoActivity.class));
+                        break;
+                    case R.id.button2:
+                        //startActivity(new Intent(this, RxDemoActivity.class));
+                        break;
+                    case R.id.button3:
+                        //startActivity(new Intent(this, ScrollerActivity.class));
+                        break;
+                    case R.id.button4:
+                        //startActivity(new Intent(this, FragmentActivity.class));
+                        break;
+                    case R.id.button5:
+                        //startActivity(new Intent(this, VpAndFragActivity.class));
+                        break;
+                    case R.id.button6:
+                        //startActivity(new Intent(this, SavedInstanceStateUsingActivity.class));
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case 12:
+                switch (view.getId()){
+                    case R.id.button:
+                        startActivity(new Intent(this, GattDemoActivity.class));
                         break;
                     case R.id.button2:
                         //startActivity(new Intent(this, RxDemoActivity.class));

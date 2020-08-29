@@ -25,8 +25,8 @@ public class LineChartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_line_chart);
         ButterKnife.bind(this);
-        for (int i=0;i<10;i++){
-            yList.add(i);
+        for (int i=0;i<9;i++){
+            yList.add(i*100);
         }
 
         for (int i=0;i<10;i++){
@@ -38,17 +38,17 @@ public class LineChartActivity extends AppCompatActivity {
 
             if (i==2){
                 point.setxValue("day"+i);
-                point.setyValue("4.5");
+                point.setyValue("200");
                 point.setErrorPoint(true);
             }
             else if (i==7){
                 point.setxValue("day"+i);
-                point.setyValue("4.5");
+                point.setyValue("200");
                 point.setErrorPoint(true);
             }
             else{
                 point.setxValue("day"+i);
-                point.setyValue("1");
+                point.setyValue("400");
                 point.setErrorPoint(false);
             }
             datas.add(point);
