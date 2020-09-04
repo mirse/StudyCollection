@@ -52,6 +52,7 @@ import com.wdz.studycollection.iot.GattDemoActivity;
 import com.wdz.studycollection.jetpack.viewmodel.ViewModelActivity;
 import com.wdz.studycollection.materialdesign.CoordinatorLayoutActivity;
 import com.wdz.studycollection.materialdesign.DrawerLayoutActivity;
+import com.wdz.studycollection.materialdesign.TextInputActivity;
 import com.wdz.studycollection.materialdesign.test.CoordinatorLayoutTestActivity;
 import com.wdz.studycollection.materialdesign.testBehavior.TestActivity;
 import com.wdz.studycollection.media.CameraXActivity;
@@ -178,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                 {"View合集","坐标系","悬浮窗","Scroller","软键盘","折线图",""},
                 {"动画合集","属性动画","splash","","","",""},
                 {"多媒体","通知","相机","","","",""},
-                {"Material","抽屉","折叠视图","","","",""},
+                {"Material","抽屉","折叠视图","输入框","","",""},
                 {"Jetpack","ViewModel","RxJava","","","",""},
                 {"组件化","ARouter","","","","",""},
                 {"Iot","gatt","","","","",""}
@@ -423,7 +424,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
                         startActivity(new Intent(this, CoordinatorLayoutActivity.class));
                         break;
                     case R.id.button3:
-                        startActivity(new Intent(this, TestActivity.class));
+                        startActivity(new Intent(this, TextInputActivity.class));
                         break;
                     case R.id.button4:
                         //startActivity(new Intent(this, FragmentActivity.class));

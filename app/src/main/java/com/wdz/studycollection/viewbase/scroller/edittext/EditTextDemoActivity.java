@@ -2,14 +2,18 @@ package com.wdz.studycollection.viewbase.scroller.edittext;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.wdz.studycollection.R;
 
@@ -37,6 +41,14 @@ public class EditTextDemoActivity extends AppCompatActivity {
             lp.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
             getWindow().setAttributes(lp);
         }
+
+        initView();
+
+
+
+    }
+
+    private void initView() {
         SoftKeyBoardListener softKeyBoardListener = new SoftKeyBoardListener(this);
         softKeyBoardListener.setListener( new SoftKeyBoardListener.OnSoftKeyBoardChangeListener() {
             @Override
@@ -51,7 +63,6 @@ public class EditTextDemoActivity extends AppCompatActivity {
             }
         });
         softKeyBoardListener.removeListener();
-
 
     }
 }
