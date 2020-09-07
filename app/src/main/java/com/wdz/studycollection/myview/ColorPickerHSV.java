@@ -12,33 +12,28 @@ import android.graphics.SweepGradient;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
-
 import android.view.View;
-
-import com.wdz.studycollection.R;
 
 import androidx.annotation.Nullable;
 
-
+import com.wdz.studycollection.R;
 
 
 /**
- * Created by wdz on 2018/9/14.
+ *
+ * @author wdz
+ * @date 2018/9/14
  */
 
 public class ColorPickerHSV extends View {
-
+    private static final String TAG = "ColorPickerHSV";
     private Paint mPaint;
-//    private static final int[] COLOR=new int[]{
-//            Color.RED,Color.BLUE,Color.GREEN,Color.RED
-//    };
-//        private static final int[] COLOR = new int[] { 0xFFFF0000, 0xFFFF00FF,
-//            0xFF0000FF, 0xFF00FFFF, 0xFF00FF00, 0xFFFFFF00, 0xFFFF0000 };
+
     private static final int[] COLOR = new int[]{
-        Color.rgb(0, 255, 255), Color.rgb(0, 0, 255),
-        Color.rgb(255, 0, 255), Color.rgb(255, 0, 0),
-        Color.rgb(255, 255, 0), Color.rgb(0, 255, 0),
-        Color.rgb(0, 255, 255)
+            Color.rgb(0, 255, 255), Color.rgb(0, 0, 255),
+            Color.rgb(255, 0, 255), Color.rgb(255, 0, 0),
+            Color.rgb(255, 255, 0), Color.rgb(0, 255, 0),
+            Color.rgb(0, 255, 255)
     };
 
     private int circleWidth;
@@ -54,6 +49,11 @@ public class ColorPickerHSV extends View {
     private int lastX;
     private int offset;
     private double r;
+    private onMoveListener onMoveListener;
+    private int red;
+    private int green;
+    private int blue;
+    private boolean mIsVisible;
 
     public ColorPickerHSV(Context context) {
         super(context);
@@ -81,24 +81,13 @@ public class ColorPickerHSV extends View {
 
         //绘制颜色
         int colorCount = 12;
-        //== 12
         int colorAngleStep = 360 / 12;
         int colors[] = new int[colorCount];
         float hsv[] = new float[]{0f, 1f, 1f};
         for (int i = 0; i < colors.length; i++) {
             hsv[0] = (i * colorAngleStep + 180) % 360;
-            Log.i("text","hsv:["+i+"]"+hsv[0]);
             colors[i] = Color.HSVToColor(hsv);
-            int red = (colors[i] & 0xff0000) >> 16;
-            int green = (colors[i] & 0x00ff00) >> 8;
-            int blue = (colors[i] & 0x0000ff);
         }
-        float[] hsv1 = new float[3];//定义一个长度为3的数组
-        for (int i=0;i<COLOR.length;i++){
-
-            Color.colorToHSV(COLOR[i],hsv1);
-        }
-
 
 
         SweepGradient sweepGradient = new SweepGradient(0, 0, COLOR, null);
@@ -118,18 +107,18 @@ public class ColorPickerHSV extends View {
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
         int widthSize = MeasureSpec.getSize(widthMeasureSpec);
         int heightSize = MeasureSpec.getSize(heightMeasureSpec);
-        if (widthMode==MeasureSpec.EXACTLY){
+        if (widthMode== MeasureSpec.EXACTLY){
             width=widthSize;
         }
-        else if (widthMode==MeasureSpec.AT_MOST){
+        else if (widthMode== MeasureSpec.AT_MOST){
             width=RealSize;
         }else{
             width=widthSize;
         }
-        if (heightMode==MeasureSpec.EXACTLY){
+        if (heightMode== MeasureSpec.EXACTLY){
             height=heightSize;
         }
-        else if (heightMode==MeasureSpec.AT_MOST){
+        else if (heightMode== MeasureSpec.AT_MOST){
             height=RealSize;
         }else {
             height = heightSize;
@@ -144,7 +133,11 @@ public class ColorPickerHSV extends View {
         canvas.translate(offset,offset);
         canvas.drawCircle(0,0,circleWidth,mPaint);
         canvas.drawCircle(0,0,circleWidth,sPaint);
-        canvas.drawCircle(centerX,centerY,innerWidth,iPaint);
+        if (mIsVisible){
+            canvas.drawCircle(centerX,centerY,innerWidth,iPaint);
+        }
+
+
     }
 
     @Override
@@ -155,14 +148,15 @@ public class ColorPickerHSV extends View {
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
                 double distance = Math.sqrt((x - centerX) * (x - centerX) + (y - centerY) * (y - centerY));
-                //    Log.i("text","distance==="+distance);
-                if (distance<30){//点击圆内圆点位置
-                    //   Log.i("text","可滑动----");
+                if (distance<30){
+                    //点击圆内圆点位置
                     isMove=true;
                     lastX = x;
                     lastY = y;
+
                 }
-                else if(r<circleWidth){//点击圆内非圆点位置
+                else if(r<circleWidth){
+                    //点击圆内非圆点位置
                     centerX=x;
                     centerY=y;
                     lastX = x;
@@ -170,12 +164,13 @@ public class ColorPickerHSV extends View {
                     isMove=true;
                     invalidate();
                 }
+                onMoveListener.onMoveStart();
+
                 break;
             case MotionEvent.ACTION_MOVE:
-
-                // Log.i("text","r==="+r+"circleWidth=="+circleWidth);
                 if (isMove){
-                    if (r >circleWidth){//滑动半径大于实际半径
+                    if (r >circleWidth){
+                        //滑动半径大于实际半径
                         x*=circleWidth/ r;
                         y*=circleWidth/ r;
                         centerX=x;
@@ -183,7 +178,8 @@ public class ColorPickerHSV extends View {
                         lastX=x;
                         lastY=y;
                         invalidate();
-                    }else {//处于圆内
+                    }else {
+                        //处于圆内
                         offsetX = x - lastX;
                         offsetY = y - lastY;
                         centerX += offsetX;
@@ -192,24 +188,65 @@ public class ColorPickerHSV extends View {
                         lastY = y;
                         invalidate();
                     }
-                    float[] hsv={0,1,1};
-                    hsv[0]= (float) (Math.atan2(y,x)/Math.PI*180f)+180;
-                    hsv[1]=Math.max(0f,Math.min(1f,(float) (r/circleWidth)));
+                    float[] hsv={0,0,1};
+                    hsv[0]= (float) (Math.atan2(y,x)/ Math.PI*180f)+180;
+                    hsv[1]= Math.max(0f, Math.min(1f,(float) (r/circleWidth)));
                     int color = Color.HSVToColor(hsv);
-                    iPaint.setColor(color);
                     invalidate();
-                    int red = (color & 0xff0000) >> 16;
-                    int green = (color & 0x00ff00) >> 8;
-                    int blue = (color & 0x0000ff);
-                    Log.i("text","red="+red+" green"+green+" blue"+blue+" hsv:"+hsv[0]);
+                    red = (color & 0xff0000) >> 16;
+                    green = (color & 0x00ff00) >> 8;
+                    blue = (color & 0x0000ff);
+                    onMoveListener.onMove(red, green, blue);
+                    Log.i(TAG,"red="+ red +" green"+ green +" blue"+ blue);
                 }
                 break;
             case MotionEvent.ACTION_UP:
+                onMoveListener.onMoveUp(red, green, blue);
                 isMove=false;
                 break;
-                default:break;
+
+            default:
+                break;
         }
         return true;
+    }
+    public interface onMoveListener{
+        void onMoveStart();
+        void onMove(int r, int g, int b);
+        void onMoveUp(int r,int g,int b);
+    }
+
+
+    public void setOnMoveListener(onMoveListener listener){
+        this.onMoveListener = listener;
+    }
+
+
+    /**
+     * 圆点指示器是否可见
+     * @param isVisible
+     */
+    public void setPointVisible(boolean isVisible){
+        mIsVisible = isVisible;
+        invalidate();
+    }
+
+    /**
+     * 根据rgb确定圆点指示器位置
+     */
+    public void setPointPosition(int rgb){
+        float[] hsv = new float[3];
+        Color.colorToHSV(rgb,hsv);
+        Log.i(TAG, "setPointPosition: "+hsv[0]);
+        float centerX = circleWidth * 0.5f;
+        float centerY = circleWidth * 0.5f;
+        float radius = hsv[1] * Math.min(centerX, centerY);
+        int pointX = (int) (radius * Math.cos(Math.toRadians(hsv[0])) + centerX);
+        int pointY = (int) (-radius * Math.sin(Math.toRadians(hsv[0])) + centerY);
+        this.centerX = pointX;
+        this.centerY = pointY;
+        Log.i(TAG, "centerX: "+centerX+" centerY:"+centerY);
+        invalidate();
     }
 
 

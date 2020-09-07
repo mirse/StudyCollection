@@ -24,7 +24,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".materialdesign.TextInputActivity"></activity>
+        <activity android:name=".main.MainActivity">
+
+        </activity>
+        <activity android:name=".materialdesign.TextInputActivity" />
         <activity android:name=".iot.GattDemoActivity" />
         <activity android:name=".myview.LineChartActivity" />
         <activity android:name=".recyclerview.delete.DeleteRecyclerViewActivity" />
