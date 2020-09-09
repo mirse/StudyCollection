@@ -30,17 +30,18 @@ public class ColorPickerHSV extends View {
     private Paint mPaint;
 
     private static final int[] COLOR = new int[]{
-            Color.rgb(255, 0, 0), Color.rgb(255, 255, 0),
-            Color.rgb(0, 255, 0), Color.rgb(0, 255, 255),
-            Color.rgb(0, 0, 255), Color.rgb(255, 0, 255),
+            Color.rgb(255, 0, 0), Color.rgb(255, 0, 255),
+            Color.rgb(0, 0, 255), Color.rgb(0, 255, 255),
+            Color.rgb(0, 255, 0), Color.rgb(255, 255, 0),
             Color.rgb(255, 0, 0)
 
 
+//            Color.rgb(255, 0, 0), Color.rgb(255, 255, 0),
+//            Color.rgb(0, 255, 0), Color.rgb(0, 255, 255),
+//            Color.rgb(0, 0, 255), Color.rgb(255, 0, 255),
+//            Color.rgb(255, 0, 0)
 
-//            Color.rgb(0, 255, 255), Color.rgb(0, 0, 255),
-//            Color.rgb(255, 0, 255), Color.rgb(255, 0, 0),
-//            Color.rgb(255, 255, 0), Color.rgb(0, 255, 0),
-//            Color.rgb(0, 255, 255)
+
     };
 
     private int circleRadius;
@@ -93,7 +94,7 @@ public class ColorPickerHSV extends View {
     private void initPaint() {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         sPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-
+        iPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         //绘制颜色
         int colorCount = 12;
         int colorAngleStep = 360 / 12;
@@ -107,7 +108,8 @@ public class ColorPickerHSV extends View {
         RadialGradient radialGradient = new RadialGradient(0, 0, circleRadius, Color.WHITE, 0x00FFFFFF, Shader.TileMode.CLAMP);
         mPaint.setShader(sweepGradient);
         sPaint.setShader(radialGradient);
-        iPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        iPaint.setStyle(Paint.Style.STROKE);
+        iPaint.setStrokeWidth(10);
         iPaint.setColor(Color.WHITE);
     }
 
@@ -205,7 +207,16 @@ public class ColorPickerHSV extends View {
                         invalidate();
                     }
                     float[] hsv={0,0,1};
-                    hsv[0]= (float) (Math.atan2(y,x)/ Math.PI*180f) ;
+                    //hsv为逆时针看角度
+                    //<0说明处于1，2象限，此时应取反
+                    if (Math.atan2(y,x)<0){
+                        hsv[0]= (float) ((-Math.atan2(y,x))/ Math.PI*180f) ;
+                    }
+                    //>0说明处于3，4象限，此时使用2*PI减去弧度
+                    else{
+                        hsv[0]= (float) ((2*Math.PI - Math.atan2(y,x))/ Math.PI*180f) ;
+                    }
+
                     hsv[1]= Math.max(0f, Math.min(1f,(float) (r/circleRadius)));
                     int color = Color.HSVToColor(hsv);
                     invalidate();
@@ -264,9 +275,12 @@ public class ColorPickerHSV extends View {
         float centerY = 0;
         float radius = hsv[1] * circleRadius;
         Log.i(TAG, "setPointPosition radius: "+radius+" circleRadius:"+circleRadius);
+        Log.i(TAG, "Math.toRadians(hsv[0]: "+Math.toRadians(hsv[0]));
+        Log.i(TAG, " Math.cos(Math.toRadians(hsv[0])): "+ Math.cos(Math.toRadians(hsv[0]))+" Math.sin(Math.toRadians(hsv[0])):"+Math.sin(Math.toRadians(hsv[0])));
         //Math.toRadians将角度转换成弧度
+        //由于原点移动至控件中心，所以Y轴正负相反
         int pointX = (int) (radius * Math.cos(Math.toRadians(hsv[0])) + centerX);
-        int pointY = (int) (radius * Math.sin(Math.toRadians(hsv[0])) + centerY);
+        int pointY = -(int) (radius * Math.sin(Math.toRadians(hsv[0])) + centerY);
         this.centerX = pointX;
         this.centerY = pointY;
         Log.i(TAG, "centerX: "+this.centerX+" centerY:"+this.centerY);

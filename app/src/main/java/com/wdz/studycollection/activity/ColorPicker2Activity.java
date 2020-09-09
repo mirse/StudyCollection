@@ -26,7 +26,7 @@ public class ColorPicker2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_color_picker2);
         ButterKnife.bind(this);
         colorPickerHSV.setPointVisible(true);
-        colorPickerHSV.setPointPosition(HextoColor("#000000ff"));
+        colorPickerHSV.setPointPosition(HextoColor("#00ffffff"));
         colorPickerHSV.setOnMoveListener(new ColorPickerHSV.onMoveListener() {
             @Override
             public void onMoveStart() {
