@@ -16,10 +16,17 @@ android {
         versionName rootProject.ext.android.versionName
         testInstrumentationRunner testInstrumentationRunner
         resourcePrefix "module_architecture_"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+        buildConfigField("boolean", "LOG", "true")
     }
 
     buildTypes {
         release {
+            buildConfigField("boolean", "LOG", "false")
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

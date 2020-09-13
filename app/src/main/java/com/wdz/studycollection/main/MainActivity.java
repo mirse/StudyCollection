@@ -2,15 +2,16 @@ package com.wdz.studycollection.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.LinearLayout;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.wdz.common.constant.ARouterConstant;
 import com.wdz.studycollection.R;
-import com.wdz.studycollection.indicatorview.Fragment1;
 import com.wdz.studycollection.indicatorview.Fragment2;
 import com.wdz.studycollection.indicatorview.Fragment3;
 import com.wdz.studycollection.indicatorview.Fragment4;
@@ -20,6 +21,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.viewPager2)
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        fragmentArrayList.add(new Fragment1());
+        fragmentArrayList.add((Fragment) ARouter.getInstance().build(ARouterConstant.FRAGMENT_CUSTOM_VIEW).navigation());
         fragmentArrayList.add(new Fragment2());
         fragmentArrayList.add(new Fragment3());
         fragmentArrayList.add(new Fragment4());
@@ -57,7 +59,31 @@ public class MainActivity extends AppCompatActivity {
                 selectBottomTab(position);
             }
         });
+        viewPager2.setCurrentItem(0);
 
+    }
+    @OnClick({R.id.ll_tab_1,R.id.ll_tab_2,R.id.ll_tab_3,R.id.ll_tab_4})
+    public void onClick(View view){
+        llTab1.setBackgroundColor(getBaseContext().getColor(R.color.gray_holo_light));
+        llTab2.setBackgroundColor(getBaseContext().getColor(R.color.gray_holo_light));
+        llTab3.setBackgroundColor(getBaseContext().getColor(R.color.gray_holo_light));
+        llTab4.setBackgroundColor(getBaseContext().getColor(R.color.gray_holo_light));
+        if (R.id.ll_tab_1 == view.getId()){
+            viewPager2.setCurrentItem(0,false);
+            llTab1.setBackgroundColor(getBaseContext().getColor(R.color.blue_color));
+        }
+        else if (R.id.ll_tab_2 == view.getId()){
+            viewPager2.setCurrentItem(1,false);
+            llTab2.setBackgroundColor(getBaseContext().getColor(R.color.blue_color));
+        }
+        else if (R.id.ll_tab_3 == view.getId()){
+            viewPager2.setCurrentItem(2,false);
+            llTab3.setBackgroundColor(getBaseContext().getColor(R.color.blue_color));
+        }
+        else if (R.id.ll_tab_4 == view.getId()){
+            viewPager2.setCurrentItem(3,false);
+            llTab4.setBackgroundColor(getBaseContext().getColor(R.color.blue_color));
+        }
     }
 
     private void selectBottomTab(int position) {
