@@ -7,6 +7,16 @@
         android:supportsRtl="true">
         <activity android:name=".MainActivity"/>
         <activity android:name=".main.RingColorPickerActivity"/>
+        <activity android:name=".main.ColorPickerHsvActivity"/>
+        <activity android:name=".main.SurfaceViewActivity"/>
+        <activity android:name=".main.PageActivity"/>
+        <activity android:name=".main.TabViewActivity"/>
+        <activity android:name=".main.DrawableWrapperActivity"/>
+        <activity android:name=".main.DrawableIconActivity"/>
+        <activity android:name=".main.DrawableIconIVActivity"/>
+        <activity android:name=".main.IndicatorActivity"/>
+        <activity android:name=".main.recyclepager.FragmentPagerActivity"/>
+        <activity android:name=".main.recyclepager.ImageRecyclerActivity"/>
     </application>
 
 </manifest>

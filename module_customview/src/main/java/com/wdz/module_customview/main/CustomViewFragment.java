@@ -1,25 +1,17 @@
 package com.wdz.module_customview.main;
 
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.wdz.common.Util.Log;
+import com.wdz.common.util.Log;
 import com.wdz.common.base.BaseFragment;
-import com.wdz.common.base.BaseRecyclerViewAdapter;
 import com.wdz.common.bean.MainBean;
 import com.wdz.common.constant.ARouterConstant;
-import com.wdz.module_customview.MainActivity;
 import com.wdz.module_customview.R;
 import com.wdz.module_customview.R2;
 
@@ -27,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 
 /**
@@ -77,31 +68,32 @@ public class CustomViewFragment extends BaseFragment {
                         if (id == R.id.button) {
                             ARouter.getInstance().build(ARouterConstant.ACTIVITY_RING_COLOR_PICKER).navigation();
                         } else if (id == R.id.button2) {
-
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_HSV_COLOR_PICKER).navigation();
                         } else if (id == R.id.button3) {
-
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_SURFACE_VIEW).navigation();
                         } else if (id == R.id.button4) {
-
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_PAGE).navigation();
                         } else if (id == R.id.button5) {
-
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_TAB_VIEW).navigation();
                         } else if (id == R.id.button6) {
-
+                            //ARouter.getInstance().build(ARouterConstant.ACTIVITY_RING_COLOR_PICKER).navigation();
                         }
                         break;
                     case 1:
                         int viewId = view.getId();
                         if (viewId == R.id.button) {
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_DRAWABLE_WRAP).navigation();
                             Log.i(TAG,"position:"+position);
                         } else if (viewId == R.id.button2) {
-
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_DRAWABLE_ICON).navigation();
                         } else if (viewId == R.id.button3) {
-
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_DRAWABLE_ICON_IV).navigation();
                         } else if (viewId == R.id.button4) {
-
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_INDICATOR).navigation();
                         } else if (viewId == R.id.button5) {
-
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_FRAGMENT_PAGER).navigation();
                         } else if (viewId == R.id.button6) {
-
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_IMAGE_RECYCLER).navigation();
                         }
                         break;
                     case 2:

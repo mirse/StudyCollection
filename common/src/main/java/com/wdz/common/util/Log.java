@@ -1,4 +1,4 @@
-package com.wdz.common.Util;
+package com.wdz.common.util;
 
 import com.wdz.common.BuildConfig;
 
