@@ -43,9 +43,9 @@ public class CustomViewFragment extends BaseFragment {
     @Override
     protected void init() {
         String[][] array={
-                {"自定义View","rgbRing圆","argb圆","hsv圆","SurfaceView","翻页效果","TabView"},
+                {"自定义View","rgbRing圆","hsv圆","SurfaceView","翻页效果"," TabView",""},
                 {"角标效果","Group实现","View实现","ImageV实现","指示器","fragment循环","viewpage循环"},
-                {"字母索引","列表索引","Login-mvp","mvp_test","save_test","选择器","recyclerView"},
+                {"字母索引","列表索引","选择器","recyclerView","Login-mvp","mvp_test","save_test"},
         };
 
         for (String[] mArray:array) {
@@ -99,11 +99,12 @@ public class CustomViewFragment extends BaseFragment {
                     case 2:
                         int i = view.getId();
                         if (i == R.id.button) {
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_LETTER_INDEX).navigation();
                             Log.i(TAG,"position:"+position);
                         } else if (i == R.id.button2) {
-
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_DATE_PICKER).navigation();
                         } else if (i == R.id.button3) {
-
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_RECYCLER_VIEW).navigation();
                         } else if (i == R.id.button4) {
 
                         } else if (i == R.id.button5) {

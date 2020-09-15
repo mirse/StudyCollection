@@ -94,7 +94,6 @@
         <activity android:name=".indicatorview.IndicatorActivity" />
         <activity android:name=".recyclepager.FragmentPagerActivity" />
         <activity android:name=".recyclepager.ImageRecyclerActivity" />
-        <activity android:name=".activity.LetterIndexActivity" />
         <activity android:name=".mvp.logintest.MvpActivity" />
         <activity android:name=".mvp.test1.DataActivity" />
         <activity android:name=".mvp.writeandread.SavaActivity" />

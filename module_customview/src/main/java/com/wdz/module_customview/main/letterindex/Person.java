@@ -1,4 +1,4 @@
-package com.wdz.studycollection.letterindex;
+package com.wdz.module_customview.main.letterindex;
 
 /**
  * Created by dezhi.wang on 2018/10/26.

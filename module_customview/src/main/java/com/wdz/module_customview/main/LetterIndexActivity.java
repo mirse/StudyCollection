@@ -1,10 +1,8 @@
-package com.wdz.studycollection.activity;
+package com.wdz.module_customview.main;
 
 import android.os.Build;
-import android.os.Handler;
-
 import android.os.Bundle;
-
+import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,15 +11,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.wdz.studycollection.R;
-import com.wdz.studycollection.myview.LetterIndex;
-import com.wdz.studycollection.letterindex.LetterIndexAdapter;
-import com.wdz.studycollection.letterindex.Person;
+
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.wdz.common.constant.ARouterConstant;
+import com.wdz.module_customview.R;
+import com.wdz.module_customview.main.letterindex.LetterIndexAdapter;
+import com.wdz.module_customview.main.letterindex.Person;
+import com.wdz.module_customview.view.LetterIndex;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
+@Route(path = ARouterConstant.ACTIVITY_LETTER_INDEX)
 public class LetterIndexActivity extends AppCompatActivity {
     private Handler handler=new Handler();
     private LinearLayoutManager linearmanger;
@@ -33,7 +34,7 @@ public class LetterIndexActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_letter_index);
+        setContentView(R.layout.module_customview_activity_letter_index);
         initData();
         final LetterIndex mLetterIndex = findViewById(R.id.letterindex);
         final TextView mTv = findViewById(R.id.tv);

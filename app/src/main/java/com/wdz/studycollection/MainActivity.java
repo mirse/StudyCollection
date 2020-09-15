@@ -24,11 +24,9 @@ import com.wdz.studycollection.activity.DatePickerActivity;
 import com.wdz.studycollection.activity.DrawableIconActivity;
 import com.wdz.studycollection.activity.DrawableIconIVActivity;
 import com.wdz.studycollection.activity.DrawableWrapperActivity;
-import com.wdz.studycollection.activity.LetterIndexActivity;
 import com.wdz.studycollection.activity.PageActivity;
 import com.wdz.studycollection.componentization.ARouterDemoActivity;
 import com.wdz.studycollection.immersive.MainSplashActivity;
-import com.wdz.studycollection.immersive.SplashImageActivity;
 import com.wdz.studycollection.activity.SurfaceViewActivity;
 import com.wdz.studycollection.activity.TabViewActivity;
 import com.wdz.studycollection.anim.AnimDemoActivity;
@@ -53,8 +51,6 @@ import com.wdz.studycollection.jetpack.viewmodel.ViewModelActivity;
 import com.wdz.studycollection.materialdesign.CoordinatorLayoutActivity;
 import com.wdz.studycollection.materialdesign.DrawerLayoutActivity;
 import com.wdz.studycollection.materialdesign.TextInputActivity;
-import com.wdz.studycollection.materialdesign.test.CoordinatorLayoutTestActivity;
-import com.wdz.studycollection.materialdesign.testBehavior.TestActivity;
 import com.wdz.studycollection.media.CameraXActivity;
 import com.wdz.studycollection.media.NotifyActivity;
 import com.wdz.studycollection.myview.LayoutInflaterActivity;
@@ -249,7 +245,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.ItemC
             case 2:
                 switch (view.getId()){
                     case R.id.button:
-                        startActivity(new Intent(this,LetterIndexActivity.class));
+                       // startActivity(new Intent(this,LetterIndexActivity.class));
                         break;
                     case R.id.button2:
                         startActivity(new Intent(this,MvpActivity.class));

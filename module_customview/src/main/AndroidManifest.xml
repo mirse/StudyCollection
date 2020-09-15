@@ -17,6 +17,9 @@
         <activity android:name=".main.IndicatorActivity"/>
         <activity android:name=".main.recyclepager.FragmentPagerActivity"/>
         <activity android:name=".main.recyclepager.ImageRecyclerActivity"/>
+        <activity android:name=".main.LetterIndexActivity"/>
+        <activity android:name=".main.DatePickerActivity"/>
+        <activity android:name=".main.recyclerview.RecyclerViewActivity"/>
     </application>
 
 </manifest>

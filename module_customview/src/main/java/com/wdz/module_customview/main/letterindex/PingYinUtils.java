@@ -1,4 +1,4 @@
-package com.wdz.studycollection.letterindex;
+package com.wdz.module_customview.main.letterindex;
 
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;

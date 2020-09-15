@@ -19,4 +19,9 @@ public interface ARouterConstant {
     String ACTIVITY_INDICATOR = "/module_customview/IndicatorActivity";
     String ACTIVITY_FRAGMENT_PAGER = "/module_customview/FragmentPagerActivity";
     String ACTIVITY_IMAGE_RECYCLER = "/module_customview/ImageRecyclerActivity";
+
+    String ACTIVITY_LETTER_INDEX = "/module_customview/LetterIndexActivity";
+    String ACTIVITY_DATE_PICKER= "/module_customview/DatePickerActivity";
+    String ACTIVITY_RECYCLER_VIEW = "/module_customview/RecyclerViewActivity";
+
 }
