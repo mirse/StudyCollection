@@ -20,6 +20,16 @@
         <activity android:name=".main.LetterIndexActivity"/>
         <activity android:name=".main.DatePickerActivity"/>
         <activity android:name=".main.recyclerview.RecyclerViewActivity"/>
+        <activity android:name=".main.recyclerview.updownrecyclerview.UpDownRecyclerViewActivity"/>
+        <activity android:name=".main.recyclerview.snaphelper.SnapHelperActivity"/>
+        <activity android:name=".main.recyclerview.delete.DeleteRecyclerViewActivity"/>
+        <activity android:name=".main.LayoutInflaterActivity"/>
+        <activity android:name=".main.recyclerview.grid.GridViewActivity"/>
+        <activity android:name=".main.revolve.FixProblemsActivity"/>
+        <activity android:name=".main.fragment.FragmentActivity"/>
+        <activity android:name=".main.viewpager.VpAndFragActivity"/>
+        <activity android:name=".main.revolve.SavedInstanceStateUsingActivity"/>
+
     </application>
 
 </manifest>

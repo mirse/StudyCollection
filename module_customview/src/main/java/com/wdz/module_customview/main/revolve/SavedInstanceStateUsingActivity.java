@@ -1,11 +1,7 @@
-package com.wdz.studycollection.fragment.revolve;
-
-import java.util.ArrayList;
-import java.util.Arrays;
+package com.wdz.module_customview.main.revolve;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
@@ -13,14 +9,20 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.wdz.module_customview.main.revolve.ProgressDialogFragment;
-import com.wdz.studycollection.R;
+
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.wdz.common.constant.ARouterConstant;
+import com.wdz.module_customview.R;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * 不考虑加载时，进行旋转的情况，有意的避开这种情况，后面例子会介绍解决方案
  * @author zhy
  *
  */
+@Route(path = ARouterConstant.ACTIVITY_SAVEINSTANCE)
 public class SavedInstanceStateUsingActivity extends AppCompatActivity
 {
     private static final String TAG = "MainActivity";
@@ -33,7 +35,7 @@ public class SavedInstanceStateUsingActivity extends AppCompatActivity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_saved_instance_state);
+        setContentView(R.layout.module_customview_activity_saved_instance_state);
         Log.e(TAG, "onCreate");
         initData(savedInstanceState);
     }

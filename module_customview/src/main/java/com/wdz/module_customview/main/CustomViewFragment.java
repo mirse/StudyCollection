@@ -46,6 +46,7 @@ public class CustomViewFragment extends BaseFragment {
                 {"自定义View","rgbRing圆","hsv圆","SurfaceView","翻页效果"," TabView",""},
                 {"角标效果","Group实现","View实现","ImageV实现","指示器","fragment循环","viewpage循环"},
                 {"字母索引","列表索引","选择器","recyclerView","Login-mvp","mvp_test","save_test"},
+                {"视图","LayoutInflater","瀑布流","界面旋转修复","Fragment","与viewpager","界面旋转"},
         };
 
         for (String[] mArray:array) {
@@ -111,6 +112,22 @@ public class CustomViewFragment extends BaseFragment {
 
                         } else if (i == R.id.button6) {
 
+                        }
+                        break;
+                    case 3:
+                        if (view.getId() == R.id.button) {
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_LAYOUT_INFLATER).navigation();
+                            Log.i(TAG,"position:"+position);
+                        } else if (view.getId() == R.id.button2) {
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_GRID_VIEW).navigation();
+                        } else if (view.getId() == R.id.button3) {
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_FIX_PROBLEM).navigation();
+                        } else if (view.getId() == R.id.button4) {
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_FRAGMENT).navigation();
+                        } else if (view.getId() == R.id.button5) {
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_VP_AND_FRAG).navigation();
+                        } else if (view.getId() == R.id.button6) {
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_SAVEINSTANCE).navigation();
                         }
                         break;
 

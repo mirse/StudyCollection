@@ -23,7 +23,7 @@ public class SnapHelperActivity extends AppCompatActivity {
 //    @BindView(R.id.ll_indicator)
 //    LinearLayout llIndicator;
     @BindView(R2.id.myView)
-PageRecyclerView myRecyclerView;
+    PageRecyclerView myRecyclerView;
     private List<Item> mList = new ArrayList<>();
     private ImageView[] imageViews;
 

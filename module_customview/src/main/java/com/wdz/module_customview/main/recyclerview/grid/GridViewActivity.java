@@ -16,13 +16,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.wdz.common.constant.ARouterConstant;
 import com.wdz.module_customview.R;
 import com.wdz.module_customview.main.recyclerview.MyAdapter;
 import com.wdz.module_customview.main.recyclerview.staggergrid.MDStaggeredRvAdapter;
 import com.wdz.module_customview.main.recyclerview.universal.BaseAdapter;
 
 import java.util.ArrayList;
-
+@Route(path = ARouterConstant.ACTIVITY_GRID_VIEW)
 public class GridViewActivity extends AppCompatActivity {
 
     private GridLayoutManager gridLayoutManager;

@@ -4,15 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".main.recyclerview.snaphelper.SnapHelperActivity">
+    tools:context="com.wdz.module_customview.main.viewpager.VpAndFragActivity">
 
-    <com.wdz.module_customview.main.recyclerview.snaphelper.PageRecyclerView
-        android:id="@+id/myView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="395dp"
+        android:layout_height="715dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

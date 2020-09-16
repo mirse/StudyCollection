@@ -24,4 +24,11 @@ public interface ARouterConstant {
     String ACTIVITY_DATE_PICKER= "/module_customview/DatePickerActivity";
     String ACTIVITY_RECYCLER_VIEW = "/module_customview/RecyclerViewActivity";
 
+    String ACTIVITY_LAYOUT_INFLATER = "/module_customview/LayoutInflaterActivity";
+    String ACTIVITY_GRID_VIEW= "/module_customview/GridViewActivity";
+    String ACTIVITY_FIX_PROBLEM = "/module_customview/FixProblemsActivity";
+    String ACTIVITY_FRAGMENT= "/module_customview/FragmentActivity";
+    String ACTIVITY_VP_AND_FRAG = "/module_customview/VpAndFragActivity";
+    String ACTIVITY_SAVEINSTANCE = "/module_customview/SavedInstanceStateUsingActivity";
+
 }
