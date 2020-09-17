@@ -31,4 +31,7 @@ public interface ARouterConstant {
     String ACTIVITY_VP_AND_FRAG = "/module_customview/VpAndFragActivity";
     String ACTIVITY_SAVEINSTANCE = "/module_customview/SavedInstanceStateUsingActivity";
 
+    //communication
+    String FRAGMENT_CUMMUNICATION = "/module_communication/CommunicationFragment";
+
 }

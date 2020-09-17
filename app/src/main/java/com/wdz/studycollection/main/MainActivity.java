@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initData() {
         fragmentArrayList.add((Fragment) ARouter.getInstance().build(ARouterConstant.FRAGMENT_CUSTOM_VIEW).navigation());
-        fragmentArrayList.add(new Fragment2());
+        fragmentArrayList.add((Fragment) ARouter.getInstance().build(ARouterConstant.FRAGMENT_CUMMUNICATION).navigation());
         fragmentArrayList.add(new Fragment3());
         fragmentArrayList.add(new Fragment4());
         FragmentStateAdapter fragmentAdapter = new FragmentAdapter(this,fragmentArrayList);
