@@ -17,7 +17,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="自定义"
+            android:text="视图"
             android:textColor="#000000" />
     </LinearLayout>
     <LinearLayout
@@ -31,7 +31,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="通信"
+            android:text="通信/存储"
             android:textColor="#000000" />
     </LinearLayout>
     <LinearLayout
@@ -59,7 +59,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="存储"
+            android:text="基础"
             android:textColor="#000000" />
     </LinearLayout>
 

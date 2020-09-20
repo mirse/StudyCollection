@@ -46,6 +46,9 @@ android {
             }
         }
     }
+    dataBinding {
+        enabled = true
+    }
 
 }
 
@@ -64,4 +67,20 @@ dependencies {
     implementation rootProject.ext.dependencies.butterknife
     annotationProcessor rootProject.ext.dependencies.butterknife_compiler
     implementation project(path: ':common')
+    //glide
+    implementation rootProject.ext.dependencies.glide
+    annotationProcessor rootProject.ext.dependencies.glide_compiler
+
+    //room
+    implementation rootProject.ext.dependencies.room_runtime
+    annotationProcessor rootProject.ext.dependencies.room_compiler // use kapt for Kotlin
+
+    //okhttp
+    implementation rootProject.ext.dependencies.okhttp
+    // 支持Gson解析
+    implementation rootProject.ext.dependencies.converter_gson
+
+    implementation rootProject.ext.dependencies.multidex
+
+
 }

@@ -110,7 +110,6 @@ dependencies {
     implementation rootProject.ext.dependencies.colorpickerview
 
     implementation project(path: ':datePicker')
-    implementation project(path: ':testarouter')
     if (!rootProject.ext.isModule) {
         implementation project(path: ':module_customview')
         implementation project(path: ':module_communication')

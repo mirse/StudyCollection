@@ -3,6 +3,7 @@ if (rootProject.ext.isModule) {
 } else {
     apply plugin: 'com.android.library'
 }
+apply plugin: 'com.jakewharton.butterknife'
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     buildToolsVersion rootProject.ext.android.buildToolsVersion
@@ -15,7 +16,6 @@ android {
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
         testInstrumentationRunner testInstrumentationRunner
-        resourcePrefix "module_architecture_"
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
@@ -55,4 +55,34 @@ dependencies {
     testImplementation rootProject.ext.dependencies.junit
     androidTestImplementation rootProject.ext.dependencies.runner
     androidTestImplementation rootProject.ext.dependencies.espresso
+
+    //alibaba arouter
+    implementation rootProject.ext.dependencies.arouter
+    annotationProcessor rootProject.ext.dependencies.arouter_compiler
+    implementation rootProject.ext.dependencies.recyclerview
+    implementation rootProject.ext.dependencies.butterknife
+    annotationProcessor rootProject.ext.dependencies.butterknife_compiler
+    implementation project(path: ':common')
+
+
+    //room
+    implementation rootProject.ext.dependencies.room_runtime
+    annotationProcessor rootProject.ext.dependencies.room_compiler // use kapt for Kotlin
+    // optional - RxJava support for Room
+    implementation rootProject.ext.dependencies.room_rxjava2
+    // optional - Guava support for Room, including Optional and ListenableFuture
+    implementation rootProject.ext.dependencies.room_guava
+
+    // Test helpers
+    testImplementation rootProject.ext.dependencies.room_testing
+    implementation rootProject.ext.dependencies.rxandroid
+    implementation rootProject.ext.dependencies.retrofit
+    // 衔接 Retrofit & RxJava
+    // 此处一定要注意使用RxJava2的版本
+    implementation rootProject.ext.dependencies.retrofit2_rxjava2_adapter
+    implementation rootProject.ext.dependencies.lifecycle_extensions
+
+    implementation rootProject.ext.dependencies.material
+    // 支持Gson解析
+    implementation rootProject.ext.dependencies.converter_gson
 }

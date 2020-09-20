@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.wdz.studycollection.activity.DrawableIconIVActivity">
+    tools:context=".main.DrawableIconIVActivity">
 <TextView
     android:text="1、原图片得有白边空隙，填充角标"
     android:layout_width="wrap_content"
@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <ImageView
-        android:background="@drawable/circle_icon"
+        android:background="@mipmap/ic_launcher"
         android:layout_alignParentBottom="true"
         android:src="@drawable/ic_launcher"
         android:layout_width="wrap_content"

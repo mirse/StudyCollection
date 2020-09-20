@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_marginTop="15dp"
+    android:layout_marginStart="10dp"
+    android:layout_height="115dp"
+    >
+    <com.wdz.module_customview.main.viewbase.scroller.ShadowCardView
+
+        android:id="@+id/img_scan_device3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardColor="@color/white"
+        app:cornersRadiusNew="20dp"
+        app:cardColorNew="#ffffff"
+        app:shadowColorNew="#71A4FF"
+        app:isSetShadow="true"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:scaleType="centerInside"
+                android:src="@mipmap/ic_concentration"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.32999998" />
+
+            <TextView
+                android:id="@+id/tv_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="专注"
+                android:textColor="#333333"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/iv_icon"
+                app:layout_constraintStart_toStartOf="@+id/iv_icon"
+                app:layout_constraintTop_toBottomOf="@+id/iv_icon"
+                app:layout_constraintVertical_bias="0.6" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.wdz.module_customview.main.viewbase.scroller.ShadowCardView>
+
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

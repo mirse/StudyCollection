@@ -31,7 +31,44 @@ public interface ARouterConstant {
     String ACTIVITY_VP_AND_FRAG = "/module_customview/VpAndFragActivity";
     String ACTIVITY_SAVEINSTANCE = "/module_customview/SavedInstanceStateUsingActivity";
 
+    String ACTIVITY_COORDINATE_SYSTEM = "/module_customview/CoordinateSystemActivity";
+    String ACTIVITY_FLOATING_VIEW = "/module_customview/FloatingViewActivity";
+    String ACTIVITY_SCROLLER = "/module_customview/ScrollerActivity";
+    String ACTIVITY_EDITTEXT_DEMO = "/module_customview/EditTextDemoActivity";
+    String ACTIVITY_LINE_CHART = "/module_customview/LineChartActivity";
+
+    String ACTIVITY_ANIM_DEMO = "/module_customview/AnimDemoActivity";
+    String ACTIVITY_MAIN_SPLASH = "/module_customview/MainSplashActivity";
+
+    String ACTIVITY_NOTIFY = "/module_customview/NotifyActivity";
+    String ACTIVITY_CAMERAX = "/module_customview/CameraXActivity";
+
+    String ACTIVITY_DRAWERLAYOUT = "/module_customview/DrawerLayoutActivity";
+    String ACTIVITY_COORDINATOR = "/module_customview/CoordinatorLayoutActivity";
+    String ACTIVITY_TEXT_INPUT = "/module_customview/TextInputActivity";
+
+
     //communication
     String FRAGMENT_CUMMUNICATION = "/module_communication/CommunicationFragment";
+
+    String ACTIVITY_SOCKET = "/module_communication/SocketClientActivity";
+    String ACTIVITY_ASYNCTASK = "/module_communication/AsyncTaskActivity";
+    String ACTIVITY_HANDLER = "/module_communication/HandlerDemoActivity";
+    String ACTIVITY_LOAD_PIC = "/module_communication/LoadPicActivity";
+    String ACTIVITY_OKHTTP = "/module_communication/OkHttpDemoActivity";
+    String ACTIVITY_GLIDE = "/module_communication/GlideActivity";
+
+    String ACTIVITY_GATT = "/module_communication/GattDemoActivity";
+
+    String ACTIVITY_SP = "/module_communication/SharedPreferenceActivity";
+    String ACTIVITY_ROOM = "/module_communication/RoomTestActivity";
+    String ACTIVITY_PARACELABLE = "/module_communication/ParcelableDemoActivity";
+    String ACTIVITY_SERVICE = "/module_communication/ServiceDemoActivity";
+
+    //architecture
+    String FRAGMENT_ARCHITECTURE = "/module_architecture/ArchitectureFragment";
+
+    String ACTIVITY_NEW_WORD = "/module_architecture/NewWordActivity";
+    String ACTIVITY_VIEW_MODEL = "/module_architecture/ViewModelActivity";
 
 }

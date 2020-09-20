@@ -29,6 +29,25 @@
         <activity android:name=".main.fragment.FragmentActivity"/>
         <activity android:name=".main.viewpager.VpAndFragActivity"/>
         <activity android:name=".main.revolve.SavedInstanceStateUsingActivity"/>
+        <activity android:name=".main.viewbase.CoordinateSystemActivity"/>
+        <activity android:name=".main.viewbase.floating.FloatingViewActivity"/>
+        <activity android:name=".main.viewbase.scroller.ScrollerActivity"/>
+        <activity android:name=".main.viewbase.scroller.edittext.EditTextDemoActivity"/>
+        <activity android:name=".main.viewbase.LineChartActivity"/>
+        <activity android:name=".main.anim.AnimDemoActivity"/>
+        <activity android:name=".main.immersive.MainSplashActivity"/>
+        <activity android:name=".main.immersive.SplashBarActivity"/>
+        <activity android:name=".main.immersive.SplashImageActivity"/>
+        <activity android:name=".main.media.CameraXActivity"/>
+        <activity android:name=".main.media.NotifyActivity"/>
+        <activity android:name=".main.materialdesign.TextInputActivity"/>
+        <activity android:name=".main.materialdesign.CoordinatorLayoutActivity"/>
+        <activity android:name=".main.materialdesign.DrawerLayoutActivity"/>
+
+        <service
+            android:name=".main.viewbase.floating.FloatingService"
+            android:enabled="true"
+            android:exported="true" />
 
     </application>
 

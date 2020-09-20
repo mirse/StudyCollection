@@ -1,5 +1,4 @@
 include ':app', ':datePicker'
-include ':testarouter'
 include ':common'
 include ':module_customview'
 include ':module_communication'

@@ -15,7 +15,6 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
-        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -29,95 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".materialdesign.TextInputActivity" />
-        <activity android:name=".iot.GattDemoActivity" />
-        <activity android:name=".myview.LineChartActivity" />
-        <activity android:name=".recyclerview.delete.DeleteRecyclerViewActivity" />
-        <activity android:name=".recyclerview.snaphelper.SnapHelperActivity" />
-        <activity android:name=".viewbase.scroller.edittext.EditTextDemoActivity" />
-        <activity android:name=".componentization.activity.TwoActivity" />
-        <activity android:name=".componentization.activity.FirstActivity" />
-        <activity android:name=".componentization.ARouterDemoActivity" />
-        <activity android:name=".recyclerview.updownrecyclerview.UpDownRecyclerViewActivity" />
-        <activity android:name=".materialdesign.testBehavior.TestActivity" />
-        <activity android:name=".materialdesign.CoordinatorLayoutActivity" />
-        <activity android:name=".materialdesign.test.CoordinatorLayoutTestActivity" />
-        <activity android:name=".handler.HandlerThreadActivity" />
-        <activity android:name=".immersive.MainSplashActivity" />
-        <activity android:name=".immersive.SplashImageActivity" />
-        <activity
-            android:name=".immersive.SplashBarActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".datasave.service.ServiceDemoActivity" />
-        <activity android:name=".internet.glide.GlideActivity" />
-        <activity android:name=".internet.OkHttpDemoActivity" />
-        <activity android:name=".rxjava.RxDemoActivity" />
-        <activity android:name=".datasave.parcelable.ParcelableNextActivity" />
-        <activity android:name=".datasave.parcelable.ParcelableDemoActivity" />
-        <activity android:name=".media.CameraXActivity" />
-        <activity android:name=".jetpack.viewmodel.NewWordActivity" />
-        <activity android:name=".jetpack.viewmodel.ViewModelActivity" />
-        <activity android:name=".materialdesign.DrawerLayoutActivity" />
-        <activity android:name=".media.NotifyActivity" />
-        <activity android:name=".handler.LoadPicActivity" />
-        <activity android:name=".handler.Timer1Activity" />
-        <activity android:name=".handler.TimerActivity" />
-        <activity android:name=".handler.DataBindingDemoActivity" />
-        <activity android:name=".handler.HandlerDemoActivity" />
-        <activity android:name=".datasave.room.RoomTestActivity" />
-        <activity android:name=".anim.AnimDemoActivity" />
-        <activity android:name=".viewbase.scroller.ScrollerActivity" />
-        <activity android:name=".viewbase.floating.FloatingViewActivity" />
-        <activity android:name=".viewbase.CoordinateSystemActivity" />
-        <activity android:name=".datasave.SharedPreferenceActivity" />
-        <activity android:name=".asynctask.AsyncTaskActivity" />
-        <activity android:name=".network.SocketClientActivity" />
-        <activity android:name=".fragment.revolve.FixProblemsActivity" />
-        <activity android:name=".fragment.viewpager.VpAndFragActivity" />
-        <activity android:name=".fragment.FragmentActivity" />
-        <activity android:name=".recyclerview.grid.GridViewActivity" />
-        <activity android:name=".myview.LayoutInflaterActivity" />
-        <activity android:name=".recyclerview.RecyclerViewActivity" />
-        <activity android:name=".activity.DatePickerActivity" />
-        <activity android:name=".MainActivity">
 
-        </activity>
-        <activity android:name=".activity.ColorPickerActivity" />
-        <activity android:name=".activity.ColorPicker1Activity" />
-        <activity android:name=".activity.ColorPicker2Activity" />
-        <activity android:name=".activity.SurfaceViewActivity" />
-        <activity android:name=".activity.PageActivity" />
-        <activity android:name=".activity.TabViewActivity" />
-        <activity android:name=".activity.DrawableWrapperActivity" />
-        <activity android:name=".activity.DrawableIconActivity" />
-        <activity android:name=".activity.DrawableIconIVActivity" />
-        <activity android:name=".indicatorview.IndicatorActivity" />
-        <activity android:name=".recyclepager.FragmentPagerActivity" />
-        <activity android:name=".recyclepager.ImageRecyclerActivity" />
-        <activity android:name=".mvp.logintest.MvpActivity" />
-        <activity android:name=".mvp.test1.DataActivity" />
-        <activity android:name=".mvp.writeandread.SavaActivity" />
-        <activity android:name=".fragment.revolve.SavedInstanceStateUsingActivity" />
-        <activity android:name=".base.PermissionActivity" />
-
-        <service
-            android:name=".datasave.service.MyIntentService"
-            android:exported="false" />
-        <service
-            android:name=".datasave.service.MyService"
-            android:enabled="true"
-            android:exported="true" />
-        <service
-            android:name=".MainService"
-            android:enabled="true"
-            android:exported="true" />
-        <service
-            android:name=".viewbase.floating.FloatingService"
-            android:enabled="true"
-            android:exported="true" />
-        <service
-            android:name=".network.SocketServerService"
-            android:process=":remote" />
     </application>
 
 </manifest>

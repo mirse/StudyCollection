@@ -3,4 +3,5 @@
     <dimen name="color_wheel_radius">150dp</dimen>
     <dimen name="color_pointer_radius">10dp</dimen>
     <dimen name="color_wheel_thickness">10dp</dimen>
+    <dimen name="header_offset">-90dp</dimen>
 </resources>

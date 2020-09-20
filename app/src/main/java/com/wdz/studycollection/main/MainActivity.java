@@ -12,9 +12,7 @@ import android.widget.LinearLayout;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.wdz.common.constant.ARouterConstant;
 import com.wdz.studycollection.R;
-import com.wdz.studycollection.indicatorview.Fragment2;
-import com.wdz.studycollection.indicatorview.Fragment3;
-import com.wdz.studycollection.indicatorview.Fragment4;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initData();
 
@@ -48,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
     private void initData() {
         fragmentArrayList.add((Fragment) ARouter.getInstance().build(ARouterConstant.FRAGMENT_CUSTOM_VIEW).navigation());
         fragmentArrayList.add((Fragment) ARouter.getInstance().build(ARouterConstant.FRAGMENT_CUMMUNICATION).navigation());
-        fragmentArrayList.add(new Fragment3());
-        fragmentArrayList.add(new Fragment4());
+        fragmentArrayList.add((Fragment) ARouter.getInstance().build(ARouterConstant.FRAGMENT_ARCHITECTURE).navigation());
+        fragmentArrayList.add((Fragment) ARouter.getInstance().build(ARouterConstant.FRAGMENT_ARCHITECTURE).navigation());
         FragmentStateAdapter fragmentAdapter = new FragmentAdapter(this,fragmentArrayList);
         viewPager2.setAdapter(fragmentAdapter);
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {

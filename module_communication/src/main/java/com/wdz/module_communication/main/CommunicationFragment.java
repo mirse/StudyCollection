@@ -45,6 +45,8 @@ public class CommunicationFragment extends BaseFragment {
     protected void init() {
         String[][] array={
                 {"网络通信","Socket通信","AsyncTask","Handler","handler切换线程","OkHttp","Glide"},
+                {"Iot","gatt","","","","",""},
+                {"数据存储","Sp","Room","序列化","Service","",""},
         };
 
         for (String[] mArray:array) {
@@ -65,67 +67,50 @@ public class CommunicationFragment extends BaseFragment {
                     case 0:
                         int id = view.getId();
                         if (id == R.id.button) {
-                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_RING_COLOR_PICKER).navigation();
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_SOCKET).navigation();
                         } else if (id == R.id.button2) {
-                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_HSV_COLOR_PICKER).navigation();
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_ASYNCTASK).navigation();
                         } else if (id == R.id.button3) {
-                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_SURFACE_VIEW).navigation();
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_HANDLER).navigation();
                         } else if (id == R.id.button4) {
-                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_PAGE).navigation();
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_LOAD_PIC).navigation();
                         } else if (id == R.id.button5) {
-                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_TAB_VIEW).navigation();
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_OKHTTP).navigation();
                         } else if (id == R.id.button6) {
-                            //ARouter.getInstance().build(ARouterConstant.ACTIVITY_RING_COLOR_PICKER).navigation();
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_GLIDE).navigation();
                         }
                         break;
                     case 1:
                         int viewId = view.getId();
                         if (viewId == R.id.button) {
-                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_DRAWABLE_WRAP).navigation();
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_GATT).navigation();
                             Log.i(TAG,"position:"+position);
                         } else if (viewId == R.id.button2) {
-                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_DRAWABLE_ICON).navigation();
+
                         } else if (viewId == R.id.button3) {
-                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_DRAWABLE_ICON_IV).navigation();
+
                         } else if (viewId == R.id.button4) {
-                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_INDICATOR).navigation();
+
                         } else if (viewId == R.id.button5) {
-                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_FRAGMENT_PAGER).navigation();
+
                         } else if (viewId == R.id.button6) {
-                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_IMAGE_RECYCLER).navigation();
+
                         }
                         break;
                     case 2:
                         int i = view.getId();
                         if (i == R.id.button) {
-                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_LETTER_INDEX).navigation();
-                            Log.i(TAG,"position:"+position);
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_SP).navigation();
                         } else if (i == R.id.button2) {
-                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_DATE_PICKER).navigation();
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_ROOM).navigation();
                         } else if (i == R.id.button3) {
-                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_RECYCLER_VIEW).navigation();
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_PARACELABLE).navigation();
                         } else if (i == R.id.button4) {
-
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_SERVICE).navigation();
                         } else if (i == R.id.button5) {
 
                         } else if (i == R.id.button6) {
 
-                        }
-                        break;
-                    case 3:
-                        if (view.getId() == R.id.button) {
-                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_LAYOUT_INFLATER).navigation();
-                            Log.i(TAG,"position:"+position);
-                        } else if (view.getId() == R.id.button2) {
-                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_GRID_VIEW).navigation();
-                        } else if (view.getId() == R.id.button3) {
-                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_FIX_PROBLEM).navigation();
-                        } else if (view.getId() == R.id.button4) {
-                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_FRAGMENT).navigation();
-                        } else if (view.getId() == R.id.button5) {
-                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_VP_AND_FRAG).navigation();
-                        } else if (view.getId() == R.id.button6) {
-                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_SAVEINSTANCE).navigation();
                         }
                         break;
 

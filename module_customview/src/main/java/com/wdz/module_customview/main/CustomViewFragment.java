@@ -45,8 +45,12 @@ public class CustomViewFragment extends BaseFragment {
         String[][] array={
                 {"自定义View","rgbRing圆","hsv圆","SurfaceView","翻页效果"," TabView",""},
                 {"角标效果","Group实现","View实现","ImageV实现","指示器","fragment循环","viewpage循环"},
-                {"字母索引","列表索引","选择器","recyclerView","Login-mvp","mvp_test","save_test"},
+                {"字母索引","列表索引","选择器","recyclerView","","",""},
                 {"视图","LayoutInflater","瀑布流","界面旋转修复","Fragment","与viewpager","界面旋转"},
+                {"View合集","坐标系","悬浮窗","Scroller","软键盘","折线图",""},
+                {"动画合集","属性动画","splash","","","",""},
+                {"多媒体","通知","相机","","","",""},
+                {"Material","抽屉","折叠视图","输入框","","",""},
         };
 
         for (String[] mArray:array) {
@@ -130,7 +134,71 @@ public class CustomViewFragment extends BaseFragment {
                             ARouter.getInstance().build(ARouterConstant.ACTIVITY_SAVEINSTANCE).navigation();
                         }
                         break;
+                    case 4:
+                        if (view.getId() == R.id.button) {
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_COORDINATE_SYSTEM).navigation();
+                            Log.i(TAG,"position:"+position);
+                        } else if (view.getId() == R.id.button2) {
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_FLOATING_VIEW).navigation();
+                        } else if (view.getId() == R.id.button3) {
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_SCROLLER).navigation();
+                        } else if (view.getId() == R.id.button4) {
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_EDITTEXT_DEMO).navigation();
+                        } else if (view.getId() == R.id.button5) {
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_LINE_CHART).navigation();
+                        } else if (view.getId() == R.id.button6) {
 
+                        }
+                        break;
+
+                    case 5:
+                        if (view.getId() == R.id.button) {
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_ANIM_DEMO).navigation();
+                            Log.i(TAG,"position:"+position);
+                        } else if (view.getId() == R.id.button2) {
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_MAIN_SPLASH).navigation();
+                        } else if (view.getId() == R.id.button3) {
+
+                        } else if (view.getId() == R.id.button4) {
+
+                        } else if (view.getId() == R.id.button5) {
+
+                        } else if (view.getId() == R.id.button6) {
+
+                        }
+                        break;
+                    case 6:
+                        if (view.getId() == R.id.button) {
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_NOTIFY).navigation();
+                            Log.i(TAG,"position:"+position);
+                        } else if (view.getId() == R.id.button2) {
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_CAMERAX).navigation();
+                        } else if (view.getId() == R.id.button3) {
+
+                        } else if (view.getId() == R.id.button4) {
+
+                        } else if (view.getId() == R.id.button5) {
+
+                        } else if (view.getId() == R.id.button6) {
+
+                        }
+                        break;
+                    case 7:
+                        if (view.getId() == R.id.button) {
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_DRAWERLAYOUT).navigation();
+                            Log.i(TAG,"position:"+position);
+                        } else if (view.getId() == R.id.button2) {
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_COORDINATOR).navigation();
+                        } else if (view.getId() == R.id.button3) {
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_TEXT_INPUT).navigation();
+                        } else if (view.getId() == R.id.button4) {
+
+                        } else if (view.getId() == R.id.button5) {
+
+                        } else if (view.getId() == R.id.button6) {
+
+                        }
+                        break;
 
                     default:
                         break;
