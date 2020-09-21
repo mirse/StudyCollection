@@ -1,6 +1,8 @@
 package com.wdz.module_customview.main;
 
 
+import android.content.res.AssetFileDescriptor;
+import android.media.MediaPlayer;
 import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,6 +17,7 @@ import com.wdz.common.constant.ARouterConstant;
 import com.wdz.module_customview.R;
 import com.wdz.module_customview.R2;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,6 +59,16 @@ public class CustomViewFragment extends BaseFragment {
         for (String[] mArray:array) {
             mainBeanList.add(new MainBean(mArray[0],mArray[1],mArray[2],mArray[3],mArray[4],mArray[5],mArray[6]));
         }
+
+//        MediaPlayer mediaPlayer = new MediaPlayer();
+//        AssetFileDescriptor assetFileDescriptor = getResources().openRawResourceFd(R.raw.eason);
+//        try {
+//            mediaPlayer.setDataSource(assetFileDescriptor.getFileDescriptor(),assetFileDescriptor.getStartOffset(),assetFileDescriptor.getLength());
+//            mediaPlayer.prepare();
+//            mediaPlayer.start();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override
