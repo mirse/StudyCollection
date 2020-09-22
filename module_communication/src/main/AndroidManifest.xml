@@ -35,6 +35,7 @@
         <activity android:name=".main.datasave.parcelable.ParcelableDemoActivity" />
         <activity android:name=".main.datasave.parcelable.ParcelableNextActivity" />
         <activity android:name=".main.datasave.service.ServiceDemoActivity" />
+        <activity android:name=".main.iot.soundanalysis.activity.SoundActivity"/>
 
         <service
             android:name=".main.network.SocketServerService"
