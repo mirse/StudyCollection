@@ -45,6 +45,7 @@ public class CustomViewFragment extends BaseFragment {
 
     @Override
     protected void init() {
+        mainBeanList.clear();
         String[][] array={
                 {"自定义View","rgbRing圆","hsv圆","SurfaceView","翻页效果"," TabView",""},
                 {"角标效果","Group实现","View实现","ImageV实现","指示器","fragment循环","viewpage循环"},

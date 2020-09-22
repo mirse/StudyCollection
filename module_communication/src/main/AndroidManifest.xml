@@ -13,29 +13,32 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+
     <application
         android:allowBackup="true"
         android:supportsRtl="true">
-        <activity android:name=".main.network.SocketClientActivity"/>
-        <activity android:name=".main.asynctask.AsyncTaskActivity"/>
-        <activity android:name=".main.handler.HandlerDemoActivity"/>
-        <activity android:name=".main.handler.LoadPicActivity"/>
-        <activity android:name=".main.internet.OkHttpDemoActivity"/>
-        <activity android:name=".main.internet.glide.GlideActivity"/>
-        <activity android:name=".main.handler.DataBindingDemoActivity"/>
-        <activity android:name=".main.handler.TimerActivity"/>
-        <activity android:name=".main.handler.Timer1Activity"/>
-        <activity android:name=".main.handler.HandlerThreadActivity"/>
-        <activity android:name=".main.iot.GattDemoActivity"/>
-        <activity android:name=".main.datasave.SharedPreferenceActivity"/>
-        <activity android:name=".main.datasave.room.RoomTestActivity"/>
-        <activity android:name=".main.datasave.parcelable.ParcelableDemoActivity"/>
-        <activity android:name=".main.datasave.parcelable.ParcelableNextActivity"/>
-        <activity android:name=".main.datasave.service.ServiceDemoActivity"/>
+        <activity android:name=".main.iot.voice.VoiceActivity"></activity>
+        <activity android:name=".main.network.SocketClientActivity" />
+        <activity android:name=".main.asynctask.AsyncTaskActivity" />
+        <activity android:name=".main.handler.HandlerDemoActivity" />
+        <activity android:name=".main.handler.LoadPicActivity" />
+        <activity android:name=".main.internet.OkHttpDemoActivity" />
+        <activity android:name=".main.internet.glide.GlideActivity" />
+        <activity android:name=".main.handler.DataBindingDemoActivity" />
+        <activity android:name=".main.handler.TimerActivity" />
+        <activity android:name=".main.handler.Timer1Activity" />
+        <activity android:name=".main.handler.HandlerThreadActivity" />
+        <activity android:name=".main.iot.GattDemoActivity" />
+        <activity android:name=".main.datasave.SharedPreferenceActivity" />
+        <activity android:name=".main.datasave.room.RoomTestActivity" />
+        <activity android:name=".main.datasave.parcelable.ParcelableDemoActivity" />
+        <activity android:name=".main.datasave.parcelable.ParcelableNextActivity" />
+        <activity android:name=".main.datasave.service.ServiceDemoActivity" />
 
-        <service android:name=".main.network.SocketServerService"
-            android:process=":remote"
-            />
+        <service
+            android:name=".main.network.SocketServerService"
+            android:process=":remote" />
         <service
             android:name=".main.datasave.service.MyIntentService"
             android:exported="false" />
