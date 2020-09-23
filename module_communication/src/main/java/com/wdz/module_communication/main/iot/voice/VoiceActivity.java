@@ -93,8 +93,25 @@ public class VoiceActivity extends PermissionActivity {
 
             @Override
             public void onFftDataCapture(Visualizer visualizer, byte[] fft, int samplingRate) {
-                Log.i(TAG, "onFftDataCapture: "+ Arrays.toString(fft)+" size:"+fft.length);
 
+                float[] magnitudes = new float[fft.length / 2];
+                int max = 0;
+                for (int i = 0; i < magnitudes.length; i++) {
+                    magnitudes[i] = (float) Math.hypot(fft[2 * i], fft[2 * i + 1]);
+                    if (magnitudes[max] < magnitudes[i]) {
+                        max = i;
+                    }
+
+                }
+
+                int currentFrequency = max * samplingRate / fft.length;
+                Log.i("xiaozhu", "currentFrequency=" + currentFrequency);
+                //Log.i(TAG, "onFftDataCapture: "+ Arrays.toString(fft)+" size:"+fft.length);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         },Visualizer.getMaxCaptureRate()/2,true,true);
 

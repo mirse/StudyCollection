@@ -70,12 +70,12 @@ public class FFT {
         return result;
     }
 
-    /**
+    /** ~22050
      * 获取最大的频率
      *
-     * @param data
-     * @param SAMPLE_RATE
-     * @param FFT_N
+     * @param data length 32 * 1024
+     * @param SAMPLE_RATE 44100
+     * @param FFT_N 32 * 1024
      * @return
      */
     public double getFrequency(byte[] data, int SAMPLE_RATE, int FFT_N) {

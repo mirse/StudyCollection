@@ -106,6 +106,10 @@ public class SoundAnalysisThread extends Thread {
         while ((lenght = audioRecord.read(bufferRead, 0, sampleCount)) > 0) {
 
             currentFrequency = fft.getFrequency(bufferRead, sampleRate, sampleCount);
+
+            //currentFrequency = getFre(bufferRead, sampleRate);
+
+
             currentVolume = VoiceUtil.getVolume(bufferRead, lenght);
 
 
@@ -115,7 +119,7 @@ public class SoundAnalysisThread extends Thread {
             message.obj = sound;
             message.what = SoundActivity.SOUND_MESSAGE;
 
-            handler.sendMessageDelayed(message,200);
+            handler.sendMessage(message);
 
             Log.i("xiaozhu----------", "currentFrequency" + currentFrequency + "---" + currentVolume);
             if (currentFrequency > 0) {
@@ -145,6 +149,19 @@ public class SoundAnalysisThread extends Thread {
             audioRecord.release();
         }
 
+    }
+
+    public int getFre(byte[] fft,int samplingRate){
+        float[] magnitudes = new float[fft.length / 2];
+        int max = 0;
+        for (int i = 0; i < magnitudes.length; i++) {
+            magnitudes[i] = (float) Math.hypot(fft[2 * i], fft[2 * i + 1]);
+            if (magnitudes[max] < magnitudes[i]) {
+                max = i;
+            }
+        }
+        int currentFrequency = max * samplingRate / fft.length;
+        return currentFrequency;
     }
 }
 

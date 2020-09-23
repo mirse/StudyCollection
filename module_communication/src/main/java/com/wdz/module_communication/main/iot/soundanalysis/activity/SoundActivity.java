@@ -100,7 +100,7 @@ public class SoundActivity extends AppCompatActivity implements View.OnClickList
             alpha = 255;
         }
         int color = ColorUtils.COLOR_LIST_140[currentFrequency % 140];
-        ll_content.setBackgroundColor(Color.argb(alpha, Color.red(color), Color.green(color), Color.blue(color)));
+        //ll_content.setBackgroundColor(Color.argb(alpha, Color.red(color), Color.green(color), Color.blue(color)));
 
         tv_show.setText(String.format(getString(R.string.show_sound), currentFrequency * 1.0f, sound.mVolume));
 
