@@ -15,13 +15,13 @@ public class ToneManager {
     private final String TAG = this.getClass().getSimpleName();
     private AudioRecord audioRecord;
     /**
-     * 采样频率
+     * 采样频率/采样速度（每秒中从连续信号提取组成离散信号的个数 hz）
      */
     private int sampleRate = 44100;
     /**
      * 采样点数
      */
-    private int sampleCount = 20;
+    private int sampleCount = 1024;
     /**
      * 傅里叶变化工具类
      */

@@ -3,6 +3,7 @@ package com.wdz.module_communication.main.iot.soundanalysis.utils;
 import android.util.Log;
 
 /**
+ * 短时傅里叶变换
  * 快速傅里叶变换
  * Created by shine on 18-10-9.
  */
