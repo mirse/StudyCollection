@@ -1,4 +1,4 @@
-package com.wdz.module_communication.main.iot.soundanalysis.utils;
+package com.wdz.module_communication.main.iot.voice.utils;
 
 import android.util.Log;
 
@@ -105,7 +105,7 @@ public class FFT {
         }
         dataStr += "]";
 
-//        Log.i("xiaozhu----------afters", "data==" + dataStr + ", SAMPLE_RATE==" + SAMPLE_RATE + ", FFT_N" + FFT_N);
+        Log.i("xiaozhu----------afters", "data==" + dataStr + ", SAMPLE_RATE==" + SAMPLE_RATE + ", FFT_N" + FFT_N);
 
 
 //        String str = "";

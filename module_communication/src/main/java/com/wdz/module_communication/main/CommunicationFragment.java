@@ -87,7 +87,7 @@ public class CommunicationFragment extends BaseFragment {
                             ARouter.getInstance().build(ARouterConstant.ACTIVITY_GATT).navigation();
                             Log.i(TAG,"position:"+position);
                         } else if (viewId == R.id.button2) {
-                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_SOUND).navigation();
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_VOICE).navigation();
                         } else if (viewId == R.id.button3) {
 
                         } else if (viewId == R.id.button4) {

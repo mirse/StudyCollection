@@ -1,10 +1,11 @@
-package com.wdz.module_communication.main.iot.soundanalysis.utils;
+package com.wdz.module_communication.main.iot.voice.utils;
 
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.os.Handler;
 import android.util.Log;
+
 
 import java.util.Arrays;
 
@@ -78,11 +79,12 @@ public class ToneManager {
             public void run() {
                 if (audioRecord != null) {
                     byte[] bufferRead = new byte[sampleCount];
-
-                    while (audioRecord.read(bufferRead, 0, sampleCount) > 0) {
-                        Log.i(TAG, "run: "+ Arrays.toString(bufferRead)+" length:"+bufferRead.length);
+                    int length;
+                    while ((length = audioRecord.read(bufferRead, 0, sampleCount)) > 0) {
+                        Log.i(TAG, "bufferRead:"+Arrays.toString(bufferRead));
                         double currentFrequency = fft.getFrequency(bufferRead, sampleRate, sampleCount);
-
+                        double currentVolume = VoiceUtil.getVolume(bufferRead, length);
+                        Log.i(TAG, "run: currentFrequency:"+currentFrequency+" currentVolume:"+currentVolume);
                         if (onVoiceChangeListener != null) {
                             onVoiceChangeListener.onVoiceChange(currentFrequency);
                             try {

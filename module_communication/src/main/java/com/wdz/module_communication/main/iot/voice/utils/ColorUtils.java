@@ -1,4 +1,4 @@
-package com.wdz.module_communication.main.iot.soundanalysis.utils;
+package com.wdz.module_communication.main.iot.voice.utils;
 
 import android.graphics.Color;
 import android.util.Log;

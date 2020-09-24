@@ -62,6 +62,7 @@ public interface ARouterConstant {
     String ACTIVITY_VOICE = "/module_communication/VoiceActivity";
     String ACTIVITY_SOUND = "/module_communication/SoundActivity";
 
+
     String ACTIVITY_SP = "/module_communication/SharedPreferenceActivity";
     String ACTIVITY_ROOM = "/module_communication/RoomTestActivity";
     String ACTIVITY_PARACELABLE = "/module_communication/ParcelableDemoActivity";
