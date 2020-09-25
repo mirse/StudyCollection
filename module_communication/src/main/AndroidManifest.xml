@@ -18,7 +18,7 @@
     <application
         android:allowBackup="true"
         android:supportsRtl="true">
-        <activity android:name=".main.iot.voice.VoiceActivity"></activity>
+        <activity android:name="com.wdz.module_basis.media.voice.VoiceActivity"></activity>
         <activity android:name=".main.network.SocketClientActivity" />
         <activity android:name=".main.asynctask.AsyncTaskActivity" />
         <activity android:name=".main.handler.HandlerDemoActivity" />

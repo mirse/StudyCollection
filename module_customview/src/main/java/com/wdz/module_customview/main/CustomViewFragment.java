@@ -48,12 +48,11 @@ public class CustomViewFragment extends BaseFragment {
         mainBeanList.clear();
         String[][] array={
                 {"自定义View","rgbRing圆","hsv圆","SurfaceView","翻页效果"," TabView",""},
-                {"角标效果","Group实现","View实现","ImageV实现","指示器","fragment循环","viewpage循环"},
+                {"角标效果","Group实现","View实现","","指示器","","viewpage循环"},
                 {"字母索引","列表索引","选择器","recyclerView","","",""},
-                {"视图","LayoutInflater","瀑布流","界面旋转修复","Fragment","与viewpager","界面旋转"},
-                {"View合集","坐标系","悬浮窗","Scroller","软键盘","折线图",""},
+                {"视图","LayoutInflater","瀑布流","","","",""},
+                {"View合集","","悬浮窗","Scroller","软键盘","折线图",""},
                 {"动画合集","属性动画","splash","","","",""},
-                {"多媒体","通知","相机","","","",""},
                 {"Material","抽屉","折叠视图","输入框","","",""},
         };
 
@@ -106,11 +105,11 @@ public class CustomViewFragment extends BaseFragment {
                         } else if (viewId == R.id.button2) {
                             ARouter.getInstance().build(ARouterConstant.ACTIVITY_DRAWABLE_ICON).navigation();
                         } else if (viewId == R.id.button3) {
-                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_DRAWABLE_ICON_IV).navigation();
+
                         } else if (viewId == R.id.button4) {
                             ARouter.getInstance().build(ARouterConstant.ACTIVITY_INDICATOR).navigation();
                         } else if (viewId == R.id.button5) {
-                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_FRAGMENT_PAGER).navigation();
+
                         } else if (viewId == R.id.button6) {
                             ARouter.getInstance().build(ARouterConstant.ACTIVITY_IMAGE_RECYCLER).navigation();
                         }
@@ -139,19 +138,18 @@ public class CustomViewFragment extends BaseFragment {
                         } else if (view.getId() == R.id.button2) {
                             ARouter.getInstance().build(ARouterConstant.ACTIVITY_GRID_VIEW).navigation();
                         } else if (view.getId() == R.id.button3) {
-                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_FIX_PROBLEM).navigation();
+
                         } else if (view.getId() == R.id.button4) {
-                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_FRAGMENT).navigation();
+
                         } else if (view.getId() == R.id.button5) {
-                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_VP_AND_FRAG).navigation();
+
                         } else if (view.getId() == R.id.button6) {
-                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_SAVEINSTANCE).navigation();
+
                         }
                         break;
                     case 4:
                         if (view.getId() == R.id.button) {
-                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_COORDINATE_SYSTEM).navigation();
-                            Log.i(TAG,"position:"+position);
+
                         } else if (view.getId() == R.id.button2) {
                             ARouter.getInstance().build(ARouterConstant.ACTIVITY_FLOATING_VIEW).navigation();
                         } else if (view.getId() == R.id.button3) {
@@ -181,23 +179,8 @@ public class CustomViewFragment extends BaseFragment {
 
                         }
                         break;
+
                     case 6:
-                        if (view.getId() == R.id.button) {
-                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_NOTIFY).navigation();
-                            Log.i(TAG,"position:"+position);
-                        } else if (view.getId() == R.id.button2) {
-                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_CAMERAX).navigation();
-                        } else if (view.getId() == R.id.button3) {
-
-                        } else if (view.getId() == R.id.button4) {
-
-                        } else if (view.getId() == R.id.button5) {
-
-                        } else if (view.getId() == R.id.button6) {
-
-                        }
-                        break;
-                    case 7:
                         if (view.getId() == R.id.button) {
                             ARouter.getInstance().build(ARouterConstant.ACTIVITY_DRAWERLAYOUT).navigation();
                             Log.i(TAG,"position:"+position);

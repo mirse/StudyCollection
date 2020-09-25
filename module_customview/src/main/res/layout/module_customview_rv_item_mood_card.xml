@@ -9,7 +9,7 @@
     android:layout_marginStart="10dp"
     android:layout_height="115dp"
     >
-    <com.wdz.module_customview.main.viewbase.scroller.ShadowCardView
+    <com.wdz.module_customview.viewbase.scroller.ShadowCardView
 
         android:id="@+id/img_scan_device3"
         android:layout_width="match_parent"
@@ -51,7 +51,7 @@
                 app:layout_constraintVertical_bias="0.6" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.wdz.module_customview.main.viewbase.scroller.ShadowCardView>
+    </com.wdz.module_customview.viewbase.scroller.ShadowCardView>
 
 
 

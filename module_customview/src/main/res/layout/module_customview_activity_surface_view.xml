@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.wdz.module_customview.main.SurfaceViewActivity">
-<com.wdz.module_customview.view.SurfaceViewDemo
+    tools:context="com.wdz.module_customview.viewbase.surface.SurfaceViewActivity">
+<com.wdz.module_customview.viewbase.surface.SurfaceViewDemo
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" />
 </RelativeLayout>

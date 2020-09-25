@@ -6,46 +6,39 @@
         android:allowBackup="true"
         android:supportsRtl="true">
         <activity android:name=".MainActivity"/>
-        <activity android:name=".main.RingColorPickerActivity"/>
-        <activity android:name=".main.ColorPickerHsvActivity"/>
-        <activity android:name=".main.SurfaceViewActivity"/>
-        <activity android:name=".main.PageActivity"/>
-        <activity android:name=".main.TabViewActivity"/>
-        <activity android:name=".main.DrawableWrapperActivity"/>
-        <activity android:name=".main.DrawableIconActivity"/>
-        <activity android:name=".main.DrawableIconIVActivity"/>
-        <activity android:name=".main.IndicatorActivity"/>
-        <activity android:name=".main.recyclepager.FragmentPagerActivity"/>
+        <activity android:name=".myview.colorpick.RingColorPickerActivity"/>
+        <activity android:name=".myview.colorpick.ColorPickerHsvActivity"/>
+        <activity android:name=".viewbase.surface.SurfaceViewActivity"/>
+        <activity android:name=".action.PageActivity"/>
+        <activity android:name=".myview.combination.tabgroup.TabViewActivity"/>
+        <activity android:name=".myview.combination.DrawableWrapperActivity"/>
+        <activity android:name=".myview.combination.icon.DrawableIconActivity"/>
+        <activity android:name=".action.slide.IndicatorActivity"/>
         <activity android:name=".main.recyclepager.ImageRecyclerActivity"/>
-        <activity android:name=".main.LetterIndexActivity"/>
-        <activity android:name=".main.DatePickerActivity"/>
+        <activity android:name=".myview.letterindex.LetterIndexActivity"/>
+        <activity android:name=".myview.datepick.DatePickerActivity"/>
         <activity android:name=".main.recyclerview.RecyclerViewActivity"/>
         <activity android:name=".main.recyclerview.updownrecyclerview.UpDownRecyclerViewActivity"/>
         <activity android:name=".main.recyclerview.snaphelper.SnapHelperActivity"/>
         <activity android:name=".main.recyclerview.delete.DeleteRecyclerViewActivity"/>
         <activity android:name=".main.LayoutInflaterActivity"/>
         <activity android:name=".main.recyclerview.grid.GridViewActivity"/>
-        <activity android:name=".main.revolve.FixProblemsActivity"/>
-        <activity android:name=".main.fragment.FragmentActivity"/>
-        <activity android:name=".main.viewpager.VpAndFragActivity"/>
-        <activity android:name=".main.revolve.SavedInstanceStateUsingActivity"/>
-        <activity android:name=".main.viewbase.CoordinateSystemActivity"/>
-        <activity android:name=".main.viewbase.floating.FloatingViewActivity"/>
-        <activity android:name=".main.viewbase.scroller.ScrollerActivity"/>
-        <activity android:name=".main.viewbase.scroller.edittext.EditTextDemoActivity"/>
-        <activity android:name=".main.viewbase.LineChartActivity"/>
-        <activity android:name=".main.anim.AnimDemoActivity"/>
+
+        <activity android:name=".viewbase.floating.FloatingViewActivity"/>
+        <activity android:name=".viewbase.scroller.ScrollerActivity"/>
+        <activity android:name=".viewbase.scroller.edittext.EditTextDemoActivity"/>
+        <activity android:name=".myview.linechart.LineChartActivity"/>
+        <activity android:name=".anim.AnimDemoActivity"/>
         <activity android:name=".main.immersive.MainSplashActivity"/>
         <activity android:name=".main.immersive.SplashBarActivity"/>
         <activity android:name=".main.immersive.SplashImageActivity"/>
-        <activity android:name=".main.media.CameraXActivity"/>
-        <activity android:name=".main.media.NotifyActivity"/>
-        <activity android:name=".main.materialdesign.TextInputActivity"/>
-        <activity android:name=".main.materialdesign.CoordinatorLayoutActivity"/>
-        <activity android:name=".main.materialdesign.DrawerLayoutActivity"/>
+
+        <activity android:name=".materialdesign.TextInputActivity"/>
+        <activity android:name=".materialdesign.CoordinatorLayoutActivity"/>
+        <activity android:name=".materialdesign.DrawerLayoutActivity"/>
 
         <service
-            android:name=".main.viewbase.floating.FloatingService"
+            android:name=".viewbase.floating.FloatingService"
             android:enabled="true"
             android:exported="true" />
 

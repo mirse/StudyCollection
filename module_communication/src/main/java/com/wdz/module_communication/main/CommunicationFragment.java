@@ -46,7 +46,7 @@ public class CommunicationFragment extends BaseFragment {
         mainBeanList.clear();
         String[][] array={
                 {"网络通信","Socket通信","AsyncTask","Handler","handler切换线程","OkHttp","Glide"},
-                {"Iot","gatt","音频解析","","","",""},
+                {"Iot","gatt","","","","",""},
                 {"数据存储","Sp","Room","序列化","Service","",""},
         };
 
@@ -87,7 +87,7 @@ public class CommunicationFragment extends BaseFragment {
                             ARouter.getInstance().build(ARouterConstant.ACTIVITY_GATT).navigation();
                             Log.i(TAG,"position:"+position);
                         } else if (viewId == R.id.button2) {
-                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_VOICE).navigation();
+
                         } else if (viewId == R.id.button3) {
 
                         } else if (viewId == R.id.button4) {

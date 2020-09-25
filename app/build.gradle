@@ -114,6 +114,7 @@ dependencies {
         implementation project(path: ':module_customview')
         implementation project(path: ':module_communication')
         implementation project(path: ':module_architecture')
+        implementation project(path: ':module_basis')
     }
     implementation project(path: ':common')
 

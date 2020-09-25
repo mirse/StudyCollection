@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.wdz.module_customview.main.PageActivity">
+    tools:context="com.wdz.module_customview.action.PageActivity">
     <TextView
         android:text="不大清楚原理"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-<com.wdz.module_customview.view.turnpage.CoverPageView
+<com.wdz.module_customview.action.CoverPageView
     android:id="@+id/cpv"
     android:layout_centerInParent="true"
     android:layout_width="wrap_content"

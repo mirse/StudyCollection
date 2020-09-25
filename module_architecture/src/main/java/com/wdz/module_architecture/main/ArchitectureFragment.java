@@ -43,6 +43,7 @@ public class ArchitectureFragment extends BaseFragment {
 
     @Override
     protected void init() {
+        mainBeanList.clear();
         String[][] array={
                 {"Jetpack","ViewModel","RxJava","","","",""},
         };

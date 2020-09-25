@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.wdz.module_customview.main.IndicatorActivity">
+    tools:context="com.wdz.module_customview.action.slide.IndicatorActivity">
 
-    <com.wdz.module_customview.view.MyIndicatorView
+    <com.wdz.module_customview.action.slide.MyIndicatorView
         app:enableIndicatorSwitch="true"
         android:layout_gravity="center_horizontal"
         android:id="@+id/indicator"

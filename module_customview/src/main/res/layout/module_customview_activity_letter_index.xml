@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.wdz.module_customview.main.LetterIndexActivity">
+    tools:context="com.wdz.module_customview.myview.letterindex.LetterIndexActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
-    <com.wdz.module_customview.view.LetterIndex
+    <com.wdz.module_customview.myview.letterindex.LetterIndex
         android:background="@color/gray_holo_light"
         android:id="@+id/letterindex"
         android:layout_alignParentRight="true"

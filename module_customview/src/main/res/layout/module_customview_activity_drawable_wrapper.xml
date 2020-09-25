@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.wdz.studycollection.activity.DrawableWrapperActivity">
+    tools:context=".myview.combination.DrawableWrapperActivity">
     <TextView
         android:text="组合控件实现"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-<com.wdz.studycollection.mydrawable.IconView
+<com.wdz.module_customview.myview.combination.IconView
     android:background="@color/colorPrimary"
     android:layout_centerInParent="true"
     app:icon_num="1"
     app:view_image="@drawable/cartoon"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"></com.wdz.studycollection.mydrawable.IconView>
+    android:layout_height="wrap_content"></com.wdz.module_customview.myview.combination.IconView>
 </RelativeLayout>
