@@ -65,5 +65,7 @@ dependencies {
     implementation rootProject.ext.dependencies.butterknife
     annotationProcessor rootProject.ext.dependencies.butterknife_compiler
 
+    implementation rootProject.ext.dependencies.material
+
     implementation project(path: ':common')
 }

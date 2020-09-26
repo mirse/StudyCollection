@@ -46,8 +46,11 @@ public class BasisFragment extends BaseFragment {
     protected void init() {
         mainBeanList.clear();
         String[][] array={
-                {"Fragment","Fragment","与viewpager","","","",""},
+                {"basis","Fragment","与viewpager","service","","",""},
                 {"多媒体","通知","相机","音频解析","","",""},
+                {"适配","状态栏","","","","",""},
+                {"控件","editText","recycler","grid","输入框","",""},
+                {"其他","悬浮窗","","","","",""},
         };
 
         for (String[] mArray:array) {
@@ -72,7 +75,7 @@ public class BasisFragment extends BaseFragment {
                         } else if (id == R.id.button2) {
                             ARouter.getInstance().build(ARouterConstant.ACTIVITY_VP_AND_FRAG).navigation();
                         } else if (id == R.id.button3) {
-
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_SERVICE).navigation();
                         } else if (id == R.id.button4) {
 
                         } else if (id == R.id.button5) {
@@ -98,12 +101,53 @@ public class BasisFragment extends BaseFragment {
                         }
                         break;
                     case 2:
+                        if (view.getId() == R.id.button) {
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_MAIN_SPLASH).navigation();
+                            Log.i(TAG,"position:"+position);
+                        } else if (view.getId() == R.id.button2) {
 
+                        } else if (view.getId() == R.id.button3) {
+
+                        } else if (view.getId() == R.id.button4) {
+
+                        } else if (view.getId() == R.id.button5) {
+
+                        } else if (view.getId() == R.id.button6) {
+
+                        }
                         break;
                     case 3:
+                        if (view.getId() == R.id.button) {
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_EDITTEXT_DEMO).navigation();
+                            Log.i(TAG,"position:"+position);
+                        } else if (view.getId() == R.id.button2) {
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_RECYCLER_VIEW).navigation();
+                        } else if (view.getId() == R.id.button3) {
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_GRID_VIEW).navigation();
+                        } else if (view.getId() == R.id.button4) {
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_TEXT_INPUT).navigation();
+                        } else if (view.getId() == R.id.button5) {
 
+                        } else if (view.getId() == R.id.button6) {
+
+                        }
                         break;
+                    case 4:
+                        if (view.getId() == R.id.button) {
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_FLOATING_VIEW).navigation();
 
+                        } else if (view.getId() == R.id.button2) {
+
+                        } else if (view.getId() == R.id.button3) {
+
+                        } else if (view.getId() == R.id.button4) {
+
+                        } else if (view.getId() == R.id.button5) {
+
+                        } else if (view.getId() == R.id.button6) {
+
+                        }
+                        break;
 
                     default:
                         break;

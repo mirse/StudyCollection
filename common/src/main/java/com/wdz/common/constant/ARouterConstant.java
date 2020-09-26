@@ -21,26 +21,23 @@ public interface ARouterConstant {
 
     String ACTIVITY_LETTER_INDEX = "/module_customview/LetterIndexActivity";
     String ACTIVITY_DATE_PICKER= "/module_customview/DatePickerActivity";
-    String ACTIVITY_RECYCLER_VIEW = "/module_customview/RecyclerViewActivity";
+
 
     String ACTIVITY_LAYOUT_INFLATER = "/module_customview/LayoutInflaterActivity";
-    String ACTIVITY_GRID_VIEW= "/module_customview/GridViewActivity";
 
 
 
-    String ACTIVITY_FLOATING_VIEW = "/module_customview/FloatingViewActivity";
+
+
     String ACTIVITY_SCROLLER = "/module_customview/ScrollerActivity";
-    String ACTIVITY_EDITTEXT_DEMO = "/module_customview/EditTextDemoActivity";
+
     String ACTIVITY_LINE_CHART = "/module_customview/LineChartActivity";
 
     String ACTIVITY_ANIM_DEMO = "/module_customview/AnimDemoActivity";
-    String ACTIVITY_MAIN_SPLASH = "/module_customview/MainSplashActivity";
-
-
 
     String ACTIVITY_DRAWERLAYOUT = "/module_customview/DrawerLayoutActivity";
     String ACTIVITY_COORDINATOR = "/module_customview/CoordinatorLayoutActivity";
-    String ACTIVITY_TEXT_INPUT = "/module_customview/TextInputActivity";
+
 
 
     //communication
@@ -60,7 +57,7 @@ public interface ARouterConstant {
     String ACTIVITY_SP = "/module_communication/SharedPreferenceActivity";
     String ACTIVITY_ROOM = "/module_communication/RoomTestActivity";
     String ACTIVITY_PARACELABLE = "/module_communication/ParcelableDemoActivity";
-    String ACTIVITY_SERVICE = "/module_communication/ServiceDemoActivity";
+
 
     //architecture
     String FRAGMENT_ARCHITECTURE = "/module_architecture/ArchitectureFragment";
@@ -73,9 +70,19 @@ public interface ARouterConstant {
 
     String ACTIVITY_FRAGMENT= "/module_basis/FragmentActivity";
     String ACTIVITY_VP_AND_FRAG = "/module_basis/VpAndFragActivity";
+    String ACTIVITY_SERVICE = "/module_basis/ServiceDemoActivity";
 
     String ACTIVITY_NOTIFY = "/module_basis/NotifyActivity";
     String ACTIVITY_CAMERAX = "/module_basis/CameraXActivity";
     String ACTIVITY_VOICE = "/module_basis/VoiceActivity";
+
+    String ACTIVITY_MAIN_SPLASH = "/module_basis/MainSplashActivity";
+
+    String ACTIVITY_EDITTEXT_DEMO = "/module_basis/EditTextDemoActivity";
+    String ACTIVITY_RECYCLER_VIEW = "/module_basis/RecyclerViewActivity";
+    String ACTIVITY_GRID_VIEW= "/module_basis/GridViewActivity";
+    String ACTIVITY_TEXT_INPUT = "/module_basis/TextInputActivity";
+
+    String ACTIVITY_FLOATING_VIEW = "/module_basis/FloatingViewActivity";
 
 }

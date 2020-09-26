@@ -9,8 +9,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.wdz.common.constant.ARouterConstant;
 import com.wdz.module_customview.R;
-import com.wdz.module_customview.action.slide.MyIndicatorView;
-import com.wdz.module_customview.main.FragmentAdapter;
+import com.wdz.module_customview.action.slide.fragment.FragmentAdapter;
 
 @Route(path = ARouterConstant.ACTIVITY_INDICATOR)
 public class IndicatorActivity extends AppCompatActivity {

@@ -30,7 +30,7 @@ public class MainAdapter extends BaseRecyclerViewAdapter<MainBean> {
 
     @Override
     public int getLayoutId() {
-        return R.layout.module_customview_item_main;
+        return R.layout.module_communication_item_main;
     }
 
 

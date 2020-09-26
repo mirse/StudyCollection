@@ -221,10 +221,10 @@
             android:layout_height="200dp"
             android:layout_gravity="center_horizontal"
             android:src="@mipmap/img_control_a60_large"
-            app:layout_behavior="@string/behavior_sample_title" />
+            app:layout_behavior="com.wdz.module_customview.materialdesign.coordinator.CustomBehavior" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            app:layout_behavior="@string/behavior_title"
+            app:layout_behavior="com.wdz.module_customview.materialdesign.coordinator.TitleBehavior"
             android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

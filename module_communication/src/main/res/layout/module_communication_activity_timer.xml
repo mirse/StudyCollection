@@ -6,14 +6,14 @@
     <data>
         <variable
             name="observableTimer"
-            type="com.wdz.module_communication.main.handler.model.ObservableTimer" />
+            type="com.wdz.module_communication.main.network.handler.model.ObservableTimer" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".main.handler.TimerActivity">
+        tools:context=".main.network.handler.TimerActivity">
 
         <Button
             android:id="@+id/bt_start_timer"

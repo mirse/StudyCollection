@@ -14,33 +14,21 @@
         <activity android:name=".myview.combination.DrawableWrapperActivity"/>
         <activity android:name=".myview.combination.icon.DrawableIconActivity"/>
         <activity android:name=".action.slide.IndicatorActivity"/>
-        <activity android:name=".main.recyclepager.ImageRecyclerActivity"/>
+        <activity android:name=".list.recyclepager.ImageRecyclerActivity"/>
         <activity android:name=".myview.letterindex.LetterIndexActivity"/>
         <activity android:name=".myview.datepick.DatePickerActivity"/>
-        <activity android:name=".main.recyclerview.RecyclerViewActivity"/>
-        <activity android:name=".main.recyclerview.updownrecyclerview.UpDownRecyclerViewActivity"/>
-        <activity android:name=".main.recyclerview.snaphelper.SnapHelperActivity"/>
-        <activity android:name=".main.recyclerview.delete.DeleteRecyclerViewActivity"/>
-        <activity android:name=".main.LayoutInflaterActivity"/>
-        <activity android:name=".main.recyclerview.grid.GridViewActivity"/>
 
-        <activity android:name=".viewbase.floating.FloatingViewActivity"/>
+        <activity android:name=".viewbase.LayoutInflaterActivity"/>
+
         <activity android:name=".viewbase.scroller.ScrollerActivity"/>
-        <activity android:name=".viewbase.scroller.edittext.EditTextDemoActivity"/>
+
         <activity android:name=".myview.linechart.LineChartActivity"/>
         <activity android:name=".anim.AnimDemoActivity"/>
-        <activity android:name=".main.immersive.MainSplashActivity"/>
-        <activity android:name=".main.immersive.SplashBarActivity"/>
-        <activity android:name=".main.immersive.SplashImageActivity"/>
 
-        <activity android:name=".materialdesign.TextInputActivity"/>
-        <activity android:name=".materialdesign.CoordinatorLayoutActivity"/>
-        <activity android:name=".materialdesign.DrawerLayoutActivity"/>
+        <activity android:name=".materialdesign.coordinator.CoordinatorLayoutActivity"/>
+        <activity android:name=".materialdesign.drawerlayout.DrawerLayoutActivity"/>
 
-        <service
-            android:name=".viewbase.floating.FloatingService"
-            android:enabled="true"
-            android:exported="true" />
+
 
     </application>
 

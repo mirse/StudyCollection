@@ -33,17 +33,18 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    api rootProject.ext.dependencies.appcompat
+    api rootProject.ext.dependencies.constraintlayout
+    api rootProject.ext.dependencies.junit
+    api rootProject.ext.dependencies.runner
+    api rootProject.ext.dependencies.espresso
 
-    implementation rootProject.ext.dependencies.butterknife
+    api rootProject.ext.dependencies.butterknife
     annotationProcessor rootProject.ext.dependencies.butterknife_compiler
 
-    implementation rootProject.ext.dependencies.recyclerview
-    implementation rootProject.ext.dependencies.multidex
+    api rootProject.ext.dependencies.recyclerview
+    api rootProject.ext.dependencies.multidex
     //alibaba arouter
-    implementation rootProject.ext.dependencies.arouter
+    api rootProject.ext.dependencies.arouter
     annotationProcessor rootProject.ext.dependencies.arouter_compiler
 }

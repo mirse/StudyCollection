@@ -47,7 +47,7 @@ public class CommunicationFragment extends BaseFragment {
         String[][] array={
                 {"网络通信","Socket通信","AsyncTask","Handler","handler切换线程","OkHttp","Glide"},
                 {"Iot","gatt","","","","",""},
-                {"数据存储","Sp","Room","序列化","Service","",""},
+                {"数据存储","Sp","Room","序列化","","",""},
         };
 
         for (String[] mArray:array) {
@@ -107,7 +107,7 @@ public class CommunicationFragment extends BaseFragment {
                         } else if (i == R.id.button3) {
                             ARouter.getInstance().build(ARouterConstant.ACTIVITY_PARACELABLE).navigation();
                         } else if (i == R.id.button4) {
-                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_SERVICE).navigation();
+
                         } else if (i == R.id.button5) {
 
                         } else if (i == R.id.button6) {
