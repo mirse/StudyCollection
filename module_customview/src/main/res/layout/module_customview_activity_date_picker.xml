@@ -27,16 +27,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:text="显示日期选择器"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bt_show_timer"
-        app:layout_constraintVertical_bias="0.36" />
+        app:layout_constraintVertical_bias="0.060000002" />
 
     <Button
         android:id="@+id/bt_show_room"
@@ -46,5 +44,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/bt_show_date"
         app:layout_constraintStart_toStartOf="@+id/bt_show_date"
-        app:layout_constraintTop_toBottomOf="@+id/bt_show_date" />
+        app:layout_constraintTop_toBottomOf="@+id/bt_show_date"
+        app:layout_constraintVertical_bias="0.07999998" />
+
+
+    <Button
+        android:id="@+id/bt_show_city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="地区选择器"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bt_show_room"
+        app:layout_constraintVertical_bias="0.06999999" />
 </androidx.constraintlayout.widget.ConstraintLayout>

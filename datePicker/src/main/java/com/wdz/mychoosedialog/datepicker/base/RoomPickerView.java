@@ -84,7 +84,7 @@ public class RoomPickerView extends View {
      * 选择结果回调接口
      */
     public interface OnSelectListener {
-        void onSelect(View view, String selected);
+        void onSelect(View view, String selected,int position);
     }
 
     private static class ScrollTimerTask extends TimerTask {
@@ -339,7 +339,7 @@ public class RoomPickerView extends View {
             if (mTimerTask != null) {
                 cancelTimerTask();
                 if (mOnSelectListener != null && mSelectedIndex < mDataList.size()) {
-                    mOnSelectListener.onSelect(this, mDataList.get(mSelectedIndex));
+                    mOnSelectListener.onSelect(this, mDataList.get(mSelectedIndex),mSelectedIndex);
                 }
             }
         } else if (mScrollDistance > 0) {

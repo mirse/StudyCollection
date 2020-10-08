@@ -19,4 +19,10 @@
     <color name="room_picker_line">#D8E3FB</color>
     <color name="room_picker_text_light">#333333</color>
     <color name="room_picker_text_dark">#3A72E9</color>
+
+
+    <color name="city_picker_line">#67D49F</color>
+    <color name="city_picker_bg">#F0FBF5</color>
+    <color name="city_picker_text_light">#929294</color>
+    <color name="city_picker_text_dark">#67D49F</color>
 </resources>

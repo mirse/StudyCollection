@@ -49,7 +49,7 @@ public class CustomViewFragment extends BaseFragment {
         String[][] array={
                 {"自定义控件","rgbRing圆","hsv圆","Scroller","翻页效果","折线图",""},
                 {"组合控件","Group实现","右上角标","指示器","TabView","viewpage循环",""},
-                {"View基础","SurfaceView","LayoutInflater","","","",""},
+                {"View基础","SurfaceView","LayoutInflater","事件分发","","",""},
                 {"选择/索引","列表索引","选择器","","","",""},
                 {"动画","属性动画","","","","",""},
                 {"Material","抽屉","折叠视图","","","",""},
@@ -111,7 +111,7 @@ public class CustomViewFragment extends BaseFragment {
                             ARouter.getInstance().build(ARouterConstant.ACTIVITY_LAYOUT_INFLATER).navigation();
 
                         } else if (view.getId() == R.id.button3) {
-
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_LAYOUT_EVENT).navigation();
                         } else if (view.getId() == R.id.button4) {
 
                         } else if (view.getId() == R.id.button5) {

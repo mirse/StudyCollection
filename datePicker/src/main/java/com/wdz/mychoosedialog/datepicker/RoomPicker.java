@@ -33,6 +33,7 @@ public class RoomPicker implements View.OnClickListener, RoomPickerView.OnSelect
     private List<String> mList = new ArrayList<>();
     private String selectRoomName = "";
 
+
     public interface TimeSelectCallback {
 
         /**
@@ -176,7 +177,7 @@ public class RoomPicker implements View.OnClickListener, RoomPickerView.OnSelect
     }
 
     @Override
-    public void onSelect(View view, String selected) {
+    public void onSelect(View view, String selected, int position) {
         if (view == null || TextUtils.isEmpty(selected)) {
             return;
         }

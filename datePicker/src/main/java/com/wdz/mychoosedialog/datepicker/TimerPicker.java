@@ -65,6 +65,7 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
     private int mMinute = 0,mHour = 0;
 
 
+
     public interface TimeSelectCallback {
         /**
          * 选择时间的接口回调
@@ -311,7 +312,7 @@ public class TimerPicker implements View.OnClickListener, PickerView.OnSelectLis
     }
 
     @Override
-    public void onSelect(View view, String selected) {
+    public void onSelect(View view, String selected,int position) {
         if (view == null || TextUtils.isEmpty(selected)) {
             return;
         }

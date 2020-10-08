@@ -14,10 +14,15 @@ import com.wdz.common.constant.ARouterConstant;
 import com.wdz.module_customview.R;
 import com.wdz.module_customview.R2;
 import com.wdz.mychoosedialog.datepicker.CalendarPicker;
+import com.wdz.mychoosedialog.datepicker.CityPicker;
 import com.wdz.mychoosedialog.datepicker.DateFormatUtils;
 import com.wdz.mychoosedialog.datepicker.DatePicker;
 import com.wdz.mychoosedialog.datepicker.RoomPicker;
 import com.wdz.mychoosedialog.datepicker.TimerPicker;
+import com.wdz.mychoosedialog.datepicker.bean.ChinaAddressInfo;
+import com.wdz.mychoosedialog.datepicker.bean.City;
+import com.wdz.mychoosedialog.datepicker.bean.District;
+import com.wdz.mychoosedialog.datepicker.bean.Province;
 
 
 import java.util.ArrayList;
@@ -56,7 +61,7 @@ public class DatePickerActivity extends AppCompatActivity {
 
     }
 
-    @OnClick({R2.id.bt_show_timer,R2.id.bt_show_date,R2.id.bt_show_room})
+    @OnClick({R2.id.bt_show_timer,R2.id.bt_show_date,R2.id.bt_show_room,R2.id.bt_show_city})
     public void onViewClicked(View view){
         int id = view.getId();
         if (id == R.id.bt_show_timer) {
@@ -82,14 +87,6 @@ public class DatePickerActivity extends AppCompatActivity {
             timerPicker.setType(TimerPicker.HOUR_MINUTE);
             timerPicker.setRange(0, 24, 0, 59);
             timerPicker.isClock(false);
-//                String[] split1 = pickTime.getText().toString().split(":");
-//                if (split1.length == 2)
-//                {
-//                    int h = Integer.parseInt(split1[0]);
-//                    int m = Integer.parseInt(split1[1]);
-//
-//                    timerPicker.setTime(h,m);
-//                }
             timerPicker.setTime(0, 01);
             timerPicker.show();
         } else if (id == R.id.bt_show_date) {
@@ -115,30 +112,6 @@ public class DatePickerActivity extends AppCompatActivity {
                         }
                     });
 
-
-//                CalendarPicker calendarPicker = new CalendarPicker(this, new CalendarPicker.Callback() {
-//                    @Override
-//                    public void selectDate(Long date) {
-//                        Log.i(TAG,"data:"+System.currentTimeMillis());
-//                    }
-//
-//                    @Override
-//                    public void onCancel() {
-//
-//                    }
-//                });
-//                //设置显示范围
-////                calendarPicker.setTime(DateFormatUtils.str2Long("1999-05-03"),System.currentTimeMillis());
-//                calendarPicker.setTime(System.currentTimeMillis(),System.currentTimeMillis()+DAY_6);
-//                //设置当前显示日期
-//                calendarPicker.showTime(DateFormatUtils.long2Str(System.currentTimeMillis()));
-//                //允许点击屏幕或物理返回键关闭
-//                calendarPicker.setCancelable(true);
-//                // 允许循环滚动
-//                calendarPicker.setScrollLoop(false);
-//                // 允许滚动动画
-//                calendarPicker.setCanShowAnim(true);
-//                calendarPicker.show();
         } else if (id == R.id.bt_show_room) {
             RoomPicker roomPicker = new RoomPicker("取消", "保存", mList, DatePickerActivity.this, new RoomPicker.TimeSelectCallback() {
                 @Override
@@ -157,6 +130,50 @@ public class DatePickerActivity extends AppCompatActivity {
                 }
             });
             roomPicker.show();
+
+
+
+
+        }
+        else if (id == R.id.bt_show_city){
+            ChinaAddressInfo chinaAddressInfo = new ChinaAddressInfo();
+            List<Province> provinceList = chinaAddressInfo.provinceList;
+            for (int k=0;k<3;k++){
+                Province province = new Province();
+                province.provinceCode = "1";
+                province.provinceName = "省"+k;
+                List<City> cityList = province.cityList;
+                for (int i=0;i<5;i++){
+                    City city = new City();
+                    city.cityName=k+"城市"+i;
+                    city.cityCode = String.valueOf(i);
+                    List<District> districtList = city.districtList;
+                    for (int j=0;j<5;j++){
+                        District district = new District();
+                        district.districtName = k+"区"+i+j;
+                        districtList.add(district);
+                    }
+                    cityList.add(city);
+
+                }
+                provinceList.add(province);
+            }
+
+
+            CityPicker cityPicker = new CityPicker(this, chinaAddressInfo, new CityPicker.Callback() {
+                @Override
+                public void selectCity(Province province, City city, District district) {
+                    Log.i(TAG, "selectCity: province:"+province.provinceName+" city:"+city.cityName+" district:"+district.districtName);
+                }
+
+                @Override
+                public void onCancel() {
+
+                }
+            });
+            cityPicker.setCity("省1","1城市2","1区22");
+
+            cityPicker.show();
         }
 
     }

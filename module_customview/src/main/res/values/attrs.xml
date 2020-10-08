@@ -60,4 +60,26 @@
 
     </declare-styleable>
 
+    <declare-styleable name="CommonTitleBar">
+        <!--    背景    -->
+        <attr name="background_color" format="color"/>
+        <!--    标题       -->
+        <attr name="title" format="string"/>
+        <!--    标题颜色     -->
+        <attr name="title_color" format="color"/>
+        <!--    标题文字大小   -->
+        <attr name="title_size" format="dimension"/>
+        <!--    标题样式    -->
+        <attr name="title_style">
+            <enum name="normal" value="0" />
+            <enum name="bold" value="1" />
+        </attr>
+        <!--    图标      -->
+        <attr name="icon_back" format="reference"/>
+        <attr name="icon_left" format="reference"/>
+        <attr name="icon_right" format="reference"/>
+        <attr name="icon_close" format="reference"/>
+
+    </declare-styleable>
+
 </resources>

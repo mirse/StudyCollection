@@ -7,16 +7,16 @@ apply plugin: 'com.jakewharton.butterknife'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 android {
-    compileSdkVersion rootProject.ext.android.compileSdkVersion
-    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    compileSdkVersion rootProject.ext.versions.compileSdkVersion
+    buildToolsVersion rootProject.ext.versions.buildToolsVersion
     defaultConfig {
         if (rootProject.ext.isModule) {
             applicationId "com.wdz.module_customview"
         }
-        minSdkVersion rootProject.ext.android.minSdkVersion
-        targetSdkVersion rootProject.ext.android.targetSdkVersion
-        versionCode rootProject.ext.android.versionCode
-        versionName rootProject.ext.android.versionName
+        minSdkVersion rootProject.ext.versions.minSdkVersion
+        targetSdkVersion rootProject.ext.versions.targetSdkVersion
+        versionCode rootProject.ext.versions.versionCode
+        versionName rootProject.ext.versions.versionName
         testInstrumentationRunner testInstrumentationRunner
         //resourcePrefix "module_customview_"
 
@@ -55,9 +55,10 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
 
-
     //alibaba arouter
     implementation rootProject.ext.dependencies.arouter
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     annotationProcessor rootProject.ext.dependencies.arouter_compiler
     implementation rootProject.ext.dependencies.recyclerview
     implementation rootProject.ext.dependencies.butterknife

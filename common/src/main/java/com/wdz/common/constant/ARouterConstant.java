@@ -24,7 +24,7 @@ public interface ARouterConstant {
 
 
     String ACTIVITY_LAYOUT_INFLATER = "/module_customview/LayoutInflaterActivity";
-
+    String ACTIVITY_LAYOUT_EVENT = "/module_customview/EventActivity";
 
 
 

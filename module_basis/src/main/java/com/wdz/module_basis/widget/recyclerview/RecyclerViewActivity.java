@@ -3,6 +3,7 @@ package com.wdz.module_basis.widget.recyclerview;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.wdz.common.constant.ARouterConstant;
@@ -28,18 +30,24 @@ import com.wdz.module_basis.widget.recyclerview.updownrecyclerview.UpDownRecycle
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+
 @Route(path = ARouterConstant.ACTIVITY_RECYCLER_VIEW)
 public class RecyclerViewActivity extends AppCompatActivity {
 
     @BindView(R2.id.recyclerView)
     RecyclerView mRecyclerView;
+    @BindView(R2.id.swipeRefreshLayout)
+    PullRefreshView swipeRefreshLayout;
     private LinearLayoutManager mLayoutManager;
     private MyAdapter myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.module_basis_activity_recycler_view);
+        ButterKnife.bind(this);
         initData();
         initView();
     }
@@ -50,7 +58,8 @@ public class RecyclerViewActivity extends AppCompatActivity {
         Button mBtnRecyclerView = findViewById(R.id.bt_recyclerview);
         Button mBtnBanner = findViewById(R.id.banner_recycler);
         Button mBtnDelete = findViewById(R.id.delete_recycler);
-        mRecyclerView = findViewById(R.id.recyclerView);
+        //mRecyclerView = findViewById(R.id.recyclerView);
+        mRecyclerView = swipeRefreshLayout.getRecyclerView();
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(myAdapter);
         mRecyclerView.addItemDecoration(new MyDividerItemDecoration(this,LinearLayoutManager.HORIZONTAL));
@@ -101,6 +110,29 @@ public class RecyclerViewActivity extends AppCompatActivity {
                  Toast.makeText(getApplicationContext(),"长按第"+position+"item",Toast.LENGTH_SHORT).show();
              }
          });
+        swipeRefreshLayout.setOnRefreshListener(new PullRefreshView.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                /** 模拟网络请求 */
+                swipeRefreshLayout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.refreshComplete();
+                    }
+                }, 1000);
+            }
+        });
+//         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//             @Override
+//             public void onRefresh() {
+//                 new Handler().postDelayed(new Runnable() {
+//                     @Override
+//                     public void run() {
+//                         swipeRefreshLayout.setRefreshing(false);
+//                     }
+//                 },2000);
+//             }
+//         });
     }
 
 

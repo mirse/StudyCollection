@@ -258,7 +258,7 @@ public class CalendarPicker implements View.OnClickListener, PickerView.OnSelect
     }
 
     @Override
-    public void onSelect(View view, String selected) {
+    public void onSelect(View view, String selected,int position) {
         if (view == null || TextUtils.isEmpty(selected)) {
             return;
         }

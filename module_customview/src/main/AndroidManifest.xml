@@ -1,35 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wdz.module_customview">
-    <permission android:name="android.permission.CAMERA"/>
+
+    <permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:supportsRtl="true">
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".myview.colorpick.RingColorPickerActivity"/>
-        <activity android:name=".myview.colorpick.ColorPickerHsvActivity"/>
-        <activity android:name=".viewbase.surface.SurfaceViewActivity"/>
-        <activity android:name=".action.PageActivity"/>
-        <activity android:name=".myview.combination.tabgroup.TabViewActivity"/>
-        <activity android:name=".myview.combination.DrawableWrapperActivity"/>
-        <activity android:name=".myview.combination.icon.DrawableIconActivity"/>
-        <activity android:name=".action.slide.IndicatorActivity"/>
-        <activity android:name=".list.recyclepager.ImageRecyclerActivity"/>
-        <activity android:name=".myview.letterindex.LetterIndexActivity"/>
-        <activity android:name=".myview.datepick.DatePickerActivity"/>
-
-        <activity android:name=".viewbase.LayoutInflaterActivity"/>
-
-        <activity android:name=".viewbase.scroller.ScrollerActivity"/>
-
-        <activity android:name=".myview.linechart.LineChartActivity"/>
-        <activity android:name=".anim.AnimDemoActivity"/>
-
-        <activity android:name=".materialdesign.coordinator.CoordinatorLayoutActivity"/>
-        <activity android:name=".materialdesign.drawerlayout.DrawerLayoutActivity"/>
-
-
-
+        <activity android:name=".viewbase.event.EventActivity"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".myview.colorpick.RingColorPickerActivity" />
+        <activity android:name=".myview.colorpick.ColorPickerHsvActivity" />
+        <activity android:name=".viewbase.surface.SurfaceViewActivity" />
+        <activity android:name=".action.PageActivity" />
+        <activity android:name=".myview.combination.tabgroup.TabViewActivity" />
+        <activity android:name=".myview.combination.DrawableWrapperActivity" />
+        <activity android:name=".myview.combination.icon.DrawableIconActivity" />
+        <activity android:name=".action.slide.IndicatorActivity" />
+        <activity android:name=".list.recyclepager.ImageRecyclerActivity" />
+        <activity android:name=".myview.letterindex.LetterIndexActivity" />
+        <activity android:name=".myview.datepick.DatePickerActivity" />
+        <activity android:name=".viewbase.LayoutInflaterActivity" />
+        <activity android:name=".viewbase.scroller.ScrollerActivity" />
+        <activity android:name=".myview.linechart.LineChartActivity" />
+        <activity android:name=".anim.AnimDemoActivity" />
+        <activity android:name=".materialdesign.coordinator.CoordinatorLayoutActivity" />
+        <activity android:name=".materialdesign.drawerlayout.DrawerLayoutActivity" />
     </application>
 
 </manifest>
