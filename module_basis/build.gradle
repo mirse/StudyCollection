@@ -68,5 +68,8 @@ dependencies {
     implementation rootProject.ext.dependencies.material
     implementation rootProject.ext.dependencies.swiperefreshlayout
 
+    implementation rootProject.ext.dependencies.refreshlayoutkernel
+    implementation rootProject.ext.dependencies.refreshHeaderClassics
+
     implementation project(path: ':common')
 }

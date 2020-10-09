@@ -115,32 +115,50 @@ public class ColorPickerHSV extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec,heightMeasureSpec);
         int realSize=2*circleRadius+2*innerCircleRadius;
         int width;
         int height;
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
-        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
-        if (widthMode== MeasureSpec.EXACTLY){
-            width=widthSize;
+        int measureWidth = MeasureSpec.getSize(widthMeasureSpec);
+        int measureHeight = MeasureSpec.getSize(heightMeasureSpec);
+        //指定大小/match_content
+        if (widthMode == MeasureSpec.EXACTLY){
+            offset = measureWidth/2;
         }
-        else if (widthMode== MeasureSpec.AT_MOST){
-            width=realSize;
-        }else{
-            width=widthSize;
+        //wrap_content
+        else{
+            offset = realSize/2;
         }
-        if (heightMode== MeasureSpec.EXACTLY){
-            height=heightSize;
-        }
-        else if (heightMode== MeasureSpec.AT_MOST){
-            height=realSize;
-        }else {
-            height = heightSize;
-        }
-        int min = Math.min(width, height);
-        offset = min/2;
-        setMeasuredDimension(min,min);
+
+
+        setMeasuredDimension(widthMode == MeasureSpec.EXACTLY?measureWidth:realSize,
+                heightMode == MeasureSpec.EXACTLY?measureHeight:realSize);
+
+//        if (widthMode== MeasureSpec.EXACTLY){
+//            width=widthSize;
+//        }
+//        //最大模式：父组件限制最大控件，view最大只能这么大
+//        else if (widthMode== MeasureSpec.AT_MOST)
+//        {
+//            width=realSize;
+//        }
+//        else{
+//            width=widthSize;
+//        }
+//        if (heightMode== MeasureSpec.EXACTLY){
+//            height=heightSize;
+//        }
+//        else if (heightMode== MeasureSpec.AT_MOST){
+//            height=realSize;
+//        }
+//        else {
+//            height = heightSize;
+//        }
+//        int min = Math.min(width, height);
+//        offset = min/2;
+//        setMeasuredDimension(min,min);
     }
 
     @Override

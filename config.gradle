@@ -43,7 +43,11 @@ ext{
             arouterVersion:                     "1.5.0",
             arouterCompilerVersion:             "1.2.2",
             colorpickerviewVersion:             "2.2.0",
-            swiperefreshlayoutVersion:          "1.0.0"
+            swiperefreshlayoutVersion:          "1.0.0",
+            //下拉刷新
+            refreshlayoutkernelVersion:         "2.0.1", //核心必须依赖
+            refreshHeaderClassicsVersion:       "2.0.1",//经典刷新头
+
 
     ]
     dependencies = [
@@ -80,6 +84,10 @@ ext{
             arouter:                         "com.alibaba:arouter-api:${versions["arouterVersion"]}",
             arouter_compiler:                "com.alibaba:arouter-compiler:${versions["arouterCompilerVersion"]}",
             colorpickerview:                 "com.github.skydoves:colorpickerview:${versions["colorpickerviewVersion"]}",
-            swiperefreshlayout:              "androidx.swiperefreshlayout:swiperefreshlayout:${versions["swiperefreshlayoutVersion"]}"
+            swiperefreshlayout:              "androidx.swiperefreshlayout:swiperefreshlayout:${versions["swiperefreshlayoutVersion"]}",
+            refreshlayoutkernel:             "com.scwang.smart:refresh-layout-kernel:${versions["refreshlayoutkernelVersion"]}", //核心必须依赖
+            refreshHeaderClassics:           "com.scwang.smart:refresh-header-classics:${versions["refreshHeaderClassicsVersion"]}",//经典刷新头
+
+
     ]
 }

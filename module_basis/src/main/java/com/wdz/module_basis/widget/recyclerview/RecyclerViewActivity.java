@@ -18,6 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.scwang.smart.refresh.layout.SmartRefreshLayout;
+import com.scwang.smart.refresh.layout.api.RefreshLayout;
+import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 import com.wdz.common.constant.ARouterConstant;
 import com.wdz.module_basis.R;
 
@@ -110,6 +113,18 @@ public class RecyclerViewActivity extends AppCompatActivity {
                  Toast.makeText(getApplicationContext(),"长按第"+position+"item",Toast.LENGTH_SHORT).show();
              }
          });
+
+//         swipeRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+//             @Override
+//             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+//                 swipeRefreshLayout.postDelayed(new Runnable() {
+//                     @Override
+//                     public void run() {
+//                         swipeRefreshLayout.finishRefresh();
+//                     }
+//                 }, 500);
+//             }
+//         });
         swipeRefreshLayout.setOnRefreshListener(new PullRefreshView.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -122,6 +137,8 @@ public class RecyclerViewActivity extends AppCompatActivity {
                 }, 1000);
             }
         });
+
+
 //         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 //             @Override
 //             public void onRefresh() {
