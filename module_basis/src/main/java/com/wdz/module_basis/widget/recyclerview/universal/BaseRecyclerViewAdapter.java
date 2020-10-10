@@ -14,242 +14,225 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 适用于单一item布局
+ *
  * @author wdz
  */
 public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<BaseRecyclerViewAdapter.BaseViewHolder> {
-    private Context context;
-    private List<T> list = new ArrayList<>();
+    private Context mContext;
+    private OnItemClickListener onItemClickListener;
+    private OnItemLongClickListener onItemLongClickListener;
+    //数据源
+    private List<T> mList = new ArrayList<>();
     //头布局
-    private static final int VIEW_TYPE_HEADER = 0;
+    private static final int VIEW_TYPE_TITLE = 0;
     //普通item布局
     private static final int VIEW_TYPE_NORMAL = 1;
     //空布局
     private static final int VIEW_TYPE_EMPTY = 2;
-    private OnItemClickListener onItemClickListener;
-    private List<MyItem> mList = new ArrayList<>();
-    private boolean hasHeaderView = false;
-    public BaseRecyclerViewAdapter(Context context, List<T> list) {
-        this.context = context;
-        this.list = list;
-        refreshList(list);
-    }
+
+
 
     /**
-     * 重新整理数据源，添加header与normal type
-     * @param list
+     * 获取空布局layoutId
+     *
+     * @return =0 代表没有emptyView
      */
-    public void refreshList(List<T> list) {
-        if (getHeaderLayoutId()!=0){
-            mList.clear();
-            mList.add(0,new MyItem(null,false,VIEW_TYPE_HEADER));
-            for (T t:list) {
-                mList.add(new MyItem(t,false,VIEW_TYPE_NORMAL));
-            }
-            notifyDataSetChanged();
-        }
-        else {
-            mList.clear();
-            for (T t:list) {
-                mList.add(new MyItem(t,false,VIEW_TYPE_NORMAL));
-            }
-            notifyDataSetChanged();
-        }
-
-    }
-
-    public void addData(T t){
-        mList.add(new MyItem(t,false,VIEW_TYPE_NORMAL));
-        notifyDataSetChanged();
-    }
-    public void deleteData(T t){
-
-        for (int i=0;i<mList.size();i++){
-            if (mList.get(i).t.equals(t)){
-                mList.remove(mList.get(i));
-                break;
-            }
-        }
-//        for (MyItem myItem:mList) {
-//            if (myItem.t.equals(t)){
-//                mList.remove(myItem);
-//            }
-//        }
-
-        //mList.remove(new MyItem(t,false,VIEW_TYPE_NORMAL));
-        notifyDataSetChanged();
-    }
-
+    public abstract int getEmptyLayoutId();
     /**
      * 获取头view
+     *
      * @return =0 代表没有headView
      */
-    public abstract int getHeaderLayoutId();
+    public abstract int getTitleLayoutId();
 
-    /**获取layoutId
+    /**
+     * 获取layoutId
+     *
      * @return
      */
     public abstract int getLayoutId();
 
-    /**获取layoutId
-     * @return
-     */
-    public abstract int getEmptyLayoutId();
+    public BaseRecyclerViewAdapter(Context mContext,List<T> list) {
+        this.mContext = mContext;
+        this.mList =list;
+    }
+
+    public Context getContext() {
+        return mContext;
+    }
+
 
     @Override
     public int getItemViewType(int position) {
-        if (mList.size() == 0){
+        if(position==0 && getTitleLayoutId()!=0){
+            return VIEW_TYPE_TITLE;
+        }
+        if(mList.isEmpty() && getEmptyLayoutId()!=0){
             return VIEW_TYPE_EMPTY;
         }
-        else{
-            switch (mList.get(position).type){
-                case VIEW_TYPE_HEADER:
-                    hasHeaderView = true;
-                    return VIEW_TYPE_HEADER;
-                default:
-                    return VIEW_TYPE_NORMAL;
-            }
-        }
-
+        return VIEW_TYPE_NORMAL;
     }
+
 
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        switch (viewType){
-            case VIEW_TYPE_HEADER:
-                return new BaseViewHolder(LayoutInflater.from(context).inflate(getHeaderLayoutId(), parent, false));
-            case VIEW_TYPE_NORMAL:
-                return new BaseViewHolder(LayoutInflater.from(context).inflate(getLayoutId(), parent, false));
-            case VIEW_TYPE_EMPTY:
-                return new BaseViewHolder(LayoutInflater.from(context).inflate(getEmptyLayoutId(), parent, false));
-            default:
-                break;
+        int layoutId;
+        if (viewType == VIEW_TYPE_TITLE){
+            layoutId = getTitleLayoutId();
+            View view = LayoutInflater.from(mContext).inflate(layoutId, parent, false);
+            if(view!=null) {
+                return new HeadViewHolder(view);
+            }
+        }
+        else if(viewType == VIEW_TYPE_NORMAL){
+            layoutId = getLayoutId();
+            View view = LayoutInflater.from(mContext).inflate(layoutId, parent, false);
+            if(view!=null) {
+                return new BaseViewHolder(view);
+            }
+        }
+        else if(viewType == VIEW_TYPE_EMPTY){
+            layoutId = getEmptyLayoutId();
+            View view = LayoutInflater.from(mContext).inflate(layoutId, parent, false);
+            if(view!=null) {
+                return new EmptyViewHolder(view);
+            }
         }
         return null;
-
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull BaseRecyclerViewAdapter.BaseViewHolder holder, final int position) {
-        final MyItem myItem = mList.get(position);
-
-        if (myItem.isSelect()){
-            holder.itemView.setSelected(true);
-        }
-        else {
-            holder.itemView.setSelected(false);
-        }
-
-        if (myItem.type == VIEW_TYPE_HEADER){
+        int type = getItemViewType(position);
+        if (type == VIEW_TYPE_TITLE) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (onItemClickListener!=null){
-                        onItemClickListener.onClickHeader(position);
+                    if (onItemClickListener != null) {
+                        onItemClickListener.onClickHeader();
                     }
                 }
             });
             bindHeaderData(holder);
-        }
-        else if (myItem.type == VIEW_TYPE_NORMAL){
+        } else if (type == VIEW_TYPE_NORMAL) {
+            holder.getView(position);
+            final int realPosition = mesurePosition(position);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    for (MyItem item:mList) {
-                        item.isSelect = false;
-                    }
-                    myItem.isSelect = true;
                     notifyDataSetChanged();
-                    if (onItemClickListener!=null){
-                        if (hasHeaderView){
-                            onItemClickListener.onClickNormal(position-1);
-                        }
-                        else {
-                            onItemClickListener.onClickNormal(position);
-                        }
+                    if (onItemClickListener != null) {
+                        onItemClickListener.onClickNormal(realPosition);
                     }
-
-
                 }
             });
-            if (hasHeaderView){
-                bindData(holder,myItem,position-1);
-            }
-            else{
-                bindData(holder,myItem,position);
-            }
+
+            bindData(holder,mList.get(realPosition),realPosition);
 
         }
 
+        //全部都加上长按监听
+        holder.itemView.setLongClickable(true);
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (onItemLongClickListener != null) {
+                    int realPosition = mesurePosition(position);
+                    onItemLongClickListener.onLongClick(realPosition,v);
+                }
+                return true;
+            }
+        });
+
+    }
+
+
+    /**
+     * 绘测postion的实际位置，由于headItem的影响
+     * @param position
+     * @return
+     */
+    public int mesurePosition(int position){
+        if(position>0 && getTitleLayoutId()!=0){
+            return position-1;
+        }
+        else{
+            return position;
+        }
     }
 
 
     /**
      * 点击事件
      */
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
 
         /**
-         * 选择房间
-         * @param devicePosition
+         * 头部点击事件
          */
-        void onClickHeader(int devicePosition);
+        void onClickHeader();
 
         /**
-         * 新建房间
+         * 通用点击事件
          * @param devicePosition
          */
         void onClickNormal(int devicePosition);
     }
 
+    public interface OnItemLongClickListener{
+        void onLongClick(int position, View view);
+    }
+
     /**
      * 设置点击监听
+     *
      * @param listener
      */
-    public void setOnClickListener(OnItemClickListener listener){
+    public void setOnClickListener(OnItemClickListener listener) {
         this.onItemClickListener = listener;
     }
 
+    public void setOnLongClickListener(OnItemLongClickListener listener) {
+        this.onItemLongClickListener = listener;
+    }
 
 
     /**
      * 将数据与view绑定
+     *
      * @param holder
-     * @param myItem
+     * @param data
      * @param position 点击位置
      */
-    public abstract void bindData(BaseViewHolder holder, MyItem myItem,int position);
+    public abstract void bindData(BaseViewHolder holder, T data, int position);
+
     /**
      * 将数据与view绑定
+     *
      * @param holder
      */
     public abstract void bindHeaderData(BaseViewHolder holder);
 
-    /**
-     * 是否有空View显示
-     * @return
-     */
-    public abstract boolean hasEmptyView();
 
     @Override
     public int getItemCount() {
-        if (hasEmptyView()){
-            return mList == null|| mList.size() == 0?1:mList.size();
+        int itemCount = mList.size();
+        if (0 != getEmptyLayoutId() && itemCount == 0) {
+            //总数0变为1
+            itemCount++;
         }
-        else{
-            return mList == null?0:mList.size();
+        if (0 != getTitleLayoutId()) {
+            itemCount++;
         }
-//        if (mList.size() == 0) {
-//            return 1;
-//        }
-//        else{
-//            return mList==null?0:mList.size();
-//        }
-
+        return itemCount;
     }
 
     /**
      * 设置headView是否需要单独一列
+     *
      * @return
      */
     public abstract boolean isHeaderOnlyLine();
@@ -258,13 +241,13 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Ba
     public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
         RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
-        if (isHeaderOnlyLine()){
-            if(manager instanceof GridLayoutManager) {
+        if (isHeaderOnlyLine()) {
+            if (manager instanceof GridLayoutManager) {
                 final GridLayoutManager gridManager = ((GridLayoutManager) manager);
                 gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                     @Override
                     public int getSpanSize(int position) {
-                        return getItemViewType(position) == VIEW_TYPE_HEADER
+                        return getItemViewType(position) == VIEW_TYPE_TITLE
                                 ? gridManager.getSpanCount() : 1;
                     }
                 });
@@ -273,7 +256,7 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Ba
 
     }
 
-    public class BaseViewHolder extends RecyclerView.ViewHolder{
+    public class BaseViewHolder extends RecyclerView.ViewHolder {
         private SparseArray<View> views;
 
         public BaseViewHolder(@NonNull View itemView) {
@@ -283,61 +266,32 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Ba
 
         /**
          * 获取id所对应的控件
+         *
          * @param id
          * @return
          */
-        public View getView(int id){
+        public View getView(int id) {
             View view = views.get(id);
-            if (view==null){
+            if (view == null) {
                 view = itemView.findViewById(id);
-                views.put(id,view);
+                views.put(id, view);
             }
             return view;
         }
     }
 
-    public class MyItem{
-        public T t;
-        private boolean isSelect;
-        private int type;
+    class EmptyViewHolder extends BaseViewHolder{
 
-        public MyItem(T t, boolean isSelect, int type) {
-            this.t = t;
-            this.isSelect = isSelect;
-            this.type = type;
-        }
-
-        public T getT() {
-            return t;
-        }
-
-        public void setT(T t) {
-            this.t = t;
-        }
-
-        public boolean isSelect() {
-            return isSelect;
-        }
-
-        public void setSelect(boolean select) {
-            isSelect = select;
-        }
-
-        public int getType() {
-            return type;
-        }
-
-        public void setType(int type) {
-            this.type = type;
-        }
-
-        @Override
-        public String toString() {
-            return "MyItem{" +
-                    "t=" + t +
-                    ", isSelect=" + isSelect +
-                    ", type='" + type + '\'' +
-                    '}';
+        public EmptyViewHolder(@NonNull View itemView) {
+            super(itemView);
         }
     }
+
+    class HeadViewHolder extends BaseViewHolder{
+        public HeadViewHolder(@NonNull View itemView) {
+            super(itemView);
+        }
+    }
+
+
 }

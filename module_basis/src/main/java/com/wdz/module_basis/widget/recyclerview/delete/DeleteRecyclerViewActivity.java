@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wdz.module_basis.R;
 import com.wdz.module_basis.R2;
+import com.wdz.module_basis.widget.recyclerview.universal.ListAdapter;
 
 
 import java.util.ArrayList;
@@ -35,7 +36,8 @@ public class DeleteRecyclerViewActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        deleteAdapter = new DeleteAdapter(this, mList);
+
+        deleteAdapter = new DeleteAdapter(this,mList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(deleteAdapter);
@@ -46,9 +48,13 @@ public class DeleteRecyclerViewActivity extends AppCompatActivity {
     public void onClick(View view){
         int id = view.getId();
         if (id == R.id.add_item) {
-            deleteAdapter.addData("");
+            mList.add("");
+            deleteAdapter.notifyDataSetChanged();
+            //deleteAdapter.addData("");
         } else if (id == R.id.delete_item) {
-            deleteAdapter.deleteData("");
+            mList.remove(0);
+            deleteAdapter.notifyDataSetChanged();
+            //deleteAdapter.deleteData("");
         }
     }
 

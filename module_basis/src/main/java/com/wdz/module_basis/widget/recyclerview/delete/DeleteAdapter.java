@@ -10,13 +10,8 @@ import com.wdz.module_basis.widget.recyclerview.universal.BaseRecyclerViewAdapte
 import java.util.List;
 
 public class DeleteAdapter extends BaseRecyclerViewAdapter<String> {
-    public DeleteAdapter(Context context, List<String> list) {
-        super(context, list);
-    }
-
-    @Override
-    public int getHeaderLayoutId() {
-        return 0;
+    public DeleteAdapter(Context context,List<String> list) {
+        super(context,list);
     }
 
     @Override
@@ -25,23 +20,24 @@ public class DeleteAdapter extends BaseRecyclerViewAdapter<String> {
     }
 
     @Override
+    public void bindData(BaseViewHolder holder, String data, int position) {
+
+    }
+
+    @Override
     public int getEmptyLayoutId() {
         return R.layout.recycler_item_empty;
     }
 
     @Override
-    public void bindData(BaseViewHolder holder, MyItem myItem, int position) {
-
+    public int getTitleLayoutId() {
+        return 0;
     }
+
 
     @Override
     public void bindHeaderData(BaseViewHolder holder) {
 
-    }
-
-    @Override
-    public boolean hasEmptyView() {
-        return false;
     }
 
     @Override
