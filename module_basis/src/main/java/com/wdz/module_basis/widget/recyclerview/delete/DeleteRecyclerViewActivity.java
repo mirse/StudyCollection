@@ -49,18 +49,18 @@ public class DeleteRecyclerViewActivity extends AppCompatActivity {
         int id = view.getId();
         if (id == R.id.add_item) {
             mList.add("");
-            deleteAdapter.notifyDataSetChanged();
+            deleteAdapter.notifyItemInserted(mList.size());
             //deleteAdapter.addData("");
         } else if (id == R.id.delete_item) {
-            mList.remove(0);
-            deleteAdapter.notifyDataSetChanged();
+            mList.remove(mList.size()-1);
+            deleteAdapter.notifyItemRemoved(mList.size()-1);
             //deleteAdapter.deleteData("");
         }
     }
 
     private void initData() {
         mList = new ArrayList<>();
-        for (int i=0;i<1;i++){
+        for (int i=0;i<10;i++){
             mList.add(String.valueOf(i));
         }
         //mList.clear();
