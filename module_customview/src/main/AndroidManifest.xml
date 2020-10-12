@@ -7,7 +7,8 @@
     <application
         android:allowBackup="true"
         android:supportsRtl="true">
-        <activity android:name=".viewbase.event.EventActivity"></activity>
+        <activity android:name=".myview.imageview.RoundImageViewActivity"></activity>
+        <activity android:name=".viewbase.event.EventActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".myview.colorpick.RingColorPickerActivity" />
         <activity android:name=".myview.colorpick.ColorPickerHsvActivity" />

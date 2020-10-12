@@ -51,6 +51,19 @@
         <attr name="src" format="integer"/>
     </declare-styleable>
 
+    <declare-styleable name="RoundImageView">
+        <attr name="topLeftRadius" format="dimension"/>
+        <attr name="topRightRadius" format="dimension"/>
+        <attr name="bottomLeftRadius" format="dimension"/>
+        <attr name="bottomRightRadius" format="dimension"/>
+        <attr name="frameWidth" format="dimension"/>
+        <attr name="frameColor" format="color"/>
+        <attr name="type">
+            <enum name="circle" value="0" />
+            <enum name="roundRect" value="1" />
+        </attr>
+    </declare-styleable>
+
 
     <declare-styleable name="LineChartView">
         <attr name="textColor" format="color"/>

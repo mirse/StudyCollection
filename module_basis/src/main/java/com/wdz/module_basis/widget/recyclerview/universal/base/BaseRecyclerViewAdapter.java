@@ -21,14 +21,26 @@ public abstract class BaseRecyclerViewAdapter extends RecyclerView.Adapter<BaseR
     private Context mContext;
     private OnItemClickListener onItemClickListener;
     private OnItemLongClickListener onItemLongClickListener;
-    //数据源
+    /**
+     * 数据源
+     */
     private List mList = new ArrayList<>();
-    //普通item布局
+    /**
+     * 普通item布局
+     */
     static final int VIEW_TYPE_NORMAL = 1;
-    //空布局
+    /**
+     * 空布局
+     */
     static final int VIEW_TYPE_EMPTY = 2;
-    //带标题布局
+    /**
+     * 带标题布局
+     */
     static final int VIEW_TYPE_TITLE = 3;
+    /**
+     * 头布局
+     */
+    static final int VIEW_TYPE_HEAD = 4;
 
 
 
@@ -40,6 +52,12 @@ public abstract class BaseRecyclerViewAdapter extends RecyclerView.Adapter<BaseR
      */
     public abstract int getLayoutId();
 
+    /**
+     * 获取头布局layoutId
+     *
+     * @return =0 代表没有HeadView
+     */
+    public abstract int getHeadLayoutId();
 
     /**
      * 获取空布局layoutId
@@ -47,6 +65,19 @@ public abstract class BaseRecyclerViewAdapter extends RecyclerView.Adapter<BaseR
      * @return =0 代表没有emptyView
      */
     public abstract int getEmptyLayoutId();
+
+
+    /**
+     * 将数据与view绑定
+     *
+     * @param holder
+     * @param type
+     * @param data
+     * @param position 点击位置
+     */
+    public abstract void onBindViewHolder(BaseViewHolder holder,int type, Object data, int position);
+
+
 
 
     public BaseRecyclerViewAdapter(Context mContext,List list) {
@@ -72,6 +103,9 @@ public abstract class BaseRecyclerViewAdapter extends RecyclerView.Adapter<BaseR
         if(mList.isEmpty() && getEmptyLayoutId()!=0){
             return VIEW_TYPE_EMPTY;
         }
+        if (position==0 && getHeadLayoutId()!=0){
+            return VIEW_TYPE_HEAD;
+        }
         return VIEW_TYPE_NORMAL;
     }
 
@@ -85,6 +119,13 @@ public abstract class BaseRecyclerViewAdapter extends RecyclerView.Adapter<BaseR
             View view = LayoutInflater.from(mContext).inflate(layoutId, parent, false);
             if(view!=null) {
                 return new EmptyViewHolder(view);
+            }
+        }
+        else if(viewType == VIEW_TYPE_HEAD){
+            layoutId = getHeadLayoutId();
+            View view = LayoutInflater.from(mContext).inflate(layoutId, parent, false);
+            if(view!=null) {
+                return new HeadViewHolder(view);
             }
         }
         else if(viewType == VIEW_TYPE_NORMAL){
@@ -101,37 +142,50 @@ public abstract class BaseRecyclerViewAdapter extends RecyclerView.Adapter<BaseR
     @Override
     public void onBindViewHolder(@NonNull BaseRecyclerViewAdapter.BaseViewHolder holder, final int position) {
         int type = getItemViewType(position);
-        if (type!= VIEW_TYPE_EMPTY){
-            onBindViewHolder(holder,type,mList.get(position),position);
+        if (type!= VIEW_TYPE_EMPTY && type!=VIEW_TYPE_HEAD){
+            final int realPosition = getRealPosition(position);
+            final Object object = mList.get(realPosition);
+            onBindViewHolder(holder,type,mList.get(realPosition),realPosition);
 
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (onItemClickListener != null) {
-                        onItemClickListener.onClickNormal(position);
+            //标题不添加点击事件
+            if (type!=VIEW_TYPE_TITLE){
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onItemClickListener != null) {
+                            onItemClickListener.onClickNormal(object,realPosition);
+                        }
                     }
-                }
-            });
-            //全部都加上长按监听
-            holder.itemView.setLongClickable(true);
-            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    if (onItemLongClickListener != null) {
-                        onItemLongClickListener.onLongClick(position,v);
+                });
+                //全部都加上长按监听
+                holder.itemView.setLongClickable(true);
+                holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        if (onItemLongClickListener != null) {
+                            onItemLongClickListener.onLongClick(object,realPosition,v);
+                        }
+                        return true;
                     }
-                    return true;
-                }
-            });
+                });
+            }
+
         }
-
-
-
-
-
-
     }
 
+    /**
+     * 获取正确点击位置
+     * @param position
+     * @return
+     */
+    public int getRealPosition(int position){
+        if(position>0&&getHeadLayoutId()!=0){
+            return position-1;
+        }
+        else{
+            return position;
+        }
+    }
 
 
 
@@ -141,13 +195,20 @@ public abstract class BaseRecyclerViewAdapter extends RecyclerView.Adapter<BaseR
     public interface OnItemClickListener {
         /**
          * 通用点击事件
-         * @param devicePosition
+         * @param object
+         * @param position
          */
-        void onClickNormal(int devicePosition);
+        void onClickNormal(Object object,int position);
     }
 
     public interface OnItemLongClickListener{
-        void onLongClick(int position, View view);
+        /**
+         * 通用长点击事件
+         * @param object
+         * @param position
+         * @param view
+         */
+        void onLongClick(Object object,int position, View view);
     }
 
     /**
@@ -163,17 +224,6 @@ public abstract class BaseRecyclerViewAdapter extends RecyclerView.Adapter<BaseR
         this.onItemLongClickListener = listener;
     }
 
-    /**
-     * 将数据与view绑定
-     *
-     * @param holder
-     * @param type
-     * @param data
-     * @param position 点击位置
-     */
-    public abstract void onBindViewHolder(BaseViewHolder holder,int type, Object data, int position);
-
-
 
 
     @Override
@@ -181,9 +231,19 @@ public abstract class BaseRecyclerViewAdapter extends RecyclerView.Adapter<BaseR
         int itemCount = mList.size();
         if (0 != getEmptyLayoutId() && itemCount == 0) {
             //总数0变为1
-            itemCount++;
+            return 1;
+        }
+        else if (getHeadLayoutId()!=0){
+            itemCount += 1;
         }
         return itemCount;
+    }
+
+
+    class HeadViewHolder extends BaseViewHolder{
+        public HeadViewHolder(@NonNull View itemView) {
+            super(itemView);
+        }
     }
 
     class EmptyViewHolder extends BaseViewHolder{

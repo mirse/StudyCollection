@@ -47,7 +47,7 @@ public class CustomViewFragment extends BaseFragment {
     protected void init() {
         mainBeanList.clear();
         String[][] array={
-                {"自定义控件","rgbRing圆","hsv圆","Scroller","翻页效果","折线图",""},
+                {"自定义控件","rgbRing圆","hsv圆","Scroller","翻页效果","折线图","圆image"},
                 {"组合控件","Group实现","右上角标","指示器","TabView","viewpage循环",""},
                 {"View基础","SurfaceView","LayoutInflater","事件分发","","",""},
                 {"选择/索引","列表索引","选择器","","","",""},
@@ -85,7 +85,7 @@ public class CustomViewFragment extends BaseFragment {
                         } else if (id == R.id.button5) {
                             ARouter.getInstance().build(ARouterConstant.ACTIVITY_LINE_CHART).navigation();
                         } else if (id == R.id.button6) {
-
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_ROUND_IMAGE).navigation();
                         }
                         break;
                     case 1:

@@ -21,7 +21,7 @@ public interface ARouterConstant {
 
     String ACTIVITY_LETTER_INDEX = "/module_customview/LetterIndexActivity";
     String ACTIVITY_DATE_PICKER= "/module_customview/DatePickerActivity";
-
+    String ACTIVITY_ROUND_IMAGE= "/module_customview/RoundImageViewActivity";
 
     String ACTIVITY_LAYOUT_INFLATER = "/module_customview/LayoutInflaterActivity";
     String ACTIVITY_LAYOUT_EVENT = "/module_customview/EventActivity";

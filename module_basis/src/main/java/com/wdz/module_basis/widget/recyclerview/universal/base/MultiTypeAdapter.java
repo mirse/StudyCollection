@@ -29,12 +29,13 @@ public abstract class MultiTypeAdapter<T> extends BaseRecyclerViewAdapter {
     @Override
     public int getItemViewType(int position) {
         if(mList.isEmpty() && getEmptyLayoutId()!=0) {
-            Log.i(TAG, "getItemViewType: VIEW_TYPE_EMPTY");
             return VIEW_TYPE_EMPTY;
         }
+        if (position==0 && getHeadLayoutId()!=0){
+            return VIEW_TYPE_HEAD;
+        }
         //判断是否是标题的代码逻辑
-        if (isTitleItem(position)) {
-            Log.i(TAG, "getItemViewType: VIEW_TYPE_TITLE");
+        if (isTitleItem(getRealPosition(position))) {
             return VIEW_TYPE_TITLE;
         }
         return super.getItemViewType(position);
@@ -54,7 +55,6 @@ public abstract class MultiTypeAdapter<T> extends BaseRecyclerViewAdapter {
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Log.i(TAG, "onCreateViewHolder: "+viewType);
         int layoutId;
         if(viewType == VIEW_TYPE_TITLE){
             layoutId = getTitleId();
@@ -109,11 +109,17 @@ public abstract class MultiTypeAdapter<T> extends BaseRecyclerViewAdapter {
 
     /**
      * 绑定数据源
+     * @param holder
+     * @param data
+     * @param position
      */
     public abstract void bindData(BaseViewHolder holder,T data, int position);
 
     /**
      * 绑定数据源
+     * @param holder
+     * @param data
+     * @param position
      */
     public abstract void bindTitleData(BaseViewHolder holder,T data, int position);
 
