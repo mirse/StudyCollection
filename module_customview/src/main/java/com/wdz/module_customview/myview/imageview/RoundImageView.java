@@ -13,6 +13,7 @@ import android.graphics.RectF;
 import android.graphics.Xfermode;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import com.wdz.module_customview.R;
 
@@ -21,7 +22,7 @@ import com.wdz.module_customview.R;
  * @author wdz
  */
 public class RoundImageView extends androidx.appcompat.widget.AppCompatImageView {
-
+    private static final String TAG = "RoundImageView";
     private static final Xfermode sXfermode = new PorterDuffXfermode(PorterDuff.Mode.DST_OUT);
     private static final Xfermode sXfermode_dst_in = new PorterDuffXfermode(PorterDuff.Mode.DST_IN);
     private Bitmap mMaskBitmap;
@@ -40,6 +41,7 @@ public class RoundImageView extends androidx.appcompat.widget.AppCompatImageView
     private int frameColor;
     private int type;
     private Paint framePaint;
+    private Path rectPath;
 
 
     public RoundImageView(Context context) {
@@ -99,32 +101,34 @@ public class RoundImageView extends androidx.appcompat.widget.AppCompatImageView
             if (mMaskBitmap == null || mMaskBitmap.isRecycled()) {
                 if (type == CIRCLE){
                     mMaskBitmap = getBitmapCircle(getWidth(), getHeight());
-                    mPaint.setXfermode(sXfermode_dst_in);
+
                 }
                 else if (type ==ROUNDRECT){
                     mMaskBitmap = getBitmapRoundRect(getWidth(), getHeight());
-                    mPaint.setXfermode(sXfermode);
+
                 }
+            }
+
+            if (type == CIRCLE){
+                mPaint.setXfermode(sXfermode_dst_in);
+            }
+            else if (type ==ROUNDRECT){
+                mPaint.setXfermode(sXfermode);
             }
 
             bitmapCanvas.drawBitmap(mMaskBitmap, 0.0f, 0.0f, mPaint);
             //这里混合模式，上面设置完后，要再次设置为null
             mPaint.setXfermode(null);
-
             canvas.drawBitmap(bitmap, 0.0f, 0.0f, mPaint);
 
-
-            if (type == CIRCLE) {
-                if (frameWidth != 0) {
+            if (frameWidth != 0) {
+                if (type == CIRCLE) {
                     canvas.drawCircle((float) getWidth() / 2, (float) getHeight() / 2, Math.min(getWidth() / 2, getHeight() / 2), framePaint);
                 }
-            }
-            else if (type ==ROUNDRECT){
-                if (frameWidth != 0) {
-
+                else if (type ==ROUNDRECT){
+                    canvas.drawPath(rectPath,framePaint);
                 }
             }
-
 
         }
 
@@ -137,11 +141,14 @@ public class RoundImageView extends androidx.appcompat.widget.AppCompatImageView
         Canvas canvas = new Canvas(bitmap);
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColor(Color.BLACK);
+        rectPath = new Path();
         drawLeftUp(canvas,paint);
-        drawLeftDown(canvas,paint);
-        drawRightDown(canvas,paint);
         drawRightUp(canvas,paint);
+        drawRightDown(canvas,paint);
+        drawLeftDown(canvas,paint);
 
+
+        rectPath.close();
 
         return bitmap;
     }
@@ -154,11 +161,69 @@ public class RoundImageView extends androidx.appcompat.widget.AppCompatImageView
             path.lineTo(0, 0);
             path.lineTo(topLeftRadius, 0);
             //画出一个直角
-            path.arcTo(new RectF(0, 0, topLeftRadius * 2, topLeftRadius * 2), -90, -90);
+            path.arcTo(new RectF(0, 0, topLeftRadius * 2, topLeftRadius * 2), 180, 90);
+
+            rectPath.moveTo(0, topLeftRadius);
+            rectPath.lineTo(0, 0);
+            rectPath.lineTo(topLeftRadius, 0);
+            //画出一个直角
+            rectPath.arcTo(new RectF(0, 0, topLeftRadius * 2, topLeftRadius * 2), 180, 90);
+
             path.close();
             canvas.drawPath(path, paint);
         }
+        else{
+            rectPath.moveTo(0, 0);
 
+        }
+
+    }
+
+    private void drawRightUp(Canvas canvas,Paint paint) {
+        if (topRightRadius!=0) {
+            Path path = new Path();
+            path.moveTo(getWidth(), topRightRadius);
+            path.lineTo(getWidth(), 0);
+            path.lineTo(getWidth() - topRightRadius, 0);
+            path.arcTo(new RectF(getWidth() - topRightRadius * 2, 0, getWidth(), 0 + topRightRadius * 2), 270, 90);
+
+            rectPath.lineTo(getWidth() - topRightRadius, 0);
+            rectPath.lineTo(getWidth(), 0);
+            rectPath.lineTo(getWidth(), topRightRadius);
+
+
+            rectPath.arcTo(new RectF(getWidth() - topRightRadius * 2, 0, getWidth(), 0 + topRightRadius * 2), 270, 90);
+
+            path.close();
+            canvas.drawPath(path, paint);
+        }
+        else{
+            rectPath.lineTo(getWidth(), 0);
+        }
+    }
+
+
+    private void drawRightDown(Canvas canvas,Paint paint) {
+        if (bottomRightRadius!=0) {
+            Path path = new Path();
+            path.moveTo(getWidth() - bottomRightRadius, getHeight());
+            path.lineTo(getWidth(), getHeight());
+            path.lineTo(getWidth(), getHeight() - bottomRightRadius);
+            path.arcTo(new RectF(getWidth() - bottomRightRadius * 2, getHeight() - bottomRightRadius * 2, getWidth(), getHeight()), 0, 90);
+
+
+            rectPath.lineTo(getWidth(), getHeight() - bottomRightRadius);
+            rectPath.lineTo(getWidth(), getHeight());
+            rectPath.lineTo(getWidth() - bottomRightRadius, getHeight());
+            rectPath.arcTo(new RectF(getWidth() - bottomRightRadius * 2, getHeight() - bottomRightRadius * 2, getWidth(), getHeight()), 0, 90);
+
+
+            path.close();
+            canvas.drawPath(path, paint);
+        }
+        else{
+            rectPath.lineTo(getWidth(), getHeight());
+        }
     }
 
     private void drawLeftDown(Canvas canvas,Paint paint) {
@@ -168,34 +233,25 @@ public class RoundImageView extends androidx.appcompat.widget.AppCompatImageView
             path.lineTo(0, getHeight());
             path.lineTo(bottomLeftRadius, getHeight());
             path.arcTo(new RectF(0, getHeight() - bottomLeftRadius * 2, bottomLeftRadius * 2, getHeight()), 90, 90);
+
+
+            rectPath.lineTo(bottomLeftRadius, getHeight());
+            rectPath.lineTo(0, getHeight());
+            rectPath.lineTo(0, getHeight() - bottomLeftRadius);
+            rectPath.arcTo(new RectF(0, getHeight() - bottomLeftRadius * 2, bottomLeftRadius * 2, getHeight()), 90, 90);
+
+
+
             path.close();
             canvas.drawPath(path, paint);
+        }
+        else {
+            rectPath.lineTo(0, getHeight());
         }
     }
 
-    private void drawRightDown(Canvas canvas,Paint paint) {
-        if (bottomRightRadius!=0) {
-            Path path = new Path();
-            path.moveTo(getWidth() - bottomRightRadius, getHeight());
-            path.lineTo(getWidth(), getHeight());
-            path.lineTo(getWidth(), getHeight() - bottomRightRadius);
-            path.arcTo(new RectF(getWidth() - bottomRightRadius * 2, getHeight() - bottomRightRadius * 2, getWidth(), getHeight()), -0, 90);
-            path.close();
-            canvas.drawPath(path, paint);
-        }
-    }
 
-    private void drawRightUp(Canvas canvas,Paint paint) {
-        if (topRightRadius!=0) {
-            Path path = new Path();
-            path.moveTo(getWidth(), topRightRadius);
-            path.lineTo(getWidth(), 0);
-            path.lineTo(getWidth() - topRightRadius, 0);
-            path.arcTo(new RectF(getWidth() - topRightRadius * 2, 0, getWidth(), 0 + topRightRadius * 2), -90, 90);
-            path.close();
-            canvas.drawPath(path, paint);
-        }
-    }
+
 
     //圆形
     private Bitmap getBitmapCircle(int width, int height) {
@@ -211,6 +267,31 @@ public class RoundImageView extends androidx.appcompat.widget.AppCompatImageView
         return bitmap;
     }
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        //super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        int width = 0;
+        int height = 0;
+
+        int measureWidth = MeasureSpec.getSize(widthMeasureSpec);
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        int measureHeight = MeasureSpec.getSize(heightMeasureSpec);
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+
+        if (frameWidth!=0){
+            //控件宽度
+            width = measureWidth+2*frameWidth;
+            //控件高度
+            height = measureHeight+2*frameWidth;
+        }
+        Log.i(TAG, "onMeasure: "+dp2px(getContext(),300));
+        Log.i(TAG, "onMeasure: measureHeight:"+measureHeight);
+        Log.i(TAG, "onMeasure: "+(widthMode == MeasureSpec.EXACTLY));
+
+        setMeasuredDimension(widthMode == MeasureSpec.EXACTLY?960:960,
+                heightMode == MeasureSpec.EXACTLY?960:960);
+    }
 
     /**
      * dp->px
