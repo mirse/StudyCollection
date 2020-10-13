@@ -7,11 +7,8 @@
     tools:context=".myview.imageview.RoundImageViewActivity">
 
     <com.wdz.module_customview.myview.imageview.RoundImageView
-        app:type="circle"
-        app:topRightRadius="5dp"
-        app:topLeftRadius="5dp"
-        app:bottomRightRadius="5dp"
-        app:bottomLeftRadius="5dp"
+        app:type="roundRect"
+
         app:frameWidth="10dp"
         app:frameColor="@color/red_deep"
         android:background="@color/gray_holo_light"
