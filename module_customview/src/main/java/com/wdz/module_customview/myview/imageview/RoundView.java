@@ -146,6 +146,7 @@ public class RoundView extends View {
             return;
         }
 
+        //绘制图形以color为底色
         if (src instanceof ColorDrawable){
             ColorDrawable colorDrawable = (ColorDrawable) src;
             mPaint.setColor(colorDrawable.getColor());
@@ -158,12 +159,54 @@ public class RoundView extends View {
             }
             else{
 
-                float left = shadowRadius+(float)frameWidth/2+shadowOffsetX;
-                float top = shadowRadius+(float)frameWidth/2+shadowOffsetY;
-                float right = getWidth()-(float)frameWidth/2 -shadowRadius+shadowOffsetX;
-                float bottom = getHeight()-(float)frameWidth/2 -shadowRadius+shadowOffsetY;
+                Path rectPath = new Path();
 
-                canvas.drawRect(left,top,right,bottom,mPaint);
+                if (topLeftRadius!=0){
+                    rectPath.moveTo(shadowRadius, topLeftRadius+shadowRadius);
+                    rectPath.arcTo(new RectF(shadowRadius, shadowRadius, shadowRadius+topLeftRadius * 2, shadowRadius+topLeftRadius * 2), 180, 90,true);
+                }
+                else{
+                    rectPath.moveTo(shadowRadius,shadowRadius);
+                }
+
+
+                if (topRightRadius!=0){
+
+                    rectPath.lineTo(getWidth()-shadowRadius - topRightRadius, shadowRadius);
+                    rectPath.arcTo(new RectF(getWidth()-shadowRadius - topRightRadius * 2, shadowRadius, getWidth()-shadowRadius, topRightRadius * 2+shadowRadius), 270, 90);
+                }
+                else {
+                    rectPath.lineTo(getWidth()-shadowRadius,shadowRadius);
+                }
+
+                if (bottomRightRadius!=0){
+                    rectPath.lineTo(getWidth()-shadowRadius, getHeight() - bottomRightRadius-shadowRadius);
+                    rectPath.arcTo(new RectF(getWidth() -shadowRadius - bottomRightRadius * 2, getHeight()-shadowRadius - bottomRightRadius * 2, getWidth()-shadowRadius, getHeight()-shadowRadius), 0, 90);
+
+                }
+                else{
+                    rectPath.lineTo(getWidth()-shadowRadius,getHeight()-shadowRadius);
+                }
+
+
+                if (bottomLeftRadius!=0){
+                    rectPath.lineTo(bottomLeftRadius+shadowRadius, getHeight()-shadowRadius);
+                    rectPath.arcTo(new RectF(shadowRadius, getHeight()-shadowRadius - bottomLeftRadius * 2, bottomLeftRadius * 2+shadowRadius, getHeight()-shadowRadius), 90, 90);
+
+                }
+                else{
+                    rectPath.lineTo(shadowRadius,getHeight()-shadowRadius);
+                }
+                rectPath.close();
+                canvas.drawPath(rectPath,mPaint);
+
+
+//                float left = shadowRadius+(float)frameWidth/2+shadowOffsetX;
+//                float top = shadowRadius+(float)frameWidth/2+shadowOffsetY;
+//                float right = getWidth()-(float)frameWidth/2 -shadowRadius+shadowOffsetX;
+//                float bottom = getHeight()-(float)frameWidth/2 -shadowRadius+shadowOffsetY;
+//
+//                canvas.drawRect(left,top,right,bottom,mPaint);
             }
 
         }
@@ -341,6 +384,7 @@ public class RoundView extends View {
             if (frameWidth!=0){
                 rectPath.lineTo(bottomLeftRadius-(float) frameWidth/2, getHeight()-(float) frameWidth/2);
                 rectPath.arcTo(new RectF((float) frameWidth/2, getHeight()-(float) frameWidth/2 - bottomLeftRadius * 2, bottomLeftRadius * 2+(float) frameWidth/2, getHeight()-(float) frameWidth/2), 90, 90);
+
             }
 
             path.close();

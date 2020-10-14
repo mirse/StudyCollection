@@ -19,13 +19,14 @@
 
     <com.wdz.module_customview.myview.imageview.RoundView
         app:topLeftRadius="10dp"
-        app:topRightRadius="10dp"
-        app:bottomLeftRadius="10dp"
-        app:bottomRightRadius="10dp"
+        app:topRightRadius="0dp"
+        app:bottomLeftRadius="0dp"
+        app:bottomRightRadius="0dp"
         app:shadowColor="@color/red_deep"
         app:shadowRadius="10dp"
         app:shadowOffsetX="1dp"
         app:shadowOffsetY="4dp"
+
 
         android:background="@color/transparent"
         app:type="roundRect"

@@ -16,8 +16,7 @@ import butterknife.ButterKnife;
 
 @Route(path = ARouterConstant.ACTIVITY_ROUND_IMAGE)
 public class RoundImageViewActivity extends BaseActivity {
-    @BindView(R2.id.iv)
-    ImageView imageView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
