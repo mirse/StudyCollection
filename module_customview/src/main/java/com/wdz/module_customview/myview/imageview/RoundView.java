@@ -3,27 +3,33 @@ package com.wdz.module_customview.myview.imageview;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Xfermode;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.View;
+import android.widget.FrameLayout;
 
 import com.wdz.module_customview.R;
 
 /**
- * 将imageView变换成圆形或矩形，并可选择是否带边框
- * 圆角矩形边框尺寸有点差距
+ * 设置的src为图片源不支持阴影
+ * 图片阴影：BlurMaskFilter
  * @author wdz
  */
-public class RoundImageView extends androidx.appcompat.widget.AppCompatImageView {
-    private static final String TAG = "RoundImageView";
+public class RoundView extends View {
+    private static final String TAG = "RoundView";
     private static final Xfermode sXfermode = new PorterDuffXfermode(PorterDuff.Mode.DST_OUT);
     private static final Xfermode sXfermode_dst_in = new PorterDuffXfermode(PorterDuff.Mode.DST_IN);
     private Bitmap mMaskBitmap;
@@ -38,24 +44,45 @@ public class RoundImageView extends androidx.appcompat.widget.AppCompatImageView
     private int bottomLeftRadius;
     private int bottomRightRadius;
 
+    /**
+     * 阴影颜色
+     */
+    private int shadowColor;
+    /**
+     * 阴影模糊度
+     */
+    private int shadowRadius;
+    /**
+     * 阴影偏移y轴距离
+     */
+    private int shadowOffsetY;
+    /**
+     * 阴影偏移x轴距离
+     */
+    private int shadowOffsetX;
+
+
     private int frameWidth;
     private int frameColor;
     private int type;
     private Paint framePaint;
     private Path rectPath;
+    private Drawable src;
+
+    private Bitmap bitmap;
 
 
-    public RoundImageView(Context context) {
+    public RoundView(Context context) {
         super(context);
         init(context,null);
     }
 
-    public RoundImageView(Context context, AttributeSet attrs) {
+    public RoundView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context,attrs);
     }
 
-    public RoundImageView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public RoundView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context,attrs);
     }
@@ -63,19 +90,28 @@ public class RoundImageView extends androidx.appcompat.widget.AppCompatImageView
 
     private void init(Context context, AttributeSet attrs) {
         TypedArray array = context.obtainStyledAttributes(attrs,
-                R.styleable.RoundImageView);
+                R.styleable.RoundView);
         // 默认为Circle
-        type = array.getInt(R.styleable.RoundImageView_type, 0);
-        frameWidth = array.getDimensionPixelSize(R.styleable.RoundImageView_frameWidth, 0);
-        frameColor = array.getColor(R.styleable.RoundImageView_frameColor,0);
-        topLeftRadius = array.getDimensionPixelSize(R.styleable.RoundImageView_topLeftRadius, 0);
-        topRightRadius = array.getDimensionPixelSize(R.styleable.RoundImageView_topRightRadius, 0);
-        bottomLeftRadius = array.getDimensionPixelSize(R.styleable.RoundImageView_bottomLeftRadius, 0);
-        bottomRightRadius = array.getDimensionPixelSize(R.styleable.RoundImageView_bottomRightRadius, 0);
+        type = array.getInt(R.styleable.RoundView_type, 0);
+        frameWidth = array.getDimensionPixelSize(R.styleable.RoundView_frameWidth, 0);
+        frameColor = array.getColor(R.styleable.RoundView_frameColor,0);
+        topLeftRadius = array.getDimensionPixelSize(R.styleable.RoundView_topLeftRadius, 0);
+        topRightRadius = array.getDimensionPixelSize(R.styleable.RoundView_topRightRadius, 0);
+        bottomLeftRadius = array.getDimensionPixelSize(R.styleable.RoundView_bottomLeftRadius, 0);
+        bottomRightRadius = array.getDimensionPixelSize(R.styleable.RoundView_bottomRightRadius, 0);
+        src = array.getDrawable(R.styleable.RoundView_viewSrc);
+
+        shadowColor = array.getColor(R.styleable.RoundView_shadowColor,0);
+        shadowOffsetX = array.getDimensionPixelSize(R.styleable.RoundView_shadowOffsetX, 0);
+        shadowOffsetY = array.getDimensionPixelSize(R.styleable.RoundView_shadowOffsetY,0);
+        shadowRadius = array.getDimensionPixelSize(R.styleable.RoundView_shadowRadius,0);
+
         array.recycle();
+
 
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setColor(Color.BLACK);
+        mPaint.setStrokeWidth(3);
 
         if (frameWidth!=0){
             framePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -84,21 +120,59 @@ public class RoundImageView extends androidx.appcompat.widget.AppCompatImageView
             framePaint.setStrokeWidth(frameWidth);
         }
 
+        if (shadowColor!=0){
+
+            setPadding(shadowRadius-shadowOffsetX,shadowRadius-shadowOffsetY,shadowRadius+shadowOffsetX,shadowRadius+shadowOffsetY);
+            mPaint.setShadowLayer(shadowRadius, shadowOffsetX, shadowOffsetY, shadowColor);
+        }
+
+
+
+        setLayerType(LAYER_TYPE_SOFTWARE, null);
+
     }
 
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+
+    }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        Bitmap bitmap = null;
-        Drawable drawable = getDrawable();
+        super.onDraw(canvas);
 
+        if (src ==null){
+            return;
+        }
 
-        if (drawable != null) {
+        if (src instanceof ColorDrawable){
+            ColorDrawable colorDrawable = (ColorDrawable) src;
+            mPaint.setColor(colorDrawable.getColor());
+
+            //颜色
+            if (type == CIRCLE){
+                int radius = Math.min((getWidth()-frameWidth)/2,(getHeight()-frameWidth)/2);
+
+                canvas.drawCircle((float) getWidth()/2,(float) getHeight()/2,radius,mPaint);
+            }
+            else{
+
+                float left = shadowRadius+(float)frameWidth/2+shadowOffsetX;
+                float top = shadowRadius+(float)frameWidth/2+shadowOffsetY;
+                float right = getWidth()-(float)frameWidth/2 -shadowRadius+shadowOffsetX;
+                float bottom = getHeight()-(float)frameWidth/2 -shadowRadius+shadowOffsetY;
+
+                canvas.drawRect(left,top,right,bottom,mPaint);
+            }
+
+        }
+        else{
             bitmap = Bitmap.createBitmap(getWidth(),
                     getHeight(), Bitmap.Config.ARGB_8888);
             Canvas bitmapCanvas = new Canvas(bitmap);
-            drawable.setBounds(0, 0, getWidth(), getHeight());
-            drawable.draw(bitmapCanvas);
+            src.setBounds(0, 0, getWidth(), getHeight());
+            src.draw(bitmapCanvas);
 
             if (mMaskBitmap == null || mMaskBitmap.isRecycled()) {
                 if (type == CIRCLE){
@@ -121,6 +195,7 @@ public class RoundImageView extends androidx.appcompat.widget.AppCompatImageView
             bitmapCanvas.drawBitmap(mMaskBitmap, 0.0f, 0.0f, mPaint);
             //这里混合模式，上面设置完后，要再次设置为null
             mPaint.setXfermode(null);
+
             canvas.drawBitmap(bitmap, 0.0f, 0.0f, mPaint);
 
 
@@ -134,7 +209,6 @@ public class RoundImageView extends androidx.appcompat.widget.AppCompatImageView
                     canvas.drawPath(rectPath,framePaint);
                 }
             }
-
 
 
         }

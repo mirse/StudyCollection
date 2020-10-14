@@ -4,19 +4,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray_holo_light"
     tools:context=".myview.imageview.RoundImageViewActivity">
 
-    <com.wdz.module_customview.myview.imageview.RoundImageView
-        app:type="roundRect"
 
-        app:frameWidth="10dp"
-        app:frameColor="@color/red_deep"
-        android:background="@color/gray_holo_light"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:src="@mipmap/bg_adddevice"
+
+    <ImageView
+        android:id="@+id/iv"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.wdz.module_customview.myview.imageview.RoundView
+        app:topLeftRadius="10dp"
+        app:topRightRadius="10dp"
+        app:bottomLeftRadius="10dp"
+        app:bottomRightRadius="10dp"
+        app:shadowColor="@color/red_deep"
+        app:shadowRadius="10dp"
+        app:shadowOffsetX="1dp"
+        app:shadowOffsetY="4dp"
+
+        android:background="@color/transparent"
+        app:type="roundRect"
+        android:layout_width="250dp"
+        android:layout_height="200dp"
+        app:viewSrc="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+<!--    <com.wdz.module_customview.myview.imageview.RoundImageView-->
+<!--        app:type="roundRect"-->
+<!--        app:topLeftRadius="10dp"-->
+<!--        app:topRightRadius="10dp"-->
+<!--        app:bottomLeftRadius="10dp"-->
+<!--        app:bottomRightRadius="10dp"-->
+
+<!--        app:frameWidth="5dp"-->
+<!--        app:frameColor="@color/red_deep"-->
+<!--        android:background="@color/gray_holo_light"-->
+<!--        android:layout_width="300dp"-->
+<!--        android:layout_height="200dp"-->
+<!--        android:src="@mipmap/bg_adddevice"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>

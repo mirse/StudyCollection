@@ -36,32 +36,63 @@
         <attr name="fill_mode" format="integer"/>
     </declare-styleable>
 
+
+    <attr name="shadowOffsetX" format="dimension"/>
+    <attr name="shadowOffsetY" format="dimension"/>
+    <attr name="shadowRadius" format="dimension"/>
+    <attr name="shadowColor" format="color"/>
+
     <declare-styleable name="ShadowCardView">
         <attr name="cornersRadius" format="dimension"/>
         <attr name="shadowLeftHeight" format="dimension"/>
         <attr name="shadowTopHeight" format="dimension"/>
         <attr name="shadowRightHeight" format="dimension"/>
         <attr name="shadowBottomHeight" format="dimension"/>
-        <attr name="shadowOffsetX" format="dimension"/>
-        <attr name="shadowOffsetY" format="dimension"/>
+        <attr name="shadowOffsetX" />
+        <attr name="shadowOffsetY"/>
+        <attr name="shadowColor"/>
+        <attr name="shadowRadius"/>
         <attr name="cardColor" format="color"/>
-        <attr name="shadowColor" format="color"/>
-        <attr name="shadowRadius" format="integer"/>
+
 
         <attr name="src" format="integer"/>
     </declare-styleable>
 
+    <attr name="topLeftRadius" format="dimension"/>
+    <attr name="topRightRadius" format="dimension"/>
+    <attr name="bottomLeftRadius" format="dimension"/>
+    <attr name="bottomRightRadius" format="dimension"/>
+    <attr name="frameWidth" format="dimension"/>
+    <attr name="frameColor" format="color"/>
+    <attr name="type">
+        <enum name="circle" value="0" />
+        <enum name="roundRect" value="1" />
+    </attr>
+
     <declare-styleable name="RoundImageView">
-        <attr name="topLeftRadius" format="dimension"/>
-        <attr name="topRightRadius" format="dimension"/>
-        <attr name="bottomLeftRadius" format="dimension"/>
-        <attr name="bottomRightRadius" format="dimension"/>
-        <attr name="frameWidth" format="dimension"/>
-        <attr name="frameColor" format="color"/>
-        <attr name="type">
-            <enum name="circle" value="0" />
-            <enum name="roundRect" value="1" />
-        </attr>
+        <attr name="topLeftRadius"/>
+        <attr name="topRightRadius"/>
+        <attr name="bottomLeftRadius"/>
+        <attr name="bottomRightRadius"/>
+        <attr name="frameWidth"/>
+        <attr name="frameColor"/>
+        <attr name="type"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="RoundView">
+        <attr name="topLeftRadius"/>
+        <attr name="topRightRadius"/>
+        <attr name="bottomLeftRadius"/>
+        <attr name="bottomRightRadius"/>
+        <attr name="frameWidth"/>
+        <attr name="frameColor"/>
+        <attr name="viewSrc" format="reference|color"/>
+        <attr name="type"/>
+        <attr name="shadowOffsetX" />
+        <attr name="shadowOffsetY"/>
+        <attr name="shadowColor"/>
+        <attr name="shadowRadius"/>
     </declare-styleable>
 
 
