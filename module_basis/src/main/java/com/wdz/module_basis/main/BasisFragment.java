@@ -50,7 +50,7 @@ public class BasisFragment extends BaseFragment {
                 {"多媒体","通知","相机","音频解析","","",""},
                 {"适配","状态栏","","","","",""},
                 {"控件","editText","recycler","grid","输入框","",""},
-                {"其他","悬浮窗","","","","",""},
+                {"其他","悬浮窗","dialog","","","",""},
         };
 
         for (String[] mArray:array) {
@@ -137,7 +137,7 @@ public class BasisFragment extends BaseFragment {
                             ARouter.getInstance().build(ARouterConstant.ACTIVITY_FLOATING_VIEW).navigation();
 
                         } else if (view.getId() == R.id.button2) {
-
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_DIALOG_FRAGMENT).navigation();
                         } else if (view.getId() == R.id.button3) {
 
                         } else if (view.getId() == R.id.button4) {

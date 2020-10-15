@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_holo_light"
+    android:background="@color/white"
     tools:context=".myview.imageview.RoundImageViewActivity">
 
 
@@ -17,26 +17,85 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <com.wdz.module_customview.myview.imageview.RoundView
         app:topLeftRadius="10dp"
-        app:topRightRadius="0dp"
-        app:bottomLeftRadius="0dp"
-        app:bottomRightRadius="0dp"
+        app:topRightRadius="10dp"
+        app:bottomLeftRadius="10dp"
+        app:bottomRightRadius="10dp"
+
+        app:frameWidth="1dp"
+        app:frameColor="@color/blue_00aaee"
+
         app:shadowColor="@color/red_deep"
         app:shadowRadius="10dp"
         app:shadowOffsetX="1dp"
-        app:shadowOffsetY="4dp"
+        app:shadowOffsetY="5dp"
 
+        app:type="circle"
 
-        android:background="@color/transparent"
-        app:type="roundRect"
+        android:background="@color/gray_holo_light"
+
         android:layout_width="250dp"
         android:layout_height="200dp"
+
         app:viewSrc="@color/colorAccent"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/blue_00aaee"
+            android:text="22222"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </com.wdz.module_customview.myview.imageview.RoundView>
+
+
+
+    <!--    <com.wdz.module_customview.myview.imageview.RoundView-->
+<!--        app:topLeftRadius="10dp"-->
+<!--        app:topRightRadius="10dp"-->
+<!--        app:bottomLeftRadius="10dp"-->
+<!--        app:bottomRightRadius="10dp"-->
+
+<!--        app:frameWidth="1dp"-->
+<!--        app:frameColor="@color/blue_00aaee"-->
+
+<!--        app:shadowColor="@color/red_deep"-->
+<!--        app:shadowRadius="10dp"-->
+<!--        app:shadowOffsetX="1dp"-->
+<!--        app:shadowOffsetY="5dp"-->
+<!--        app:viewSrc="@color/colorAccent"-->
+<!--        app:type="roundRect"-->
+
+
+<!--        android:background="@color/gray_holo_light"-->
+
+<!--        android:layout_width="250dp"-->
+<!--        android:layout_height="200dp"-->
+
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" >-->
+
+<!--        <TextView-->
+<!--            android:background="@color/blue_00aaee"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="22222" />-->
+
+<!--    </com.wdz.module_customview.myview.imageview.RoundView>-->
+
+
 
 
 <!--    <com.wdz.module_customview.myview.imageview.RoundImageView-->

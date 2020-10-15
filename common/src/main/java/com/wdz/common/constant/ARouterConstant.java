@@ -64,6 +64,7 @@ public interface ARouterConstant {
 
     String ACTIVITY_NEW_WORD = "/module_architecture/NewWordActivity";
     String ACTIVITY_VIEW_MODEL = "/module_architecture/ViewModelActivity";
+    String ACTIVITY_BUILDER_DEMO = "/module_architecture/BuilderDemoActivity";
 
     //basis
     String FRAGMENT_BASIS = "/module_basis/BasisFragment";
@@ -84,5 +85,6 @@ public interface ARouterConstant {
     String ACTIVITY_TEXT_INPUT = "/module_basis/TextInputActivity";
 
     String ACTIVITY_FLOATING_VIEW = "/module_basis/FloatingViewActivity";
+    String ACTIVITY_DIALOG_FRAGMENT = "/module_basis/DialogFragmentActivity";
 
 }

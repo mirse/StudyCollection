@@ -5,8 +5,9 @@
     <application
         android:allowBackup="true"
         android:supportsRtl="true">
-        <activity android:name=".jetpack.viewmodel.NewWordActivity"/>
-        <activity android:name=".jetpack.viewmodel.ViewModelActivity"/>
+        <activity android:name=".pattern.builder.BuilderDemoActivity"></activity>
+        <activity android:name=".jetpack.viewmodel.NewWordActivity" />
+        <activity android:name=".jetpack.viewmodel.ViewModelActivity" />
     </application>
 
 </manifest>

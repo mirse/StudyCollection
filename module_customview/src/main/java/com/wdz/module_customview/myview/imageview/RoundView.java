@@ -20,15 +20,21 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.wdz.module_customview.R;
 
 /**
- * 设置的src为图片源不支持阴影
+ * 设置的src为图片源不支持阴影,边框效果圆形效果最佳
  * 图片阴影：BlurMaskFilter
  * @author wdz
  */
-public class RoundView extends View {
+public class RoundView extends ConstraintLayout {
+
     private static final String TAG = "RoundView";
     private static final Xfermode sXfermode = new PorterDuffXfermode(PorterDuff.Mode.DST_OUT);
     private static final Xfermode sXfermode_dst_in = new PorterDuffXfermode(PorterDuff.Mode.DST_IN);
@@ -105,10 +111,16 @@ public class RoundView extends View {
         shadowOffsetX = array.getDimensionPixelSize(R.styleable.RoundView_shadowOffsetX, 0);
         shadowOffsetY = array.getDimensionPixelSize(R.styleable.RoundView_shadowOffsetY,0);
         shadowRadius = array.getDimensionPixelSize(R.styleable.RoundView_shadowRadius,0);
-
         array.recycle();
+        initPaint();
+        setLayerType(LAYER_TYPE_SOFTWARE, null);
 
+    }
 
+    /**
+     * 初始化paint
+     */
+    private void initPaint() {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setColor(Color.BLACK);
         mPaint.setStrokeWidth(3);
@@ -122,140 +134,156 @@ public class RoundView extends View {
 
         if (shadowColor!=0){
 
-            setPadding(shadowRadius-shadowOffsetX,shadowRadius-shadowOffsetY,shadowRadius+shadowOffsetX,shadowRadius+shadowOffsetY);
-            mPaint.setShadowLayer(shadowRadius, shadowOffsetX, shadowOffsetY, shadowColor);
+            if (src instanceof ColorDrawable){
+                setPadding(shadowRadius-shadowOffsetX,shadowRadius-shadowOffsetY,shadowRadius+shadowOffsetX,shadowRadius+shadowOffsetY);
+                mPaint.setShadowLayer(shadowRadius, shadowOffsetX, shadowOffsetY, shadowColor);
+            }
+
         }
-
-
-
-        setLayerType(LAYER_TYPE_SOFTWARE, null);
-
     }
 
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-
-    }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
         if (src ==null){
             return;
         }
-
         //绘制图形以color为底色
         if (src instanceof ColorDrawable){
-            ColorDrawable colorDrawable = (ColorDrawable) src;
-            mPaint.setColor(colorDrawable.getColor());
+            drawViewByColor(canvas);
+        }
+        else{
+            drawViewByBitmap(canvas);
 
-            //颜色
+
+        }
+
+    }
+
+    /**
+     * src为以图片为底色
+     * @param canvas
+     */
+    private void drawViewByBitmap(Canvas canvas) {
+        bitmap = Bitmap.createBitmap(getWidth(),
+                getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas bitmapCanvas = new Canvas(bitmap);
+        src.setBounds(0, 0, getWidth(), getHeight());
+        src.draw(bitmapCanvas);
+
+        if (mMaskBitmap == null || mMaskBitmap.isRecycled()) {
             if (type == CIRCLE){
-                int radius = Math.min((getWidth()-frameWidth)/2,(getHeight()-frameWidth)/2);
+                mMaskBitmap = getBitmapCircle(getWidth(), getHeight());
 
-                canvas.drawCircle((float) getWidth()/2,(float) getHeight()/2,radius,mPaint);
             }
-            else{
+            else if (type ==ROUNDRECT){
+                mMaskBitmap = getBitmapRoundRect(getWidth(), getHeight());
 
-                Path rectPath = new Path();
+            }
+        }
 
-                if (topLeftRadius!=0){
-                    rectPath.moveTo(shadowRadius, topLeftRadius+shadowRadius);
-                    rectPath.arcTo(new RectF(shadowRadius, shadowRadius, shadowRadius+topLeftRadius * 2, shadowRadius+topLeftRadius * 2), 180, 90,true);
-                }
-                else{
-                    rectPath.moveTo(shadowRadius,shadowRadius);
-                }
+        if (type == CIRCLE){
+            mPaint.setXfermode(sXfermode_dst_in);
+        }
+        else if (type ==ROUNDRECT){
+            mPaint.setXfermode(sXfermode);
+        }
 
+        bitmapCanvas.drawBitmap(mMaskBitmap, 0.0f, 0.0f, mPaint);
+        //这里混合模式，上面设置完后，要再次设置为null
+        mPaint.setXfermode(null);
 
-                if (topRightRadius!=0){
-
-                    rectPath.lineTo(getWidth()-shadowRadius - topRightRadius, shadowRadius);
-                    rectPath.arcTo(new RectF(getWidth()-shadowRadius - topRightRadius * 2, shadowRadius, getWidth()-shadowRadius, topRightRadius * 2+shadowRadius), 270, 90);
-                }
-                else {
-                    rectPath.lineTo(getWidth()-shadowRadius,shadowRadius);
-                }
-
-                if (bottomRightRadius!=0){
-                    rectPath.lineTo(getWidth()-shadowRadius, getHeight() - bottomRightRadius-shadowRadius);
-                    rectPath.arcTo(new RectF(getWidth() -shadowRadius - bottomRightRadius * 2, getHeight()-shadowRadius - bottomRightRadius * 2, getWidth()-shadowRadius, getHeight()-shadowRadius), 0, 90);
-
-                }
-                else{
-                    rectPath.lineTo(getWidth()-shadowRadius,getHeight()-shadowRadius);
-                }
+        canvas.drawBitmap(bitmap, 0.0f, 0.0f, mPaint);
 
 
-                if (bottomLeftRadius!=0){
-                    rectPath.lineTo(bottomLeftRadius+shadowRadius, getHeight()-shadowRadius);
-                    rectPath.arcTo(new RectF(shadowRadius, getHeight()-shadowRadius - bottomLeftRadius * 2, bottomLeftRadius * 2+shadowRadius, getHeight()-shadowRadius), 90, 90);
+        //绘制外边框
+        if (frameWidth != 0) {
+            if (type == CIRCLE) {
+                float radius = Math.min((getWidth()-frameWidth) / 2, (getHeight()-frameWidth) / 2);
+                canvas.drawCircle((float) getWidth() / 2, (float) getHeight() / 2, radius, framePaint);
+            }
+            else if (type ==ROUNDRECT){
+                // TODO: 2020/10/15 边框绘制圆角存在问题 无法与原图片圆角重叠
+                canvas.drawPath(rectPath,framePaint);
+            }
+        }
+    }
 
-                }
-                else{
-                    rectPath.lineTo(shadowRadius,getHeight()-shadowRadius);
-                }
-                rectPath.close();
-                canvas.drawPath(rectPath,mPaint);
+    /**
+     * src为以颜色为底色
+     * @param canvas
+     */
+    private void drawViewByColor(Canvas canvas) {
+        ColorDrawable colorDrawable = (ColorDrawable) src;
+        mPaint.setColor(colorDrawable.getColor());
 
+        //颜色
+        if (type == CIRCLE){
 
-//                float left = shadowRadius+(float)frameWidth/2+shadowOffsetX;
-//                float top = shadowRadius+(float)frameWidth/2+shadowOffsetY;
-//                float right = getWidth()-(float)frameWidth/2 -shadowRadius+shadowOffsetX;
-//                float bottom = getHeight()-(float)frameWidth/2 -shadowRadius+shadowOffsetY;
-//
-//                canvas.drawRect(left,top,right,bottom,mPaint);
+            int radius = Math.min((getWidth()-shadowRadius*2)/2,(getHeight()-shadowRadius*2)/2);
+
+            canvas.drawCircle((float) getWidth()/2-shadowOffsetX,(float) getHeight()/2-shadowOffsetY,radius,mPaint);
+
+            //绘制外边框
+            if (frameWidth != 0) {
+                radius = radius-frameWidth/2;
+                canvas.drawCircle((float) getWidth()/2-shadowOffsetX,(float) getHeight()/2-shadowOffsetY,radius,framePaint);
             }
 
         }
         else{
-            bitmap = Bitmap.createBitmap(getWidth(),
-                    getHeight(), Bitmap.Config.ARGB_8888);
-            Canvas bitmapCanvas = new Canvas(bitmap);
-            src.setBounds(0, 0, getWidth(), getHeight());
-            src.draw(bitmapCanvas);
 
-            if (mMaskBitmap == null || mMaskBitmap.isRecycled()) {
-                if (type == CIRCLE){
-                    mMaskBitmap = getBitmapCircle(getWidth(), getHeight());
+            Path rectPath = new Path();
 
-                }
-                else if (type ==ROUNDRECT){
-                    mMaskBitmap = getBitmapRoundRect(getWidth(), getHeight());
-
-                }
+            if (topLeftRadius!=0){
+                rectPath.moveTo(shadowRadius-shadowOffsetX, topLeftRadius+shadowRadius-shadowOffsetY);
+                rectPath.arcTo(new RectF(shadowRadius-shadowOffsetX, shadowRadius-shadowOffsetY, shadowRadius-shadowOffsetX+topLeftRadius * 2, shadowRadius-shadowOffsetY+topLeftRadius * 2), 180, 90,true);
+            }
+            else{
+                rectPath.moveTo(shadowRadius-shadowOffsetX, topLeftRadius+shadowRadius-shadowOffsetY);
             }
 
-            if (type == CIRCLE){
-                mPaint.setXfermode(sXfermode_dst_in);
+
+            if (topRightRadius!=0){
+
+                rectPath.lineTo(getWidth() -shadowOffsetX -shadowRadius - topRightRadius, shadowRadius-shadowOffsetY);
+                rectPath.arcTo(new RectF(getWidth()-shadowOffsetX-shadowRadius - topRightRadius * 2, shadowRadius-shadowOffsetY, getWidth()-shadowOffsetX-shadowRadius, topRightRadius * 2-shadowRadius+shadowOffsetY), 270, 90);
             }
-            else if (type ==ROUNDRECT){
-                mPaint.setXfermode(sXfermode);
+            else {
+                rectPath.lineTo(getWidth() -shadowOffsetX -shadowRadius - topRightRadius, shadowRadius-shadowOffsetY);
             }
 
-            bitmapCanvas.drawBitmap(mMaskBitmap, 0.0f, 0.0f, mPaint);
-            //这里混合模式，上面设置完后，要再次设置为null
-            mPaint.setXfermode(null);
+            if (bottomRightRadius!=0){
+                rectPath.lineTo(getWidth()-shadowRadius-shadowOffsetX, getHeight() - bottomRightRadius-shadowRadius-shadowOffsetY);
+                rectPath.arcTo(new RectF(getWidth() -shadowRadius - bottomRightRadius * 2-shadowOffsetX, getHeight()-shadowRadius - bottomRightRadius * 2-shadowOffsetY, getWidth()-shadowRadius-shadowOffsetX, getHeight()-shadowRadius-shadowOffsetY), 0, 90);
 
-            canvas.drawBitmap(bitmap, 0.0f, 0.0f, mPaint);
+            }
+            else{
+                rectPath.lineTo(getWidth()-shadowRadius-shadowOffsetX,getHeight()-shadowRadius-shadowOffsetY);
+            }
+
+
+            if (bottomLeftRadius!=0){
+                rectPath.lineTo(bottomLeftRadius+shadowRadius-shadowOffsetX, getHeight()-shadowRadius-shadowOffsetY);
+                rectPath.arcTo(new RectF(shadowRadius-shadowOffsetX, getHeight()-shadowRadius - bottomLeftRadius * 2-shadowOffsetY, bottomLeftRadius * 2+shadowRadius-shadowOffsetX, getHeight()-shadowRadius-shadowOffsetY), 90, 90);
+
+            }
+            else{
+                rectPath.lineTo(shadowRadius-shadowOffsetX,getHeight()-shadowRadius-shadowOffsetY);
+            }
+            rectPath.close();
+            canvas.drawPath(rectPath,mPaint);
 
 
             //绘制外边框
             if (frameWidth != 0) {
-                if (type == CIRCLE) {
-                    float radius = Math.min((getWidth()-frameWidth) / 2, (getHeight()-frameWidth) / 2);
-                    canvas.drawCircle((float) getWidth() / 2, (float) getHeight() / 2, radius, framePaint);
-                }
-                else if (type ==ROUNDRECT){
-                    canvas.drawPath(rectPath,framePaint);
-                }
+                // TODO: 2020/10/15 如果frameWidth>(shadowRadius-最大偏移量)*2 则边框显示有问题
+                //当frameWith>1dp,则实际显示的边框宽度为一半宽度
+                canvas.drawPath(rectPath,framePaint);
             }
 
-
         }
-
     }
 
     /**
@@ -378,11 +406,11 @@ public class RoundView extends View {
             Path path = new Path();
             path.moveTo(0, getHeight() - bottomLeftRadius);
             path.lineTo(0, getHeight());
-            path.lineTo(bottomLeftRadius+(float) frameWidth/2, getHeight());
+            path.lineTo(bottomLeftRadius, getHeight());
             path.arcTo(new RectF(0, getHeight() - bottomLeftRadius * 2, bottomLeftRadius * 2, getHeight()), 90, 90);
 
             if (frameWidth!=0){
-                rectPath.lineTo(bottomLeftRadius-(float) frameWidth/2, getHeight()-(float) frameWidth/2);
+                rectPath.lineTo(bottomLeftRadius+(float) frameWidth/2, getHeight()-(float) frameWidth/2);
                 rectPath.arcTo(new RectF((float) frameWidth/2, getHeight()-(float) frameWidth/2 - bottomLeftRadius * 2, bottomLeftRadius * 2+(float) frameWidth/2, getHeight()-(float) frameWidth/2), 90, 90);
 
             }
@@ -416,31 +444,31 @@ public class RoundView extends View {
         return bitmap;
     }
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        //super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
-        int width = 0;
-        int height = 0;
-
-        int measureWidth = MeasureSpec.getSize(widthMeasureSpec);
-        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
-        int measureHeight = MeasureSpec.getSize(heightMeasureSpec);
-        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-
-        if (frameWidth!=0){
-            //控件宽度
-            width = measureWidth+frameWidth;
-            //控件高度
-            height = measureHeight+frameWidth;
-        }
-        Log.i(TAG, "onMeasure: "+dp2px(getContext(),300));
-        Log.i(TAG, "onMeasure: measureHeight:"+measureHeight);
-        Log.i(TAG, "onMeasure: "+(widthMode == MeasureSpec.EXACTLY));
-
-        setMeasuredDimension(widthMode == MeasureSpec.EXACTLY?measureWidth:width,
-                heightMode == MeasureSpec.EXACTLY?measureHeight:height);
-    }
+//    @Override
+//    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+//        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+//
+//        int width = 0;
+//        int height = 0;
+//
+//        int measureWidth = MeasureSpec.getSize(widthMeasureSpec);
+//        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+//        int measureHeight = MeasureSpec.getSize(heightMeasureSpec);
+//        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+//
+//        if (frameWidth!=0){
+//            //控件宽度
+//            width = measureWidth+frameWidth;
+//            //控件高度
+//            height = measureHeight+frameWidth;
+//        }
+//        Log.i(TAG, "onMeasure: "+dp2px(getContext(),300));
+//        Log.i(TAG, "onMeasure: measureHeight:"+measureHeight);
+//        Log.i(TAG, "onMeasure: "+(widthMode == MeasureSpec.EXACTLY));
+//
+//        setMeasuredDimension(widthMode == MeasureSpec.EXACTLY?measureWidth:width,
+//                heightMode == MeasureSpec.EXACTLY?measureHeight:height);
+//    }
 
     /**
      * dp->px

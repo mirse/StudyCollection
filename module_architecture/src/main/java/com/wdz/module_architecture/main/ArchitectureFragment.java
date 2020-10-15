@@ -46,6 +46,7 @@ public class ArchitectureFragment extends BaseFragment {
         mainBeanList.clear();
         String[][] array={
                 {"Jetpack","ViewModel","RxJava","","","",""},
+                {"设计模式","建造者","","","","",""},
         };
 
         for (String[] mArray:array) {
@@ -62,9 +63,9 @@ public class ArchitectureFragment extends BaseFragment {
         mainAdapter.setOnItemClickListener(new MainAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
+                int id = view.getId();
                 switch (position){
                     case 0:
-                        int id = view.getId();
                         if (id == R.id.button) {
                             ARouter.getInstance().build(ARouterConstant.ACTIVITY_VIEW_MODEL).navigation();
                         } else if (id == R.id.button2) {
@@ -81,6 +82,19 @@ public class ArchitectureFragment extends BaseFragment {
                         break;
                     case 1:
 
+                        if (id == R.id.button) {
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_BUILDER_DEMO).navigation();
+                        } else if (id == R.id.button2) {
+
+                        } else if (id == R.id.button3) {
+
+                        } else if (id == R.id.button4) {
+
+                        } else if (id == R.id.button5) {
+
+                        } else if (id == R.id.button6) {
+
+                        }
                         break;
                     case 2:
 

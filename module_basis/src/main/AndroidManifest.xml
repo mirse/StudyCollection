@@ -5,30 +5,31 @@
     <application
         android:allowBackup="true"
         android:supportsRtl="true">
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".basis.FragmentActivity"/>
-        <activity android:name=".basis.viewpager.VpAndFragActivity"/>
-        <activity android:name=".media.NotifyActivity"/>
-        <activity android:name=".media.camera.CameraXActivity"/>
-        <activity android:name=".widget.edittext.EditTextDemoActivity"/>
+        <activity android:name=".others.dialog.DialogFragmentActivity"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".basis.FragmentActivity" />
+        <activity android:name=".basis.viewpager.VpAndFragActivity" />
+        <activity android:name=".media.NotifyActivity" />
+        <activity android:name=".media.camera.CameraXActivity" />
+        <activity android:name=".widget.edittext.EditTextDemoActivity" />
+        <activity android:name=".widget.recyclerview.RecyclerViewActivity" />
+        <activity android:name=".widget.recyclerview.updownrecyclerview.UpDownRecyclerViewActivity" />
+        <activity android:name=".widget.recyclerview.snaphelper.SnapHelperActivity" />
+        <activity android:name=".widget.recyclerview.delete.DeleteRecyclerViewActivity" />
+        <activity android:name=".widget.recyclerview.grid.GridViewActivity" />
+        <activity android:name=".others.floating.FloatingViewActivity" />
+        <activity android:name=".widget.textinput.TextInputActivity" />
+        <activity android:name=".basis.service.ServiceDemoActivity" />
 
-        <activity android:name=".widget.recyclerview.RecyclerViewActivity"/>
-        <activity android:name=".widget.recyclerview.updownrecyclerview.UpDownRecyclerViewActivity"/>
-        <activity android:name=".widget.recyclerview.snaphelper.SnapHelperActivity"/>
-        <activity android:name=".widget.recyclerview.delete.DeleteRecyclerViewActivity"/>
-        <activity android:name=".widget.recyclerview.grid.GridViewActivity"/>
-        <activity android:name=".others.floating.FloatingViewActivity"/>
-        <activity android:name=".widget.textinput.TextInputActivity"/>
-        <activity android:name="com.wdz.module_basis.basis.service.ServiceDemoActivity" />
         <service
-            android:name="com.wdz.module_basis.basis.service.MyIntentService"
+            android:name=".basis.service.MyIntentService"
             android:exported="false" />
         <service
-            android:name="com.wdz.module_basis.basis.service.MyService"
+            android:name=".basis.service.MyService"
             android:enabled="true"
             android:exported="true" />
         <service
-            android:name="com.wdz.module_basis.others.floating.FloatingService"
+            android:name=".others.floating.FloatingService"
             android:enabled="true"
             android:exported="true" />
     </application>
