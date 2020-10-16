@@ -48,7 +48,7 @@ public class GridViewActivity extends AppCompatActivity {
 
     @SuppressLint("WrongConstant")
     private void initData() {
-        gridLayoutManager = new GridLayoutManager(this, 4, OrientationHelper.VERTICAL, false);
+        gridLayoutManager = new GridLayoutManager(this, 1, OrientationHelper.VERTICAL, false);
         myAdapter = new MyAdapter(getData());
         myAdapter.setOnClickListener(new MyAdapter.onItemClickListener() {
             @Override
@@ -95,7 +95,7 @@ public class GridViewActivity extends AppCompatActivity {
         //标准瀑布流
         mRv.setLayoutManager(gridLayoutManager);
         mRv.setAdapter(myAdapter);
-        mRv.addItemDecoration(new GridDividerDecoration(this));
+        mRv.addItemDecoration(new SpaceItemDecoration(this,15,15));
 
         //宽高不一的瀑布流
 //        mRv.setLayoutManager(staggeredGridLayoutManager);
