@@ -44,6 +44,8 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
         int width = layoutParams.width;
 
 
+
+
         //每个item所占宽度
         int spanWidth = screenWidth/spanCount;
 
