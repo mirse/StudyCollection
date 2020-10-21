@@ -49,8 +49,8 @@ public class BasisFragment extends BaseFragment {
                 {"basis","Fragment","与viewpager","service","","",""},
                 {"多媒体","通知","相机","音频解析","","",""},
                 {"适配","状态栏","","","","",""},
-                {"控件","editText","recycler","grid","输入框","",""},
-                {"其他","悬浮窗","dialog","","","",""},
+                {"控件","editText","recycler","grid","输入框","imageview",""},
+                {"其他","悬浮窗","dialog","popup","","",""},
         };
 
         for (String[] mArray:array) {
@@ -127,7 +127,7 @@ public class BasisFragment extends BaseFragment {
                         } else if (view.getId() == R.id.button4) {
                             ARouter.getInstance().build(ARouterConstant.ACTIVITY_TEXT_INPUT).navigation();
                         } else if (view.getId() == R.id.button5) {
-
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_IMAGE_VIEW).navigation();
                         } else if (view.getId() == R.id.button6) {
 
                         }
@@ -139,7 +139,7 @@ public class BasisFragment extends BaseFragment {
                         } else if (view.getId() == R.id.button2) {
                             ARouter.getInstance().build(ARouterConstant.ACTIVITY_DIALOG_FRAGMENT).navigation();
                         } else if (view.getId() == R.id.button3) {
-
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_POPUP_WINDOW).navigation();
                         } else if (view.getId() == R.id.button4) {
 
                         } else if (view.getId() == R.id.button5) {

@@ -5,7 +5,9 @@
     <application
         android:allowBackup="true"
         android:supportsRtl="true">
-        <activity android:name=".others.dialog.DialogFragmentActivity"></activity>
+        <activity android:name=".widget.imageview.ImageViewActivity"></activity>
+        <activity android:name=".others.popwindow.PopupWindowActivity" />
+        <activity android:name=".others.dialog.DialogFragmentActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".basis.FragmentActivity" />
         <activity android:name=".basis.viewpager.VpAndFragActivity" />

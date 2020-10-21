@@ -83,8 +83,9 @@ public interface ARouterConstant {
     String ACTIVITY_RECYCLER_VIEW = "/module_basis/RecyclerViewActivity";
     String ACTIVITY_GRID_VIEW= "/module_basis/GridViewActivity";
     String ACTIVITY_TEXT_INPUT = "/module_basis/TextInputActivity";
+    String ACTIVITY_IMAGE_VIEW = "/module_basis/ImageViewActivity";
 
     String ACTIVITY_FLOATING_VIEW = "/module_basis/FloatingViewActivity";
     String ACTIVITY_DIALOG_FRAGMENT = "/module_basis/DialogFragmentActivity";
-
+    String ACTIVITY_POPUP_WINDOW = "/module_basis/PopupWindowActivity";
 }
