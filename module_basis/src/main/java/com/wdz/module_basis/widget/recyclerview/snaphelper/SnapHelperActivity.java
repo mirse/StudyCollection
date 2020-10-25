@@ -1,7 +1,10 @@
 package com.wdz.module_basis.widget.recyclerview.snaphelper;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,12 +19,15 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class SnapHelperActivity extends AppCompatActivity {
     private static final String TAG = "SnapHelperActivity";
 
     @BindView(R2.id.myView)
     PageRecyclerView myRecyclerView;
+    @BindView(R2.id.bt_refresh)
+    Button btnRefresh;
     private List<Item> mList = new ArrayList<>();
     private ImageView[] imageViews;
 
@@ -32,11 +38,30 @@ public class SnapHelperActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         initData();
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        myRecyclerView.setAdapter(this,linearLayoutManager,mList);
+        myRecyclerView.setGridCount(3,4);
+        myRecyclerView.setDataSource(this,mList,false);
+        myRecyclerView.setOnClickListener(new PageRecyclerView.OnClickListener() {
+            @Override
+            public void onClick(Item item, int position) {
+                Toast.makeText(SnapHelperActivity.this,"item:"+item.name,Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
+
+
+
+    }
+
+    @OnClick(R2.id.bt_refresh)
+    public void onClick(View view){
+        if (view.getId()==R.id.bt_refresh){
+            mList.clear();
+            for (int i=19;i<29 ;i++){
+                mList.add(new Item(String.valueOf(i),false));
+            }
+            myRecyclerView.refreshData(mList);
+        }
     }
 
 
@@ -44,7 +69,7 @@ public class SnapHelperActivity extends AppCompatActivity {
 
 
     private void initData() {
-        for (int i=0;i<20;i++){
+        for (int i=0;i<19 ;i++){
             mList.add(new Item(String.valueOf(i),false));
         }
     }

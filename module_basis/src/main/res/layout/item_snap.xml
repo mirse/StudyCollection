@@ -1,72 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:id="@+id/ll_root"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="150dp">
 
-    <LinearLayout
-        android:background="@color/gray_holo_light"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="75dp">
-        <FrameLayout
-            android:id="@+id/stub1"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout="@layout/item_snap_in"
-            android:layout_height="match_parent"/>
-        <FrameLayout
-            android:layout="@layout/item_snap_in"
-            android:id="@+id/stub2"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-        <FrameLayout
-            android:layout="@layout/item_snap_in"
-            android:id="@+id/stub3"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-        <FrameLayout
-            android:layout="@layout/item_snap_in"
-            android:id="@+id/stub4"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:background="@color/yellow"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="75dp">
-        <FrameLayout
-            android:layout="@layout/item_snap_in"
-            android:id="@+id/stub5"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-        <FrameLayout
-            android:layout="@layout/item_snap_in"
-            android:id="@+id/stub6"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-        <FrameLayout
-            android:layout="@layout/item_snap_in"
-            android:id="@+id/stub7"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-        <FrameLayout
-            android:layout="@layout/item_snap_in"
-            android:id="@+id/stub8"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-    </LinearLayout>
 
 </LinearLayout>
