@@ -69,6 +69,7 @@ dependencies {
     implementation rootProject.ext.dependencies.butterknife
     annotationProcessor rootProject.ext.dependencies.butterknife_compiler
     implementation project(path: ':common')
+    implementation project(path: ':module_basis')
     //glide
     implementation rootProject.ext.dependencies.glide
     annotationProcessor rootProject.ext.dependencies.glide_compiler

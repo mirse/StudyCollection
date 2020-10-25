@@ -51,7 +51,7 @@ public interface ARouterConstant {
     String ACTIVITY_GLIDE = "/module_communication/GlideActivity";
 
     String ACTIVITY_GATT = "/module_communication/GattDemoActivity";
-
+    String ACTIVITY_WIFI = "/module_communication/WifiDemoActivity";
 
 
     String ACTIVITY_SP = "/module_communication/SharedPreferenceActivity";

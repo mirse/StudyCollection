@@ -48,6 +48,7 @@ public class CommunicationFragment extends BaseFragment {
                 {"网络通信","Socket通信","AsyncTask","Handler","handler切换线程","OkHttp","Glide"},
                 {"Iot","gatt","","","","",""},
                 {"数据存储","Sp","Room","序列化","","",""},
+                {"本机信息","wifi","","","","",""}
         };
 
         for (String[] mArray:array) {
@@ -114,7 +115,21 @@ public class CommunicationFragment extends BaseFragment {
 
                         }
                         break;
+                    case 3:
+                        if (view.getId() == R.id.button) {
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_WIFI).navigation();
+                        } else if (view.getId() == R.id.button2) {
 
+                        } else if (view.getId() == R.id.button3) {
+
+                        } else if (view.getId() == R.id.button4) {
+
+                        } else if (view.getId() == R.id.button5) {
+
+                        } else if (view.getId() == R.id.button6) {
+
+                        }
+                        break;
 
                     default:
                         break;

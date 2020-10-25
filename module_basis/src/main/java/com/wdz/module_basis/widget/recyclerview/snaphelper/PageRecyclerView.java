@@ -141,18 +141,18 @@ public class PageRecyclerView extends ConstraintLayout {
 
 
 
-    public class Page{
-        public Page(List<SnapHelperActivity.Item> itemList) {
+    public class Page<T>{
+        public Page(List<T> itemList) {
             this.itemList = itemList;
         }
 
-        public List<SnapHelperActivity.Item> itemList;
+        public List<T> itemList;
 
-        public List<SnapHelperActivity.Item> getItemList() {
+        public List<T> getItemList() {
             return itemList;
         }
 
-        public void setItemList(List<SnapHelperActivity.Item> itemList) {
+        public void setItemList(List<T> itemList) {
             this.itemList = itemList;
         }
 
@@ -163,5 +163,6 @@ public class PageRecyclerView extends ConstraintLayout {
                     '}';
         }
     }
+
 
 }

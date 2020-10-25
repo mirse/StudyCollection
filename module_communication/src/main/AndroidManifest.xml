@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wdz.module_communication">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -13,11 +18,12 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:allowBackup="true"
         android:supportsRtl="true">
+        <activity android:name=".main.info.wifi.WifiDemoActivity"></activity>
         <activity android:name=".main.network.socket.SocketClientActivity" />
         <activity android:name=".main.network.asynctask.AsyncTaskActivity" />
         <activity android:name=".main.network.handler.HandlerDemoActivity" />
@@ -34,11 +40,9 @@
         <activity android:name=".main.datasave.parcelable.ParcelableDemoActivity" />
         <activity android:name=".main.datasave.parcelable.ParcelableNextActivity" />
 
-
         <service
             android:name=".main.network.socket.SocketServerService"
             android:process=":remote" />
-
     </application>
 
 </manifest>

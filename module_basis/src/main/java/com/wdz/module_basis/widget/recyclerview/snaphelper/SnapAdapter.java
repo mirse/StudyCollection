@@ -75,15 +75,10 @@ public class SnapAdapter extends BaseAdapter<PageRecyclerView.Page> {
                 }
             });
 
-//            if (data.itemList.get(i).isSelect()){
-//                tv.setSelected(true);
-//            }
-//            else{
-//                tv.setSelected(false);
-//            }
+            SnapHelperActivity.Item  item = (SnapHelperActivity.Item) data.itemList.get(i);
 
             Log.i(TAG, "convert: size:"+data.itemList.size()+"toString:"+data.itemList.toString());
-            tv.setText(data.itemList.get(i).getName());
+            tv.setText(item.getName());
         }
 
 
