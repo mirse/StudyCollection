@@ -8,6 +8,7 @@
     tools:layout_editor_absoluteY="81dp">
 
     <TextView
+        android:textSize="@dimen/sp_17"
         android:layout_margin="10dp"
         android:id="@+id/textView"
         android:layout_width="0dp"

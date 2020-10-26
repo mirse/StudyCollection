@@ -18,7 +18,7 @@ public class ToneManager {
     /**
      * 采样频率/采样速度（每秒中从连续信号提取组成离散信号的个数 hz）
      */
-    private int sampleRate = 44100;
+    private int sampleRate = 44100;//CD采样频率
     /**
      * 采样点数
      */
@@ -69,6 +69,8 @@ public class ToneManager {
                 AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, AudioRecord.getMinBufferSize(44100,
                 AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT));
         Log.i(TAG, "initAudioRecord: audioRecord.getState():" + audioRecord.getState());
+        Log.i(TAG, "initAudioRecord: "+AudioRecord.getMinBufferSize(44100,
+                AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT));
         if (audioRecord.getState() == AudioRecord.STATE_INITIALIZED) {
             sampleRate = 44100;
             sampleCount = 1024;

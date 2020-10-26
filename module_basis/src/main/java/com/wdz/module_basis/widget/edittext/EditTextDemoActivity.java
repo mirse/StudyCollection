@@ -23,8 +23,7 @@ import butterknife.ButterKnife;
 @Route(path = ARouterConstant.ACTIVITY_EDITTEXT_DEMO)
 public class EditTextDemoActivity extends AppCompatActivity {
     private static final String TAG = "EditTextDemoActivity";
-    @BindView(R2.id.editText)
-    EditText editText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

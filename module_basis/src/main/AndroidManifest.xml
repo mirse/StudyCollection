@@ -22,6 +22,7 @@
         <activity android:name=".others.floating.FloatingViewActivity" />
         <activity android:name=".widget.textinput.TextInputActivity" />
         <activity android:name=".basis.service.ServiceDemoActivity" />
+        <activity android:name=".media.voice.VoiceActivity"/>
 
         <service
             android:name=".basis.service.MyIntentService"

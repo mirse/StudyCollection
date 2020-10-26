@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import android.media.MediaRecorder;
+import android.media.audiofx.Visualizer;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.ImageView;
@@ -119,6 +120,7 @@ public class RecordManager {
 
     private void updateMicStatus() {
         if (mMediaRecorder != null) {
+            Log.i(TAG, "updateMicStatus: mMediaRecorder.getMaxAmplitude():"+mMediaRecorder.getMaxAmplitude());
             // int vuSize = 10 * mMediaRecorder.getMaxAmplitude() / 32768;
             int ratio = mMediaRecorder.getMaxAmplitude() / BASE;
             //以1为基数 dB范围0~90.3dB

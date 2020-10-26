@@ -1,7 +1,18 @@
 package com.wdz.common.util;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Display;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+
+import androidx.annotation.NonNull;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * Created by anlia on 2017/12/11.
@@ -33,4 +44,54 @@ public class ScreenUtils {
         height = wm.getDefaultDisplay().getHeight();
         return height;
     }
+
+    /**
+     * 是否可用还待测试
+     * @param activity
+     * @return
+     */
+    public static boolean isNavigationBarExist(@NonNull Activity activity) {
+        ViewGroup vp = (ViewGroup) activity.getWindow().getDecorView();
+        if (vp != null) {
+            for (int i = 0; i < vp.getChildCount(); i++) {
+                vp.getChildAt(i).getContext().getPackageName();
+                if (vp.getChildAt(i).getId()!=-1){
+                    Log.i("isNavigationBarExist", "isNavigationBarExist: "+activity.getResources().getResourceEntryName(vp.getChildAt(i).getId()));
+
+                }
+
+                if (vp.getChildAt(i).getId()!=-1&& "navigationBarBackground".equals(activity.getResources().getResourceEntryName(vp.getChildAt(i).getId()))) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 获取statusBar高度
+     */
+    public static int getStatusBarHeight(Context context) {
+        int height = 0;
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            height = context.getResources().getDimensionPixelSize(resourceId);
+        }
+        return height;
+    }
+
+    /**
+     * 获取导航栏高度
+     * @param context
+     * @return
+     */
+    public static int getNavigationBarHeight(Context context) {
+        int height = 0;
+        int resourceId = context.getResources().getIdentifier("navigation_bar_height","dimen", "android");
+        if (resourceId>0){
+            height = context.getResources().getDimensionPixelSize(resourceId);
+        }
+        return height;
+    }
+
 }
