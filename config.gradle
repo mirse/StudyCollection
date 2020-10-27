@@ -1,6 +1,14 @@
 ext{
     isModule = false
 
+    /*** maven配置信息  **/
+    POM_PACKAGING = 'aar'//打包格式
+    NEXUS_USERNAME = 'admin'//maven账号
+    NEXUS_PASSWORD = 'yankon123+'//maven密码
+    RELEASE_REPOSITORY_URL = 'http://192.168.100.64:8085/repository/maven-releases/'//maven上配置的发布地址
+    //  SNAPSHOT_REPOSITORY_URL = 'http://192.168.100.64:8085/repository/maven-snapshots/'//快照地址
+    /*** End  **/
+
     versions = [
             compileSdkVersion:                  29,
             buildToolsVersion:                  "29.0.0",

@@ -48,6 +48,20 @@ public class WifiDemoActivity extends PermissionActivity {
     HashMap<String, Integer> wifiMap = new HashMap<>();
     private WifiAdapter wifiAdapter;
 
+    /**
+     * 获取wifi信息
+     */
+    private final int ACTION_GET_WIFI_INFO = 0;
+    /**
+     * 扫描wifi
+     */
+    private final int ACTION_SCAN_WIFI = 1;
+    /**
+     * 获取扫描wifi结果
+     */
+    private final int ACTION_GET_SCAN_WIFI = 2;
+    private int action = ACTION_GET_WIFI_INFO;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,40 +119,27 @@ public class WifiDemoActivity extends PermissionActivity {
     @OnClick({R2.id.bt_wifi_info,R2.id.bt_wifi_list})
     public void onClick(View view){
         if (view.getId() == R.id.bt_wifi_info){
+            action = ACTION_GET_WIFI_INFO;
             checkWifiPermission();
         }
         else if (view.getId() == R.id.bt_wifi_list){
+            action = ACTION_SCAN_WIFI;
             wifiManager = (WifiManager)
                     getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
             registerReceiver(wifiScanReceiver, intentFilter);
 
-            boolean success = wifiManager.startScan();
-            //可能失败
-            if (!success) {
-                scanFailure();
-            }
+            checkScanPermission();
+
 
 
         }
     }
 
     private void scanSuccess(){
-        List<ScanResult> results = wifiManager.getScanResults();
-        for (int i = 0; i < results.size(); i++) {
-            Log.i(TAG,"scanSuccess:"+results.get(i).SSID);
-            if (!results.get(i).SSID.isEmpty()){
-                String key = results.get(i).SSID +""+results.get(i).capabilities;
-                if (!wifiMap.containsKey(key)){
-                    wifiMap.put(key,i);
-                    mList.add(results.get(i));
-                }
-            }
-        }
-        wifiAdapter.notifyDataSetChanged();
-
+        action = ACTION_GET_SCAN_WIFI;
+        initMorePermission(Manifest.permission.ACCESS_COARSE_LOCATION);
 
     }
 
@@ -151,7 +152,7 @@ public class WifiDemoActivity extends PermissionActivity {
 
     /**
      * 需要真机验证下 从哪个版本开始需要开启gps
-     * Android8.0及以下  ACCESS_WIFI_STATE
+     * Android8.0及以下  ACCESS_WIFI_STATE √
      * Android 9.0 需要权限1、ACCESS_FINE_LOCATION 或 ACCESS_COARSE_LOCATION 2、ACCESS_WIFI_STATE  2、需要启动位置服务
      * Android 10 新增ACCESS_BACKGROUND_LOCATION权限
      */
@@ -169,49 +170,157 @@ public class WifiDemoActivity extends PermissionActivity {
         }
     }
 
+
+    /**
+     * Android 8,8.1: ACCESS_FINE_LOCATION 或 ACCESS_COARSE_LOCATION 或 CHANGE_WIFI_STATE
+     * Android 9: 1、ACCESS_FINE_LOCATION 或 ACCESS_COARSE_LOCATION 2、 CHANGE_WIFI_STATE 3、需要启动位置服务
+     * Android 10:1、目标平台>=29 ACCESS_FINE_LOCATION <29:ACCESS_FINE_LOCATION 或 ACCESS_COARSE_LOCATION
+     *            2、目标平台>=29 CHANGE_WIFI_STATE  <29: ACCESS_WIFI_STATE
+     *            3、需要启动位置服务
+     */
+    public void checkScanPermission(){
+        //大于Android9
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            initMorePermission(Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+        else{
+            boolean success = wifiManager.startScan();
+            //可能失败
+            if (!success) {
+                scanFailure();
+            }
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_GPS){
-            checkWifiPermission();
+            if (action == ACTION_GET_WIFI_INFO){
+                checkWifiPermission();
+            }
+            else{
+                checkScanPermission();
+            }
+
         }
 
     }
 
     @Override
     protected void alreadyGetPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
-            //gps已开启
-            if (WifiUtils.isGpsOpen(this)){
-                Log.i(TAG,WifiUtils.getWifiInfo(this).toString());
+        if (action == ACTION_GET_WIFI_INFO){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
+                //gps已开启
+                if (WifiUtils.isGpsOpen(this)){
+                    Log.i(TAG,WifiUtils.getWifiInfo(this).toString());
+                }
+                else{
+                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivityForResult(intent, REQUEST_GPS);
+                }
             }
             else{
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivityForResult(intent, REQUEST_GPS);
+                Log.i(TAG,WifiUtils.getWifiInfo(this).toString());
             }
         }
-        else{
-            Log.i(TAG,WifiUtils.getWifiInfo(this).toString());
+        else if (action == ACTION_SCAN_WIFI){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
+                if (WifiUtils.isGpsOpen(this)){
+                    boolean success = wifiManager.startScan();
+                    //可能失败
+                    if (!success) {
+                        scanFailure();
+                    }
+                }
+                else{
+                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivityForResult(intent, REQUEST_GPS);
+                }
+            }
+            else{
+                boolean success = wifiManager.startScan();
+                //可能失败
+                if (!success) {
+                    scanFailure();
+                }
+            }
+
         }
+        else if (action == ACTION_GET_SCAN_WIFI){
+            List<ScanResult> results = wifiManager.getScanResults();
+            for (int i = 0; i < results.size(); i++) {
+                Log.i(TAG,"scanSuccess:"+results.get(i).SSID);
+                if (!results.get(i).SSID.isEmpty()){
+                    String key = results.get(i).SSID +""+results.get(i).capabilities;
+                    if (!wifiMap.containsKey(key)){
+                        wifiMap.put(key,i);
+                        mList.add(results.get(i));
+                    }
+                }
+            }
+            wifiAdapter.notifyDataSetChanged();
+        }
+
 
     }
 
     @Override
     protected void onGetPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
-            //gps已开启
-            if (WifiUtils.isGpsOpen(this)){
-                Log.i(TAG,WifiUtils.getWifiInfo(this).toString());
+        if (action == ACTION_GET_WIFI_INFO){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
+                //gps已开启
+                if (WifiUtils.isGpsOpen(this)){
+                    Log.i(TAG,WifiUtils.getWifiInfo(this).toString());
+                }
+                else{
+                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivityForResult(intent, REQUEST_GPS);
+                }
             }
             else{
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivityForResult(intent, REQUEST_GPS);
+                Log.i(TAG,WifiUtils.getWifiInfo(this).toString());
             }
         }
-        else{
-            Log.i(TAG,WifiUtils.getWifiInfo(this).toString());
+        else if (action == ACTION_SCAN_WIFI){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
+                if (WifiUtils.isGpsOpen(this)){
+                    boolean success = wifiManager.startScan();
+                    //可能失败
+                    if (!success) {
+                        scanFailure();
+                    }
+                }
+                else{
+                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivityForResult(intent, REQUEST_GPS);
+                }
+            }
+            else {
+                boolean success = wifiManager.startScan();
+                //可能失败
+                if (!success) {
+                    scanFailure();
+                }
+            }
+        }
+        else if (action == ACTION_GET_SCAN_WIFI){
+            List<ScanResult> results = wifiManager.getScanResults();
+            for (int i = 0; i < results.size(); i++) {
+                Log.i(TAG,"scanSuccess:"+results.get(i).SSID);
+                if (!results.get(i).SSID.isEmpty()){
+                    String key = results.get(i).SSID +""+results.get(i).capabilities;
+                    if (!wifiMap.containsKey(key)){
+                        wifiMap.put(key,i);
+                        mList.add(results.get(i));
+                    }
+                }
+            }
+            wifiAdapter.notifyDataSetChanged();
         }
     }
 

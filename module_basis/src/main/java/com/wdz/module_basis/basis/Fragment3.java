@@ -48,7 +48,7 @@ public class Fragment3 extends Fragment {
         mBtnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().popBackStack(Fragment2.class.getSimpleName(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                getFragmentManager().popBackStack(Fragment1.class.getSimpleName(), 1);
             }
         });
 

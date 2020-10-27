@@ -3,6 +3,7 @@ package com.wdz.module_basis.basis;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,20 +19,13 @@ import com.wdz.module_basis.R;
 
 
 public class Fragment1 extends Fragment {
+    private final String TAG = this.getClass().getSimpleName();
     public static String PARAM = "param_key";
     private String mParam;
     private Activity mActivity;
-    public OnFragmentInteractionListener mListener;
-    private CallBackValue mCallBack;
-//在Fragment中定义接口，并让Activity实现该接口
-    public interface OnFragmentInteractionListener {
-        //将str从Fragment传递给Activity
-        void onItemClick(String str);
-    }
+    private DataCallBack dataCallBack;
 
-    public interface CallBackValue{
-        public void sendValue2Fragment(String text);
-    }
+
     public static Fragment getInstance(String value){
         Fragment1 fragment1 = new Fragment1();
         Bundle bundle = new Bundle();
@@ -40,36 +34,28 @@ public class Fragment1 extends Fragment {
         return fragment1;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        Log.i(TAG, "onCreate: ");
+        super.onCreate(savedInstanceState);
+
+    }
 
     @Override
     public void onAttach(Context context) {
+        Log.i(TAG, "onAttach: ");
         super.onAttach(context);
+        dataCallBack = (DataCallBack) context;
         mActivity = (Activity) context;
-        // TODO: 2019/8/1 viewpager复用逻辑删除 
         mParam = getArguments().getString(PARAM);
-        Toast.makeText(getContext(),"activity -> fragment:"+mParam,Toast.LENGTH_SHORT).show();
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;//将参数Context强转为OnFragmentInteractionListener对象
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-        if (context instanceof CallBackValue) {
-            mCallBack = (CallBackValue) context;//将参数Context强转为OnFragmentInteractionListener对象
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+        Toast.makeText(getContext(),"activity向fragment1传值:"+mParam,Toast.LENGTH_SHORT).show();
     }
 
-
-    public void setText(String s){
-        Toast.makeText(getContext(),"Fragment -> Fragment:"+s,Toast.LENGTH_SHORT).show();
-    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Log.i(TAG, "onCreateView: ");
         View view = inflater.inflate(R.layout.fragment_1, container, false);
         TextView textView = view.findViewById(R.id.textView6);
         textView.setText(mParam);
@@ -77,14 +63,19 @@ public class Fragment1 extends Fragment {
         mBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onItemClick("回参");
-                mCallBack.sendValue2Fragment("fragment1告诉fragment2");
+                dataCallBack.dataCallBack("fragment回传数据给activity,我要跳转到fragment2了");
 
-
-
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container,Fragment2.getInstance("Fragment2"),"Fragment2")
+                        .addToBackStack(Fragment1.class.getSimpleName())
+                        .commit();
             }
         });
         return view;
+    }
+
+    public interface DataCallBack{
+        void dataCallBack(String s);
     }
 
 

@@ -14,6 +14,8 @@ import com.wdz.module_basis.R2;
 import com.wdz.module_basis.media.voice.utils.ToneManager;
 
 
+import java.io.File;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -47,16 +49,23 @@ public class VoiceActivity extends PermissionActivity {
             isRecording = !isRecording;
             if (isRecording){
                 //开始录制音频
-//                btnVoice.setText("stop");
+                btnVoice.setText("stop");
 //                aa.startRecord();
+
+
 //                visualizer.setEnabled(true);
+
                 toneManager.startRecord();
             }
             else{
                 //停止录制音频
-//                btnVoice.setText("start");
+                btnVoice.setText("start");
 //                aa.stopRecord();
+
+
 //                visualizer.setEnabled(false);
+
+
                 toneManager.stopRecord();
             }
 
@@ -109,7 +118,7 @@ public class VoiceActivity extends PermissionActivity {
 //        },Visualizer.getMaxCaptureRate()/2,true,true);
 
 
-        //aa = new RecordManager(new File("/sdcard/Wdz/aa"));
+//        aa = new RecordManager(new File("/sdcard/Wdz/aa"));
     }
 
     @Override

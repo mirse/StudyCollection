@@ -47,7 +47,7 @@ public class RecordManager {
             mMediaRecorder = new MediaRecorder();
         try {
             /* ②setAudioSource/setVedioSource */
-            mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);// 设置麦克风
+            mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);// 设置麦克风
             /*
              * ②设置输出文件的格式：THREE_GPP/MPEG-4/RAW_AMR/Default THREE_GPP(3gp格式
              * ，H263视频/ARM音频编码)、MPEG-4、RAW_AMR(只支持音频且音频编码要求为AMR_NB)
@@ -123,12 +123,16 @@ public class RecordManager {
             Log.i(TAG, "updateMicStatus: mMediaRecorder.getMaxAmplitude():"+mMediaRecorder.getMaxAmplitude());
             // int vuSize = 10 * mMediaRecorder.getMaxAmplitude() / 32768;
             int ratio = mMediaRecorder.getMaxAmplitude() / BASE;
+            Log.i(TAG, "ratio: "+ratio);
             //以1为基数 dB范围0~90.3dB
             //以600为基数 范围 0~34.6dB
             int db = 0;// 分贝
-            if (ratio > 1)
+            if (ratio > 1){
                 db = (int) (20 * Math.log10(ratio));
-            System.out.println("分贝值："+db+"     "+Math.log10(ratio));
+                Log.i(TAG, "分贝值: "+db+"     "+Math.log10(ratio));
+            }
+
+
             mHandler.postDelayed(mUpdateMicStatusTimer, SPACE);
         }
 

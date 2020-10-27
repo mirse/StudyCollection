@@ -3,6 +3,7 @@ package com.wdz.module_basis.basis;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.wdz.module_basis.R;
 
 
 public class Fragment2 extends Fragment {
+    private final String TAG = this.getClass().getSimpleName();
     public static String PARAM = "param_key";
     private String mParam;
     private Activity mActivity;
@@ -31,18 +33,23 @@ public class Fragment2 extends Fragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.i(TAG, "onCreate: ");
+    }
+
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mActivity = (Activity) context;
         mParam = getArguments().getString(PARAM);
-        String key = getArguments().getString("word");
-        Toast.makeText(mActivity,"fragment向fragment传值:"+key,Toast.LENGTH_SHORT).show();
+        Log.i(TAG, "onAttach: ");
     }
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Log.i(TAG, "onCreateView: ");
         View view = inflater.inflate(R.layout.fragment_2, container, false);
         TextView textView = view.findViewById(R.id.textView6);
         textView.setText(mParam);
@@ -52,12 +59,9 @@ public class Fragment2 extends Fragment {
             @Override
             public void onClick(View v) {
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.container,Fragment3.getInstance("f3"),"f3")
-                        .addToBackStack(Fragment3.class.getSimpleName())
+                        .replace(R.id.container,Fragment3.getInstance("Fragment3"),"Fragment3")
+                        .addToBackStack(Fragment2.class.getSimpleName())
                         .commit();
-
-                Fragment1 rightFragment = (Fragment1) getFragmentManager().findFragmentByTag("f1");
-                rightFragment.setText("123456");
             }
         });
 

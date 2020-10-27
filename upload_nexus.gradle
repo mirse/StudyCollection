@@ -1,0 +1,52 @@
+
+apply plugin: 'maven'
+afterEvaluate { project ->
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                repository(url: rootProject.ext.RELEASE_REPOSITORY_URL) {
+                    authentication(userName: rootProject.ext.NEXUS_USERNAME, password: rootProject.ext.NEXUS_PASSWORD)
+                }
+                pom.project {
+                    groupId PROJ_GROUPID
+                    artifactId PROJ_ARTIFACTID
+                    version PROJ_VERSION_NAME
+                    packaging 'aar'
+                }
+            }
+        }
+    }
+
+}
+
+/*
+ *  一、发布库项目
+ *  1、在module的build.gradle中配置需要上传的aar信息
+ *      ext {
+ *           PROJ_GROUPID = 'com.wdz.test' //组别，类似包名，保证唯一性
+ *          PROJ_ARTIFACTID = 'test' //这是项目名字
+ *          PROJ_VERSION_NAME = "1.0.1"//版本号
+ *          }
+ *  2、引用project根目录下的upload_nexus.gradle文件
+ *  apply from: rootProject.getRootDir().getAbsolutePath()+"/upload_nexus.gradle"
+ *
+ *  3、编译完成后，点击uploadArchives完成上传
+ *
+ * 二、使用库项目
+ *  1、根目录build.gradle中配置maven仓库
+ *      allprojects {
+ *          repositories {
+ *          google()
+ *          jcenter()
+ *          maven{ url 'http://192.168.100.64:8085/repository/maven-releases/'}
+ *          }
+ *      }
+ *  2、具体项目中配置对应的依赖库项目
+ *      dependencies {
+ *          //...
+ *          //配置依赖库项目
+ *          compile 'com.wdz.test:test:1.0.0'
+ *      }
+ *
+ *
+ */

@@ -73,7 +73,7 @@ public class ToneManager {
                 AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT));
         if (audioRecord.getState() == AudioRecord.STATE_INITIALIZED) {
             sampleRate = 44100;
-            sampleCount = 1024;
+            sampleCount = 1024;//2的10次方
         }
         audioRecord.startRecording();
        new Thread(new Runnable() {
