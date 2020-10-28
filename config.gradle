@@ -96,6 +96,7 @@ ext{
             refreshlayoutkernel:             "com.scwang.smart:refresh-layout-kernel:${versions["refreshlayoutkernelVersion"]}", //核心必须依赖
             refreshHeaderClassics:           "com.scwang.smart:refresh-header-classics:${versions["refreshHeaderClassicsVersion"]}",//经典刷新头
 
-
+            zxing_android_core:              'com.google.zxing:android-core:3.3.0',
+            zxing_core:                      'com.google.zxing:core:3.3.3'
     ]
 }

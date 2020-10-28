@@ -58,6 +58,7 @@ public interface ARouterConstant {
     String ACTIVITY_ROOM = "/module_communication/RoomTestActivity";
     String ACTIVITY_PARACELABLE = "/module_communication/ParcelableDemoActivity";
 
+    String ACTIVITY_ZXING = "/module_communication/ZxingDemoActivity";
 
     //architecture
     String FRAGMENT_ARCHITECTURE = "/module_architecture/ArchitectureFragment";
@@ -65,6 +66,7 @@ public interface ARouterConstant {
     String ACTIVITY_NEW_WORD = "/module_architecture/NewWordActivity";
     String ACTIVITY_VIEW_MODEL = "/module_architecture/ViewModelActivity";
     String ACTIVITY_BUILDER_DEMO = "/module_architecture/BuilderDemoActivity";
+    String ACTIVITY_PROTOTYPE_DEMO = "/module_architecture/ProtoTypeActivity";
 
     //basis
     String FRAGMENT_BASIS = "/module_basis/BasisFragment";

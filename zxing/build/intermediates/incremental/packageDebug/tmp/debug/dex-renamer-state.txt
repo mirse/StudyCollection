@@ -1,0 +1,4 @@
+#Wed Oct 28 13:23:33 CST 2020
+base.0=D\:\\Android Files\\StudyCollection\\zxing\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out
+path.0=classes.dex
+renamed.0=classes.dex
