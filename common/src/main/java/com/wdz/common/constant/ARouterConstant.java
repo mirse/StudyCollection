@@ -76,6 +76,7 @@ public interface ARouterConstant {
     String ACTIVITY_SERVICE = "/module_basis/ServiceDemoActivity";
 
     String ACTIVITY_NOTIFY = "/module_basis/NotifyActivity";
+    String ACTIVITY_CAMERA_DEMO = "/module_basis/CameraDemoActivity";
     String ACTIVITY_CAMERAX = "/module_basis/CameraXActivity";
     String ACTIVITY_VOICE = "/module_basis/VoiceActivity";
 

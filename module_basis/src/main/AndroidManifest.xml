@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wdz.module_basis">
-
+    <uses-feature android:name="android.hardware.camera.any" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <application
         android:allowBackup="true"
         android:supportsRtl="true">
-        <activity android:name=".widget.imageview.ImageViewActivity"></activity>
+        <activity android:name=".media.camera.camerax.CameraXActivity"/>
+        <activity android:name=".widget.imageview.ImageViewActivity" />
         <activity android:name=".others.popwindow.PopupWindowActivity" />
         <activity android:name=".others.dialog.DialogFragmentActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".basis.FragmentActivity" />
         <activity android:name=".basis.viewpager.VpAndFragActivity" />
         <activity android:name=".media.NotifyActivity" />
-        <activity android:name=".media.camera.CameraXActivity" />
+        <activity android:name=".media.camera.CameraDemoActivity" />
         <activity android:name=".widget.edittext.EditTextDemoActivity" />
         <activity android:name=".widget.recyclerview.RecyclerViewActivity" />
         <activity android:name=".widget.recyclerview.updownrecyclerview.UpDownRecyclerViewActivity" />
@@ -22,7 +24,7 @@
         <activity android:name=".others.floating.FloatingViewActivity" />
         <activity android:name=".widget.textinput.TextInputActivity" />
         <activity android:name=".basis.service.ServiceDemoActivity" />
-        <activity android:name=".media.voice.VoiceActivity"/>
+        <activity android:name=".media.voice.VoiceActivity" />
 
         <service
             android:name=".basis.service.MyIntentService"

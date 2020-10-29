@@ -18,8 +18,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-@Route(path = ARouterConstant.ACTIVITY_CAMERAX)
-public class CameraXActivity extends PermissionActivity implements View.OnTouchListener {
+@Route(path = ARouterConstant.ACTIVITY_CAMERA_DEMO)
+public class CameraDemoActivity extends PermissionActivity implements View.OnTouchListener {
 
     @BindView(R2.id.surfaceView)
     SurfaceView surfaceView;
@@ -31,7 +31,7 @@ public class CameraXActivity extends PermissionActivity implements View.OnTouchL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_camera_x);
+        setContentView(R.layout.activity_camera_demo);
         ButterKnife.bind(this);
         initMorePermission(new String[]{Manifest.permission.CAMERA});
 //相机预览控件接收Touch事件
