@@ -65,6 +65,7 @@ public interface ARouterConstant {
 
     String ACTIVITY_NEW_WORD = "/module_architecture/NewWordActivity";
     String ACTIVITY_VIEW_MODEL = "/module_architecture/ViewModelActivity";
+    String ACTIVITY_DAGGER = "/module_architecture/DaggerActivity";
     String ACTIVITY_BUILDER_DEMO = "/module_architecture/BuilderDemoActivity";
     String ACTIVITY_PROTOTYPE_DEMO = "/module_architecture/ProtoTypeActivity";
 

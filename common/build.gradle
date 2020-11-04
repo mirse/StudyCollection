@@ -47,4 +47,6 @@ dependencies {
     //alibaba arouter
     api rootProject.ext.dependencies.arouter
     annotationProcessor rootProject.ext.dependencies.arouter_compiler
+
+
 }

@@ -97,6 +97,14 @@ ext{
             refreshHeaderClassics:           "com.scwang.smart:refresh-header-classics:${versions["refreshHeaderClassicsVersion"]}",//经典刷新头
 
             zxing_android_core:              'com.google.zxing:android-core:3.3.0',
-            zxing_core:                      'com.google.zxing:core:3.3.3'
+            zxing_core:                      'com.google.zxing:core:3.3.3',
+
+            //dagger
+            dagger:                          'com.google.dagger:dagger:2.11',
+            dagger_compiler:                 'com.google.dagger:dagger-compiler:2.11',
+            dagger_android:                  'com.google.dagger:dagger-android:2.11',
+            dagger_android_support:          'com.google.dagger:dagger-android-support:2.11',
+            dagger_android_processor:        'com.google.dagger:dagger-android-processor:2.11'
+
     ]
 }

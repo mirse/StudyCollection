@@ -118,4 +118,11 @@ dependencies {
     }
     implementation project(path: ':common')
 
+
+    annotationProcessor  rootProject.ext.dependencies.dagger_compiler
+    annotationProcessor  rootProject.ext.dependencies.dagger_android_processor
+    implementation rootProject.ext.dependencies.dagger
+    implementation rootProject.ext.dependencies.dagger_android
+    implementation rootProject.ext.dependencies.dagger_android_support
+
 }

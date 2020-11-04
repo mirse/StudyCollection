@@ -1,6 +1,7 @@
 package com.wdz.module_communication.main.datasave.room;
 
 import android.Manifest;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -68,6 +69,7 @@ public class RoomTestActivity extends PermissionActivity {
     TextView mTvClothesStatus;
     private Person person;
     private Market market;
+    public Context context = RoomTestActivity.this;
 
 
     @Override
@@ -87,7 +89,7 @@ public class RoomTestActivity extends PermissionActivity {
     }
 
     private void refreshUI() {
-        DBInstance.getInstance().personDao().findAllPerson().observe(this, new Observer<List<?>>() {
+        DBInstance.getInstance(this).personDao().findAllPerson().observe(this, new Observer<List<?>>() {
             @Override
             public void onChanged(List<?> people) {
                 if (people instanceof Person){
@@ -101,21 +103,21 @@ public class RoomTestActivity extends PermissionActivity {
         });
 
 
-        DBInstance.getInstance().marketDao().findAllMarket().observe(this, new Observer<List<Market>>() {
+        DBInstance.getInstance(this).marketDao().findAllMarket().observe(this, new Observer<List<Market>>() {
             @Override
             public void onChanged(List<Market> markets) {
                 mTvMarketStatus.setText(markets.toString());
             }
         });
 
-        DBInstance.getInstance().vendorDao().findAllVendor().observe(this, new Observer<List<Vendor>>() {
+        DBInstance.getInstance(this).vendorDao().findAllVendor().observe(this, new Observer<List<Vendor>>() {
             @Override
             public void onChanged(List<Vendor> people) {
                 mTvVendorStatus.setText(people.toString());
             }
         });
 
-        DBInstance.getInstance().clothesDao().findAllClothes().observe(this, new Observer<List<Clothes>>() {
+        DBInstance.getInstance(this).clothesDao().findAllClothes().observe(this, new Observer<List<Clothes>>() {
             @Override
             public void onChanged(List<Clothes> people) {
                 mTvClothesStatus.setText(people.toString());
@@ -158,7 +160,7 @@ public class RoomTestActivity extends PermissionActivity {
 
 
 
-    private static class getPersonInfoTask extends AsyncTask<Person, String, List<PersonInfo>> {
+    private class getPersonInfoTask extends AsyncTask<Person, String, List<PersonInfo>> {
 
 
         getPersonInfoTask() {
@@ -166,7 +168,7 @@ public class RoomTestActivity extends PermissionActivity {
 
         @Override
         protected List<PersonInfo> doInBackground(Person... person) {
-            List<PersonInfo> personInfos = DBInstance.getInstance().personDao().loadAllInfoById(1);
+            List<PersonInfo> personInfos = DBInstance.getInstance(context).personDao().loadAllInfoById(1);
 
             return personInfos;
         }
@@ -186,7 +188,7 @@ public class RoomTestActivity extends PermissionActivity {
 
 
 
-    private static class insertPersonAsyncTask extends AsyncTask<Person, Void, String> {
+    private class insertPersonAsyncTask extends AsyncTask<Person, Void, String> {
         insertPersonAsyncTask (){
 
         }
@@ -196,7 +198,7 @@ public class RoomTestActivity extends PermissionActivity {
         Log.i(TAG,person[0].toString());
         person[0].address = new MyAddress("厦门","海沧");
         person[0].money = 100;
-        DBInstance.getInstance().personDao().insertPerson(person[0],new Clothes("红衣服",1,1));
+        DBInstance.getInstance(context).personDao().insertPerson(person[0],new Clothes("红衣服",1,1));
         return "insert success";
     }
 
@@ -212,7 +214,7 @@ public class RoomTestActivity extends PermissionActivity {
 
         @Override
         protected String doInBackground(Person... people) {
-            DBInstance.getInstance().personDao().deletePerson(person,market);
+            DBInstance.getInstance(context).personDao().deletePerson(person,market);
             return "success";
         }
         //doInBackground 执行完成后
@@ -223,7 +225,7 @@ public class RoomTestActivity extends PermissionActivity {
         }
     }
 
-    private static class insertMarketAsyncTask extends AsyncTask<Market, Void, String> {
+    private class insertMarketAsyncTask extends AsyncTask<Market, Void, String> {
 
         public insertMarketAsyncTask() {
 
@@ -231,7 +233,7 @@ public class RoomTestActivity extends PermissionActivity {
 
         @Override
         protected String doInBackground(Market... markets) {
-            DBInstance.getInstance().marketDao().insertMarket(markets[0]);
+            DBInstance.getInstance(context).marketDao().insertMarket(markets[0]);
             return "insert success";
         }
 
@@ -243,7 +245,7 @@ public class RoomTestActivity extends PermissionActivity {
         }
     }
 
-    private static class insertVendorAsyncTask extends AsyncTask<Vendor, Void, String> {
+    private class insertVendorAsyncTask extends AsyncTask<Vendor, Void, String> {
 
         public insertVendorAsyncTask() {
 
@@ -251,7 +253,7 @@ public class RoomTestActivity extends PermissionActivity {
 
         @Override
         protected String doInBackground(Vendor... vendors) {
-            DBInstance.getInstance().vendorDao().insertVendor(vendors[0]);
+            DBInstance.getInstance(context).vendorDao().insertVendor(vendors[0]);
             return "insert success";
         }
 
@@ -263,7 +265,7 @@ public class RoomTestActivity extends PermissionActivity {
         }
     }
 
-    private static class insertClothesAsyncTask extends AsyncTask<Clothes, Void, String> {
+    private class insertClothesAsyncTask extends AsyncTask<Clothes, Void, String> {
 
 
 
@@ -273,7 +275,7 @@ public class RoomTestActivity extends PermissionActivity {
 
         @Override
         protected String doInBackground(Clothes... clothes) {
-            DBInstance.getInstance().clothesDao().insertClothes(clothes[0]);
+            DBInstance.getInstance(context).clothesDao().insertClothes(clothes[0]);
             return "insert success";
         }
 
