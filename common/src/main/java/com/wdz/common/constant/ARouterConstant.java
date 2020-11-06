@@ -13,6 +13,8 @@ public interface ARouterConstant {
     String ACTIVITY_PAGE = "/module_customview/PageActivity";
     String ACTIVITY_TAB_VIEW = "/module_customview/TabViewActivity";
 
+    String ACTIVITY_COLUMNAR = "/module_customview/ColumnarActivity";
+
     String ACTIVITY_DRAWABLE_WRAP = "/module_customview/DrawableWrapperActivity";
     String ACTIVITY_DRAWABLE_ICON = "/module_customview/DrawableIconActivity";
 

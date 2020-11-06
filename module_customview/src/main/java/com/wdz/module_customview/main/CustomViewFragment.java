@@ -48,6 +48,7 @@ public class CustomViewFragment extends BaseFragment {
         mainBeanList.clear();
         String[][] array={
                 {"自定义控件","rgbRing圆","hsv圆","Scroller","翻页效果","折线图","圆image"},
+                {"自定义控件","圆柱","","","","",""},
                 {"组合控件","Group实现","右上角标","指示器","TabView","viewpage循环",""},
                 {"View基础","SurfaceView","LayoutInflater","事件分发","","",""},
                 {"选择/索引","列表索引","选择器","","","",""},
@@ -89,6 +90,21 @@ public class CustomViewFragment extends BaseFragment {
                         }
                         break;
                     case 1:
+                        if (view.getId() == R.id.button) {
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_COLUMNAR).navigation();
+                        } else if (view.getId() == R.id.button2) {
+
+                        } else if (view.getId() == R.id.button3) {
+
+                        } else if (view.getId() == R.id.button4) {
+
+                        } else if (view.getId() == R.id.button5) {
+
+                        } else if (view.getId() == R.id.button6) {
+
+                        }
+                        break;
+                    case 2:
                         int viewId = view.getId();
                         if (viewId == R.id.button) {
                             ARouter.getInstance().build(ARouterConstant.ACTIVITY_DRAWABLE_WRAP).navigation();
@@ -104,7 +120,7 @@ public class CustomViewFragment extends BaseFragment {
 
                         }
                         break;
-                    case 2:
+                    case 3:
                         if (view.getId() == R.id.button) {
                             ARouter.getInstance().build(ARouterConstant.ACTIVITY_SURFACE_VIEW).navigation();
                         } else if (view.getId() == R.id.button2) {
@@ -121,7 +137,7 @@ public class CustomViewFragment extends BaseFragment {
                         }
                         break;
 
-                    case 3:
+                    case 4:
                         int i = view.getId();
                         if (i == R.id.button) {
                             ARouter.getInstance().build(ARouterConstant.ACTIVITY_LETTER_INDEX).navigation();
@@ -138,7 +154,7 @@ public class CustomViewFragment extends BaseFragment {
 
                         }
                         break;
-                    case 4:
+                    case 5:
                         if (view.getId() == R.id.button) {
                             ARouter.getInstance().build(ARouterConstant.ACTIVITY_ANIM_DEMO).navigation();
                             Log.i(TAG,"position:"+position);
@@ -155,7 +171,7 @@ public class CustomViewFragment extends BaseFragment {
                         }
                         break;
 
-                    case 5:
+                    case 6:
                         if (view.getId() == R.id.button) {
                             ARouter.getInstance().build(ARouterConstant.ACTIVITY_DRAWERLAYOUT).navigation();
                             Log.i(TAG,"position:"+position);

@@ -126,4 +126,18 @@
 
     </declare-styleable>
 
+    <declare-styleable name="ColumnarView">
+        <attr name="radius" format="dimension"/>
+        <attr name="gradientColorStart" format="color"/>
+        <attr name="gradientColorCenter" format="color"/>
+        <attr name="gradientColorEnd" format="color"/>
+
+    </declare-styleable>
+
+    <declare-styleable name="ColorCircleView">
+        <attr name="innerRadius" format="dimension"/>
+        <attr name="colorViewSrc" format="reference|color"/>
+    </declare-styleable>
+
+
 </resources>
