@@ -131,12 +131,15 @@
         <attr name="gradientColorStart" format="color"/>
         <attr name="gradientColorCenter" format="color"/>
         <attr name="gradientColorEnd" format="color"/>
+        <attr name="viewHeight" format="dimension"/>
+        <attr name="viewWidth" format="dimension"/>
 
     </declare-styleable>
 
     <declare-styleable name="ColorCircleView">
-        <attr name="innerRadius" format="dimension"/>
         <attr name="colorViewSrc" format="reference|color"/>
+        <attr name="frameWidth"/>
+        <attr name="frameColor"/>
     </declare-styleable>
 
 
