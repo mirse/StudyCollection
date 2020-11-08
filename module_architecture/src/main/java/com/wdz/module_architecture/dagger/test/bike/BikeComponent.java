@@ -1,8 +1,7 @@
 package com.wdz.module_architecture.dagger.test.bike;
 
 import com.wdz.module_architecture.dagger.DaggerDemoActivity;
-import com.wdz.module_architecture.dagger.test.car.CarComponent;
-import com.wdz.module_architecture.dagger.test.car.CarModule;
+
 import com.wdz.module_architecture.dagger.test.qualifier.BikeScope;
 
 import javax.inject.Scope;

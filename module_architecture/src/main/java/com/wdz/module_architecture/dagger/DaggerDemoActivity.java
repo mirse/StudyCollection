@@ -37,9 +37,12 @@ public class DaggerDemoActivity extends AppCompatActivity {
 
 //    @Inject
 //    Bike bike;
+    @Inject
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dagger);
 
@@ -51,7 +54,7 @@ public class DaggerDemoActivity extends AppCompatActivity {
 //        carComponent.buildBikeComponent().builder().inject(this);
 //
 //
-//        Log.i(TAG, "onCreate: "+bike.hashCode());
+        Log.i(TAG, "onCreate: "+user);
 //        Toast.makeText(this,bike.toString(),Toast.LENGTH_SHORT).show();
 
     }
