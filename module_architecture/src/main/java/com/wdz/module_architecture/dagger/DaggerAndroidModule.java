@@ -18,9 +18,4 @@ public abstract class DaggerAndroidModule {
     @ActivityKey(DaggerDemoActivity.class)
     abstract AndroidInjector.Factory<? extends Activity> bindDaggerAndroidActivityInjectorFactory(DaggerDemoSubComponent.Builder builder);
 
-    @Provides
-    @Singleton
-    static User provideStudent() {
-        return new User();
-    }
 }

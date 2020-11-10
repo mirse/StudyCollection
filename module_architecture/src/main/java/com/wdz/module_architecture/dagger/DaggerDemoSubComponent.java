@@ -4,7 +4,7 @@ import dagger.Subcomponent;
 import dagger.android.AndroidInjectionModule;
 import dagger.android.AndroidInjector;
 
-@Subcomponent(modules = AndroidInjectionModule.class)
+@Subcomponent(modules = UserModule.class)
 public interface DaggerDemoSubComponent extends AndroidInjector<DaggerDemoActivity> {
 
     @Subcomponent.Builder
