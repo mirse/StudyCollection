@@ -15,7 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 @Route(path = ARouterConstant.ACTIVITY_ROUND_IMAGE)
-public class RoundImageViewActivity extends BaseActivity {
+public class RoundImageViewActivity extends AppCompatActivity {
 
 
     @Override

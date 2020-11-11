@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SeekBar;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.wdz.common.base.BaseActivity;
 import com.wdz.common.constant.ARouterConstant;
@@ -20,7 +22,7 @@ import com.wdz.module_customview.viewbase.event.view.SquareImageView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 @Route(path = ARouterConstant.ACTIVITY_LAYOUT_EVENT)
-public class EventActivity extends BaseActivity {
+public class EventActivity extends AppCompatActivity {
     private static final String TAG = "MyButton";
 //    @BindView(R2.id.btn)
 //    MyButton btn;

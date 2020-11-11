@@ -1,14 +1,19 @@
 package com.wdz.module_architecture.dagger;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.wdz.common.constant.ARouterConstant;
 import com.wdz.module_architecture.R;
+import com.wdz.module_architecture.R2;
+import com.wdz.module_architecture.dagger.fragment.MyFragment;
 import com.wdz.module_architecture.dagger.test.bike.Bike;
 
 
@@ -17,8 +22,12 @@ import com.wdz.module_architecture.dagger.test.bike.Bike;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.support.HasSupportFragmentInjector;
 
 /*
 * inject 注入
@@ -28,34 +37,40 @@ import dagger.android.AndroidInjector;
 */
 
 @Route(path = ARouterConstant.ACTIVITY_DAGGER)
-public class DaggerDemoActivity extends AppCompatActivity {
+public class DaggerDemoActivity extends AppCompatActivity implements HasSupportFragmentInjector {
     private final String TAG = this.getClass().getSimpleName();
+    @BindView(R2.id.cl_root)
+    ConstraintLayout clRoot;
 
-//    @Inject
-//    @ProvideCarName(name = "222")
-//    Car car;
+    @Inject
+    DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
 
-//    @Inject
-//    Bike bike;
     @Inject
     User user;
+    @Inject
+    TextView tv;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dagger);
+        ButterKnife.bind(this);
 
-//        CarComponent carComponent = DaggerCarComponent.create();
-//        DaggerBikeComponent.builder().carComponent(carComponent).build().inject(this);
-
-//
-//        CarComponent carComponent = DaggerCarComponent.create();
-//        carComponent.buildBikeComponent().builder().inject(this);
-//
-//
         Log.i(TAG, "onCreate: "+user);
-//        Toast.makeText(this,bike.toString(),Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this,user.toString(),Toast.LENGTH_SHORT).show();
+//        tv.setText(user.toString());
+//
+//        clRoot.addView(tv);
 
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.cl_root, MyFragment.getInstance(""),"f1")
+                .commit();
+    }
+
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return fragmentDispatchingAndroidInjector;
     }
 }
