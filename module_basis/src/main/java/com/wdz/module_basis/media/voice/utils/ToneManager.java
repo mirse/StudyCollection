@@ -87,14 +87,14 @@ public class ToneManager {
                         double currentFrequency = fft.getFrequency(bufferRead, sampleRate, sampleCount);
                         double currentVolume = VoiceUtil.getVolume(bufferRead, length);
                         Log.i(TAG, "run: currentFrequency:"+currentFrequency+" currentVolume:"+currentVolume);
-                        if (onVoiceChangeListener != null) {
-                            onVoiceChangeListener.onVoiceChange(currentFrequency);
-                            try {
-                                Thread.sleep(200);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
+//                        if (onVoiceChangeListener != null) {
+//                            onVoiceChangeListener.onVoiceChange(currentFrequency);
+//                            try {
+//                                Thread.sleep(200);
+//                            } catch (InterruptedException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
                     }
                 }
             }

@@ -21,6 +21,7 @@ public class VoiceUtil {
         }
 
         double mean = volume / (float) lenght;
-        return mean;//10 * Math.log10(mean);
+        return 10 * Math.log10(mean);//10 * Math.log10(mean);
+
     }
 }
