@@ -14,5 +14,24 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.07999998" />
+
+    <com.wdz.module_basis.media.voice.view.VisualizerView
+        android:id="@+id/visualizerView"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@drawable/background_color"
+        android:visibility="visible"
+        app:baseHeight="0dp"
+        app:firstPartColor="#8CBA8F"
+        app:fourthPartColor="#939AC6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:lineIsSingleColor="false"
+        app:lineWidth="5dp"
+        app:secondPartColor="#64977F"
+        app:spaceWidth="2dp"
+        app:thirdPartColor="#8AB9AE" />
 </androidx.constraintlayout.widget.ConstraintLayout>

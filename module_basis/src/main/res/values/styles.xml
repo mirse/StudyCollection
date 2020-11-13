@@ -23,4 +23,18 @@
         <item name="android:windowExitAnimation">@anim/popup_gone</item>
     </style>
 
+    <declare-styleable name="VisualizerView">
+        <attr name="spaceNum" format="integer"/>
+        <attr name="spaceWidth" format="reference|dimension"/>
+        <attr name="lineColor" format="reference|color"/>
+        <attr name="lineWidth" format="reference|dimension"/>
+        <attr name="baseHeight" format="reference|dimension"/>
+        <attr name="lineIsSingleColor" format="boolean"/>
+        <attr name="firstPartColor" format="reference|color"/>
+        <attr name="secondPartColor" format="reference|color"/>
+        <attr name="thirdPartColor" format="reference|color"/>
+        <attr name="fourthPartColor" format="reference|color"/>
+    </declare-styleable>
+
+
 </resources>

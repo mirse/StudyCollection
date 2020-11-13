@@ -83,18 +83,19 @@ public class ToneManager {
                     byte[] bufferRead = new byte[sampleCount];
                     int length;
                     while ((length = audioRecord.read(bufferRead, 0, sampleCount)) > 0) {
-                        Log.i(TAG, "bufferRead:"+Arrays.toString(bufferRead));
-                        double currentFrequency = fft.getFrequency(bufferRead, sampleRate, sampleCount);
+                        //Log.i(TAG, "bufferRead:"+Arrays.toString(bufferRead));
+                        double[] currentFrequency = fft.getFrequencyByte(bufferRead, sampleRate, sampleCount);
+                        double frequency = fft.getFrequency(bufferRead, sampleRate, sampleCount);
                         double currentVolume = VoiceUtil.getVolume(bufferRead, length);
-                        Log.i(TAG, "run: currentFrequency:"+currentFrequency+" currentVolume:"+currentVolume);
-//                        if (onVoiceChangeListener != null) {
-//                            onVoiceChangeListener.onVoiceChange(currentFrequency);
-//                            try {
-//                                Thread.sleep(200);
-//                            } catch (InterruptedException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
+                        Log.i(TAG, "run: currentFrequency:"+frequency+" currentVolume:"+currentVolume);
+                        if (onVoiceChangeListener != null) {
+                            onVoiceChangeListener.onVoiceChange(currentFrequency);
+                            try {
+                                Thread.sleep(100);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
                     }
                 }
             }
@@ -109,7 +110,7 @@ public class ToneManager {
 
 
     public interface OnVoiceChangeListener {
-        void onVoiceChange(double tone);
+        void onVoiceChange(double[] tone);
     }
 
     public void setOnVoiceChangeListener(OnVoiceChangeListener onVoiceChangeListener) {
