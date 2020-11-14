@@ -21,7 +21,7 @@ import com.wdz.module_customview.R;
 import com.wdz.module_customview.myview.colorpick.ColorPickerHSV;
 
 public class ColumnarView extends View {
-
+    private final String TAG = this.getClass().getSimpleName();
     private int radius;
     private Paint framePaint;
     private Paint circlePaint;
@@ -91,7 +91,7 @@ public class ColumnarView extends View {
      * @param percent 0~100
      */
     public void setPercent(int percent){
-
+        Log.i(TAG, "setPercent: getWidth:"+getMeasuredWidth()+" getHeight:"+getMeasuredHeight());
         this.centerY = (float) ((((percent-1)/0.99)/100)*(viewHeight-2*circleRadius-dp2px(getContext(),2)));
         if (centerY>viewHeight-circleRadius-dp2px(getContext(), 1)){
             this.centerY = viewHeight-circleRadius-dp2px(getContext(), 1);
@@ -108,6 +108,7 @@ public class ColumnarView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        Log.i(TAG, "onDraw: getWidth:"+getWidth()+" getHeight:"+getHeight());
         float width = viewWidth;
         float height = viewHeight-circleRadius;
 
@@ -184,6 +185,7 @@ public class ColumnarView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec,heightMeasureSpec);
+        Log.i(TAG, "onMeasure: ");
 
     }
 

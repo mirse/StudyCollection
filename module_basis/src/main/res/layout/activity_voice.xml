@@ -24,14 +24,9 @@
         android:background="@drawable/background_color"
         android:visibility="visible"
         app:baseHeight="0dp"
-        app:firstPartColor="#8CBA8F"
-        app:fourthPartColor="#939AC6"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:lineIsSingleColor="false"
         app:lineWidth="5dp"
-        app:secondPartColor="#64977F"
-        app:spaceWidth="2dp"
-        app:thirdPartColor="#8AB9AE" />
+ />
 </androidx.constraintlayout.widget.ConstraintLayout>

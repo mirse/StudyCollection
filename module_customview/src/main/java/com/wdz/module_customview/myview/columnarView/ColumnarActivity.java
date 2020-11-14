@@ -2,6 +2,7 @@ package com.wdz.module_customview.myview.columnarView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.SeekBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,6 +21,8 @@ public class ColumnarActivity extends AppCompatActivity {
     ColumnarView columnarView;
     @BindView(R2.id.colorCircleView)
     ColorCircleView colorCircleView;
+    @BindView(R2.id.seekBar)
+    SeekBar seekBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,7 @@ public class ColumnarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_columnar);
         ButterKnife.bind(this);
 
+        Log.i("ColumnarView", "onCreate: ");
 
         columnarView.setOnMoveListener(new ColumnarView.onMoveListener() {
             @Override
@@ -40,5 +44,7 @@ public class ColumnarActivity extends AppCompatActivity {
             }
         });
         columnarView.setPercent(50);
+        seekBar.setProgress(100);
     }
+
 }
