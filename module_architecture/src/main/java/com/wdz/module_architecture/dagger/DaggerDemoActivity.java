@@ -14,7 +14,7 @@ import com.wdz.common.constant.ARouterConstant;
 import com.wdz.module_architecture.R;
 import com.wdz.module_architecture.R2;
 import com.wdz.module_architecture.dagger.fragment.MyFragment;
-import com.wdz.module_architecture.dagger.test.bike.Bike;
+
 
 
 
@@ -24,10 +24,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import dagger.android.AndroidInjection;
-import dagger.android.AndroidInjector;
-import dagger.android.DispatchingAndroidInjector;
-import dagger.android.support.HasSupportFragmentInjector;
+
 
 /*
 * inject 注入
@@ -37,13 +34,11 @@ import dagger.android.support.HasSupportFragmentInjector;
 */
 
 @Route(path = ARouterConstant.ACTIVITY_DAGGER)
-public class DaggerDemoActivity extends AppCompatActivity implements HasSupportFragmentInjector {
+public class DaggerDemoActivity extends AppCompatActivity {
     private final String TAG = this.getClass().getSimpleName();
     @BindView(R2.id.cl_root)
     ConstraintLayout clRoot;
 
-    @Inject
-    DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
 
     @Inject
     User user;
@@ -53,7 +48,7 @@ public class DaggerDemoActivity extends AppCompatActivity implements HasSupportF
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dagger);
         ButterKnife.bind(this);
@@ -69,8 +64,5 @@ public class DaggerDemoActivity extends AppCompatActivity implements HasSupportF
                 .commit();
     }
 
-    @Override
-    public AndroidInjector<Fragment> supportFragmentInjector() {
-        return fragmentDispatchingAndroidInjector;
-    }
+
 }

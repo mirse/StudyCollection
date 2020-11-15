@@ -1,4 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wdz.common" >
+    <application
+        android:name="com.wdz.common.MyApplication"
+        >
 
+    </application>
 </manifest>

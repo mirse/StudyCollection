@@ -16,7 +16,7 @@ import com.wdz.module_architecture.dagger.User;
 
 import javax.inject.Inject;
 
-import dagger.android.support.AndroidSupportInjection;
+
 
 public class MyFragment extends Fragment {
     private static final String TAG = "MainFragment";
@@ -34,7 +34,7 @@ public class MyFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         Log.d(TAG, "context = " + context);
-        AndroidSupportInjection.inject(this);
+
         super.onAttach(context);
     }
 

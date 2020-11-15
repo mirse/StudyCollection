@@ -2,24 +2,13 @@ package com.wdz.module_customview.viewbase.event;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.SeekBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.wdz.common.base.BaseActivity;
 import com.wdz.common.constant.ARouterConstant;
 import com.wdz.module_customview.R;
-import com.wdz.module_customview.R2;
-import com.wdz.module_customview.viewbase.event.view.MyButton;
-import com.wdz.module_customview.viewbase.event.view.FlowLayout;
-import com.wdz.module_customview.viewbase.event.view.SquareImageView;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 @Route(path = ARouterConstant.ACTIVITY_LAYOUT_EVENT)
 public class EventActivity extends AppCompatActivity {
