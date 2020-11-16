@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,16 +14,19 @@ import androidx.fragment.app.Fragment;
 
 import com.wdz.module_architecture.R;
 import com.wdz.module_architecture.dagger.User;
+import com.wdz.module_architecture.dagger.contract.MyFragmentContract;
+import com.wdz.module_architecture.dagger.presenter.MyFragmentPresenter;
 
 import javax.inject.Inject;
 
+import dagger.android.support.DaggerFragment;
 
 
-public class MyFragment extends Fragment {
+public class MyFragment extends DaggerFragment implements MyFragmentContract.View {
     private static final String TAG = "MainFragment";
 
     @Inject
-    User mFragmentUser;
+    MyFragmentPresenter myFragmentPresenter;
 
 
     public static Fragment getInstance(String value){
@@ -34,7 +38,6 @@ public class MyFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         Log.d(TAG, "context = " + context);
-
         super.onAttach(context);
     }
 
@@ -47,6 +50,11 @@ public class MyFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        Log.d(TAG, "mFragmentUser = " + mFragmentUser);
+        myFragmentPresenter.loadUser();
+    }
+
+    @Override
+    public void loadUserSuccess() {
+        Toast.makeText(getActivity(),"loadUserSuccess",Toast.LENGTH_SHORT).show();
     }
 }

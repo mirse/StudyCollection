@@ -100,11 +100,11 @@ ext{
             zxing_core:                      'com.google.zxing:core:3.3.3',
 
             //dagger
-            dagger:                          'com.google.dagger:dagger:2.14.1',
-            dagger_compiler:                 'com.google.dagger:dagger-compiler:2.14.1',
-//            dagger_android:                  'com.google.dagger:dagger-android:2.16',
-//            dagger_android_support:          'com.google.dagger:dagger-android-support:2.16',
-//            dagger_android_processor:        'com.google.dagger:dagger-android-processor:2.16'
+            dagger:                          'com.google.dagger:dagger:2.21',
+            dagger_compiler:                 'com.google.dagger:dagger-compiler:2.21',
+            dagger_android:                  'com.google.dagger:dagger-android:2.21',
+            dagger_android_support:          'com.google.dagger:dagger-android-support:2.21',
+            dagger_android_processor:        'com.google.dagger:dagger-android-processor:2.21'
 
     ]
 }

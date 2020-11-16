@@ -1,27 +1,33 @@
-package com.wdz.common;
+package com.wdz.studycollection.main;
+
+import android.app.Activity;
 
 import androidx.multidex.BuildConfig;
 import androidx.multidex.MultiDex;
 import androidx.multidex.MultiDexApplication;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.wdz.common.di.component.AppComponent;
+import com.wdz.studycollection.main.di.component.DaggerAppComponent;
 
 
-import com.wdz.common.di.component.DaggerAppComponent;
-import com.wdz.common.di.module.AppModule;
+import javax.inject.Inject;
+
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasActivityInjector;
 
 
-public class MyApplication extends MultiDexApplication{
+public class MyApplication extends MultiDexApplication implements HasActivityInjector {
     public static MyApplication context;
-    private AppComponent appcomponent;
+
+    @Inject
+    public DispatchingAndroidInjector<Activity> activityDispatchingAndroidInjector;
 
     @Override
     public void onCreate() {
         super.onCreate();
         MultiDex.install(this);
         context = this;
-        appcomponent = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
+        DaggerAppComponent.builder().application(this).build().inject(this);
         if (BuildConfig.DEBUG) {
             // 打印日志
             ARouter.openDebug();
@@ -31,10 +37,6 @@ public class MyApplication extends MultiDexApplication{
         ARouter.init(this);
        
     }
-    public AppComponent getAppcomponent(){
-        return appcomponent;
-    }
-
 
     public static MyApplication getInstance(){
         if (context == null){
@@ -44,4 +46,8 @@ public class MyApplication extends MultiDexApplication{
     }
 
 
+    @Override
+    public DispatchingAndroidInjector<Activity> activityInjector() {
+        return activityDispatchingAndroidInjector;
+    }
 }

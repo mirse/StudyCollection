@@ -10,20 +10,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.wdz.common.base.BaseActivity;
 import com.wdz.common.constant.ARouterConstant;
 import com.wdz.module_architecture.R;
 import com.wdz.module_architecture.R2;
+import com.wdz.module_architecture.dagger.contract.DaggerDemoContract;
 import com.wdz.module_architecture.dagger.fragment.MyFragment;
-
-
-
-
+import com.wdz.module_architecture.dagger.presenter.DaggerDemoPresenter;
 
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.android.support.DaggerAppCompatActivity;
 
 
 /*
@@ -34,16 +34,14 @@ import butterknife.ButterKnife;
 */
 
 @Route(path = ARouterConstant.ACTIVITY_DAGGER)
-public class DaggerDemoActivity extends AppCompatActivity {
+public class DaggerDemoActivity extends DaggerAppCompatActivity implements DaggerDemoContract.View {
     private final String TAG = this.getClass().getSimpleName();
     @BindView(R2.id.cl_root)
     ConstraintLayout clRoot;
 
 
     @Inject
-    User user;
-    @Inject
-    TextView tv;
+    DaggerDemoPresenter daggerDemoPresenter;
 
 
     @Override
@@ -53,16 +51,19 @@ public class DaggerDemoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dagger);
         ButterKnife.bind(this);
 
-        Log.i(TAG, "onCreate: "+user);
-//        Toast.makeText(this,user.toString(),Toast.LENGTH_SHORT).show();
-//        tv.setText(user.toString());
-//
-//        clRoot.addView(tv);
+        Log.i(TAG, "onCreate: "+daggerDemoPresenter);
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.cl_root, MyFragment.getInstance(""),"f1")
                 .commit();
+
+        daggerDemoPresenter.loadData();
     }
 
 
+    @Override
+    public void loadSuccess(User user) {
+        Toast.makeText(this,"success"+user
+                ,Toast.LENGTH_SHORT).show();
+    }
 }
