@@ -3,7 +3,9 @@ package com.wdz.module_basis.widget.recyclerview.universal.base;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 多选类型adapter，不支持第二次新增数据
@@ -13,13 +15,11 @@ public abstract class MultiSelectTypeAdapter<T> extends BaseRecyclerViewAdapter{
     /**
      * 是否选中某项
      */
-    List<Boolean> mSelectList = new ArrayList<>();
+    HashMap<Integer,Boolean> mSelectList = new HashMap<>();
 
     public MultiSelectTypeAdapter(Context mContext, List list) {
         super(mContext, list);
-        for (int i = 0;i<list.size();i++){
-            mSelectList.add(false);
-        }
+
     }
 
     /**
@@ -28,11 +28,8 @@ public abstract class MultiSelectTypeAdapter<T> extends BaseRecyclerViewAdapter{
      * @param position
      */
     public void setItemChecked(int position, boolean value) {
-        if(mSelectList!=null&&mSelectList.size()>=position+1) {
-            mSelectList.set(position, value);
-        }
-        else{
-            ;
+        if (mSelectList!=null){
+            mSelectList.put(position,value);
         }
     }
 
@@ -44,9 +41,10 @@ public abstract class MultiSelectTypeAdapter<T> extends BaseRecyclerViewAdapter{
      * @return
      */
     public boolean getItemChecked(int position) {
-        if(mSelectList!=null&&mSelectList.size()!=0) {
-            return mSelectList.get(position);
-
+        for (Map.Entry<Integer,Boolean> entry:mSelectList.entrySet()) {
+            if (position == entry.getKey()){
+                return entry.getValue();
+            }
         }
         return false;
     }
@@ -58,15 +56,8 @@ public abstract class MultiSelectTypeAdapter<T> extends BaseRecyclerViewAdapter{
      */
     public List<Integer> getSelectListIndex(){
         List<Integer> result = new ArrayList<>();
-        if(mSelectList!=null&&mSelectList.size()!=0) {
-            for (int i = 0; i < mSelectList.size(); i++) {
-                if (mSelectList.get(i)) {
-                    result.add(i);
-                }
-            }
-        }
-        else{
-            ;
+        for (Map.Entry<Integer,Boolean> entry:mSelectList.entrySet()) {
+            result.add(entry.getKey());
         }
         return result;
     }
