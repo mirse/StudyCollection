@@ -1,4 +1,4 @@
-package com.wdz.module_communication.main.iot;
+package com.wdz.module_communication.main.iot.gatt;
 
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
@@ -16,11 +16,19 @@ import android.view.View;
 import android.widget.Button;
 
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.wdz.common.base.PermissionActivity;
 import com.wdz.common.constant.ARouterConstant;
+import com.wdz.module_basis.widget.recyclerview.universal.base.BaseRecyclerViewAdapter;
 import com.wdz.module_communication.R;
 import com.wdz.module_communication.R2;
+import com.wdz.module_communication.main.iot.gatt.bean.MyBluetoothDevice;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +38,8 @@ public class GattDemoActivity extends PermissionActivity {
     private final String TAG = this.getClass().getSimpleName();
     @BindView(R2.id.bt_scan)
     Button btScan;
+    @BindView(R2.id.rv_device)
+    RecyclerView rvDevice;
     // TODO: 2019-05-21 打开蓝牙
     private BluetoothAdapter mBluetoothAdapter;
     /**
@@ -37,6 +47,8 @@ public class GattDemoActivity extends PermissionActivity {
      */
     private boolean isStartScan = false;
     private BluetoothLeScanner bluetoothLeScanner;
+    private List<MyBluetoothDevice> myBluetoothDeviceList = new ArrayList<>();
+    private ScanDeviceAdapter scanDeviceAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +69,22 @@ public class GattDemoActivity extends PermissionActivity {
         } else {
 //            finish();
         }
+        initView();
         initMorePermission(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE});
+
+    }
+
+    private void initView() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        scanDeviceAdapter = new ScanDeviceAdapter(this, myBluetoothDeviceList);
+        rvDevice.setLayoutManager(linearLayoutManager);
+        rvDevice.setAdapter(scanDeviceAdapter);
+        scanDeviceAdapter.setOnClickListener(new BaseRecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onClickNormal(Object object, int position) {
+
+            }
+        });
     }
 
     @OnClick(R2.id.bt_scan)
@@ -88,7 +115,6 @@ public class GattDemoActivity extends PermissionActivity {
     // Device scan callback.
     private BluetoothAdapter.LeScanCallback mLeScanCallback =
             new BluetoothAdapter.LeScanCallback() {
-
                 @Override
                 public void onLeScan(final BluetoothDevice device, int rssi, byte[] scanRecord) {
                     runOnUiThread(new Runnable() {
@@ -114,7 +140,21 @@ public class GattDemoActivity extends PermissionActivity {
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
             super.onScanResult(callbackType, result);
-            Log.i(TAG, "onScanResult: "+result);
+
+            List<BluetoothDevice> bluetoothDeviceList = new ArrayList<>();
+            for (int i = 0; i < myBluetoothDeviceList.size(); i++) {
+                bluetoothDeviceList.add(myBluetoothDeviceList.get(i).bluetoothDevice);
+            }
+            if (!bluetoothDeviceList.contains(result.getDevice())){
+                MyBluetoothDevice myBluetoothDevice = new MyBluetoothDevice();
+                myBluetoothDevice.setBluetoothDevice(result.getDevice());
+                myBluetoothDevice.setRssi(result.getRssi());
+                myBluetoothDeviceList.add(myBluetoothDevice);
+                scanDeviceAdapter.notifyDataSetChanged();
+            }
+
+
+            Log.i(TAG, "onScanResult: ");
         }
     };
 
@@ -122,7 +162,7 @@ public class GattDemoActivity extends PermissionActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        mBluetoothAdapter.stopLeScan(mLeScanCallback);
+        //mBluetoothAdapter.stopLeScan(mLeScanCallback);
     }
 
     @Override

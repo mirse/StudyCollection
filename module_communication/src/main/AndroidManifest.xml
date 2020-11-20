@@ -40,7 +40,7 @@
         <activity android:name=".main.network.handler.TimerActivity" />
         <activity android:name=".main.network.handler.Timer1Activity" />
         <activity android:name=".main.network.handler.HandlerThreadActivity" />
-        <activity android:name=".main.iot.GattDemoActivity" />
+        <activity android:name=".main.iot.gatt.GattDemoActivity" />
         <activity android:name=".main.datasave.sp.SharedPreferenceActivity" />
         <activity android:name=".main.datasave.room.RoomTestActivity" />
         <activity android:name=".main.datasave.parcelable.ParcelableDemoActivity" />

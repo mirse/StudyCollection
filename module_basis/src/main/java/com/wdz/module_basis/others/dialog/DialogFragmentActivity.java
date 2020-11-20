@@ -78,15 +78,18 @@ public class DialogFragmentActivity extends AppCompatActivity {
                     .setImage(R.mipmap.ic_launcher)
                     .setNegativeButtonText("no", new CommonDialogBuilder.OnClickListener() {
                         @Override
-                        public void onClick() {
+                        public void onClick(CommonDialogFragment commonDialogFragment) {
                             Toast.makeText(getBaseContext(),"cancel",Toast.LENGTH_SHORT).show();
                         }
+
                     })
                     .setPositiveButtonText("yes", new CommonDialogBuilder.OnClickListener() {
                         @Override
-                        public void onClick() {
+                        public void onClick(CommonDialogFragment commonDialogFragment) {
                             Toast.makeText(getBaseContext(),"yes",Toast.LENGTH_SHORT).show();
                         }
+
+
                     })
                     .show();
 

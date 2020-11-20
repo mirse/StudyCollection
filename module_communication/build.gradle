@@ -3,6 +3,10 @@ if (rootProject.ext.isModule) {
 } else {
     apply plugin: 'com.android.library'
 }
+//java调用kotlin文件需要写入以下两行配置
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
 apply plugin: 'com.jakewharton.butterknife'
 android {
     compileSdkVersion rootProject.ext.versions.compileSdkVersion

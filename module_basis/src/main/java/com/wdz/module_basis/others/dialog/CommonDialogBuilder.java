@@ -47,7 +47,7 @@ public abstract class CommonDialogBuilder {
      * 常规dialog点击监听
      */
     interface OnClickListener{
-        void onClick();
+        void onClick(CommonDialogFragment commonDialogFragment);
     }
 
     /**
@@ -57,7 +57,7 @@ public abstract class CommonDialogBuilder {
         /**
          * @param content 输入框文字
          */
-        void onClick(String content);
+        void onClick(CommonDialogFragment commonDialogFragment,String content);
     }
 
 }

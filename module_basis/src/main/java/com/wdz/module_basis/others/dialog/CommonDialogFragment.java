@@ -134,7 +134,7 @@ public class CommonDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 if (mNegativeButtonListener != null) {
-                    mNegativeButtonListener.onClick();
+                    mNegativeButtonListener.onClick(CommonDialogFragment.this);
                 }
                 dismiss();
             }
@@ -144,12 +144,12 @@ public class CommonDialogFragment extends DialogFragment {
             public void onClick(View v) {
                 if (dialogType == DIALOG_TYPE_MESSAGE) {
                     if (mPositiveButtonListener != null) {
-                        mPositiveButtonListener.onClick();
+                        mPositiveButtonListener.onClick(CommonDialogFragment.this);
                     }
                 }
                 else if (dialogType == DIALOG_TYPE_EDIT_TEXT){
                     if (mPositiveEditListener != null) {
-                        mPositiveEditListener.onClick(content);
+                        mPositiveEditListener.onClick(CommonDialogFragment.this,content);
                     }
                 }
 

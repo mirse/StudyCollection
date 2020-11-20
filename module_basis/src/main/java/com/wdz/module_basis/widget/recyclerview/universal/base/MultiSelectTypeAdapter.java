@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 多选类型adapter，不支持第二次新增数据
  * @author dezhi.wang
  */
 public abstract class MultiSelectTypeAdapter<T> extends BaseRecyclerViewAdapter{
