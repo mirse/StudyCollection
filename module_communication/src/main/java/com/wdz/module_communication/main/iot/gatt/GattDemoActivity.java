@@ -3,7 +3,12 @@ package com.wdz.module_communication.main.iot.gatt;
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothGatt;
+import android.bluetooth.BluetoothGattCallback;
+import android.bluetooth.BluetoothGattCharacteristic;
+import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothManager;
+import android.bluetooth.BluetoothProfile;
 import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
@@ -27,12 +32,19 @@ import com.wdz.module_communication.R;
 import com.wdz.module_communication.R2;
 import com.wdz.module_communication.main.iot.gatt.bean.MyBluetoothDevice;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static android.bluetooth.BluetoothGatt.GATT_SUCCESS;
+
 @Route(path = ARouterConstant.ACTIVITY_GATT)
 public class GattDemoActivity extends PermissionActivity {
     private final String TAG = this.getClass().getSimpleName();
@@ -49,6 +61,7 @@ public class GattDemoActivity extends PermissionActivity {
     private BluetoothLeScanner bluetoothLeScanner;
     private List<MyBluetoothDevice> myBluetoothDeviceList = new ArrayList<>();
     private ScanDeviceAdapter scanDeviceAdapter;
+    private BluetoothGatt bluetoothGatt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +80,7 @@ public class GattDemoActivity extends PermissionActivity {
                 startActivityForResult(enableBtIntent, 1);
             }
         } else {
-//            finish();
+
         }
         initView();
         initMorePermission(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE});
@@ -79,13 +92,110 @@ public class GattDemoActivity extends PermissionActivity {
         scanDeviceAdapter = new ScanDeviceAdapter(this, myBluetoothDeviceList);
         rvDevice.setLayoutManager(linearLayoutManager);
         rvDevice.setAdapter(scanDeviceAdapter);
-        scanDeviceAdapter.setOnClickListener(new BaseRecyclerViewAdapter.OnItemClickListener() {
+        scanDeviceAdapter.setOnClickListener(new ScanDeviceAdapter.OnClickListener() {
             @Override
-            public void onClickNormal(Object object, int position) {
+            public void onClickDisConnect(@NotNull MyBluetoothDevice myBluetoothDevice) {
+                bluetoothGatt.disconnect();
+            }
+
+            @Override
+            public void onClickConnect(@NotNull MyBluetoothDevice myBluetoothDevice) {
+                //autoConnect:指示是否在可用时自动连接到 BLE 设备
+                if (bluetoothGatt!=null){
+                    bluetoothGatt.close();
+                }
+                //> 6.0
+                bluetoothGatt = myBluetoothDevice.bluetoothDevice.connectGatt(GattDemoActivity.this, false, bluetoothGattCallback,BluetoothDevice.TRANSPORT_LE);
 
             }
         });
     }
+    BluetoothGattCallback bluetoothGattCallback = new BluetoothGattCallback() {
+        @Override
+        public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
+            Log.i(TAG, "onConnectionStateChange: status:"+status+" newState:"+newState);
+            if (status == GATT_SUCCESS){
+                if (newState == BluetoothProfile.STATE_CONNECTED) {
+
+                }
+                else if (newState == BluetoothProfile.STATE_DISCONNECTED){
+                    refreshGatt(gatt);
+                    gatt.close();
+                }
+            }
+            else{
+                refreshGatt(gatt);
+                gatt.close();
+            }
+
+        }
+
+        @Override
+        public void onServicesDiscovered(BluetoothGatt gatt, int status) {
+            super.onServicesDiscovered(gatt, status);
+        }
+
+        @Override
+        public void onCharacteristicRead(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
+            super.onCharacteristicRead(gatt, characteristic, status);
+        }
+
+        @Override
+        public void onCharacteristicWrite(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
+            super.onCharacteristicWrite(gatt, characteristic, status);
+        }
+
+        @Override
+        public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
+            super.onCharacteristicChanged(gatt, characteristic);
+        }
+
+        @Override
+        public void onDescriptorRead(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, int status) {
+            super.onDescriptorRead(gatt, descriptor, status);
+        }
+
+        @Override
+        public void onDescriptorWrite(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, int status) {
+            super.onDescriptorWrite(gatt, descriptor, status);
+        }
+
+        @Override
+        public void onReliableWriteCompleted(BluetoothGatt gatt, int status) {
+            super.onReliableWriteCompleted(gatt, status);
+        }
+
+        @Override
+        public void onReadRemoteRssi(BluetoothGatt gatt, int rssi, int status) {
+            super.onReadRemoteRssi(gatt, rssi, status);
+        }
+
+        @Override
+        public void onMtuChanged(BluetoothGatt gatt, int mtu, int status) {
+            super.onMtuChanged(gatt, mtu, status);
+        }
+        @Override
+        public void onPhyUpdate(BluetoothGatt gatt, int txPhy, int rxPhy, int status) {
+            super.onPhyUpdate(gatt, txPhy, rxPhy, status);
+        }
+
+        @Override
+        public void onPhyRead(BluetoothGatt gatt, int txPhy, int rxPhy, int status) {
+            super.onPhyRead(gatt, txPhy, rxPhy, status);
+        }
+
+
+    };
+
+    private void refreshGatt(BluetoothGatt gatt) {
+        try {
+            Method localMethod = gatt.getClass().getMethod("refresh", new Class[0]);
+            boolean bool = ((Boolean) localMethod.invoke(gatt, new Object[0])).booleanValue();
+        } catch (Exception localException) {
+            localException.printStackTrace();
+        }
+    }
+
 
     @OnClick(R2.id.bt_scan)
     public void onClick(View view) {
@@ -150,6 +260,14 @@ public class GattDemoActivity extends PermissionActivity {
                 myBluetoothDevice.setBluetoothDevice(result.getDevice());
                 myBluetoothDevice.setRssi(result.getRssi());
                 myBluetoothDeviceList.add(myBluetoothDevice);
+//                myBluetoothDeviceList.sort(new Comparator<MyBluetoothDevice>() {
+//                    @Override
+//                    public int compare(MyBluetoothDevice o1, MyBluetoothDevice o2) {
+//                        Integer rssi = o1.getRssi();
+//                        Integer rssi1 = o2.getRssi();
+//                        return rssi.compareTo(rssi1);
+//                    }
+//                });
                 scanDeviceAdapter.notifyDataSetChanged();
             }
 
