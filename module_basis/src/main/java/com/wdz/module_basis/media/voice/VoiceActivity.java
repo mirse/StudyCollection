@@ -17,6 +17,7 @@ import com.wdz.module_basis.media.voice.view.VisualizerView;
 
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -196,9 +197,20 @@ public class VoiceActivity extends PermissionActivity {
 //                }
 //            }
 //        },Visualizer.getMaxCaptureRate()/2,true,true);
+        File file = new File("/sdcard/aa");
+        if (!file.exists()){
+            try {
+                file.createNewFile();
+                aa = new RecordManager(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else{
+            aa = new RecordManager(file);
+        }
 
 
-//        aa = new RecordManager(new File("/sdcard/Wdz/aa"));
     }
 
     @Override
@@ -219,7 +231,7 @@ public class VoiceActivity extends PermissionActivity {
 //            }
 //        },Visualizer.getMaxCaptureRate()/2,true,true);
 
-//        aa = new RecordManager(new File("/sdcard/Wdz/aa"));
+        aa = new RecordManager(new File("/sdcard/Wdz/aa"));
     }
 
     @Override

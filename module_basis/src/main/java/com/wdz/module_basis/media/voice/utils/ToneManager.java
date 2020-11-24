@@ -85,11 +85,11 @@ public class ToneManager {
                     while ((length = audioRecord.read(bufferRead, 0, sampleCount)) > 0) {
                         //Log.i(TAG, "bufferRead:"+Arrays.toString(bufferRead));
                         double[] currentFrequency = fft.getFrequencyByte(bufferRead, sampleRate, sampleCount);
-                        double frequency = fft.getFrequency(bufferRead, sampleRate, sampleCount);
+                        //double frequency = fft.getFrequency(bufferRead, sampleRate, sampleCount);
                         double currentVolume = VoiceUtil.getVolume(bufferRead, length);
-                        Log.i(TAG, "run: currentFrequency:"+frequency+" currentVolume:"+currentVolume);
+                        Log.i(TAG, "run: currentFrequency:"+" currentVolume:"+currentVolume);
                         if (onVoiceChangeListener != null) {
-                            onVoiceChangeListener.onVoiceChange(currentFrequency);
+                            //onVoiceChangeListener.onVoiceChange(currentFrequency);
                             try {
                                 Thread.sleep(100);
                             } catch (InterruptedException e) {

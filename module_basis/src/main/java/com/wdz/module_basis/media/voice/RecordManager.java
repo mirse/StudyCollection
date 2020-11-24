@@ -111,7 +111,7 @@ public class RecordManager {
      * 当我不对着麦克风说任何话的时候，测试获得的mMediaRecorder.getMaxAmplitude()值即为基准值。
      * Log.i("mic_", "麦克风的基准值：" + mMediaRecorder.getMaxAmplitude());前提时不对麦克风说任何话
      */
-    private int BASE = 600;
+    private int BASE = 1;
     private int SPACE = 200;// 间隔取样时间
     private ImageView view;
 
@@ -120,10 +120,12 @@ public class RecordManager {
 
     private void updateMicStatus() {
         if (mMediaRecorder != null) {
-            Log.i(TAG, "updateMicStatus: mMediaRecorder.getMaxAmplitude():"+mMediaRecorder.getMaxAmplitude());
+
+            //Log.i(TAG, "updateMicStatus: mMediaRecorder.getMaxAmplitude():"+mMediaRecorder.getMaxAmplitude());
             // int vuSize = 10 * mMediaRecorder.getMaxAmplitude() / 32768;
-            int ratio = mMediaRecorder.getMaxAmplitude() / BASE;
-            Log.i(TAG, "ratio: "+ratio);
+            int ratio = (mMediaRecorder.getMaxAmplitude() / BASE);
+
+            //Log.i(TAG, "ratio: "+mMediaRecorder.getMaxAmplitude()/2);
             //以1为基数 dB范围0~90.3dB
             //以600为基数 范围 0~34.6dB
             int db = 0;// 分贝
