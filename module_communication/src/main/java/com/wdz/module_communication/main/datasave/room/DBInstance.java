@@ -11,7 +11,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 public class DBInstance {
     //public static final String DB_NAME = "room_test";
-    private static final String DB_NAME = "/sdcard/Wdz/room.db";
+//    private static final String DB_NAME = "/sdcard/Wdz/room.db";
+    private static final String DB_NAME = "roomtest_databese";
     public static AppDataBase appDataBase;
     public static AppDataBase getInstance(Context context){
         if (appDataBase==null){

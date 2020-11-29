@@ -8,6 +8,8 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -25,7 +27,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static android.os.Environment.DIRECTORY_MUSIC;
+
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
     @BindView(R.id.viewPager2)
     ViewPager2 viewPager2;
     @BindView(R.id.ll_tab_1)
@@ -44,6 +49,24 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initData();
+
+        //getPath - 取得相对路径 getAbsolutePath - 取得绝对路径
+
+        Log.i(TAG, "onCreate:getFilesDir： "+getFilesDir().getAbsolutePath());
+        Log.i(TAG, "onCreate:getCacheDir： "+getCacheDir ().getAbsolutePath());
+        //
+        Log.i(TAG, "onCreate:getExternalCacheDir： "+getExternalCacheDir ().getAbsolutePath());
+        Log.i(TAG, "onCreate:getExternalFilesDir： "+getExternalFilesDir (DIRECTORY_MUSIC).getAbsolutePath());
+        //
+        Log.i(TAG, "onCreate:getExternalStorageState： "+ Environment.getExternalStorageState());
+        Log.i(TAG, "onCreate:getExternalStoragePublicDirectory： "+ Environment.getExternalStoragePublicDirectory(DIRECTORY_MUSIC));
+        Log.i(TAG, "onCreate:getExternalStorageDirectory： "+ Environment.getExternalStorageDirectory());
+
+        //
+        Log.i(TAG, "onCreate:getRootDirectory： "+ Environment.getRootDirectory().getAbsolutePath());
+        Log.i(TAG, "onCreate:getDataDirectory： "+ Environment.getDataDirectory().getAbsolutePath());
+        Log.i(TAG, "onCreate:getDownloadCacheDirectory： "+ Environment.getDownloadCacheDirectory().getAbsolutePath());
+
 
     }
 
