@@ -1,11 +1,16 @@
 package com.wdz.studycollection.main;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.app.Activity;
+import android.app.Application;
+import android.content.ComponentCallbacks;
 import android.content.res.AssetFileDescriptor;
+import android.content.res.Configuration;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
@@ -41,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout llTab3;
     @BindView(R.id.ll_tab_4)
     LinearLayout llTab4;
-
+    static float sNoncompatDensity = 0;
+    static float sNoncompatScaledDensity;
     private List<Fragment> fragmentArrayList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +73,60 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "onCreate:getDataDirectory： "+ Environment.getDataDirectory().getAbsolutePath());
         Log.i(TAG, "onCreate:getDownloadCacheDirectory： "+ Environment.getDownloadCacheDirectory().getAbsolutePath());
 
+      DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int dpi = (int) (dm.density*160);
+        setCustomDensity(this,getApplication());
+        Log.i(TAG, "onCreate: "+dpi);
 
     }
+	
+	
+    /**
+     * 字节跳动屏幕适配方式
+     * @param activity
+     * @param application
+     */
+    private static void setCustomDensity(Activity activity, Application application){
+        DisplayMetrics appDisplayMetrics = application.getResources().getDisplayMetrics();
+
+
+        if (sNoncompatDensity == 0){
+            //设备独立像素
+            sNoncompatDensity = appDisplayMetrics.density;
+            //屏幕上显示的字体比例
+            sNoncompatScaledDensity = appDisplayMetrics.scaledDensity;
+            application.registerComponentCallbacks(new ComponentCallbacks(){
+                @Override
+                public void onConfigurationChanged(@NonNull Configuration newConfig) {
+                    if (newConfig !=null && newConfig.fontScale>0){
+                        sNoncompatScaledDensity = application.getResources().getDisplayMetrics().scaledDensity;
+                    }
+                }
+
+                @Override
+                public void onLowMemory() {
+
+                }
+            });
+        }
+
+
+        float targetDensity = (float) appDisplayMetrics.widthPixels / 360;
+        int targetDensityDpi = (int) (160*targetDensity);
+        float targetScaleDensity = targetDensity*(sNoncompatScaledDensity/sNoncompatDensity);
+        appDisplayMetrics.density =  targetDensity;
+        appDisplayMetrics.scaledDensity = targetScaleDensity;
+        //屏幕密度：每英寸点数
+        appDisplayMetrics.densityDpi = targetDensityDpi;
+
+        DisplayMetrics activityDisplayMetrics = activity.getResources().getDisplayMetrics();
+        activityDisplayMetrics.density =  targetDensity;
+        activityDisplayMetrics.scaledDensity = targetScaleDensity;
+        activityDisplayMetrics.densityDpi = targetDensityDpi;
+
+    }
+
 
     private void initData() {
         fragmentArrayList.clear();
