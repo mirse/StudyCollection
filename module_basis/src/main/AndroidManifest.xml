@@ -9,10 +9,11 @@
     <application
         android:allowBackup="true"
         android:supportsRtl="true">
-        <activity android:name=".adaptation.SplashBarActivity"/>
-        <activity android:name=".adaptation.SplashImageActivity"/>
-        <activity android:name=".adaptation.MainSplashActivity"/>
-        <activity android:name=".widget.recyclerview.multi.MultiActivity"></activity>
+        <activity android:name=".adaptation.storage.StorageDemoActivity"></activity>
+        <activity android:name=".adaptation.bar.SplashBarActivity" />
+        <activity android:name=".adaptation.bar.SplashImageActivity" />
+        <activity android:name=".adaptation.bar.MainSplashActivity" />
+        <activity android:name=".widget.recyclerview.multi.MultiActivity" />
         <activity android:name=".media.camera.camerax.CameraXActivity" />
         <activity android:name=".widget.imageview.ImageViewActivity" />
         <activity android:name=".others.popwindow.PopupWindowActivity" />
@@ -44,6 +45,16 @@
             android:name=".others.floating.FloatingService"
             android:enabled="true"
             android:exported="true" />
+        <provider
+            android:authorities="com.wdz.module_basis.provider"
+            android:name="androidx.core.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
     </application>
 
 </manifest>

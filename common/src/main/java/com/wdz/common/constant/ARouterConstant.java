@@ -84,6 +84,7 @@ public interface ARouterConstant {
     String ACTIVITY_VOICE = "/module_basis/VoiceActivity";
 
     String ACTIVITY_MAIN_SPLASH = "/module_basis/MainSplashActivity";
+    String ACTIVITY_STORAGE = "/module_basis/StorageDemoActivity";
 
     String ACTIVITY_EDITTEXT_DEMO = "/module_basis/EditTextDemoActivity";
     String ACTIVITY_RECYCLER_VIEW = "/module_basis/RecyclerViewActivity";

@@ -1,4 +1,4 @@
-package com.wdz.module_basis.adaptation;
+package com.wdz.module_basis.adaptation.bar;
 
 import android.graphics.Color;
 import android.os.Build;

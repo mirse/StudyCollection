@@ -48,7 +48,7 @@ public class BasisFragment extends BaseFragment {
         String[][] array={
                 {"basis","Fragment","与viewpager","service","","",""},
                 {"多媒体","通知","相机","音频解析","","",""},
-                {"适配","状态栏","","","","",""},
+                {"适配","状态栏","存储","","","",""},
                 {"控件","editText","recycler","grid","输入框","imageview",""},
                 {"其他","悬浮窗","dialog","popup","","",""},
         };
@@ -105,7 +105,7 @@ public class BasisFragment extends BaseFragment {
                             ARouter.getInstance().build(ARouterConstant.ACTIVITY_MAIN_SPLASH).navigation();
                             Log.i(TAG,"position:"+position);
                         } else if (view.getId() == R.id.button2) {
-
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_STORAGE).navigation();
                         } else if (view.getId() == R.id.button3) {
 
                         } else if (view.getId() == R.id.button4) {
