@@ -12,9 +12,10 @@ import java.util.Map;
  */
 public abstract class MultiSelectTypeAdapter<T> extends BaseRecyclerViewAdapter{
     /**
-     * 是否选中某项
+     * 选中项位置数组
      */
-    HashMap<Integer,Boolean> mSelectList = new HashMap<>();
+    //HashMap<Integer,Boolean> mSelectList = new HashMap<>();
+    private List<Integer> mSelectList = new ArrayList<>();
 
     public MultiSelectTypeAdapter(Context mContext, List list) {
         super(mContext, list);
@@ -26,23 +27,34 @@ public abstract class MultiSelectTypeAdapter<T> extends BaseRecyclerViewAdapter{
      *
      * @param position
      */
-    public void setItemChecked(int position, boolean value) {
+    public void setItemChecked(int position) {
         if (mSelectList!=null){
-            mSelectList.put(position,value);
+            mSelectList.add(position);
+        }
+    }
+
+    /**
+     * 设置未选中的item
+     *
+     * @param position
+     */
+    public void setItemUnChecked(Integer position) {
+        if (mSelectList!=null){
+            mSelectList.remove(position);
         }
     }
 
 
-    // TODO: 2020/7/12 根据position得到item的选中状态
+    // 2020/7/12 根据position得到item的选中状态
     /**
      * 获取item的选中状态
      * @param position
      * @return
      */
     public boolean getItemChecked(int position) {
-        for (Map.Entry<Integer,Boolean> entry:mSelectList.entrySet()) {
-            if (position == entry.getKey()){
-                return entry.getValue();
+        for (Integer integer:mSelectList) {
+            if (position == integer){
+                return true;
             }
         }
         return false;
@@ -55,9 +67,7 @@ public abstract class MultiSelectTypeAdapter<T> extends BaseRecyclerViewAdapter{
      */
     public List<Integer> getSelectListIndex(){
         List<Integer> result = new ArrayList<>();
-        for (Map.Entry<Integer,Boolean> entry:mSelectList.entrySet()) {
-            result.add(entry.getKey());
-        }
+        result.addAll(mSelectList);
         return result;
     }
 

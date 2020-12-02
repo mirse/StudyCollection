@@ -41,7 +41,13 @@ public class MultiActivity extends AppCompatActivity {
             @Override
             public void onClickNormal(Object object, int position) {
                 boolean itemChecked = multiAdapter.getItemChecked(position);
-                multiAdapter.setItemChecked(position,!itemChecked);
+                if (itemChecked){
+                    multiAdapter.setItemUnChecked(100);
+                }
+                else{
+                    multiAdapter.setItemChecked(position);
+                }
+
                 multiAdapter.notifyDataSetChanged();
             }
         });
