@@ -1,6 +1,7 @@
 package com.wdz.module_customview.main;
 
 
+import android.app.ApplicationErrorReport;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.view.View;
@@ -62,7 +63,6 @@ public class CustomViewFragment extends BaseFragment {
 
 
     }
-
     @Override
     protected void initView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
@@ -76,6 +76,8 @@ public class CustomViewFragment extends BaseFragment {
                     case 0:
                         int id = view.getId();
                         if (id == R.id.button) {
+//                            int i = 100/0;
+//                            Log.i(TAG,String.valueOf(i));
                             ARouter.getInstance().build(ARouterConstant.ACTIVITY_RING_COLOR_PICKER).navigation();
                         } else if (id == R.id.button2) {
                             ARouter.getInstance().build(ARouterConstant.ACTIVITY_HSV_COLOR_PICKER).navigation();

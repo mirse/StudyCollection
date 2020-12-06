@@ -1,12 +1,14 @@
 package com.wdz.studycollection.main;
 
 import android.app.Activity;
+import android.content.Context;
 
 import androidx.multidex.BuildConfig;
 import androidx.multidex.MultiDex;
 import androidx.multidex.MultiDexApplication;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.wdz.studycollection.main.di.component.DaggerAppComponent;
 
 
@@ -35,7 +37,9 @@ public class MyApplication extends MultiDexApplication implements HasActivityInj
             ARouter.openLog();
         }
         ARouter.init(this);
-       
+
+        CrashReport.initCrashReport(getApplicationContext(), "d057558e8f", true);
+
     }
 
     public static MyApplication getInstance(){

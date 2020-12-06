@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.wdz.common.constant.ARouterConstant;
 import com.wdz.studycollection.R;
 
