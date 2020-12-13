@@ -38,6 +38,7 @@ public class MyApplication extends MultiDexApplication implements HasActivityInj
         }
         ARouter.init(this);
 
+        //bugly初始化
         CrashReport.initCrashReport(getApplicationContext(), "d057558e8f", true);
 
     }
