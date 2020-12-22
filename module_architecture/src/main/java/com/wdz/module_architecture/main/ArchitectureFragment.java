@@ -45,7 +45,7 @@ public class ArchitectureFragment extends BaseFragment {
     protected void init() {
         mainBeanList.clear();
         String[][] array={
-                {"Jetpack","ViewModel","RxJava","Dagger","","",""},
+                {"Jetpack","ViewModel","RxJava","Dagger","MVVM","",""},
                 {"设计模式","单例","建造者","原型","","",""},
         };
 
@@ -73,7 +73,7 @@ public class ArchitectureFragment extends BaseFragment {
                         } else if (id == R.id.button3) {
                             ARouter.getInstance().build(ARouterConstant.ACTIVITY_DAGGER).navigation();
                         } else if (id == R.id.button4) {
-
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_MVVMDEMO).navigation();
                         } else if (id == R.id.button5) {
 
                         } else if (id == R.id.button6) {
