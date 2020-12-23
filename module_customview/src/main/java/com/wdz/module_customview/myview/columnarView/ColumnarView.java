@@ -99,7 +99,6 @@ public class ColumnarView extends View {
         else if (centerY<circleRadius+dp2px(getContext(), 1)){
             this.centerY = circleRadius+dp2px(getContext(), 1);
         }
-        //this.centerY = ((float) percent/100)*(viewHeight-2*circleRadius-dp2px(getContext(),2));
         invalidate();
     }
 

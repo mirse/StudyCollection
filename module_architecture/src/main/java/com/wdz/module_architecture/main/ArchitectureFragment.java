@@ -69,7 +69,7 @@ public class ArchitectureFragment extends BaseFragment {
                         if (id == R.id.button) {
                             ARouter.getInstance().build(ARouterConstant.ACTIVITY_VIEW_MODEL).navigation();
                         } else if (id == R.id.button2) {
-                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_NEW_WORD).navigation();
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_RXJAVA).navigation();
                         } else if (id == R.id.button3) {
                             ARouter.getInstance().build(ARouterConstant.ACTIVITY_DAGGER).navigation();
                         } else if (id == R.id.button4) {

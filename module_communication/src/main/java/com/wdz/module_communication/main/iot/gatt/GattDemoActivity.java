@@ -27,7 +27,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.wdz.common.base.PermissionActivity;
 import com.wdz.common.constant.ARouterConstant;
-import com.wdz.module_basis.widget.recyclerview.universal.base.BaseRecyclerViewAdapter;
 import com.wdz.module_communication.R;
 import com.wdz.module_communication.R2;
 import com.wdz.module_communication.main.iot.gatt.bean.MyBluetoothDevice;
@@ -36,8 +35,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -82,9 +81,30 @@ public class GattDemoActivity extends PermissionActivity {
         } else {
 
         }
+        //checkDeviceConnectStatus();
         initView();
-        initMorePermission(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE});
+        initMorePermission(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
+
+    }
+
+    /**
+     * 判断设备的连接状态
+     */
+    private void checkDeviceConnectStatus() {
+        Set<BluetoothDevice> bondedDevices = mBluetoothAdapter.getBondedDevices();
+        for (BluetoothDevice device:bondedDevices) {
+            Log.i(TAG, "onCreate: "+device.toString());
+            Method isConnectedMethod = null;
+            try {
+                isConnectedMethod = BluetoothDevice.class.getDeclaredMethod("isConnected", (Class[]) null);
+                boolean isConnected = (boolean) isConnectedMethod.invoke(device, (Object[]) null);
+                Log.i(TAG, "onCreate: "+isConnected);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 
     private void initView() {

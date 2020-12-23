@@ -45,7 +45,7 @@ android {
         }
     }
 
-    dataBinding{
+    dataBinding {
         enabled = true
     }
 
@@ -87,13 +87,14 @@ dependencies {
     // 此处一定要注意使用RxJava2的版本
     implementation rootProject.ext.dependencies.retrofit2_rxjava2_adapter
     implementation rootProject.ext.dependencies.lifecycle_extensions
+    implementation rootProject.ext.dependencies.rxjava2
 
     implementation rootProject.ext.dependencies.material
     // 支持Gson解析
     implementation rootProject.ext.dependencies.converter_gson
 
-    annotationProcessor  rootProject.ext.dependencies.dagger_compiler
-    annotationProcessor  rootProject.ext.dependencies.dagger_android_processor
+    annotationProcessor rootProject.ext.dependencies.dagger_compiler
+    annotationProcessor rootProject.ext.dependencies.dagger_android_processor
     implementation rootProject.ext.dependencies.dagger
     implementation rootProject.ext.dependencies.dagger_android
     implementation rootProject.ext.dependencies.dagger_android_support

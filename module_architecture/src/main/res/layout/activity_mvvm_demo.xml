@@ -12,6 +12,7 @@
         android:layout_height="match_parent">
 
         <EditText
+            android:addTextChangedListener="@{model.userTextWatch}"
             android:text="@{model.loginInfo.getUser}"
             android:hint="uesr"
             android:id="@+id/editText"
@@ -21,6 +22,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
+            android:addTextChangedListener="@{model.pwdTextWatch}"
             android:text="@{model.loginInfo.getPwd}"
             android:id="@+id/editText2"
             android:layout_width="match_parent"

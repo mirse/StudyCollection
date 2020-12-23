@@ -66,6 +66,7 @@ public interface ARouterConstant {
     String FRAGMENT_ARCHITECTURE = "/module_architecture/ArchitectureFragment";
 
     String ACTIVITY_NEW_WORD = "/module_architecture/NewWordActivity";
+    String ACTIVITY_RXJAVA = "/module_architecture/RxJavaTestActivity";
     String ACTIVITY_VIEW_MODEL = "/module_architecture/ViewModelActivity";
     String ACTIVITY_DAGGER = "/module_architecture/DaggerActivity";
     String ACTIVITY_BUILDER_DEMO = "/module_architecture/BuilderDemoActivity";
@@ -79,6 +80,7 @@ public interface ARouterConstant {
     String ACTIVITY_FRAGMENT= "/module_basis/FragmentActivity";
     String ACTIVITY_VP_AND_FRAG = "/module_basis/VpAndFragActivity";
     String ACTIVITY_SERVICE = "/module_basis/ServiceDemoActivity";
+
 
     String ACTIVITY_NOTIFY = "/module_basis/NotifyActivity";
     String ACTIVITY_CAMERA_DEMO = "/module_basis/CameraDemoActivity";

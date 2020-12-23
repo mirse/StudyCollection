@@ -1,5 +1,7 @@
 package com.wdz.module_architecture.mvvm;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 
 public class LoginModel {
@@ -21,4 +23,38 @@ public class LoginModel {
             onLoginListener.onLoginFail();
         }
     }
+
+    public TextWatcher userTextWatch = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            loginInfo.setUser(String.valueOf(s));
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
+
+    public TextWatcher pwdTextWatch = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            loginInfo.setPwd(String.valueOf(s));
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
 }

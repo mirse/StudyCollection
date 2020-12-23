@@ -72,6 +72,7 @@ ext{
             room_runtime:                    "androidx.room:room-runtime:${versions["roomRuntimeVersion"]}",
             room_compiler:                   "androidx.room:room-compiler:${versions["roomCompilerVersion"]}",
             room_rxjava2:                    "androidx.room:room-rxjava2:${versions["roomRxjava2Version"]}",
+            rxjava2:                         "io.reactivex.rxjava2:rxjava:2.1.7",// 必要rxjava2依赖
             room_guava:                      "androidx.room:room-guava:${versions["roomGuavaVersion"]}",
             room_testing:                    "androidx.room:room-testing:${versions["roomTestingVersion"]}",
             rxandroid:                       "io.reactivex.rxjava2:rxandroid:${versions["rxandroidVersion"]}",

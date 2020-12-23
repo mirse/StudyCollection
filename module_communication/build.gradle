@@ -91,4 +91,5 @@ dependencies {
 
     implementation rootProject.ext.dependencies.zxing_android_core
     implementation rootProject.ext.dependencies.zxing_core
+
 }
