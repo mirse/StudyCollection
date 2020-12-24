@@ -82,6 +82,16 @@ dependencies {
     implementation rootProject.ext.dependencies.room_runtime
     annotationProcessor rootProject.ext.dependencies.room_compiler // use kapt for Kotlin
 
+    implementation rootProject.ext.dependencies.rxandroid
+    implementation rootProject.ext.dependencies.retrofit
+    // 衔接 Retrofit & RxJava
+    // 此处一定要注意使用RxJava2的版本
+    implementation rootProject.ext.dependencies.retrofit2_rxjava2_adapter
+    implementation rootProject.ext.dependencies.lifecycle_extensions
+    implementation rootProject.ext.dependencies.rxjava2
+    implementation rootProject.ext.dependencies.roomRxjava2
+
+
     //okhttp
     implementation rootProject.ext.dependencies.okhttp
     // 支持Gson解析

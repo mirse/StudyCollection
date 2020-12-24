@@ -63,47 +63,47 @@ public class RxJavaTestActivity extends AppCompatActivity {
 
 
 
-//        Observable.create(new ObservableOnSubscribe<Integer>() {
-//
-//            @Override
-//            public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
-//                emitter.onNext(1);
-//                emitter.onNext(2);
-//            }
-//        }).concatMap(new Function<Integer, ObservableSource<String>>() {
-//            @Override
-//            public ObservableSource<String> apply(Integer integer) throws Exception {
-//                List<String> list = new ArrayList<>();
-//                for (int i = 0; i < 3; i++) {
-//                    list.add(i+"个");
-//                }
-//                return Observable.fromIterable(list);
-//            }
-//        }).subscribe(new Observer<String>() {
-//            @Override
-//            public void onSubscribe(Disposable d) {
-//                disposable = d;
-//                Log.i(TAG, "onSubscribe: ");
-//            }
-//
-//            @Override
-//            public void onNext(String s) {
-//                if (s.equals("1")){
-//                    disposable.dispose();
-//                }
-//                Log.i(TAG, "onNext: "+s);
-//            }
-//
-//            @Override
-//            public void onError(Throwable e) {
-//                Log.i(TAG, "onError: ");
-//            }
-//
-//            @Override
-//            public void onComplete() {
-//                Log.i(TAG, "onComplete: ");
-//            }
-//        });
+        Observable.create(new ObservableOnSubscribe<Integer>() {
+
+            @Override
+            public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
+                emitter.onNext(1);
+                emitter.onNext(2);
+            }
+        }).concatMap(new Function<Integer, ObservableSource<String>>() {
+            @Override
+            public ObservableSource<String> apply(Integer integer) throws Exception {
+                List<String> list = new ArrayList<>();
+                for (int i = 0; i < 3; i++) {
+                    list.add(i+"个");
+                }
+                return Observable.fromIterable(list);
+            }
+        }).subscribe(new Observer<String>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+                Log.i(TAG, "onSubscribe: ");
+            }
+
+            @Override
+            public void onNext(String s) {
+                if (s.equals("1")){
+                    disposable.dispose();
+                }
+                Log.i(TAG, "onNext: "+s);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.i(TAG, "onError: ");
+            }
+
+            @Override
+            public void onComplete() {
+                Log.i(TAG, "onComplete: ");
+            }
+        });
 
 
 //        Observable.just(1,2,3,4,5)
@@ -203,21 +203,21 @@ public class RxJavaTestActivity extends AppCompatActivity {
 //            }
 //        });
 
-        Observable.combineLatest(
-                Observable.just(1, 2, 3),
-                Observable.just(1, 2, 3),
-                Observable.just(1, 2, 3)
-                , new Function3<Integer, Integer, Integer, Integer>() {
-                    @Override
-                    public Integer apply(Integer integer, Integer integer2, Integer integer3) throws Exception {
-                        return integer+integer2+integer3;
-                    }
-                }).subscribe(new Consumer<Integer>() {
-            @Override
-            public void accept(Integer integer) throws Exception {
-                Log.i(TAG, "accept: "+integer);
-            }
-        });
+//        Observable.combineLatest(
+//                Observable.just(1, 2, 3),
+//                Observable.just(1, 2, 3),
+//                Observable.just(1, 2, 3)
+//                , new Function3<Integer, Integer, Integer, Integer>() {
+//                    @Override
+//                    public Integer apply(Integer integer, Integer integer2, Integer integer3) throws Exception {
+//                        return integer+integer2+integer3;
+//                    }
+//                }).subscribe(new Consumer<Integer>() {
+//            @Override
+//            public void accept(Integer integer) throws Exception {
+//                Log.i(TAG, "accept: "+integer);
+//            }
+//        });
 
     }
 }
