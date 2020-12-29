@@ -1,6 +1,8 @@
 package com.wdz.module_customview.myview.linechart;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,10 +17,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 @Route(path = ARouterConstant.ACTIVITY_LINE_CHART)
 public class LineChartActivity extends AppCompatActivity {
     @BindView(R2.id.LineChartView)
     LineChartView lineChartView;
+    @BindView(R2.id.bt_refresh)
+    Button btnRefresh;
     private List<Integer> yList = new ArrayList<>();
     private List<String> xList = new ArrayList<>();
 
@@ -33,33 +39,56 @@ public class LineChartActivity extends AppCompatActivity {
             yList.add(i*100);
         }
 
-        for (int i=0;i<10;i++){
+        for (int i=0;i<11;i++){
             xList.add("day"+i);
         }
 
-        for (int i=0;i<10;i++){
+        for (int i=0;i<11;i++){
             LineChartView.Point point = new LineChartView.Point();
-
-            if (i==2){
-                point.setxValue("day"+i);
-                point.setyValue("200");
-                point.setErrorPoint(true);
-            }
-            else if (i==7){
-                point.setxValue("day"+i);
-                point.setyValue("200");
-                point.setErrorPoint(true);
-            }
-            else{
-                point.setxValue("day"+i);
-                point.setyValue("400");
-                point.setErrorPoint(false);
-            }
+            point.setxValue("day"+i);
+            point.setyValue("0");
+            point.setErrorPoint(true);
             datas.add(point);
 
         }
         lineChartView.setXYDataList(xList,yList);
         lineChartView.setDataList(datas);
+
+
+
+
+    }
+    @OnClick(R2.id.bt_refresh)
+    public void onClick(View view){
+        if (view.getId() == R.id.bt_refresh){
+            yList.clear();
+            xList.clear();
+            datas.clear();
+            for (int i=0;i<9;i++){
+                yList.add(i*100);
+            }
+
+            for (int i=0;i<30;i++){
+                xList.add("day"+i);
+            }
+
+            for (int i=0;i<30;i++){
+                LineChartView.Point point = new LineChartView.Point();
+                point.setxValue("day"+i);
+                point.setyValue("100");
+                if (i%7==0){
+                    point.setErrorPoint(false);
+                }
+                else{
+                    point.setErrorPoint(true);
+                }
+
+                datas.add(point);
+
+            }
+            lineChartView.setXYDataList(xList,yList);
+            lineChartView.setDataList(datas);
+        }
 
     }
 }

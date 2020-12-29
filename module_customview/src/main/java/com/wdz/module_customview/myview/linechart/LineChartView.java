@@ -119,7 +119,11 @@ public class LineChartView extends View {
     public void setXYDataList(List<String> xList, List<Integer> yList) {
         this.xList = xList;
         this.yList = yList;
+        //重新onMeasure,onLayout,宽高可能发生改变
+        requestLayout();
+        //重新onDraw
         invalidate();
+
     }
 
     /**
@@ -130,6 +134,7 @@ public class LineChartView extends View {
     public void setDataList(List<Point> mDatas) {
         this.mDatas = mDatas;
         invalidate();
+
     }
 
 
@@ -143,6 +148,7 @@ public class LineChartView extends View {
         errorCircleColor = typedArray.getColor(R.styleable.LineChartView_errorCircleColor, getResources().getColor(R.color.grey_d));
         typedArray.recycle();
 
+        //关闭硬件加速
         setLayerType(LAYER_TYPE_SOFTWARE, null);
         initPaint();
 
@@ -217,6 +223,7 @@ public class LineChartView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        Log.i(TAG, "onMeasure: ");
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);   //获取宽的模式
         int heightMode = MeasureSpec.getMode(heightMeasureSpec); //获取高的模式
         int widthSize = MeasureSpec.getSize(widthMeasureSpec);   //获取宽的尺寸
@@ -234,9 +241,11 @@ public class LineChartView extends View {
             realHeight = heightSize;
         }
         Log.i(TAG, "onMeasure: " + xList.size());
+//        Log.i(TAG, "onMeasure: verticalLineSpace:"+verticalLineSpace);
+//        Log.i(TAG, "onMeasure: (realWidth / 6):"+verticalLineSpace);
         //保存测量宽度和测量高度
-        if (xList.size() > 6) {
-            setMeasuredDimension(realWidth + (xList.size() - 6) * (realWidth / 6), realHeight);
+        if (xList.size() > 7) {
+            setMeasuredDimension((int) (realWidth + (xList.size() - 7) * verticalLineSpace), realHeight);
         }
 
     }
