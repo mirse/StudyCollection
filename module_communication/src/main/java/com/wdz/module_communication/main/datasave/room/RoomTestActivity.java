@@ -4,11 +4,13 @@ import android.Manifest;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -98,7 +100,7 @@ public class RoomTestActivity extends PermissionActivity {
                 else if (people instanceof Clothes){
                     Log.i(TAG, "onChanged: "+person.toString());
                 }
-//                mTvPersonStatus.setText(people.toString());
+
             }
         });
 
@@ -110,12 +112,12 @@ public class RoomTestActivity extends PermissionActivity {
             }
         });
 
-        DBInstance.getInstance(this).vendorDao().findAllVendor().observe(this, new Observer<List<Vendor>>() {
-            @Override
-            public void onChanged(List<Vendor> people) {
-                mTvVendorStatus.setText(people.toString());
-            }
-        });
+//        DBInstance.getInstance(this).vendorDao().findAllVendor().observe(this, new Observer<List<Vendor>>() {
+//            @Override
+//            public void onChanged(List<Vendor> people) {
+//                mTvVendorStatus.setText(people.toString());
+//            }
+//        });
 
         DBInstance.getInstance(this).clothesDao().findAllClothes().observe(this, new Observer<List<Clothes>>() {
             @Override

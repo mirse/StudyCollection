@@ -79,6 +79,7 @@ ext{
             retrofit:                        "com.squareup.retrofit2:retrofit:${versions["retrofitVersion"]}",
             retrofit2_rxjava2_adapter:       "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${versions["retrofit2Rxjava2AdapterVersion"]}",
             converter_gson:                  "com.squareup.retrofit2:converter-gson:${versions["converterGsonVersion"]}",
+            //可将Android的中各类UI控件的动作事件转换为RxJava中的数据流
             rxbinding:                       "com.jakewharton.rxbinding3:rxbinding:${versions["rxbindingVersion"]}",
             lottie:                          "com.airbnb.android:lottie:${versions["lottieVersion"]}",
             lifecycle_extensions:            "androidx.lifecycle:lifecycle-extensions:${versions["lifecycleExtensionsVersion"]}",
@@ -106,6 +107,11 @@ ext{
             dagger_android:                  'com.google.dagger:dagger-android:2.21',
             dagger_android_support:          'com.google.dagger:dagger-android-support:2.21',
             dagger_android_processor:        'com.google.dagger:dagger-android-processor:2.21',
-            roomRxjava2:                   "androidx.room:room-rxjava2:2.2.5",
+
+
+            navigation_fragment:             'androidx.navigation:navigation-fragment:2.3.1',
+            navigation_ui:                   'androidx.navigation:navigation-ui:2.3.1',
+
+            paging:                          "androidx.paging:paging-runtime:2.1.2",
     ]
 }

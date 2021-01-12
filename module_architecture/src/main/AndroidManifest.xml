@@ -5,7 +5,12 @@
     <application
         android:allowBackup="true"
         android:supportsRtl="true">
-        <activity android:name=".rxjava.demo.RxJavaTestActivity"></activity>
+        <activity android:name=".paging.PagingActivity"></activity>
+        <activity
+            android:name=".navigation.NavigationActivity"
+            android:label="@string/title_activity_navigation"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".rxjava.demo.RxJavaTestActivity" />
         <activity android:name=".mvvm.MvvmDemoActivity" />
         <activity android:name=".dagger.DaggerDemoActivity" />
         <activity android:name=".pattern.prototype.ProtoTypeActivity" />

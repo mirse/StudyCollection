@@ -10,6 +10,7 @@ import io.reactivex.annotations.NonNull;
 public class LoginInfo extends BaseObservable {
     private String user;
     private String pwd;
+    private boolean isLogin;
 
     public LoginInfo(String user, String pwd) {
         this.user = user;
@@ -30,5 +31,13 @@ public class LoginInfo extends BaseObservable {
 
     public void setPwd(String pwd) {
         this.pwd = pwd;
+    }
+
+    public boolean isLogin() {
+        return isLogin;
+    }
+
+    public void setLogin(boolean login) {
+        isLogin = login;
     }
 }

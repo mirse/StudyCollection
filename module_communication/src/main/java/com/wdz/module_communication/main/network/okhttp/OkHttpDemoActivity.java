@@ -47,7 +47,7 @@ public class OkHttpDemoActivity extends AppCompatActivity {
     private boolean isCanceled = false;
     private boolean isPaused = false;
     private int lastProgress;
-    private final String downUrl = "http://113.215.8.86/softdown1.hao123.com/hao123-soft-online-bcs/soft/2017_10_24_BaiduMusic-11407102.exe";
+    private final String downUrl = "https://dl2.xmind.cn/XMind-2020-for-Windows-64bit-10.3.0-202012160243.exe";
     @BindView(R2.id.progressBar_download)
     ProgressBar progressBar;
 

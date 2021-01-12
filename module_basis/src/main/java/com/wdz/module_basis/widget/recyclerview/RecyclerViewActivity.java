@@ -26,6 +26,7 @@ import com.wdz.module_basis.R;
 
 import com.wdz.module_basis.R2;
 import com.wdz.module_basis.widget.recyclerview.delete.DeleteRecyclerViewActivity;
+import com.wdz.module_basis.widget.recyclerview.listview.ListViewActivity;
 import com.wdz.module_basis.widget.recyclerview.multi.MultiActivity;
 import com.wdz.module_basis.widget.recyclerview.snaphelper.SnapHelperActivity;
 import com.wdz.module_basis.widget.recyclerview.updownrecyclerview.UpDownRecyclerViewActivity;
@@ -63,6 +64,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
         Button mBtnBanner = findViewById(R.id.banner_recycler);
         Button mBtnDelete = findViewById(R.id.delete_recycler);
         Button mBtnMulti = findViewById(R.id.bt_multi);
+        Button mBtnList = findViewById(R.id.bt_listview);
         //mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView = swipeRefreshLayout.getRecyclerView();
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -107,6 +109,12 @@ public class RecyclerViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(RecyclerViewActivity.this, MultiActivity.class));
+            }
+        });
+        mBtnList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RecyclerViewActivity.this, ListViewActivity.class));
             }
         });
 

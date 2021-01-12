@@ -1,6 +1,7 @@
 package com.wdz.module_communication.main.datasave.room;
 
 import androidx.lifecycle.LiveData;
+import androidx.paging.DataSource;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -32,5 +33,5 @@ interface VendorDao {
 
 
       @Query("select * from vendor")
-      LiveData<List<Vendor>> findAllVendor();
+      DataSource.Factory<Integer,Vendor> findAllVendor();
 }

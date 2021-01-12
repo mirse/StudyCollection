@@ -55,4 +55,8 @@ dependencies {
     implementation rootProject.ext.dependencies.dagger_android
     implementation rootProject.ext.dependencies.dagger_android_support
 
+    //room
+    implementation rootProject.ext.dependencies.room_runtime
+    annotationProcessor rootProject.ext.dependencies.room_compiler // use kapt for Kotlin
+
 }

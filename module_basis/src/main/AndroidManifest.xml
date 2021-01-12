@@ -9,7 +9,8 @@
     <application
         android:allowBackup="true"
         android:supportsRtl="true">
-        <activity android:name=".basis.constraint.ContraintDemoActivity"></activity>
+        <activity android:name=".widget.recyclerview.listview.ListViewActivity"></activity>
+        <activity android:name=".basis.constraint.ContraintDemoActivity" />
         <activity android:name=".adaptation.storage.StorageDemoActivity" />
         <activity android:name=".adaptation.bar.SplashBarActivity" />
         <activity android:name=".adaptation.bar.SplashImageActivity" />

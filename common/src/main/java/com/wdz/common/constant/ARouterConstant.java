@@ -73,7 +73,8 @@ public interface ARouterConstant {
     String ACTIVITY_PROTOTYPE_DEMO = "/module_architecture/ProtoTypeActivity";
 
     String ACTIVITY_MVVMDEMO = "/module_architecture/MvvmDemoActivity";
-
+    String ACTIVITY_NAVIGATION = "/module_architecture/NavigationActivity";
+    String ACTIVITY_PAGING = "/module_architecture/PagingActivity";
     //basis
     String FRAGMENT_BASIS = "/module_basis/BasisFragment";
 
