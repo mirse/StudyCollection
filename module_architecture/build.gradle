@@ -108,4 +108,6 @@ dependencies {
     implementation rootProject.ext.dependencies.navigation_fragment
     implementation rootProject.ext.dependencies.navigation_ui
     implementation rootProject.ext.dependencies.paging
+
+    implementation rootProject.ext.dependencies.rxbinding
 }

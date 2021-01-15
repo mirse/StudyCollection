@@ -20,7 +20,7 @@ import com.wdz.module_architecture.paging.room.User;
  */
 public class PagingViewModel extends ViewModel {
 
-    public LiveData listLiveData = new MutableLiveData<>();
+    public LiveData<PagedList<User>> listLiveData = new MutableLiveData<>();
     //是否有数据
     private MutableLiveData<Boolean> booleanMutableLiveData = new MutableLiveData<>();
     private Context context;
@@ -28,8 +28,8 @@ public class PagingViewModel extends ViewModel {
     public PagedList.Config getConfig(){
 
         PagedList.Config config = new PagedList.Config.Builder()
-                .setPageSize(15)              // 分页加载的数量
-                .setInitialLoadSizeHint(30)   // 初次加载的数量
+                .setPageSize(15)              // 每页加载的数据量
+                .setInitialLoadSizeHint(30)   // 定义首次加载时需要加载的Item数目通常>pageSize
                 .setPrefetchDistance(10)      // 预取数据的距离
                 .setEnablePlaceholders(false) // 是否启用占位符
                 .build();
@@ -37,8 +37,10 @@ public class PagingViewModel extends ViewModel {
 
     }
     public LiveData<PagedList<User>> getUser(Context context){
+        //为pagelist提供数据
         DataSource.Factory<Integer, User> integerUserFactory =
                 DBInstance.getInstance(context).personDao().queryUsers();
+        //PagedListBuilder将数据源工厂和相关配置统一管理
         listLiveData = new LivePagedListBuilder(integerUserFactory, getConfig())
                 //监听数据边界
                 .setBoundaryCallback(new PagedList.BoundaryCallback() {
