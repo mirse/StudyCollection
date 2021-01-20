@@ -48,7 +48,7 @@ public class GridViewActivity extends AppCompatActivity {
 
     @SuppressLint("WrongConstant")
     private void initData() {
-        gridLayoutManager = new GridLayoutManager(this, 1, OrientationHelper.VERTICAL, false);
+        gridLayoutManager = new GridLayoutManager(this, 2, OrientationHelper.VERTICAL, false);
         myAdapter = new MyAdapter(getData());
         myAdapter.setOnClickListener(new MyAdapter.onItemClickListener() {
             @Override
