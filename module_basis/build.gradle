@@ -73,6 +73,8 @@ dependencies {
     implementation rootProject.ext.dependencies.refreshlayoutkernel
     implementation rootProject.ext.dependencies.refreshHeaderClassics
 
+
+    implementation rootProject.ext.dependencies.flowLayoutManager
     implementation project(path: ':common')
 
     def camerax_version = "1.0.0-beta07"

@@ -3,8 +3,10 @@ package com.wdz.module_customview.myview.colorpick;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.ColorUtils;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.wdz.common.constant.ARouterConstant;
@@ -19,8 +21,11 @@ import butterknife.ButterKnife;
 
 @Route(path = ARouterConstant.ACTIVITY_HSV_COLOR_PICKER)
 public class ColorPickerHsvActivity extends AppCompatActivity {
+    private final String TAG = this.getClass().getSimpleName();
     @BindView(R2.id.colorPickerHSV)
     ColorPickerHSV colorPickerHSV;
+    @BindView(R2.id.colorBarView)
+    ColorBarView colorBarView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +48,14 @@ public class ColorPickerHsvActivity extends AppCompatActivity {
             @Override
             public void onMoveUp(int r, int g, int b) {
 
+            }
+        });
+        colorBarView.setCurrentColor(Integer.parseInt("FF8989", 16));
+        colorBarView.setOnColorChangerListener(new ColorBarView.OnColorChangeListener() {
+            @Override
+            public void onColorChange(int color) {
+                String s = Integer.toHexString(color);
+                Log.i(TAG, "onColorChange: "+s);
             }
         });
     }

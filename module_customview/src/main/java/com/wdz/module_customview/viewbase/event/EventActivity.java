@@ -2,17 +2,26 @@ package com.wdz.module_customview.viewbase.event;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.wdz.common.constant.ARouterConstant;
 import com.wdz.module_customview.R;
+import com.wdz.module_customview.R2;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 @Route(path = ARouterConstant.ACTIVITY_LAYOUT_EVENT)
 public class EventActivity extends AppCompatActivity {
     private static final String TAG = "MyButton";
+
 //    @BindView(R2.id.btn)
 //    MyButton btn;
 //    @BindView(R2.id.ll_root)
@@ -79,6 +88,9 @@ public class EventActivity extends AppCompatActivity {
 //
 //            }
 //        });
+
+
+
     }
 
     /**

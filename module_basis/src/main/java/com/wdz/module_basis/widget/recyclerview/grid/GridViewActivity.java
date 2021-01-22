@@ -4,8 +4,10 @@ import android.annotation.SuppressLint;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 
+import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +19,10 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.beloo.widget.chipslayoutmanager.ChipsLayoutManager;
+import com.beloo.widget.chipslayoutmanager.SpacingItemDecoration;
+import com.beloo.widget.chipslayoutmanager.gravity.IChildGravityResolver;
+import com.beloo.widget.chipslayoutmanager.layouter.breaker.IRowBreaker;
 import com.wdz.common.constant.ARouterConstant;
 import com.wdz.module_basis.R;
 
@@ -48,7 +54,7 @@ public class GridViewActivity extends AppCompatActivity {
 
     @SuppressLint("WrongConstant")
     private void initData() {
-        gridLayoutManager = new GridLayoutManager(this, 2, OrientationHelper.VERTICAL, false);
+        gridLayoutManager = new GridLayoutManager(this, 3, OrientationHelper.VERTICAL, false);
         myAdapter = new MyAdapter(getData());
         myAdapter.setOnClickListener(new MyAdapter.onItemClickListener() {
             @Override
@@ -63,7 +69,7 @@ public class GridViewActivity extends AppCompatActivity {
         });
 
 
-        staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL);
+        staggeredGridLayoutManager = new StaggeredGridLayoutManager(3, OrientationHelper.VERTICAL);
         mdStaggeredRvAdapter = new MDStaggeredRvAdapter(getData());
         mdStaggeredRvAdapter.setOnClickListener(new BaseAdapter.onItemClickListener() {
             @Override
@@ -85,17 +91,40 @@ public class GridViewActivity extends AppCompatActivity {
         mDatas = new ArrayList<>();
         String temp = "item";
         for (int i = 0;i<20;i++){
-            mDatas.add(temp+i);
+
+            mDatas.add(temp+i*i);
         }
         return mDatas;
     }
 
     private void initUI() {
         mRv = findViewById(R.id.recyclerView);
+
+        ChipsLayoutManager chipsLayoutManager = ChipsLayoutManager.newBuilder(this)
+                //set vertical gravity for all items in a row. Default = Gravity.CENTER_VERTICAL
+                //.setChildGravity(Gravity.TOP)
+                //set maximum views count in a particular row
+                .setMaxViewsInRow(3)
+                //set gravity resolver where you can determine gravity for item in position.
+                //This method have priority over previous one
+                .setGravityResolver(new IChildGravityResolver() {
+                    @Override
+                    public int getItemGravity(int position) {
+                        return Gravity.CENTER;
+                    }
+                })
+                //a layoutOrientation of layout manager, could be VERTICAL OR HORIZONTAL. HORIZONTAL by default
+                .setOrientation(ChipsLayoutManager.HORIZONTAL)
+                // row strategy for views in completed row, could be STRATEGY_DEFAULT, STRATEGY_FILL_VIEW,
+                //STRATEGY_FILL_SPACE or STRATEGY_CENTER
+                .setRowStrategy(ChipsLayoutManager.STRATEGY_DEFAULT)
+                // whether strategy is applied to last row. FALSE by default
+                .withLastRow(true)
+                .build();
         //标准瀑布流
-        mRv.setLayoutManager(gridLayoutManager);
+        mRv.setLayoutManager(chipsLayoutManager);
         mRv.setAdapter(myAdapter);
-        mRv.addItemDecoration(new SpaceItemDecoration(this,15,15));
+        mRv.addItemDecoration(new SpacingItemDecoration(15,15));
 
         //宽高不一的瀑布流
 //        mRv.setLayoutManager(staggeredGridLayoutManager);

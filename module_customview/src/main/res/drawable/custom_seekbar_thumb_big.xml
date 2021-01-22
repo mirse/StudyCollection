@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="false">
+        <shape android:shape="oval"
+            >
+            <size android:width="22dp" android:height="22dp"/>
+            <stroke android:width="2dp"
+                android:color="#BABABA"
+                />
+            <solid android:color="#FFFFFF"/>
+            <!--<solid android:color="@color/std_13294B"/>-->
+        </shape>
+    </item>
+    <item android:state_selected="true">
+        <shape android:shape="oval"
+            >
+            <size android:width="22dp" android:height="22dp"/>
+            <!--<solid android:color="@color/std_13294B"/>-->
+            <stroke android:width="2dp"
+                android:color="#BABABA"
+                />
+            <solid android:color="#FFFFFF"/>
+        </shape>
+    </item>
+    <!--<item android:state_selected="true" android:drawable="@mipmap/thumb_seekbar_nor"/>-->
+    <item android:state_pressed="true"
+        >
+        <shape android:shape="oval"
+            >
+            <size android:width="22dp" android:height="22dp"/>
+            <!--<solid android:color="@color/std_13294B"/>-->
+            <stroke android:width="2dp"
+                android:color="#BABABA"
+                />
+            <solid android:color="#FFFFFF"/>
+        </shape>                    
+    </item>
+    <item android:state_activated="true" >
+        <shape android:shape="oval"
+            >
+            <size android:width="22dp" android:height="22dp"/>
+            <!--<solid android:color="@color/std_13294B"/>-->
+            <stroke android:width="2dp"
+                android:color="#BABABA"
+                />
+            <solid android:color="#FFFFFF"/>
+        </shape>
+    </item>
+
+</selector>
