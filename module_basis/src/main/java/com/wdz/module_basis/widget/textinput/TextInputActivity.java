@@ -14,6 +14,10 @@ import com.wdz.module_basis.R2;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+/**
+ * task: 焦点请求需要深入学习。。
+ */
 @Route(path = ARouterConstant.ACTIVITY_TEXT_INPUT)
 public class TextInputActivity extends AppCompatActivity {
     @BindView(R2.id.textInput)

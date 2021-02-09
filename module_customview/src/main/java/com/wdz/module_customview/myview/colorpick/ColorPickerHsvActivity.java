@@ -36,7 +36,7 @@ public class ColorPickerHsvActivity extends AppCompatActivity {
         colorPickerHSV.setPointPosition(HextoColor("#00ffffff"));
         colorPickerHSV.setOnMoveListener(new ColorPickerHSV.onMoveListener() {
             @Override
-            public void onMoveStart() {
+            public void onMoveStart(int r, int g, int b) {
 
             }
 

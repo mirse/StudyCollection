@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.RadialGradient;
 import android.graphics.Shader;
 import android.graphics.SweepGradient;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -16,18 +17,21 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
+import com.wdz.common.util.ColorUtils;
 import com.wdz.module_customview.R;
 
 
 /**
- *
+ *  padding未做适配
  * @author wdz
  * @date 2018/9/14
  */
 
 public class ColorPickerHSV extends View {
     private static final String TAG = "ColorPickerHSV";
-    private Paint mPaint;
+    Handler handler = new Handler();
+    private final String BLACK = "000000";
+    private final String FFBLACK = "ff000000";
 
     private static final int[] COLOR = new int[]{
             Color.rgb(255, 0, 0), Color.rgb(255, 0, 255),
@@ -36,11 +40,6 @@ public class ColorPickerHSV extends View {
             Color.rgb(255, 0, 0)
 
 
-//            Color.rgb(255, 0, 0), Color.rgb(255, 255, 0),
-//            Color.rgb(0, 255, 0), Color.rgb(0, 255, 255),
-//            Color.rgb(0, 0, 255), Color.rgb(255, 0, 255),
-//            Color.rgb(255, 0, 0)
-
 
     };
 
@@ -48,7 +47,9 @@ public class ColorPickerHSV extends View {
     private int offsetX;
     private int offsetY;
     private Paint sPaint;
+    private Paint mPaint;
     private Paint iPaint;
+    private Paint innerCirclePaint;
     private int centerX=0;
     private int centerY=0;
     private int innerCircleRadius;
@@ -61,7 +62,11 @@ public class ColorPickerHSV extends View {
     private int red;
     private int green;
     private int blue;
-    private boolean mIsVisible;
+    /**
+     * 圆点指示器是否可见
+     */
+    private boolean mIsVisible = true;
+    private float realRadius;
 
     public ColorPickerHSV(Context context) {
         super(context);
@@ -95,11 +100,12 @@ public class ColorPickerHSV extends View {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         sPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         iPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        innerCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         //绘制颜色
         int colorCount = 12;
         int colorAngleStep = 360 / 12;
-        int colors[] = new int[colorCount];
-        float hsv[] = new float[]{0f, 1f, 1f};
+        int[] colors = new int[colorCount];
+        float[] hsv = new float[]{0f, 1f, 1f};
         for (int i = 0; i < colors.length; i++) {
             hsv[0] = (i * colorAngleStep + 180) % 360;
             colors[i] = Color.HSVToColor(hsv);
@@ -109,68 +115,58 @@ public class ColorPickerHSV extends View {
         mPaint.setShader(sweepGradient);
         sPaint.setShader(radialGradient);
         iPaint.setStyle(Paint.Style.STROKE);
-        iPaint.setStrokeWidth(10);
-        iPaint.setColor(Color.WHITE);
+        iPaint.setStrokeWidth(dp2px(getContext(),1));
+        iPaint.setColor(getContext().getResources().getColor(R.color.color_54565A,null));
+        innerCirclePaint.setColor(Color.WHITE);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec,heightMeasureSpec);
-        int realSize=2*circleRadius+2*innerCircleRadius;
+        /*如果没有重写该方法，MeasureSpec.AT_MOST和EXACTLY表现形式一样*/
+        int realSize=2*circleRadius+2*innerCircleRadius+2*dp2px(getContext(),1);
         int width;
         int height;
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-        int measureWidth = MeasureSpec.getSize(widthMeasureSpec);
-        int measureHeight = MeasureSpec.getSize(heightMeasureSpec);
-        //指定大小/match_content
-        if (widthMode == MeasureSpec.EXACTLY){
-            offset = measureWidth/2;
+        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+        //width
+        if (widthMode== MeasureSpec.EXACTLY){
+            width=widthSize;
         }
-        //wrap_content
+        else if (widthMode== MeasureSpec.AT_MOST){
+            width=realSize;
+        }
         else{
-            offset = realSize/2;
+            width=widthSize;
         }
 
-
-        setMeasuredDimension(widthMode == MeasureSpec.EXACTLY?measureWidth:realSize,
-                heightMode == MeasureSpec.EXACTLY?measureHeight:realSize);
-
-//        if (widthMode== MeasureSpec.EXACTLY){
-//            width=widthSize;
-//        }
-//        //最大模式：父组件限制最大控件，view最大只能这么大
-//        else if (widthMode== MeasureSpec.AT_MOST)
-//        {
-//            width=realSize;
-//        }
-//        else{
-//            width=widthSize;
-//        }
-//        if (heightMode== MeasureSpec.EXACTLY){
-//            height=heightSize;
-//        }
-//        else if (heightMode== MeasureSpec.AT_MOST){
-//            height=realSize;
-//        }
-//        else {
-//            height = heightSize;
-//        }
-//        int min = Math.min(width, height);
-//        offset = min/2;
-//        setMeasuredDimension(min,min);
+        //height
+        if (heightMode== MeasureSpec.EXACTLY){
+            height=heightSize;
+        }
+        else if (heightMode== MeasureSpec.AT_MOST){
+            height=realSize;
+        }
+        else {
+            height = heightSize;
+        }
+        int min = Math.min(width, height);
+        offset = min/2;
+        setMeasuredDimension(min,min);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
+        int width = getWidth();
+        realRadius = (float) (width-2*innerCircleRadius)/2;
         canvas.translate(offset,offset);
-        canvas.drawCircle(0,0,circleRadius,mPaint);
-        canvas.drawCircle(0,0,circleRadius,sPaint);
+        canvas.drawCircle(0,0,realRadius,mPaint);
+        canvas.drawCircle(0,0,realRadius,sPaint);
         if (mIsVisible){
+            canvas.drawCircle(centerX,centerY,innerCircleRadius,innerCirclePaint);
             canvas.drawCircle(centerX,centerY,innerCircleRadius,iPaint);
         }
-
-
     }
 
     @Override
@@ -180,40 +176,146 @@ public class ColorPickerHSV extends View {
         r = Math.sqrt(x * x + y * y);
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
+                getParent().requestDisallowInterceptTouchEvent(true);
                 double distance = Math.sqrt((x - centerX) * (x - centerX) + (y - centerY) * (y - centerY));
-                //Log.i(TAG,"distance:"+distance+" innerCircleRadius:"+innerCircleRadius);
                 if (distance<innerCircleRadius){
                     //点击圆内圆点位置
                     isMove=true;
                     lastX = x;
                     lastY = y;
 
+                    float[] hsv0={0,0,1};
+                    //hsv为逆时针看角度
+                    //<0说明处于1，2象限，此时应取反
+                    if (Math.atan2(y,x)<0){
+                        hsv0[0]= (float) ((-Math.atan2(y,x))/ Math.PI*180f) ;
+                    }
+                    //>0说明处于3，4象限，此时使用2*PI减去弧度
+                    else{
+                        hsv0[0]= (float) ((2*Math.PI - Math.atan2(y,x))/ Math.PI*180f) ;
+
+//                        //固件颜色区间实现不了，做范围限制
+//                        if (Math.PI/2<Math.atan2(y,x) && Math.atan2(y,x)<Math.PI*3/4){
+//                            hsv0[0]= (float) ((2*Math.PI - Math.PI*3/4)/ Math.PI*180f) ;
+//                        }
+//                        else if(Math.PI/4<Math.atan2(y,x) && Math.atan2(y,x)<=Math.PI/2){
+//                            hsv0[0]= (float) ((2*Math.PI - Math.PI*1/4)/ Math.PI*180f) ;
+//                        }
+//                        else{
+//                            hsv0[0]= (float) ((2*Math.PI - Math.atan2(y,x))/ Math.PI*180f) ;
+//                        }
+                    }
+
+                    hsv0[1]= Math.max(0f, Math.min(1f,(float) (r/realRadius)));
+                    int color = Color.HSVToColor(hsv0);
+                    innerCirclePaint.setColor(color);
+                    invalidate();
+
+
+                    if (Math.atan2(y,x)<0){
+                        hsv0[0]= (float) ((-Math.atan2(y,x))/ Math.PI*180f) ;
+                    }
+                    //>0说明处于3，4象限，此时使用2*PI减去弧度
+                    else{
+//                        hsv0[0]= (float) ((2*Math.PI - Math.atan2(y,x))/ Math.PI*180f) ;
+                        //固件颜色区间实现不了，做范围限制
+                        if (Math.PI/2<Math.atan2(y,x) && Math.atan2(y,x)<Math.PI*3/4){
+                            hsv0[0]= (float) ((2*Math.PI - Math.PI*3/4)/ Math.PI*180f) ;
+                        }
+                        else if(Math.PI/4<Math.atan2(y,x) && Math.atan2(y,x)<=Math.PI/2){
+                            hsv0[0]= (float) ((2*Math.PI - Math.PI*1/4)/ Math.PI*180f) ;
+                        }
+                        else{
+                            hsv0[0]= (float) ((2*Math.PI - Math.atan2(y,x))/ Math.PI*180f) ;
+                        }
+                    }
+                    color = Color.HSVToColor(hsv0);
+                    red = (color & 0xff0000) >> 16;
+                    green = (color & 0x00ff00) >> 8;
+                    blue = (color & 0x0000ff);
+                    if (onMoveListener!=null){
+                        onMoveListener.onMoveStart(red,green,blue);
+                    }
+
                 }
-                else if(r<circleRadius){
+                else if(r<realRadius){
                     //点击圆内非圆点位置
                     centerX=x;
                     centerY=y;
                     lastX = x;
                     lastY = y;
                     isMove=true;
+
+
+                    float[] hsv0={0,0,1};
+                    //hsv为逆时针看角度
+                    //<0说明处于1，2象限，此时应取反
+                    if (Math.atan2(y,x)<0){
+                        hsv0[0]= (float) ((-Math.atan2(y,x))/ Math.PI*180f) ;
+                    }
+                    //>0说明处于3，4象限，此时使用2*PI减去弧度
+                    else{
+                        hsv0[0]= (float) ((2*Math.PI - Math.atan2(y,x))/ Math.PI*180f) ;
+//                        //固件颜色区间实现不了，做范围限制
+//                        if (Math.PI/2<Math.atan2(y,x) && Math.atan2(y,x)<Math.PI*3/4){
+//                            hsv0[0]= (float) ((2*Math.PI - Math.PI*3/4)/ Math.PI*180f) ;
+//                        }
+//                        else if(Math.PI/4<Math.atan2(y,x) && Math.atan2(y,x)<=Math.PI/2){
+//                            hsv0[0]= (float) ((2*Math.PI - Math.PI*1/4)/ Math.PI*180f) ;
+//                        }
+//                        else{
+//                            hsv0[0]= (float) ((2*Math.PI - Math.atan2(y,x))/ Math.PI*180f) ;
+//                        }
+                    }
+
+                    hsv0[1]= Math.max(0f, Math.min(1f,(float) (r/realRadius)));
+                    int color = Color.HSVToColor(hsv0);
+                    innerCirclePaint.setColor(color);
                     invalidate();
+
+
+                    if (Math.atan2(y,x)<0){
+                        hsv0[0]= (float) ((-Math.atan2(y,x))/ Math.PI*180f) ;
+                    }
+                    //>0说明处于3，4象限，此时使用2*PI减去弧度
+                    else{
+                        //hsv0[0]= (float) ((2*Math.PI - Math.atan2(y,x))/ Math.PI*180f) ;
+                        //固件颜色区间实现不了，做范围限制
+                        if (Math.PI/2<Math.atan2(y,x) && Math.atan2(y,x)<Math.PI*3/4){
+                            hsv0[0]= (float) ((2*Math.PI - Math.PI*3/4)/ Math.PI*180f) ;
+                        }
+                        else if(Math.PI/4<Math.atan2(y,x) && Math.atan2(y,x)<=Math.PI/2){
+                            hsv0[0]= (float) ((2*Math.PI - Math.PI*1/4)/ Math.PI*180f) ;
+                        }
+                        else{
+                            hsv0[0]= (float) ((2*Math.PI - Math.atan2(y,x))/ Math.PI*180f) ;
+                        }
+                    }
+                    color = Color.HSVToColor(hsv0);
+                    red = (color & 0xff0000) >> 16;
+                    green = (color & 0x00ff00) >> 8;
+                    blue = (color & 0x0000ff);
+                    if (onMoveListener!=null){
+                        onMoveListener.onMoveStart(red,green,blue);
+                    }
                 }
-                if (onMoveListener!=null){
-                    onMoveListener.onMoveStart();
+                else{
+
                 }
+
+
 
                 break;
             case MotionEvent.ACTION_MOVE:
                 if (isMove){
-                    if (r >circleRadius){
+                    if (r >realRadius){
                         //滑动半径大于实际半径
-                        x*=circleRadius/ r;
-                        y*=circleRadius/ r;
+                        x*=realRadius/ r;
+                        y*=realRadius/ r;
                         centerX=x;
                         centerY=y;
                         lastX=x;
                         lastY=y;
-                        invalidate();
                     }else {
                         //处于圆内
                         offsetX = x - lastX;
@@ -222,35 +324,76 @@ public class ColorPickerHSV extends View {
                         centerY += offsetY;
                         lastX = x;
                         lastY = y;
-                        invalidate();
                     }
                     float[] hsv={0,0,1};
                     //hsv为逆时针看角度
+
+                    Log.i(TAG, "onTouchEvent: "+Math.atan2(y,x));
                     //<0说明处于1，2象限，此时应取反
                     if (Math.atan2(y,x)<0){
                         hsv[0]= (float) ((-Math.atan2(y,x))/ Math.PI*180f) ;
                     }
                     //>0说明处于3，4象限，此时使用2*PI减去弧度
                     else{
-                        hsv[0]= (float) ((2*Math.PI - Math.atan2(y,x))/ Math.PI*180f) ;
+                        hsv[0]= (float) ((2*Math.PI - Math.atan2(y,x))/ Math.PI*180f);
+//                        //固件颜色区间实现不了，做范围限制
+//                        if (Math.PI/2<Math.atan2(y,x) && Math.atan2(y,x)<Math.PI*3/4){
+//                            hsv[0]= (float) ((2*Math.PI - Math.PI*3/4)/ Math.PI*180f) ;
+//                        }
+//                        else if(Math.PI/4<Math.atan2(y,x) && Math.atan2(y,x)<=Math.PI/2){
+//                            hsv[0]= (float) ((2*Math.PI - Math.PI*1/4)/ Math.PI*180f) ;
+//                        }
+//                        else{
+//                            hsv[0]= (float) ((2*Math.PI - Math.atan2(y,x))/ Math.PI*180f) ;
+//                        }
+
                     }
 
-                    hsv[1]= Math.max(0f, Math.min(1f,(float) (r/circleRadius)));
-                    int color = Color.HSVToColor(hsv);
+                    hsv[1]= Math.max(0f, Math.min(1f,(float) (r/realRadius)));
+                    int currentColor = Color.HSVToColor(hsv);
+                    innerCirclePaint.setColor(currentColor);
                     invalidate();
-                    red = (color & 0xff0000) >> 16;
-                    green = (color & 0x00ff00) >> 8;
-                    blue = (color & 0x0000ff);
+
+                    //<0说明处于1，2象限，此时应取反
+                    if (Math.atan2(y,x)<0){
+                        hsv[0]= (float) ((-Math.atan2(y,x))/ Math.PI*180f) ;
+                    }
+                    //>0说明处于3，4象限，此时使用2*PI减去弧度
+                    else{
+                        //hsv[0]= (float) ((2*Math.PI - Math.atan2(y,x))/ Math.PI*180f);
+                        //固件颜色区间实现不了，做范围限制
+                        if (Math.PI/2<Math.atan2(y,x) && Math.atan2(y,x)<Math.PI*3/4){
+                            hsv[0]= (float) ((2*Math.PI - Math.PI*3/4)/ Math.PI*180f) ;
+                        }
+                        else if(Math.PI/4<Math.atan2(y,x) && Math.atan2(y,x)<=Math.PI/2){
+                            hsv[0]= (float) ((2*Math.PI - Math.PI*1/4)/ Math.PI*180f) ;
+                        }
+                        else{
+                            hsv[0]= (float) ((2*Math.PI - Math.atan2(y,x))/ Math.PI*180f) ;
+                        }
+
+                    }
+                    currentColor = Color.HSVToColor(hsv);
+                    red = (currentColor & 0xff0000) >> 16;
+                    green = (currentColor & 0x00ff00) >> 8;
+                    blue = (currentColor & 0x0000ff);
                     if (onMoveListener!=null) {
                         onMoveListener.onMove(red, green, blue);
                     }
-                    Log.i(TAG,"red="+ red +" green"+ green +" blue"+ blue);
+
+                    //Log.i(TAG,"red="+ red +" green"+ green +" blue"+ blue);
                 }
                 break;
             case MotionEvent.ACTION_UP:
-                if (onMoveListener!=null) {
-                    onMoveListener.onMoveUp(red, green, blue);
-                }
+                getParent().requestDisallowInterceptTouchEvent(false);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (onMoveListener!=null) {
+                            onMoveListener.onMoveUp(red, green, blue);
+                        }
+                    }
+                },200);
                 isMove=false;
                 break;
 
@@ -259,8 +402,17 @@ public class ColorPickerHSV extends View {
         }
         return true;
     }
+
+    /**
+     * 返回当前rgb的值
+     * @return
+     */
+    public String getRgb(){
+        return ColorUtils.rgb2Hex(new int[]{red,green,blue});
+    }
+
     public interface onMoveListener{
-        void onMoveStart();
+        void onMoveStart(int r, int g, int b);
         void onMove(int r, int g, int b);
         void onMoveUp(int r, int g, int b);
     }
@@ -276,8 +428,10 @@ public class ColorPickerHSV extends View {
      * @param isVisible
      */
     public void setPointVisible(boolean isVisible){
-        mIsVisible = isVisible;
-        invalidate();
+        if (isVisible!=mIsVisible){
+            mIsVisible = isVisible;
+            invalidate();
+        }
     }
 
     /**
@@ -285,25 +439,44 @@ public class ColorPickerHSV extends View {
      */
     public void setPointPosition(int rgb){
         //hsv h:色调（0°~360°） s:饱和度（0~1） v:明度
-        Log.i(TAG, "rgb: "+rgb);
         float[] hsv = new float[3];
         Color.colorToHSV(rgb,hsv);
-        Log.i(TAG, "hsv[0]: "+hsv[0]+" hsv[1]:"+hsv[1]+" hsv[2]:"+hsv[2]);
         float centerX = 0;
         float centerY = 0;
-        float radius = hsv[1] * circleRadius;
-        Log.i(TAG, "setPointPosition radius: "+radius+" circleRadius:"+circleRadius);
-        Log.i(TAG, "Math.toRadians(hsv[0]: "+Math.toRadians(hsv[0]));
-        Log.i(TAG, " Math.cos(Math.toRadians(hsv[0])): "+ Math.cos(Math.toRadians(hsv[0]))+" Math.sin(Math.toRadians(hsv[0])):"+Math.sin(Math.toRadians(hsv[0])));
+        float radius = hsv[1] * realRadius;
         //Math.toRadians将角度转换成弧度
         //由于原点移动至控件中心，所以Y轴正负相反
         int pointX = (int) (radius * Math.cos(Math.toRadians(hsv[0])) + centerX);
         int pointY = -(int) (radius * Math.sin(Math.toRadians(hsv[0])) + centerY);
         this.centerX = pointX;
         this.centerY = pointY;
+        String hexColor = Integer.toHexString(rgb);
+        if (hexColor.equals(BLACK)||hexColor.equalsIgnoreCase(FFBLACK)){
+            innerCirclePaint.setColor(ColorUtils.hex2Int("FFFFFF"));
+        }
+        else{
+            innerCirclePaint.setColor(rgb);
+        }
+
+        if (hexColor.length() == 8){
+            hexColor = hexColor.substring(2);
+        }
+        int[] colors = ColorUtils.hex2rgb(hexColor);
+        red = colors[0];
+        green = colors[1];
+        blue = colors[2];
+
         Log.i(TAG, "centerX: "+this.centerX+" centerY:"+this.centerY);
         invalidate();
     }
 
+
+    /**
+     * dp->px
+     */
+    public static int dp2px(Context context, float dipValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dipValue * scale + 0.5f);
+    }
 
 }
