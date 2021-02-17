@@ -4,7 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -20,42 +22,92 @@ import java.util.List;
  * @Author dezhi.wang
  * @Date 2021/1/9 15:17
  */
-public class ListViewAdapter extends CommonAdapter<MyData> {
+public class ListViewAdapter extends BaseAdapter {
     private List<MyData> list = new ArrayList<>();
     private final LayoutInflater layoutInflater;
 
 
     public ListViewAdapter(Context context, int layoutId, List<MyData> list) {
-        super(context, layoutId, list);
+
         layoutInflater = LayoutInflater.from(context);
         this.list = list;
     }
 
 
+//    @Override
+//    protected void convert(com.zhy.adapter.abslistview.ViewHolder viewHolder, final MyData item, final int position) {
+//        TextView text = viewHolder.getView(R.id.text);
+//
+//        ImageView btnExpand = viewHolder.getView(R.id.item_expand_icon);
+//        ConstraintLayout cotrolPart = viewHolder.getView(R.id.control_part);
+//        if (item.isSelect){
+//
+//            cotrolPart.setVisibility(View.VISIBLE);
+//        }
+//        else {
+//
+//            cotrolPart.setVisibility(View.GONE);
+//        }
+//
+//        btnExpand.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                item.isSelect = !item.isSelect;
+//                notifyDataSetChanged();
+//            }
+//        });
+//    }
+
+
     @Override
-    protected void convert(com.zhy.adapter.abslistview.ViewHolder viewHolder, final MyData item, final int position) {
-        TextView text = viewHolder.getView(R.id.text);
-        ConstraintLayout constraintLayout = viewHolder.getView(R.id.cl);
-        ConstraintLayout constraintLayout1 = viewHolder.getView(R.id.cl_1);
-        Button btnExpand = viewHolder.getView(R.id.bt_expand);
-        text.setText(item.s);
-        if (item.isSelect){
-            constraintLayout.setVisibility(View.VISIBLE);
-            constraintLayout1.setVisibility(View.VISIBLE);
-        }
-        else {
-            constraintLayout.setVisibility(View.GONE);
-            constraintLayout1.setVisibility(View.GONE);
+    public int getCount() {
+        return list.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return list.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        ViewHolder viewHolder = new ViewHolder();
+        if(convertView == null){
+            convertView = layoutInflater.inflate(R.layout.list_view_item,parent,false);
+            viewHolder.btnExpand = (ImageView)convertView.findViewById(R.id.item_expand_icon);
+            viewHolder.cotrolPart = (ConstraintLayout)convertView.findViewById(R.id.control_part);
+            convertView.setTag(viewHolder);
+        }else{
+            viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        btnExpand.setOnClickListener(new View.OnClickListener() {
+        if (list.get(position).isSelect){
+
+            viewHolder.cotrolPart.setVisibility(View.VISIBLE);
+        }
+        else {
+
+            viewHolder.cotrolPart.setVisibility(View.GONE);
+        }
+
+        viewHolder.btnExpand .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                item.isSelect = !item.isSelect;
+                list.get(position).isSelect = !list.get(position).isSelect;
                 notifyDataSetChanged();
             }
         });
+
+        return convertView;
     }
 
-
+    private class ViewHolder{
+        ImageView btnExpand;
+        ConstraintLayout cotrolPart;
+    }
 }
