@@ -7,12 +7,14 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.wdz.module_basis.R;
 import com.wdz.module_basis.widget.recyclerview.bean.MyData;
+import com.wdz.module_basis.widget.recyclerview.universal.base.SingleTypeAdapter;
 import com.zhy.adapter.abslistview.CommonAdapter;
 
 import java.util.ArrayList;
@@ -27,37 +29,48 @@ public class ListViewAdapter extends BaseAdapter {
     private final LayoutInflater layoutInflater;
 
 
-    public ListViewAdapter(Context context, int layoutId, List<MyData> list) {
-
+    public ListViewAdapter(Context context,  List<MyData> list) {
         layoutInflater = LayoutInflater.from(context);
         this.list = list;
     }
-
-
+//
+//
 //    @Override
-//    protected void convert(com.zhy.adapter.abslistview.ViewHolder viewHolder, final MyData item, final int position) {
-//        TextView text = viewHolder.getView(R.id.text);
+//    public void bindData(BaseViewHolder holder, final MyData data, final int position) {
+//        if (data.isSelect){
 //
-//        ImageView btnExpand = viewHolder.getView(R.id.item_expand_icon);
-//        ConstraintLayout cotrolPart = viewHolder.getView(R.id.control_part);
-//        if (item.isSelect){
-//
-//            cotrolPart.setVisibility(View.VISIBLE);
+//            holder.getView(R.id.control_part).setVisibility(View.VISIBLE);
+////            viewHolder.cotrolPart.findViewById(R.id.seekbar_light).requestLayout();
+////            viewHolder.cotrolPart.requestLayout();
 //        }
 //        else {
 //
-//            cotrolPart.setVisibility(View.GONE);
+//            holder.getView(R.id.control_part).setVisibility(View.GONE);
 //        }
 //
-//        btnExpand.setOnClickListener(new View.OnClickListener() {
+//        holder.getView(R.id.item_expand_icon).setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                item.isSelect = !item.isSelect;
+//                data.isSelect = !data.isSelect;
 //                notifyDataSetChanged();
 //            }
 //        });
 //    }
-
+//
+//    @Override
+//    public int getLayoutId() {
+//        return R.layout.list_view_item;
+//    }
+//
+//    @Override
+//    public int getHeadLayoutId() {
+//        return 0;
+//    }
+//
+//    @Override
+//    public int getEmptyLayoutId() {
+//        return 0;
+//    }
 
     @Override
     public int getCount() {
@@ -89,6 +102,8 @@ public class ListViewAdapter extends BaseAdapter {
         if (list.get(position).isSelect){
 
             viewHolder.cotrolPart.setVisibility(View.VISIBLE);
+//            viewHolder.cotrolPart.findViewById(R.id.seekbar_light).requestLayout();
+//            viewHolder.cotrolPart.requestLayout();
         }
         else {
 
@@ -105,6 +120,8 @@ public class ListViewAdapter extends BaseAdapter {
 
         return convertView;
     }
+
+
 
     private class ViewHolder{
         ImageView btnExpand;

@@ -151,5 +151,14 @@
         <attr name="thumbHeight" format="dimension" />
     </declare-styleable>
 
+    <declare-styleable name="CornerView">
+        <attr name="frameWidth"/>
+        <attr name="frameColor"/>
+        <attr name="frameVisible" format="boolean"/>
+        <attr name="viewSrc"/>
+        <attr name="type"/>
+        <attr name="cornerRadius" format="dimension"/>
+    </declare-styleable>
+
 
 </resources>

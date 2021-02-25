@@ -96,23 +96,22 @@
 <!--    </com.wdz.module_customview.myview.imageview.RoundView>-->
 
 
+    <com.wdz.module_customview.myview.imageview.RoundImageView
+        android:layout_width="300dp"
+        android:layout_height="200dp"
 
+        android:src="@color/color_418FDE"
+        app:bottomLeftRadius="10dp"
 
-<!--    <com.wdz.module_customview.myview.imageview.RoundImageView-->
-<!--        app:type="roundRect"-->
-<!--        app:topLeftRadius="10dp"-->
-<!--        app:topRightRadius="10dp"-->
-<!--        app:bottomLeftRadius="10dp"-->
-<!--        app:bottomRightRadius="10dp"-->
-
-<!--        app:frameWidth="5dp"-->
-<!--        app:frameColor="@color/red_deep"-->
-<!--        android:background="@color/gray_holo_light"-->
-<!--        android:layout_width="300dp"-->
-<!--        android:layout_height="200dp"-->
-<!--        android:src="@mipmap/bg_adddevice"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
+        app:bottomRightRadius="10dp"
+        app:frameColor="@color/red_deep"
+        app:frameWidth="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.95"
+        app:topLeftRadius="10dp"
+        app:topRightRadius="10dp"
+        app:type="roundRect" />
 </androidx.constraintlayout.widget.ConstraintLayout>

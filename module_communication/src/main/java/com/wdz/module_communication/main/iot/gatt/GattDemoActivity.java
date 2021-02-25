@@ -12,15 +12,18 @@ import android.bluetooth.BluetoothProfile;
 import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
+import android.bluetooth.le.ScanSettings;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,6 +33,9 @@ import com.wdz.common.constant.ARouterConstant;
 import com.wdz.module_communication.R;
 import com.wdz.module_communication.R2;
 import com.wdz.module_communication.main.iot.gatt.bean.MyBluetoothDevice;
+import com.wdz.module_communication.main.iot.gatt.utils.BluetoothScanManager;
+import com.wdz.module_communication.main.iot.gatt.utils.OnBluetoothScanListener;
+import com.wdz.module_communication.main.iot.gatt.utils.TimeoutUtil;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -43,6 +49,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static android.bluetooth.BluetoothGatt.GATT_SUCCESS;
+import static com.wdz.module_communication.main.iot.gatt.utils.BluetoothScanManager.FILTER_MAC;
 
 @Route(path = ARouterConstant.ACTIVITY_GATT)
 public class GattDemoActivity extends PermissionActivity {
@@ -61,6 +68,7 @@ public class GattDemoActivity extends PermissionActivity {
     private List<MyBluetoothDevice> myBluetoothDeviceList = new ArrayList<>();
     private ScanDeviceAdapter scanDeviceAdapter;
     private BluetoothGatt bluetoothGatt;
+    private BluetoothScanManager bluetoothScanManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,9 +91,80 @@ public class GattDemoActivity extends PermissionActivity {
         }
         //checkDeviceConnectStatus();
         initView();
-        initMorePermission(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            initMorePermission(Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_BACKGROUND_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        } else {
+            initMorePermission(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        }
 
 
+        bluetoothScanManager = new BluetoothScanManager.Builder()
+                .setScanMode(ScanSettings.SCAN_MODE_BALANCED)
+                .setScanFilterType(FILTER_MAC)
+                .setScanFilter("E8:D0:3C:54:5D:CA")
+                .setScanTimeOut(10*1000)
+                .setOnBluetoothScanListener(new OnBluetoothScanListener() {
+            @Override
+            public void onStartScan() {
+
+            }
+
+            @Override
+            public void onStopScan() {
+                Log.i(TAG, "onStopScan: ");
+            }
+
+            @Override
+            public void onScanTimeOut() {
+                Log.i(TAG, "onScanTimeOut: ");
+            }
+
+            @Override
+            public void onScanResult(ScanResult result) {
+
+                List<BluetoothDevice> bluetoothDeviceList = new ArrayList<>();
+                for (int i = 0; i < myBluetoothDeviceList.size(); i++) {
+                    bluetoothDeviceList.add(myBluetoothDeviceList.get(i).bluetoothDevice);
+                }
+                if (!bluetoothDeviceList.contains(result.getDevice())){
+                    MyBluetoothDevice myBluetoothDevice = new MyBluetoothDevice();
+                    myBluetoothDevice.setBluetoothDevice(result.getDevice());
+                    myBluetoothDevice.setRssi(result.getRssi());
+                    myBluetoothDeviceList.add(myBluetoothDevice);
+//                myBluetoothDeviceList.sort(new Comparator<MyBluetoothDevice>() {
+//                    @Override
+//                    public int compare(MyBluetoothDevice o1, MyBluetoothDevice o2) {
+//                        Integer rssi = o1.getRssi();
+//                        Integer rssi1 = o2.getRssi();
+//                        return rssi.compareTo(rssi1);
+//                    }
+//                });
+                    scanDeviceAdapter.notifyDataSetChanged();
+                }
+
+
+                Log.i(TAG, "onScanResult: ");
+            }
+
+            @Override
+            public void onScanFail() {
+
+            }
+        }).build();
+
+        TimeoutUtil.setTimeout(10*1000, new TimeoutUtil.OnTimeoutListener() {
+            @Override
+            public void onTimeoutStart() {
+                
+            }
+
+            @Override
+            public void onTimeoutFinish() {
+                Log.i(TAG, "onTimeoutFinish: ");
+            }
+        });
     }
 
     /**
@@ -223,13 +302,15 @@ public class GattDemoActivity extends PermissionActivity {
             if (isStartScan){
                 isStartScan = false;
                 //stopScan();
-                stopScanNew();
+                //stopScanNew();
+                bluetoothScanManager.stopScan();
                 btScan.setText("scan");
             }
             else{
                 isStartScan = true;
                 //scanDevice();
-                scanDeviceNew();
+                //scanDeviceNew();
+                bluetoothScanManager.startScan();
                 btScan.setText("stop");
             }
 

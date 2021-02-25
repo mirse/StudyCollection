@@ -1,6 +1,7 @@
 package com.wdz.module_basis.widget.recyclerview.listview;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,6 +21,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * listview item中包含seekBar会出现复用显示不出来的问题，解决方法 seekBar同级添加其余一种系统view或者使用recyclerview
@@ -31,6 +33,13 @@ public class ListViewActivity extends AppCompatActivity {
     @BindView(R2.id.bt_modify)
     Button btnModify;
     private ListViewAdapter listViewAdapter;
+
+//    @BindView(R2.id.control_part)
+//    ConstraintLayout control_part;
+//    @BindView(R2.id.control_part1)
+//    ConstraintLayout control_part1;
+
+    ListView mListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,16 +57,16 @@ public class ListViewActivity extends AppCompatActivity {
             myData.isSelect = false;
             mArrayList.add(myData);
         }
-        listViewAdapter = new ListViewAdapter(this,R.layout.list_view_item, mArrayList);
-        //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-        //listView.setLayoutManager(linearLayoutManager);
+        listViewAdapter = new ListViewAdapter(this, mArrayList);
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+//        listView.setLayoutManager(linearLayoutManager);
         listView.setAdapter(listViewAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i(TAG, "onItemClick: "+position);
-            }
-        });
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Log.i(TAG, "onItemClick: "+position);
+//            }
+//        });
 
         btnModify.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,4 +78,13 @@ public class ListViewActivity extends AppCompatActivity {
             }
         });
     }
+//    @OnClick({R2.id.item_expand_icon,R2.id.item_expand_icon1})
+//    public void onClick(View view){
+//        if (view.getId() == R.id.item_expand_icon){
+//            control_part.setVisibility(View.VISIBLE);
+//        }
+//        else if (view.getId() == R.id.item_expand_icon1){
+//            control_part1.setVisibility(View.VISIBLE);
+//        }
+//    }
 }

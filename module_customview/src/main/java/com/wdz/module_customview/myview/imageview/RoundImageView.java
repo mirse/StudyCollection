@@ -43,6 +43,7 @@ public class RoundImageView extends androidx.appcompat.widget.AppCompatImageView
     private int type;
     private Paint framePaint;
     private Path rectPath;
+    private float moveFrameWidth;
 
 
     public RoundImageView(Context context) {
@@ -73,6 +74,8 @@ public class RoundImageView extends androidx.appcompat.widget.AppCompatImageView
         bottomLeftRadius = array.getDimensionPixelSize(R.styleable.RoundImageView_bottomLeftRadius, 0);
         bottomRightRadius = array.getDimensionPixelSize(R.styleable.RoundImageView_bottomRightRadius, 0);
         array.recycle();
+
+        moveFrameWidth = (float) (frameWidth*Math.sqrt(1.0/8));
 
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setColor(Color.BLACK);
@@ -174,18 +177,31 @@ public class RoundImageView extends androidx.appcompat.widget.AppCompatImageView
         if (topLeftRadius!=0){
             Path path = new Path();
 
-            //从（0，roundHeight）开始绘制
-            path.moveTo(0, topLeftRadius);
-            path.lineTo(0, 0);
-            path.lineTo(topLeftRadius,0);
-            //当 forceMoveTo =false 时，表示连接
-            //画出一个直角
-            path.arcTo(new RectF(0,0, topLeftRadius * 2, topLeftRadius * 2), -90, -90,true);
 
 
+            //有边框
             if (frameWidth!=0){
-                rectPath.moveTo((float) frameWidth/2, topLeftRadius+(float) frameWidth/2);
-                rectPath.arcTo(new RectF((float) frameWidth/2, (float) frameWidth/2, (float) frameWidth/2+topLeftRadius * 2, (float) frameWidth/2+topLeftRadius * 2), 180, 90,true);
+                //从（0，roundHeight）开始绘制
+                path.moveTo(0, topLeftRadius);
+                path.lineTo(0, 0);
+                path.lineTo(topLeftRadius,0);
+                //当 forceMoveTo =false 时，表示连接
+                //画出一个直角
+                path.arcTo(new RectF(0,0, topLeftRadius * 2, topLeftRadius * 2), -90, -90,true);
+
+
+                rectPath.moveTo(moveFrameWidth, topLeftRadius+moveFrameWidth);
+                rectPath.arcTo(new RectF(moveFrameWidth,moveFrameWidth, moveFrameWidth+topLeftRadius * 2, moveFrameWidth+topLeftRadius * 2), 180, 90,true);
+            }
+            else{
+                //从（0，roundHeight）开始绘制
+                path.moveTo(0, topLeftRadius);
+                path.lineTo(0, 0);
+                path.lineTo(topLeftRadius,0);
+                //当 forceMoveTo =false 时，表示连接
+                //画出一个直角
+                path.arcTo(new RectF(0,0, topLeftRadius * 2, topLeftRadius * 2), -90, -90,true);
+
             }
 
             path.close();
@@ -206,14 +222,21 @@ public class RoundImageView extends androidx.appcompat.widget.AppCompatImageView
     private void drawRightUp(Canvas canvas,Paint paint) {
         if (topRightRadius!=0) {
             Path path = new Path();
-            path.moveTo(getWidth(), topRightRadius);
-            path.lineTo(getWidth(), 0);
-            path.lineTo(getWidth() - topRightRadius, 0);
-            path.arcTo(new RectF(getWidth() - topRightRadius * 2, 0, getWidth(), topRightRadius * 2), -90, 90);
             if (frameWidth!=0){
-                rectPath.lineTo(getWidth()- topRightRadius -(float) frameWidth/2, (float) frameWidth/2);
-                rectPath.arcTo(new RectF(getWidth() - (float) frameWidth/2 - topRightRadius * 2, (float) frameWidth/2, getWidth()-(float) frameWidth/2, 0 + topRightRadius * 2+(float) frameWidth/2), 270, 90);
 
+                path.moveTo(getWidth(), topRightRadius);
+                path.lineTo(getWidth(), 0);
+                path.lineTo(getWidth() - topRightRadius, 0);
+                path.arcTo(new RectF(getWidth() - topRightRadius * 2, 0, getWidth(), topRightRadius * 2), -90, 90);
+
+                rectPath.lineTo(getWidth()- topRightRadius -moveFrameWidth, moveFrameWidth);
+                rectPath.arcTo(new RectF(getWidth() - moveFrameWidth - topRightRadius * 2, moveFrameWidth, getWidth()-moveFrameWidth, 0 + topRightRadius * 2+moveFrameWidth), 270, 90);
+            }
+            else{
+                path.moveTo(getWidth(), topRightRadius);
+                path.lineTo(getWidth(), 0);
+                path.lineTo(getWidth() - topRightRadius, 0);
+                path.arcTo(new RectF(getWidth() - topRightRadius * 2, 0, getWidth(), topRightRadius * 2), -90, 90);
             }
 
             path.close();
@@ -232,14 +255,23 @@ public class RoundImageView extends androidx.appcompat.widget.AppCompatImageView
     private void drawRightDown(Canvas canvas,Paint paint) {
         if (bottomRightRadius!=0) {
             Path path = new Path();
-            path.moveTo(getWidth(), getHeight() - bottomRightRadius);
-            path.lineTo(getWidth(), getHeight());
-            path.lineTo(getWidth() - bottomRightRadius, getHeight());
-            path.arcTo(new RectF(getWidth()  - bottomRightRadius * 2, getHeight() - bottomRightRadius * 2, getWidth(), getHeight()), 90, -90);
-
             if (frameWidth!=0){
-                rectPath.lineTo(getWidth()-(float) frameWidth/2, getHeight() - bottomRightRadius-(float) frameWidth/2);
-                rectPath.arcTo(new RectF(getWidth() -(float) frameWidth/2 - bottomRightRadius * 2, getHeight()-(float) frameWidth/2 - bottomRightRadius * 2, getWidth()-(float) frameWidth/2, getHeight()-(float) frameWidth/2), 0, 90);
+                path.moveTo(getWidth(), getHeight() - bottomRightRadius);
+                path.lineTo(getWidth(), getHeight());
+                path.lineTo(getWidth() - bottomRightRadius, getHeight());
+                path.arcTo(new RectF(getWidth()  - bottomRightRadius * 2, getHeight() - bottomRightRadius * 2, getWidth(), getHeight()), 90, -90);
+
+
+                rectPath.lineTo(getWidth()-moveFrameWidth, getHeight() - bottomRightRadius-moveFrameWidth);
+                rectPath.arcTo(new RectF(getWidth() -moveFrameWidth - bottomRightRadius * 2, getHeight()-moveFrameWidth- bottomRightRadius * 2, getWidth()-moveFrameWidth, getHeight()-moveFrameWidth), 0, 90);
+
+            }
+            else{
+
+                path.moveTo(getWidth(), getHeight() - bottomRightRadius);
+                path.lineTo(getWidth(), getHeight());
+                path.lineTo(getWidth() - bottomRightRadius, getHeight());
+                path.arcTo(new RectF(getWidth()  - bottomRightRadius * 2, getHeight() - bottomRightRadius * 2, getWidth(), getHeight()), 90, -90);
 
             }
 
@@ -259,14 +291,21 @@ public class RoundImageView extends androidx.appcompat.widget.AppCompatImageView
     private void drawLeftDown(Canvas canvas,Paint paint) {
         if (bottomLeftRadius!=0) {
             Path path = new Path();
-            path.moveTo(0, getHeight() - bottomLeftRadius);
-            path.lineTo(0, getHeight());
-            path.lineTo(bottomLeftRadius+(float) frameWidth/2, getHeight());
-            path.arcTo(new RectF(0, getHeight() - bottomLeftRadius * 2, bottomLeftRadius * 2, getHeight()), 90, 90);
-
             if (frameWidth!=0){
-                rectPath.lineTo(bottomLeftRadius-(float) frameWidth/2, getHeight()-(float) frameWidth/2);
-                rectPath.arcTo(new RectF((float) frameWidth/2, getHeight()-(float) frameWidth/2 - bottomLeftRadius * 2, bottomLeftRadius * 2+(float) frameWidth/2, getHeight()-(float) frameWidth/2), 90, 90);
+                path.moveTo(0, getHeight() - bottomLeftRadius);
+                path.lineTo(0, getHeight());
+                path.lineTo(bottomLeftRadius+(float) frameWidth/2, getHeight());
+                path.arcTo(new RectF(0, getHeight() - bottomLeftRadius * 2, bottomLeftRadius * 2, getHeight()), 90, 90);
+
+                rectPath.lineTo(bottomLeftRadius-moveFrameWidth, getHeight()-moveFrameWidth);
+                rectPath.arcTo(new RectF(moveFrameWidth, getHeight()-moveFrameWidth - bottomLeftRadius * 2, bottomLeftRadius * 2+moveFrameWidth, getHeight()-moveFrameWidth), 90, 90);
+            }
+            else{
+                path.moveTo(0, getHeight() - bottomLeftRadius);
+                path.lineTo(0, getHeight());
+                path.lineTo(bottomLeftRadius+(float) frameWidth/2, getHeight());
+                path.arcTo(new RectF(0, getHeight() - bottomLeftRadius * 2, bottomLeftRadius * 2, getHeight()), 90, 90);
+
             }
 
             path.close();
