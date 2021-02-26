@@ -7,7 +7,7 @@ import android.bluetooth.le.ScanResult;
  * @Author dezhi.wang
  * @Date 2021/2/25 11:31
  */
-public interface OnBluetoothScanListener {
+public interface OnBleScanListener {
     /**
      * 开始扫描
      */

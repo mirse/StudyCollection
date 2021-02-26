@@ -116,6 +116,9 @@ ext{
 
 
             //配合recyclerView使用的flowLayoutManager
-            flowLayoutManager:               "com.beloo.widget:ChipsLayoutManager:0.3.7@aar"
+            flowLayoutManager:               "com.beloo.widget:ChipsLayoutManager:0.3.7@aar",
+
+            autodispose_archcomponents:      'com.uber.autodispose:autodispose-android-archcomponents:0.6.1',
+            autodispose:                     'com.uber.autodispose:autodispose:0.6.1',
     ]
 }

@@ -39,6 +39,7 @@ public class RxJavaTestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rx_java_test);
+
 //        Observable.interval(2,1, TimeUnit.SECONDS).subscribe(new Observer<Long>() {
 //            @Override
 //            public void onSubscribe(Disposable d) {
@@ -63,47 +64,49 @@ public class RxJavaTestActivity extends AppCompatActivity {
 
 
 
-        Observable.create(new ObservableOnSubscribe<Integer>() {
 
-            @Override
-            public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
-                emitter.onNext(1);
-                emitter.onNext(2);
-            }
-        }).concatMap(new Function<Integer, ObservableSource<String>>() {
-            @Override
-            public ObservableSource<String> apply(Integer integer) throws Exception {
-                List<String> list = new ArrayList<>();
-                for (int i = 0; i < 3; i++) {
-                    list.add(i+"个");
-                }
-                return Observable.fromIterable(list);
-            }
-        }).subscribe(new Observer<String>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-                disposable = d;
-                Log.i(TAG, "onSubscribe: ");
-            }
 
-            @Override
-            public void onNext(String s) {
-                if (s.equals("1")){
-                    disposable.dispose();
-                }
-                Log.i(TAG, "onNext: "+s);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Log.i(TAG, "onError: ");
-            }
-
-            @Override
-            public void onComplete() {
-                Log.i(TAG, "onComplete: ");
-            }
-        });
+//        Observable.create(new ObservableOnSubscribe<Integer>() {
+//
+//            @Override
+//            public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
+//                emitter.onNext(1);
+//                emitter.onNext(2);
+//            }
+//        }).concatMap(new Function<Integer, ObservableSource<String>>() {
+//            @Override
+//            public ObservableSource<String> apply(Integer integer) throws Exception {
+//                List<String> list = new ArrayList<>();
+//                for (int i = 0; i < 3; i++) {
+//                    list.add(i+"个");
+//                }
+//                return Observable.fromIterable(list);
+//            }
+//        }).subscribe(new Observer<String>() {
+//            @Override
+//            public void onSubscribe(Disposable d) {
+//                disposable = d;
+//                Log.i(TAG, "onSubscribe: ");
+//            }
+//
+//            @Override
+//            public void onNext(String s) {
+//                if (s.equals("1")){
+//                    disposable.dispose();
+//                }
+//                Log.i(TAG, "onNext: "+s);
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//                Log.i(TAG, "onError: ");
+//            }
+//
+//            @Override
+//            public void onComplete() {
+//                Log.i(TAG, "onComplete: ");
+//            }
+//        });
 
 
 //        Observable.just(1,2,3,4,5)
@@ -219,5 +222,71 @@ public class RxJavaTestActivity extends AppCompatActivity {
 //            }
 //        });
 
+
+        getMsg().subscribe(new Observer<String>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                Log.i(TAG, "onSubscribe: ");
+            }
+
+            @Override
+            public void onNext(String s) {
+                Log.i(TAG, "onNext: ");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.i(TAG, "onError: ");
+            }
+
+            @Override
+            public void onComplete() {
+                Log.i(TAG, "onComplete: ");
+            }
+        });
+
     }
+
+
+    private Observable<String> getMsg(){
+        Observable<String> stringObservable = Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+                //emitter.onNext(testGetMsg());
+                testGetMsg(emitter);
+            }
+        });
+        return stringObservable.retry(0);
+
+    }
+    int count;
+    private void testGetMsg(final ObservableEmitter<String> emitter) throws Exception {
+        count++;
+        getResult(count, new OnGetResultListener() {
+            @Override
+            public void getSuccess() {
+                emitter.onComplete();
+            }
+
+            @Override
+            public void getFail() {
+                emitter.onError(new Throwable(""));
+            }
+        });
+    };
+
+    private void getResult(int count,OnGetResultListener onGetResultListener){
+        Log.i(TAG, "getResult: "+count);
+        if (count == 0){
+            onGetResultListener.getSuccess();
+        }
+        else{
+            onGetResultListener.getFail();
+        }
+    }
+    private interface OnGetResultListener{
+        void getSuccess();
+        void getFail();
+    }
+
 }

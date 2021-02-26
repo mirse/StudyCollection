@@ -10,6 +10,11 @@ import android.util.Log;
 public class TimeoutUtil {
     private static Handler handler = new Handler();
 
+    /**
+     * 设置超时
+     * @param timeout
+     * @param onTimeoutListener
+     */
     public static void setTimeout(long timeout, final OnTimeoutListener onTimeoutListener){
         Log.i("TimeoutUtil", "setTimeout: "+handler.hashCode());
         if (onTimeoutListener!=null){
@@ -23,6 +28,13 @@ public class TimeoutUtil {
                 }
             }
         },timeout);
+    }
+
+    /**
+     * 移除所有超时
+     */
+    public static void clearAllTimeout(){
+        handler.removeCallbacksAndMessages(null);
     }
 
     public interface OnTimeoutListener{

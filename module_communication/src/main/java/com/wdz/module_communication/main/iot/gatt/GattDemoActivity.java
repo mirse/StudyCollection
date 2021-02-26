@@ -23,7 +23,6 @@ import android.view.View;
 import android.widget.Button;
 
 
-import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,8 +33,9 @@ import com.wdz.module_communication.R;
 import com.wdz.module_communication.R2;
 import com.wdz.module_communication.main.iot.gatt.bean.MyBluetoothDevice;
 import com.wdz.module_communication.main.iot.gatt.utils.BluetoothScanManager;
-import com.wdz.module_communication.main.iot.gatt.utils.OnBluetoothScanListener;
-import com.wdz.module_communication.main.iot.gatt.utils.TimeoutUtil;
+import com.wdz.module_communication.main.iot.gatt.utils.BluetoothGattManager;
+import com.wdz.module_communication.main.iot.gatt.utils.OnBleScanListener;
+import com.wdz.module_communication.main.iot.gatt.utils.OnBleStateListener;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -69,6 +69,7 @@ public class GattDemoActivity extends PermissionActivity {
     private ScanDeviceAdapter scanDeviceAdapter;
     private BluetoothGatt bluetoothGatt;
     private BluetoothScanManager bluetoothScanManager;
+    private BluetoothGattManager bluetoothGattManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,14 +99,29 @@ public class GattDemoActivity extends PermissionActivity {
             initMorePermission(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
         }
+        bluetoothGattManager = new BluetoothGattManager.Builder(this)
+                .setRetryCount(1)
+                .setOnBleStateListener(new OnBleStateListener() {
+                    @Override
+                    public void onGattConnected() {
+                        Log.i(TAG, "onGattConnected: ");
+                        checkDeviceConnectStatus();
+                    }
+
+                    @Override
+                    public void onGattDisconnected() {
+                        Log.i(TAG, "onGattDisconnected: ");
+                    }
+                })
+                .build();
 
 
         bluetoothScanManager = new BluetoothScanManager.Builder()
                 .setScanMode(ScanSettings.SCAN_MODE_BALANCED)
                 .setScanFilterType(FILTER_MAC)
-                .setScanFilter("E8:D0:3C:54:5D:CA")
+                .setScanFilter("E8:D0:3C:54:5C:A8")
                 .setScanTimeOut(10*1000)
-                .setOnBluetoothScanListener(new OnBluetoothScanListener() {
+                .setOnBluetoothScanListener(new OnBleScanListener() {
             @Override
             public void onStartScan() {
 
@@ -154,17 +170,7 @@ public class GattDemoActivity extends PermissionActivity {
             }
         }).build();
 
-        TimeoutUtil.setTimeout(10*1000, new TimeoutUtil.OnTimeoutListener() {
-            @Override
-            public void onTimeoutStart() {
-                
-            }
 
-            @Override
-            public void onTimeoutFinish() {
-                Log.i(TAG, "onTimeoutFinish: ");
-            }
-        });
     }
 
     /**
@@ -194,17 +200,20 @@ public class GattDemoActivity extends PermissionActivity {
         scanDeviceAdapter.setOnClickListener(new ScanDeviceAdapter.OnClickListener() {
             @Override
             public void onClickDisConnect(@NotNull MyBluetoothDevice myBluetoothDevice) {
-                bluetoothGatt.disconnect();
+//                bluetoothGatt.disconnect();
+                bluetoothGattManager.disconnect();
             }
 
             @Override
             public void onClickConnect(@NotNull MyBluetoothDevice myBluetoothDevice) {
-                //autoConnect:指示是否在可用时自动连接到 BLE 设备
-                if (bluetoothGatt!=null){
-                    bluetoothGatt.close();
-                }
-                //> 6.0
-                bluetoothGatt = myBluetoothDevice.bluetoothDevice.connectGatt(GattDemoActivity.this, false, bluetoothGattCallback,BluetoothDevice.TRANSPORT_LE);
+//                //autoConnect:指示是否在可用时自动连接到 BLE 设备
+//                if (bluetoothGatt!=null){
+//                    bluetoothGatt.close();
+//                }
+//                //> 6.0
+//                bluetoothGatt = myBluetoothDevice.bluetoothDevice.connectGatt(GattDemoActivity.this, false, bluetoothGattCallback,BluetoothDevice.TRANSPORT_LE);
+
+                bluetoothGattManager.connect(myBluetoothDevice.bluetoothDevice.getAddress());
 
             }
         });

@@ -104,4 +104,7 @@ dependencies {
 
     implementation rootProject.ext.dependencies.paging
 
+
+    implementation rootProject.ext.dependencies.autodispose_archcomponents
+    implementation rootProject.ext.dependencies.autodispose
 }

@@ -1,16 +1,12 @@
 package com.wdz.module_communication.main.iot.gatt.utils;
 
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothManager;
 import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanFilter;
 import android.bluetooth.le.ScanResult;
 import android.bluetooth.le.ScanSettings;
-import android.content.Context;
-import android.content.Intent;
 import android.os.ParcelUuid;
-import android.text.format.Time;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -30,7 +26,7 @@ public class BluetoothScanManager extends ScanCallback {
     private int scanMode = -1;
     private long scanTimeOut = 0;
     private BluetoothLeScanner bluetoothLeScanner;
-    private OnBluetoothScanListener onBluetoothScanListener;
+    private OnBleScanListener onBleScanListener;
 
     public BluetoothScanManager() {
         BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -39,8 +35,8 @@ public class BluetoothScanManager extends ScanCallback {
             bluetoothLeScanner = bluetoothAdapter.getBluetoothLeScanner();
         }
         else{
-            if (onBluetoothScanListener!=null){
-                onBluetoothScanListener.onScanFail();
+            if (onBleScanListener !=null){
+                onBleScanListener.onScanFail();
             }
         }
     }
@@ -88,13 +84,13 @@ public class BluetoothScanManager extends ScanCallback {
             }
             setTimeout();
 
-            if (onBluetoothScanListener!=null){
-                onBluetoothScanListener.onStartScan();
+            if (onBleScanListener !=null){
+                onBleScanListener.onStartScan();
             }
         }
         else{
-            if (onBluetoothScanListener!=null){
-                onBluetoothScanListener.onScanFail();
+            if (onBleScanListener !=null){
+                onBleScanListener.onScanFail();
             }
         }
     }
@@ -112,8 +108,8 @@ public class BluetoothScanManager extends ScanCallback {
 
                 @Override
                 public void onTimeoutFinish() {
-                    if (onBluetoothScanListener!=null){
-                        onBluetoothScanListener.onScanTimeOut();
+                    if (onBleScanListener !=null){
+                        onBleScanListener.onScanTimeOut();
                     }
                     stopScan();
                 }
@@ -126,14 +122,17 @@ public class BluetoothScanManager extends ScanCallback {
      */
     public void stopScan(){
         if (checkIsSupportBle()){
+            if (scanTimeOut != 0){
+                TimeoutUtil.clearAllTimeout();
+            }
             bluetoothLeScanner.stopScan(this);
-            if (onBluetoothScanListener!=null){
-                onBluetoothScanListener.onStopScan();
+            if (onBleScanListener !=null){
+                onBleScanListener.onStopScan();
             }
         }
         else{
-            if (onBluetoothScanListener!=null){
-                onBluetoothScanListener.onScanFail();
+            if (onBleScanListener !=null){
+                onBleScanListener.onScanFail();
             }
         }
     }
@@ -145,8 +144,8 @@ public class BluetoothScanManager extends ScanCallback {
      */
     @Override
     public void onScanResult(int callbackType, ScanResult result) {
-        if (onBluetoothScanListener!=null){
-            onBluetoothScanListener.onScanResult(result);
+        if (onBleScanListener !=null){
+            onBleScanListener.onScanResult(result);
         }
     }
 
@@ -211,11 +210,11 @@ public class BluetoothScanManager extends ScanCallback {
 
         /**
          * 设置蓝牙扫描监听
-         * @param onBluetoothScanListener
+         * @param onBleScanListener
          * @return
          */
-        public Builder setOnBluetoothScanListener(OnBluetoothScanListener onBluetoothScanListener){
-            bluetoothScanManager.onBluetoothScanListener = onBluetoothScanListener;
+        public Builder setOnBluetoothScanListener(OnBleScanListener onBleScanListener){
+            bluetoothScanManager.onBleScanListener = onBleScanListener;
             return this;
         }
         public BluetoothScanManager build(){

@@ -1,7 +1,6 @@
 package com.wdz.studycollection.main;
 
 import android.app.Activity;
-import android.content.Context;
 
 import androidx.multidex.BuildConfig;
 import androidx.multidex.MultiDex;
@@ -9,6 +8,7 @@ import androidx.multidex.MultiDexApplication;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.tencent.bugly.crashreport.CrashReport;
+import com.wdz.module_communication.main.iot.gatt.utils.BluetoothGattManager;
 import com.wdz.studycollection.main.di.component.DaggerAppComponent;
 
 
@@ -37,6 +37,7 @@ public class MyApplication extends MultiDexApplication implements HasActivityInj
             ARouter.openLog();
         }
         ARouter.init(this);
+        BluetoothGattManager.init(context);
 
         //bugly初始化
         CrashReport.initCrashReport(getApplicationContext(), "d057558e8f", true);
