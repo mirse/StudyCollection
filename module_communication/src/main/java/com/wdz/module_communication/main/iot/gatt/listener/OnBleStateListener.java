@@ -1,4 +1,4 @@
-package com.wdz.module_communication.main.iot.gatt.utils;
+package com.wdz.module_communication.main.iot.gatt.listener;
 
 import android.bluetooth.BluetoothGatt;
 import android.bluetooth.le.ScanResult;
@@ -11,8 +11,9 @@ import android.bluetooth.le.ScanResult;
 public interface OnBleStateListener {
     /**
      * gatt连接成功
+     * @param gatt
      */
-    void onGattConnected();
+    void onGattConnected(BluetoothGatt gatt);
 
     /**
      * gatt连接失败

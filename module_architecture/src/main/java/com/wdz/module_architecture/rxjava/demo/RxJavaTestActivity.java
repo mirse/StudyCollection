@@ -1,13 +1,28 @@
 package com.wdz.module_architecture.rxjava.demo;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.wdz.common.constant.ARouterConstant;
 import com.wdz.module_architecture.R;
+import com.wdz.module_architecture.R2;
 
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
@@ -17,6 +32,8 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -35,10 +52,48 @@ import io.reactivex.schedulers.Schedulers;
 public class RxJavaTestActivity extends AppCompatActivity {
     private final String TAG = this.getClass().getSimpleName();
     private Disposable disposable;
+    @BindView(R2.id.tv_policy)
+    TextView tv_policy;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rx_java_test);
+        ButterKnife.bind(this);
+//        Spanned spanned = Html.fromHtml("阅读"+"<a href=\"http://blog.csdn.net/CAIYUNFREEDOM\">policy</a>");
+//        tv_policy.setText(spanned);
+//        tv_policy.setMovementMethod(LinkMovementMethod.getInstance());
+
+
+        String registerPrivacyHeader = "Review Google’s ";
+        String registerPrivacyEnd = "Privacy Policy.";
+        SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
+        stringBuilder.append(registerPrivacyHeader);
+        stringBuilder.append(registerPrivacyEnd);
+
+        stringBuilder.setSpan(new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View widget) {
+//                ARouter.getInstance().build(RouterConstance.ACTIVITY_URL_PRIVACY)
+//                        .withString(PrivacyActivity.KEY_URL,getString(R.string.privacy_url))
+//                        .navigation();
+            }
+
+            @Override
+            public void updateDrawState(@NonNull TextPaint ds) {
+                ds.setUnderlineText(false);
+            }
+        }, registerPrivacyHeader.length(), registerPrivacyHeader.length() + registerPrivacyEnd.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ForegroundColorSpan colorSpan = new ForegroundColorSpan(getColor(R.color.login_no_account_text_color_2));
+        ForegroundColorSpan colorSpanHeader = new ForegroundColorSpan(getColor(R.color.login_no_account_text_color_1));
+        stringBuilder.setSpan(colorSpan, registerPrivacyHeader.length(), registerPrivacyHeader.length() + registerPrivacyEnd.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+        stringBuilder.setSpan(colorSpanHeader, 0, registerPrivacyHeader.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+        stringBuilder.setSpan(new UnderlineSpan(), registerPrivacyHeader.length(), registerPrivacyHeader.length() + registerPrivacyEnd.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        tv_policy.setText(stringBuilder);
+        //不设置 没有点击事件
+        tv_policy.setMovementMethod(LinkMovementMethod.getInstance());
+        //设置点击后的颜色为透明
+        tv_policy.setHighlightColor(Color.TRANSPARENT);
+
 
 //        Observable.interval(2,1, TimeUnit.SECONDS).subscribe(new Observer<Long>() {
 //            @Override
@@ -252,37 +307,51 @@ public class RxJavaTestActivity extends AppCompatActivity {
         Observable<String> stringObservable = Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> emitter) throws Exception {
-                //emitter.onNext(testGetMsg());
                 testGetMsg(emitter);
             }
         });
-        return stringObservable.retry(0);
+        return stringObservable.timeout(3*1000, TimeUnit.MILLISECONDS).retry(3);
 
     }
+
+
+
     int count;
     private void testGetMsg(final ObservableEmitter<String> emitter) throws Exception {
         count++;
+        Log.i(TAG, "testGetMsg: send");
         getResult(count, new OnGetResultListener() {
             @Override
             public void getSuccess() {
-                emitter.onComplete();
+                if (!emitter.isDisposed()){
+                    emitter.onComplete();
+                }
             }
 
             @Override
             public void getFail() {
-                emitter.onError(new Throwable(""));
+                if (!emitter.isDisposed()){
+                    emitter.onError(new Throwable(""));
+                }
+
             }
         });
     };
 
-    private void getResult(int count,OnGetResultListener onGetResultListener){
+    private void getResult(final int count, final OnGetResultListener onGetResultListener) throws InterruptedException {
         Log.i(TAG, "getResult: "+count);
-        if (count == 0){
-            onGetResultListener.getSuccess();
-        }
-        else{
-            onGetResultListener.getFail();
-        }
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (count == 5){
+                    onGetResultListener.getSuccess();
+                }
+                else{
+                    onGetResultListener.getFail();
+                }
+            }
+        },6000);
+
     }
     private interface OnGetResultListener{
         void getSuccess();

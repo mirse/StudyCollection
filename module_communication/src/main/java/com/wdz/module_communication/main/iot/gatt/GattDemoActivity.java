@@ -32,10 +32,10 @@ import com.wdz.common.constant.ARouterConstant;
 import com.wdz.module_communication.R;
 import com.wdz.module_communication.R2;
 import com.wdz.module_communication.main.iot.gatt.bean.MyBluetoothDevice;
-import com.wdz.module_communication.main.iot.gatt.utils.BluetoothScanManager;
+import com.wdz.module_communication.main.iot.gatt.utils.scan.BluetoothScanManager;
 import com.wdz.module_communication.main.iot.gatt.utils.BluetoothGattManager;
-import com.wdz.module_communication.main.iot.gatt.utils.OnBleScanListener;
-import com.wdz.module_communication.main.iot.gatt.utils.OnBleStateListener;
+import com.wdz.module_communication.main.iot.gatt.listener.OnBleScanListener;
+import com.wdz.module_communication.main.iot.gatt.listener.OnBleStateListener;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -49,7 +49,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static android.bluetooth.BluetoothGatt.GATT_SUCCESS;
-import static com.wdz.module_communication.main.iot.gatt.utils.BluetoothScanManager.FILTER_MAC;
+import static com.wdz.module_communication.main.iot.gatt.utils.scan.BluetoothScanManager.FILTER_MAC;
 
 @Route(path = ARouterConstant.ACTIVITY_GATT)
 public class GattDemoActivity extends PermissionActivity {
@@ -100,12 +100,13 @@ public class GattDemoActivity extends PermissionActivity {
 
         }
         bluetoothGattManager = new BluetoothGattManager.Builder(this)
-                .setRetryCount(1)
+                .setRetryCount(2)
+                .setRetryTimeout(7*1000)
                 .setOnBleStateListener(new OnBleStateListener() {
                     @Override
-                    public void onGattConnected() {
+                    public void onGattConnected(BluetoothGatt gatt) {
                         Log.i(TAG, "onGattConnected: ");
-                        checkDeviceConnectStatus();
+                        //checkDeviceConnectStatus();
                     }
 
                     @Override
@@ -116,7 +117,7 @@ public class GattDemoActivity extends PermissionActivity {
                 .build();
 
 
-        bluetoothScanManager = new BluetoothScanManager.Builder()
+        bluetoothScanManager = new BluetoothScanManager.Builder(this)
                 .setScanMode(ScanSettings.SCAN_MODE_BALANCED)
                 .setScanFilterType(FILTER_MAC)
                 .setScanFilter("E8:D0:3C:54:5C:A8")
