@@ -7,6 +7,7 @@ import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCallback;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattDescriptor;
+import android.bluetooth.BluetoothGattService;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
 import android.bluetooth.le.BluetoothLeScanner;
@@ -23,14 +24,17 @@ import android.view.View;
 import android.widget.Button;
 
 
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.google.gson.Gson;
 import com.wdz.common.base.PermissionActivity;
 import com.wdz.common.constant.ARouterConstant;
 import com.wdz.module_communication.R;
 import com.wdz.module_communication.R2;
+import com.wdz.module_communication.main.iot.gatt.bean.BlinkSingleRequest;
 import com.wdz.module_communication.main.iot.gatt.bean.MyBluetoothDevice;
 import com.wdz.module_communication.main.iot.gatt.utils.scan.BluetoothScanManager;
 import com.wdz.module_communication.main.iot.gatt.utils.BluetoothGattManager;
@@ -43,12 +47,16 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static android.bluetooth.BluetoothGatt.GATT_SUCCESS;
+import static com.wdz.module_communication.main.iot.gatt.BluetoothUuid.LIGHT_CHARACTERISTIC_NOTIFY_UUID;
+import static com.wdz.module_communication.main.iot.gatt.BluetoothUuid.LIGHT_CHARACTERISTIC_WRITE_UUID;
+import static com.wdz.module_communication.main.iot.gatt.BluetoothUuid.LIGHT_SERVICE_UUID;
 import static com.wdz.module_communication.main.iot.gatt.utils.scan.BluetoothScanManager.FILTER_MAC;
 
 @Route(path = ARouterConstant.ACTIVITY_GATT)
@@ -106,20 +114,62 @@ public class GattDemoActivity extends PermissionActivity {
                     @Override
                     public void onGattConnected(BluetoothGatt gatt) {
                         Log.i(TAG, "onGattConnected: ");
-                        //checkDeviceConnectStatus();
+                        Log.i(TAG, "onConnectionStateChange: "+Thread.currentThread());
+                        //bluetoothGattManager.discoverServices();
+                        bluetoothGattManager.changeMtu(150);
                     }
 
                     @Override
                     public void onGattDisconnected() {
                         Log.i(TAG, "onGattDisconnected: ");
                     }
+
+                    @Override
+                    public void onMtuChanged(boolean isSuccess,int mtu) {
+                        Log.i(TAG, "onMtuChanged: "+isSuccess+" mtu:"+mtu);
+                        //bluetoothGattManager.discoverServices();
+                    }
+
+                    @Override
+                    public void onServicesDiscovered(boolean isServicesDiscovered,BluetoothGatt gatt) {
+                        Log.i(TAG, "onServicesDiscovered: "+isServicesDiscovered);
+//                        for (BluetoothGattService bluetoothGattService:gatt.getServices()) {
+//                            Log.i(TAG, "onServicesDiscovered: "+bluetoothGattService.getUuid());
+//                        }
+//                        bluetoothGattManager.setCharacteristicNotification(UUID.fromString(LIGHT_SERVICE_UUID), UUID.fromString(LIGHT_CHARACTERISTIC_NOTIFY_UUID),true);
+                    }
+
+                    @Override
+                    public void onCharacteristicChanged(boolean isWriteDataSuccess, BluetoothGattCharacteristic characteristic) {
+                        Log.i(TAG, "onCharacteristicChanged: isWriteDataSuccess:"+isWriteDataSuccess);
+                    }
+
+                    @Override
+                    public void onCharacteristicNotificationChanged(boolean isSetNotifySuccess) {
+                        Log.i(TAG, "onCharacteristicNotificationChanged: "+isSetNotifySuccess);
+//                        BlinkSingleRequest blinkSingleRequest = new BlinkSingleRequest();
+//                        blinkSingleRequest.setBlink(1);
+//                        String s = new Gson().toJson(blinkSingleRequest);
+//                        bluetoothGattManager.writeData(s,UUID.fromString(LIGHT_SERVICE_UUID), UUID.fromString(LIGHT_CHARACTERISTIC_WRITE_UUID));
+
+                    }
+
+
                 })
                 .build();
+
+        bluetoothGattManager.getConnectStatusLiveData().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                Log.i(TAG, "onChanged: "+aBoolean);
+            }
+        });
 
 
         bluetoothScanManager = new BluetoothScanManager.Builder(this)
                 .setScanMode(ScanSettings.SCAN_MODE_BALANCED)
                 .setScanFilterType(FILTER_MAC)
+//                .setScanFilter("EC:1B:BD:78:EA:26") //学校项目
                 .setScanFilter("E8:D0:3C:54:5C:A8")
                 .setScanTimeOut(10*1000)
                 .setOnBluetoothScanListener(new OnBleScanListener() {

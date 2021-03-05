@@ -308,6 +308,7 @@ public class RxJavaTestActivity extends AppCompatActivity {
             @Override
             public void subscribe(ObservableEmitter<String> emitter) throws Exception {
                 testGetMsg(emitter);
+                emitter.onComplete();
             }
         });
         return stringObservable.timeout(3*1000, TimeUnit.MILLISECONDS).retry(3);
@@ -324,7 +325,7 @@ public class RxJavaTestActivity extends AppCompatActivity {
             @Override
             public void getSuccess() {
                 if (!emitter.isDisposed()){
-                    emitter.onComplete();
+                    emitter.onNext("send");
                 }
             }
 
