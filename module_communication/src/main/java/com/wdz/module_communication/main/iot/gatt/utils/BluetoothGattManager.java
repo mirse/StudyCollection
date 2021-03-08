@@ -71,6 +71,14 @@ public class BluetoothGattManager {
     }
 
     /**
+     * 获取当前连接设备的地址
+     * @return
+     */
+    public String getConnectAddress() {
+        return bluetoothGattCallback.getConnectAddress();
+    }
+
+    /**
      * 获取当前的连接状态的可被观察的数据持有类
      * @return
      */
@@ -559,6 +567,14 @@ public class BluetoothGattManager {
         boolean isSupportBle = BluetoothAdapter.getDefaultAdapter() != null && BluetoothAdapter.getDefaultAdapter().isEnabled();
         Log.i(TAG, "checkIsSupportBle: " + isSupportBle);
         return isSupportBle;
+    }
+
+    /**
+     * 设置蓝牙状态监听
+     * @param onBleStateListener
+     */
+    public void setOnBleStateListener(OnBleStateListener onBleStateListener) {
+        this.onBleStateListener = onBleStateListener;
     }
 
     /**

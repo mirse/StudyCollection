@@ -24,6 +24,7 @@ public class MyBluetoothGattCallback extends BluetoothGattCallback {
     private boolean mIsConnected = false;
 
     private MutableLiveData<Boolean> connectStatusLiveData = new MutableLiveData<>();
+    private String address;
 
     /**
      * 获取当前的连接状态
@@ -31,6 +32,15 @@ public class MyBluetoothGattCallback extends BluetoothGattCallback {
      */
     boolean isConnected() {
         return mIsConnected;
+    }
+
+
+    /**
+     * 获取连接的地址
+     * @return
+     */
+    String getConnectAddress() {
+        return address;
     }
 
     /**
@@ -56,6 +66,7 @@ public class MyBluetoothGattCallback extends BluetoothGattCallback {
                 if (!emitter.isDisposed()) {
                     emitter.onComplete();
                 }
+                address = gatt.getDevice().getAddress();
                 mIsConnected = true;
                 connectStatusLiveData.postValue(true);
 

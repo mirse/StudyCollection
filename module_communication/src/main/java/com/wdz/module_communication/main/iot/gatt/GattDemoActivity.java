@@ -36,6 +36,7 @@ import com.wdz.module_communication.R;
 import com.wdz.module_communication.R2;
 import com.wdz.module_communication.main.iot.gatt.bean.BlinkSingleRequest;
 import com.wdz.module_communication.main.iot.gatt.bean.MyBluetoothDevice;
+import com.wdz.module_communication.main.iot.gatt.utils.operate.LightOperation;
 import com.wdz.module_communication.main.iot.gatt.utils.scan.BluetoothScanManager;
 import com.wdz.module_communication.main.iot.gatt.utils.BluetoothGattManager;
 import com.wdz.module_communication.main.iot.gatt.listener.OnBleScanListener;
@@ -170,7 +171,7 @@ public class GattDemoActivity extends PermissionActivity {
                 .setScanMode(ScanSettings.SCAN_MODE_BALANCED)
                 .setScanFilterType(FILTER_MAC)
 //                .setScanFilter("EC:1B:BD:78:EA:26") //学校项目
-                .setScanFilter("E8:D0:3C:54:5C:A8")
+//                .setScanFilter("E8:D0:3C:54:5C:A8")
                 .setScanTimeOut(10*1000)
                 .setOnBluetoothScanListener(new OnBleScanListener() {
             @Override
@@ -264,7 +265,8 @@ public class GattDemoActivity extends PermissionActivity {
 //                //> 6.0
 //                bluetoothGatt = myBluetoothDevice.bluetoothDevice.connectGatt(GattDemoActivity.this, false, bluetoothGattCallback,BluetoothDevice.TRANSPORT_LE);
 
-                bluetoothGattManager.connect(myBluetoothDevice.bluetoothDevice.getAddress());
+                //bluetoothGattManager.connect(myBluetoothDevice.bluetoothDevice.getAddress());
+                LightOperation.getInstance(GattDemoActivity.this).blinkDevice(myBluetoothDevice.bluetoothDevice.getAddress(),true);
 
             }
         });

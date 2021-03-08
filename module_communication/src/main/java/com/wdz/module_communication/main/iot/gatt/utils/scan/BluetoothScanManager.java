@@ -24,6 +24,8 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 /**
+ * 建造者模式 + 策略模式
+ *
  * 蓝牙扫描管理类
  *
  * @Author dezhi.wang
