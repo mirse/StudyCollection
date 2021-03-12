@@ -55,6 +55,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static android.bluetooth.BluetoothGatt.GATT_SUCCESS;
+import static com.wdz.module_communication.main.iot.gatt.BluetoothUuid.GATEWAY_CHARACTERISTIC_NOTIFY_UUID;
+import static com.wdz.module_communication.main.iot.gatt.BluetoothUuid.GATEWAY_CHARACTERISTIC_WRITE_WIFI_INFO_UUID;
+import static com.wdz.module_communication.main.iot.gatt.BluetoothUuid.GATEWAY_SERVICE_UUID;
 import static com.wdz.module_communication.main.iot.gatt.BluetoothUuid.LIGHT_CHARACTERISTIC_NOTIFY_UUID;
 import static com.wdz.module_communication.main.iot.gatt.BluetoothUuid.LIGHT_CHARACTERISTIC_WRITE_UUID;
 import static com.wdz.module_communication.main.iot.gatt.BluetoothUuid.LIGHT_SERVICE_UUID;
@@ -116,8 +119,8 @@ public class GattDemoActivity extends PermissionActivity {
                     public void onGattConnected(BluetoothGatt gatt) {
                         Log.i(TAG, "onGattConnected: ");
                         Log.i(TAG, "onConnectionStateChange: "+Thread.currentThread());
-                        //bluetoothGattManager.discoverServices();
-                        bluetoothGattManager.changeMtu(150);
+                        bluetoothGattManager.discoverServices();
+                        //bluetoothGattManager.changeMtu(150);
                     }
 
                     @Override
@@ -128,7 +131,7 @@ public class GattDemoActivity extends PermissionActivity {
                     @Override
                     public void onMtuChanged(boolean isSuccess,int mtu) {
                         Log.i(TAG, "onMtuChanged: "+isSuccess+" mtu:"+mtu);
-                        //bluetoothGattManager.discoverServices();
+                        bluetoothGattManager.discoverServices();
                     }
 
                     @Override
@@ -137,7 +140,7 @@ public class GattDemoActivity extends PermissionActivity {
 //                        for (BluetoothGattService bluetoothGattService:gatt.getServices()) {
 //                            Log.i(TAG, "onServicesDiscovered: "+bluetoothGattService.getUuid());
 //                        }
-//                        bluetoothGattManager.setCharacteristicNotification(UUID.fromString(LIGHT_SERVICE_UUID), UUID.fromString(LIGHT_CHARACTERISTIC_NOTIFY_UUID),true);
+                        bluetoothGattManager.setCharacteristicNotification(UUID.fromString(GATEWAY_SERVICE_UUID), UUID.fromString(GATEWAY_CHARACTERISTIC_NOTIFY_UUID),true);
                     }
 
                     @Override
@@ -151,7 +154,7 @@ public class GattDemoActivity extends PermissionActivity {
 //                        BlinkSingleRequest blinkSingleRequest = new BlinkSingleRequest();
 //                        blinkSingleRequest.setBlink(1);
 //                        String s = new Gson().toJson(blinkSingleRequest);
-//                        bluetoothGattManager.writeData(s,UUID.fromString(LIGHT_SERVICE_UUID), UUID.fromString(LIGHT_CHARACTERISTIC_WRITE_UUID));
+                        bluetoothGattManager.writeData("SSID:" + "mSSID",UUID.fromString(GATEWAY_SERVICE_UUID), UUID.fromString(GATEWAY_CHARACTERISTIC_WRITE_WIFI_INFO_UUID));
 
                     }
 
@@ -172,6 +175,7 @@ public class GattDemoActivity extends PermissionActivity {
                 .setScanFilterType(FILTER_MAC)
 //                .setScanFilter("EC:1B:BD:78:EA:26") //学校项目
 //                .setScanFilter("E8:D0:3C:54:5C:A8")
+                .setScanFilter("68:0A:E2:42:F6:15")
                 .setScanTimeOut(10*1000)
                 .setOnBluetoothScanListener(new OnBleScanListener() {
             @Override
@@ -265,8 +269,8 @@ public class GattDemoActivity extends PermissionActivity {
 //                //> 6.0
 //                bluetoothGatt = myBluetoothDevice.bluetoothDevice.connectGatt(GattDemoActivity.this, false, bluetoothGattCallback,BluetoothDevice.TRANSPORT_LE);
 
-                //bluetoothGattManager.connect(myBluetoothDevice.bluetoothDevice.getAddress());
-                LightOperation.getInstance(GattDemoActivity.this).blinkDevice(myBluetoothDevice.bluetoothDevice.getAddress(),true);
+                bluetoothGattManager.connect(myBluetoothDevice.bluetoothDevice.getAddress());
+                //LightOperation.getInstance(GattDemoActivity.this).blinkDevice(myBluetoothDevice.bluetoothDevice.getAddress(),true);
 
             }
         });

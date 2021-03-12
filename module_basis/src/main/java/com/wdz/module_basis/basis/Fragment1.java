@@ -74,6 +74,12 @@ public class Fragment1 extends Fragment {
         return view;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Log.i(TAG, "onViewCreated: ");
+    }
+
     public interface DataCallBack{
         void dataCallBack(String s);
     }
