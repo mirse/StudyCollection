@@ -1,6 +1,8 @@
 plugins {
     id 'java-library'
     id 'kotlin'
+    id 'groovy'
+    id 'maven'
 }
 
 java {
@@ -8,7 +10,18 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_7
 }
 
+uploadArchives {
+    repositories.mavenDeployer {
+        repository(url: uri('../appkey')) //仓库的路径 自行定义
+        pom.groupId = 'com.wdz.plug'  //自行定义，一般是包名
+        pom.artifactId = 'plug' //自行定义
+        pom.version = '1.0.0' //版本号 自行定义
+    }
+}
+
+
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation gradleApi()
+    implementation gradleApi()//gradle sdk
+    implementation localGroovy() //groovy sdk
 }
