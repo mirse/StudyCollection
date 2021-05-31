@@ -94,19 +94,21 @@ dependencies {
     testImplementation rootProject.ext.dependencies.junit
     androidTestImplementation rootProject.ext.dependencies.runner
     androidTestImplementation rootProject.ext.dependencies.espresso
-
     implementation rootProject.ext.dependencies.async
     implementation rootProject.ext.dependencies.butterknife
     annotationProcessor rootProject.ext.dependencies.butterknife_compiler
-
     implementation rootProject.ext.dependencies.recyclerview
     implementation rootProject.ext.dependencies.legacy
 
     //room
     implementation rootProject.ext.dependencies.room_runtime
-    annotationProcessor rootProject.ext.dependencies.room_compiler // use kapt for Kotlin
+    annotationProcessor rootProject.ext.dependencies.room_compiler
+
+    // use kapt for Kotlin
+
     // optional - RxJava support for Room
     implementation rootProject.ext.dependencies.room_rxjava2
+
     // optional - Guava support for Room, including Optional and ListenableFuture
     implementation rootProject.ext.dependencies.room_guava
 
@@ -114,14 +116,15 @@ dependencies {
     testImplementation rootProject.ext.dependencies.room_testing
     implementation rootProject.ext.dependencies.rxandroid
     implementation rootProject.ext.dependencies.retrofit
+
     // 衔接 Retrofit & RxJava
+
     // 此处一定要注意使用RxJava2的版本
     implementation rootProject.ext.dependencies.retrofit2_rxjava2_adapter
+
     // 支持Gson解析
     implementation rootProject.ext.dependencies.converter_gson
     implementation rootProject.ext.dependencies.rxbinding
-
-
     implementation rootProject.ext.dependencies.lottie
     implementation rootProject.ext.dependencies.lifecycle_extensions
     implementation rootProject.ext.dependencies.material
@@ -135,21 +138,16 @@ dependencies {
     //glide
     implementation rootProject.ext.dependencies.glide
     annotationProcessor rootProject.ext.dependencies.glide_compiler
-
     implementation rootProject.ext.dependencies.multidex
 
     //leakcanary
     debugImplementation rootProject.ext.dependencies.leakcanary_android
-
     implementation rootProject.ext.dependencies.BaseAdapter
 
     //alibaba arouter
     implementation rootProject.ext.dependencies.arouter
     annotationProcessor rootProject.ext.dependencies.arouter_compiler
-
-
     implementation rootProject.ext.dependencies.colorpickerview
-
     implementation project(path: ':datePicker')
     if (!rootProject.ext.isModule) {
         implementation project(path: ':module_customview')
@@ -158,32 +156,47 @@ dependencies {
         implementation project(path: ':module_basis')
     }
     implementation project(path: ':common')
-
-
-    annotationProcessor  rootProject.ext.dependencies.dagger_compiler
-    annotationProcessor  rootProject.ext.dependencies.dagger_android_processor
+    annotationProcessor rootProject.ext.dependencies.dagger_compiler
+    annotationProcessor rootProject.ext.dependencies.dagger_android_processor
     implementation rootProject.ext.dependencies.dagger
     implementation rootProject.ext.dependencies.dagger_android
     implementation rootProject.ext.dependencies.dagger_android_support
+    implementation 'com.tencent.bugly:crashreport:3.2.422'
 
-    implementation 'com.tencent.bugly:crashreport:3.2.422' //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
-    implementation 'com.tencent.bugly:nativecrashreport:3.7.500' //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
+    //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
+    implementation 'com.tencent.bugly:nativecrashreport:3.7.500'
 
-
+    //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
     debugImplementation 'com.willowtreeapps.hyperion:hyperion-core:0.9.30'
-//    debugImplementation 'com.willowtreeapps.hyperion:hyperion-attr:0.9.30' // - Inspect views and adjust their attributes.
-    debugImplementation 'com.willowtreeapps.hyperion:hyperion-build-config:0.9.30' //- View application BuildConfig values.
-    debugImplementation 'com.willowtreeapps.hyperion:hyperion-crash:0.9.30' // Show alternative activity when app crashes with the crash details. No UI for this module within drawer.
-//    debugImplementation 'com.willowtreeapps.hyperion:hyperion-disk:0.9.30' //- Browse, delete, or share your app's files.
-//    debugImplementation "com.star_zero:hyperion-appinfo:0.9.30"
-//    debugImplementation 'com.willowtreeapps.hyperion:hyperion-measurement:0.9.30' //- Tap views to measure the distances between them.
-//    debugImplementation 'com.willowtreeapps.hyperion:hyperion-phoenix:0.9.30' //- Clear local storage and relaunch the app.
-//    debugImplementation 'com.willowtreeapps.hyperion:hyperion-recorder:0.9.30' //- Record, save, and share a video of your app.
-    debugImplementation 'com.willowtreeapps.hyperion:hyperion-shared-preferences:0.9.30' //- View and edit your app's key-value storage.
-//    debugImplementation 'com.willowtreeapps.hyperion:hyperion-sqlite:0.9.30' // - Browse SQLite databases within your app.
-    debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'//- Plugin which adds a button to inspect OkHttp traffic using Chuck
-//    debugImplementation 'com.wajahatkarim3.dbflowmanager-hyperion-library:dbflowmanager-hyperion-library:1.0.4'
-//    debugImplementation 'com.willowtreeapps.hyperion:hyperion-timber:0.9.30' //- View Timber recorded log messages.
 
+    //    debugImplementation 'com.willowtreeapps.hyperion:hyperion-attr:0.9.30' // - Inspect views and adjust their attributes.
+    debugImplementation 'com.willowtreeapps.hyperion:hyperion-build-config:0.9.30'
 
+    //- View application BuildConfig values.
+    debugImplementation 'com.willowtreeapps.hyperion:hyperion-crash:0.9.30'
+
+    // Show alternative activity when app crashes with the crash details. No UI for this module within drawer.
+
+    //    debugImplementation 'com.willowtreeapps.hyperion:hyperion-disk:0.9.30' //- Browse, delete, or share your app's files.
+
+    //    debugImplementation "com.star_zero:hyperion-appinfo:0.9.30"
+
+    //    debugImplementation 'com.willowtreeapps.hyperion:hyperion-measurement:0.9.30' //- Tap views to measure the distances between them.
+
+    //    debugImplementation 'com.willowtreeapps.hyperion:hyperion-phoenix:0.9.30' //- Clear local storage and relaunch the app.
+
+    //    debugImplementation 'com.willowtreeapps.hyperion:hyperion-recorder:0.9.30' //- Record, save, and share a video of your app.
+    debugImplementation 'com.willowtreeapps.hyperion:hyperion-shared-preferences:0.9.30'
+
+    //- View and edit your app's key-value storage.
+
+    //    debugImplementation 'com.willowtreeapps.hyperion:hyperion-sqlite:0.9.30' // - Browse SQLite databases within your app.
+    debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
+
+    //- Plugin which adds a button to inspect OkHttp traffic using Chuck
+
+    //    debugImplementation 'com.wajahatkarim3.dbflowmanager-hyperion-library:dbflowmanager-hyperion-library:1.0.4'
+
+    //    debugImplementation 'com.willowtreeapps.hyperion:hyperion-timber:0.9.30' //- View Timber recorded log messages.
+    implementation files('libs/org.eclipse.paho.client.mqttv3-1.2.0.jar')
 }

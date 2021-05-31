@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.wdz.common.constant.ARouterConstant;
+import com.wdz.common.util.StringArrayUtils;
 import com.wdz.studycollection.R;
 
 
@@ -173,6 +174,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void selectBottomTab(int position) {
+        String homeTabValue = StringArrayUtils.getInstance().getHomeTabValue(position);
+        Log.i(TAG, "selectBottomTab: "+homeTabValue);
 
         llTab1.setBackgroundColor(getBaseContext().getColor(R.color.gray_holo_light));
         llTab2.setBackgroundColor(getBaseContext().getColor(R.color.gray_holo_light));

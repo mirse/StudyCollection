@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="home_tab">
+        <item>视图</item>
+        <item>通信/存储"</item>
+        <item>架构</item>
+        <item>基础</item>
+    </string-array>
+</resources>

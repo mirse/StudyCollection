@@ -8,6 +8,7 @@ import androidx.multidex.MultiDexApplication;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.tencent.bugly.crashreport.CrashReport;
+import com.wdz.common.util.StringArrayUtils;
 import com.wdz.module_communication.main.iot.gatt.utils.BluetoothGattManager;
 import com.wdz.studycollection.main.di.component.DaggerAppComponent;
 
@@ -41,6 +42,8 @@ public class MyApplication extends MultiDexApplication implements HasActivityInj
 
         //bugly初始化
         CrashReport.initCrashReport(getApplicationContext(), "d057558e8f", true);
+        //StringArrayUtils初始化
+        StringArrayUtils.getInstance().init(this);
 
     }
 
