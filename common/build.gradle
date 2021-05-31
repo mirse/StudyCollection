@@ -59,4 +59,9 @@ dependencies {
     implementation rootProject.ext.dependencies.room_runtime
     annotationProcessor rootProject.ext.dependencies.room_compiler // use kapt for Kotlin
 
+    // 此处一定要注意使用RxJava2的版本
+    implementation rootProject.ext.dependencies.retrofit2_rxjava2_adapter
+    implementation rootProject.ext.dependencies.lifecycle_extensions
+    implementation rootProject.ext.dependencies.rxjava2
+
 }
