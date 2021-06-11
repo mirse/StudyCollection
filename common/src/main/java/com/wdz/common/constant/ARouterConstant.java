@@ -69,8 +69,11 @@ public interface ARouterConstant {
     String ACTIVITY_RXJAVA = "/module_architecture/RxJavaTestActivity";
     String ACTIVITY_VIEW_MODEL = "/module_architecture/ViewModelActivity";
     String ACTIVITY_DAGGER = "/module_architecture/DaggerActivity";
+
+    String ACTIVITY_SINGLETON_DEMO = "/module_architecture/SingletonActivity";
     String ACTIVITY_BUILDER_DEMO = "/module_architecture/BuilderDemoActivity";
     String ACTIVITY_PROTOTYPE_DEMO = "/module_architecture/ProtoTypeActivity";
+    String ACTIVITY_FACTORY_DEMO = "/module_architecture/FactoryActivity";
 
     String ACTIVITY_MVVMDEMO = "/module_architecture/MvvmDemoActivity";
     String ACTIVITY_NAVIGATION = "/module_architecture/NavigationActivity";

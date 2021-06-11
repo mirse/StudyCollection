@@ -84,13 +84,13 @@ public class ArchitectureFragment extends BaseFragment {
                     case 1:
 
                         if (id == R.id.button) {
-
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_SINGLETON_DEMO).navigation();
                         } else if (id == R.id.button2) {
                             ARouter.getInstance().build(ARouterConstant.ACTIVITY_BUILDER_DEMO).navigation();
                         } else if (id == R.id.button3) {
                             ARouter.getInstance().build(ARouterConstant.ACTIVITY_PROTOTYPE_DEMO).navigation();
                         } else if (id == R.id.button4) {
-
+                            ARouter.getInstance().build(ARouterConstant.ACTIVITY_FACTORY_DEMO).navigation();
                         } else if (id == R.id.button5) {
 
                         } else if (id == R.id.button6) {
