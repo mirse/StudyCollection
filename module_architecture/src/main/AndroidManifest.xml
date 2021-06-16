@@ -5,7 +5,8 @@
     <application
         android:allowBackup="true"
         android:supportsRtl="true">
-        <activity android:name=".pattern.factory.FactoryActivity"></activity>
+        <activity android:name=".pattern.adapter.AdapterActivity"></activity>
+        <activity android:name=".pattern.factory.FactoryActivity" />
         <activity android:name=".paging.PagingActivity" />
         <activity
             android:name=".navigation.NavigationActivity"

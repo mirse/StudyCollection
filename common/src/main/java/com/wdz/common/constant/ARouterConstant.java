@@ -74,6 +74,7 @@ public interface ARouterConstant {
     String ACTIVITY_BUILDER_DEMO = "/module_architecture/BuilderDemoActivity";
     String ACTIVITY_PROTOTYPE_DEMO = "/module_architecture/ProtoTypeActivity";
     String ACTIVITY_FACTORY_DEMO = "/module_architecture/FactoryActivity";
+    String ACTIVITY_ADAPTER_DEMO = "/module_architecture/AdapterActivity";
 
     String ACTIVITY_MVVMDEMO = "/module_architecture/MvvmDemoActivity";
     String ACTIVITY_NAVIGATION = "/module_architecture/NavigationActivity";

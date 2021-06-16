@@ -26,9 +26,6 @@ import com.wdz.module_architecture.pattern.factory.abstractF.BlueCircleFactory;
  * AbstractFactory - BlueCircleFactory 抽象工厂 组合BlueColor和CircleShape
  *
  *
- *
- * 适配器模式
- *
  */
 @Route(path = ARouterConstant.ACTIVITY_FACTORY_DEMO)
 public class FactoryActivity extends AppCompatActivity {
