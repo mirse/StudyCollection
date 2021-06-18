@@ -9,20 +9,28 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.app.Activity;
 import android.app.Application;
 import android.content.ComponentCallbacks;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.Configuration;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.IBinder;
+import android.os.RemoteException;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.example.addservice.IMyAidlInterface;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.wdz.common.constant.ARouterConstant;
 import com.wdz.common.util.StringArrayUtils;
+import com.wdz.module_basis.basis.service.MyService;
 import com.wdz.studycollection.R;
 
 
@@ -81,10 +89,34 @@ public class MainActivity extends AppCompatActivity {
         int dpi = (int) (dm.density*160);
         setCustomDensity(this,getApplication());
         Log.i(TAG, "onCreate: "+dpi);
-
+        testAidl();
     }
-	
-	
+
+    private void testAidl() {
+
+        //buildTools如果是29.0.0 编译会报错 com.android.ide.common.workers.WorkerExecutorException:
+        Intent intent = new Intent("com.example.addservice.IMyAidlInterface");
+        intent.setPackage("com.example.addservice");
+        bindService(intent, new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                IMyAidlInterface iMyAidlInterface = IMyAidlInterface.Stub.asInterface(service);
+                try {
+                    int count = iMyAidlInterface.add(1, 2);
+                    Log.i(TAG, "onServiceConnected: "+count);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+                Log.i(TAG, "onServiceDisconnected: ");
+            }
+        }, Context.BIND_AUTO_CREATE);
+    }
+
+
     /**
      * 字节跳动屏幕适配方式
      * @param activity
