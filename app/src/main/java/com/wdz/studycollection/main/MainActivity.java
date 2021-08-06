@@ -26,7 +26,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.example.addservice.IMyAidlInterface;
+//import com.example.addservice.IMyAidlInterface;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.wdz.common.constant.ARouterConstant;
 import com.wdz.common.util.StringArrayUtils;
@@ -95,25 +95,25 @@ public class MainActivity extends AppCompatActivity {
     private void testAidl() {
 
         //buildTools如果是29.0.0 编译会报错 com.android.ide.common.workers.WorkerExecutorException:
-        Intent intent = new Intent("com.example.addservice.IMyAidlInterface");
-        intent.setPackage("com.example.addservice");
-        bindService(intent, new ServiceConnection() {
-            @Override
-            public void onServiceConnected(ComponentName name, IBinder service) {
-                IMyAidlInterface iMyAidlInterface = IMyAidlInterface.Stub.asInterface(service);
-                try {
-                    int count = iMyAidlInterface.add(1, 2);
-                    Log.i(TAG, "onServiceConnected: "+count);
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onServiceDisconnected(ComponentName name) {
-                Log.i(TAG, "onServiceDisconnected: ");
-            }
-        }, Context.BIND_AUTO_CREATE);
+//        Intent intent = new Intent("com.example.addservice.IMyAidlInterface");
+//        intent.setPackage("com.example.addservice");
+//        bindService(intent, new ServiceConnection() {
+//            @Override
+//            public void onServiceConnected(ComponentName name, IBinder service) {
+//                IMyAidlInterface iMyAidlInterface = IMyAidlInterface.Stub.asInterface(service);
+//                try {
+//                    int count = iMyAidlInterface.add(1, 2);
+//                    Log.i(TAG, "onServiceConnected: "+count);
+//                } catch (RemoteException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            @Override
+//            public void onServiceDisconnected(ComponentName name) {
+//                Log.i(TAG, "onServiceDisconnected: ");
+//            }
+//        }, Context.BIND_AUTO_CREATE);
     }
 
 
