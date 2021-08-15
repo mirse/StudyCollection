@@ -32,12 +32,19 @@ import com.wdz.common.constant.ARouterConstant;
 import com.wdz.common.util.StringArrayUtils;
 import com.wdz.module_basis.basis.service.MyService;
 import com.wdz.studycollection.R;
+import com.wdz.studycollection.main.xmlparse.SaxHelper;
 
+
+import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -90,6 +97,26 @@ public class MainActivity extends AppCompatActivity {
         setCustomDensity(this,getApplication());
         Log.i(TAG, "onCreate: "+dpi);
         testAidl();
+
+        textXmlParse();
+    }
+
+    private void textXmlParse() {
+        try {
+            InputStream inputStream = getAssets().open("parse.xml");
+            SaxHelper saxHelper = new SaxHelper();
+            SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+            SAXParser saxParser = saxParserFactory.newSAXParser();
+            saxParser.parse(inputStream,saxHelper);
+            inputStream.close();
+            Log.i(TAG, "textXmlParse: "+saxHelper.getPersons());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        }
     }
 
     private void testAidl() {

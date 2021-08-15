@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<devices>
+    <device type="cmp">
+        <item len="4" express ="描述1" data="时间设置" unit="s" addr="0x0002"/>
+        <item len="2" express ="" data="数据间隔" unit="s" addr="0x000A"/>
+    </device>
+    <device type="emp">
+        <item len="4" express ="描述1" data="时间设置" unit="s" addr="0x0002"/>
+        <item len="2" express ="" data="数据间隔" unit="s" addr="0x000A"/>
+    </device>
+</devices>
