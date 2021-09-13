@@ -27,6 +27,7 @@ import android.widget.LinearLayout;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 //import com.example.addservice.IMyAidlInterface;
+import com.example.maven_repo.TestJitPackUtil;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.wdz.common.constant.ARouterConstant;
 import com.wdz.common.util.StringArrayUtils;
@@ -90,6 +91,9 @@ public class MainActivity extends AppCompatActivity {
         setCustomDensity(this,getApplication());
         Log.i(TAG, "onCreate: "+dpi);
         testAidl();
+
+        TestJitPackUtil.testJitPack(this);
+
     }
 
     private void testAidl() {

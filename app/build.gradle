@@ -199,4 +199,6 @@ dependencies {
 
     //    debugImplementation 'com.willowtreeapps.hyperion:hyperion-timber:0.9.30' //- View Timber recorded log messages.
     implementation files('libs/org.eclipse.paho.client.mqttv3-1.2.0.jar')
+
+    implementation 'com.gitee.menghuanqv:maven_repo:v1.4'
 }
