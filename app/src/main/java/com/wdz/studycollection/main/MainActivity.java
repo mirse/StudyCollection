@@ -3,6 +3,7 @@ package com.wdz.studycollection.main;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.test.internal.util.LogUtil;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -35,12 +36,17 @@ import com.wdz.studycollection.R;
 import com.wdz.studycollection.main.xmlparse.SaxHelper;
 
 
+import org.junit.Test;
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -98,8 +104,34 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "onCreate: "+dpi);
         testAidl();
 
-        textXmlParse();
+        //textXmlParse();
+        testThread();
     }
+
+    ConcurrentLinkedDeque<String> objects = new ConcurrentLinkedDeque<>();
+    public void testThread(){
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(0, 4, 10, TimeUnit.MILLISECONDS, new ArrayBlockingQueue<Runnable>(50), new ThreadPoolExecutor.DiscardPolicy());
+
+        for (int i = 0; i < 100; i++) {
+            Task task = new Task();
+            task.setValue(i+"");
+            threadPoolExecutor.submit(task);
+        }
+
+
+    }
+
+    class Task implements Runnable{
+        private String value;
+        public void setValue(String value){
+            this.value = value;
+        }
+        @Override
+        public void run() {
+            Log.i(TAG, "run----: "+value);
+        }
+    }
+
 
     private void textXmlParse() {
         try {
