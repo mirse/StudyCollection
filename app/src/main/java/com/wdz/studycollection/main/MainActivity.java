@@ -28,6 +28,7 @@ import android.widget.LinearLayout;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 //import com.example.addservice.IMyAidlInterface;
+import com.example.maven_repo.TestJitPackUtil;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.wdz.common.constant.ARouterConstant;
 import com.wdz.common.util.StringArrayUtils;
@@ -106,8 +107,9 @@ public class MainActivity extends AppCompatActivity {
 
         //textXmlParse();
         testThread();
+		TestJitPackUtil.testJitPack(this);
     }
-
+        
     ConcurrentLinkedDeque<String> objects = new ConcurrentLinkedDeque<>();
     public void testThread(){
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(0, 4, 10, TimeUnit.MILLISECONDS, new ArrayBlockingQueue<Runnable>(50), new ThreadPoolExecutor.DiscardPolicy());
