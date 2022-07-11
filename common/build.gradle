@@ -64,4 +64,6 @@ dependencies {
     implementation rootProject.ext.dependencies.lifecycle_extensions
     implementation rootProject.ext.dependencies.rxjava2
 
+    implementation rootProject.ext.dependencies.jexcelapi
+
 }

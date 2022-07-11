@@ -121,5 +121,8 @@ ext{
 
             autodispose_archcomponents:      'com.uber.autodispose:autodispose-android-archcomponents:0.6.1',
             autodispose:                     'com.uber.autodispose:autodispose:0.6.1',
+
+            //excel生成
+            jexcelapi:                       'net.sourceforge.jexcelapi:jxl:2.6.12',
     ]
 }

@@ -31,6 +31,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.maven_repo.TestJitPackUtil;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.wdz.common.constant.ARouterConstant;
+import com.wdz.common.util.ExcelUtils;
 import com.wdz.common.util.StringArrayUtils;
 import com.wdz.module_basis.basis.service.MyService;
 import com.wdz.studycollection.R;
@@ -58,6 +59,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static android.os.Environment.DIRECTORY_MUSIC;
+import static android.os.Environment.getExternalStorageDirectory;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -91,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         //
         Log.i(TAG, "onCreate:getExternalStorageState： "+ Environment.getExternalStorageState());
         Log.i(TAG, "onCreate:getExternalStoragePublicDirectory： "+ Environment.getExternalStoragePublicDirectory(DIRECTORY_MUSIC));
-        Log.i(TAG, "onCreate:getExternalStorageDirectory： "+ Environment.getExternalStorageDirectory());
+        Log.i(TAG, "onCreate:getExternalStorageDirectory： "+ getExternalStorageDirectory());
 
         //
         Log.i(TAG, "onCreate:getRootDirectory： "+ Environment.getRootDirectory().getAbsolutePath());
@@ -108,9 +110,13 @@ public class MainActivity extends AppCompatActivity {
         //textXmlParse();
         testThread();
 		TestJitPackUtil.testJitPack(this);
+        testJxl();
     }
-        
-    ConcurrentLinkedDeque<String> objects = new ConcurrentLinkedDeque<>();
+
+    public void testJxl(){
+        ExcelUtils.initExcel(Environment.getExternalStorageDirectory().getPath(),"test.xsl","表1",new String[]{"1", "2", "3"});
+    }
+
     public void testThread(){
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(0, 4, 10, TimeUnit.MILLISECONDS, new ArrayBlockingQueue<Runnable>(50), new ThreadPoolExecutor.DiscardPolicy());
 
