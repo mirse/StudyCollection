@@ -114,7 +114,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testJxl(){
-        ExcelUtils.initExcel(Environment.getExternalStorageDirectory().getPath(),"test.xsl","表1",new String[]{"1", "2", "3"});
+        String[][] content = {{"张三","12","厦门"},{"李四","22","厦门"}};
+        ExcelUtils.initExcel("sdcard","test.xls","表1",new String[]{"名字", "年纪", "城市"},content);
     }
 
     public void testThread(){
