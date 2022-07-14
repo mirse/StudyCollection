@@ -114,8 +114,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testJxl(){
-        String[][] content = {{"张三","12","厦门"},{"李四","22","厦门"}};
-        ExcelUtils.initExcel("sdcard","test.xls","表1",new String[]{"名字", "年纪", "城市"},content);
+        String[][] content = {{"张三","12","厦门xxxxxx"},{"李四","22","厦门"}};
+        ExcelUtils.initExcel("sdcard","test.xls","表3",0,new String[]{"名字", "年纪", "城市"},content);
     }
 
     public void testThread(){

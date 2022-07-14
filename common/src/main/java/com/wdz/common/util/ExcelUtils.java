@@ -25,16 +25,21 @@ import jxl.write.biff.RowsExceededException;
 
 public class ExcelUtils {
     private static final String TAG = "ExcelUtils";
-    public static void initExcel(String filePath,String fileName,String sheetName,String[] title,String[][] content){
+    public static void initExcel(String filePath,String fileName,String sheetName,int sheetIndex,String[] title,String[][] content){
         try {
             File file = new File(filePath+"/"+ fileName);
-            if (file.exists()){
-                file.delete();
+            if (!file.exists()){
+                file.createNewFile();
             }
-            file.createNewFile();
             FileOutputStream os = new FileOutputStream(file);
             WritableWorkbook workbook = Workbook.createWorkbook(os);
-            WritableSheet sheet = workbook.createSheet(sheetName, 0);
+            WritableSheet sheet;
+            if (workbook.getSheet(sheetName) != null){
+                sheet = workbook.getSheet(sheetName);
+            }
+            else{
+                sheet = workbook.createSheet(sheetName, sheetIndex);
+            }
             Label label;
             for (int i = 0; i < title.length; i++) {
                 //label = new Label(i, 0, title[i]);
