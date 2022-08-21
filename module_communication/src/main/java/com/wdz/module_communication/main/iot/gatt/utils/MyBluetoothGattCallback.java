@@ -9,6 +9,10 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.wdz.common.util.ByteUtil;
+
+import java.math.BigInteger;
+
 import io.reactivex.ObservableEmitter;
 
 /**
@@ -143,6 +147,28 @@ public class MyBluetoothGattCallback extends BluetoothGattCallback {
     @Override
     public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
         super.onCharacteristicChanged(gatt, characteristic);
+        Log.i(TAG, "onCharacteristicChanged: "+ ByteUtil.byte2HexString(characteristic.getValue()));
+        if (!emitter.isDisposed()) {
+            emitter.onNext(characteristic);
+            emitter.onComplete();
+        }
+    }
+
+    @Override
+    public void onCharacteristicWrite(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
+        super.onCharacteristicWrite(gatt, characteristic, status);
+        Log.i(TAG, "onCharacteristicWrite: "+status+" emitter.isDisposed():"+emitter.isDisposed());
+        if (!emitter.isDisposed()) {
+            //Log.i(TAG, "onCharacteristicWrite emitter.onNext");
+            emitter.onNext(characteristic);
+            emitter.onComplete();
+        }
+    }
+
+    @Override
+    public void onCharacteristicRead(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
+        super.onCharacteristicRead(gatt, characteristic, status);
+        Log.i(TAG, "onCharacteristicRead: "+status+" characteristic:"+new BigInteger(1,characteristic.getValue()).toString(16));
         if (!emitter.isDisposed()) {
             emitter.onNext(characteristic);
             emitter.onComplete();

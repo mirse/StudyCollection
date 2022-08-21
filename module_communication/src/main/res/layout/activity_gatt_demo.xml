@@ -24,4 +24,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/bt_stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="停止"
+        app:layout_constraintStart_toEndOf="@+id/bt_scan"
+        app:layout_constraintTop_toTopOf="@+id/bt_scan" />
+
+    <Button
+        android:id="@+id/bt_continue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="继续"
+        app:layout_constraintStart_toEndOf="@+id/bt_stop"
+        app:layout_constraintTop_toTopOf="@+id/bt_stop" />
 </androidx.constraintlayout.widget.ConstraintLayout>

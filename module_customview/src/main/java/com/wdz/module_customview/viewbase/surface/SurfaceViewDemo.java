@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -14,7 +15,7 @@ import android.view.SurfaceView;
  */
 
 public class SurfaceViewDemo extends SurfaceView implements SurfaceHolder.Callback {
-
+    private static final String TAG = "SurfaceViewDemo";
     private Paint mPaint;
     private SurfaceHolder holder;
     private MyThread mThread;
@@ -103,7 +104,11 @@ public class SurfaceViewDemo extends SurfaceView implements SurfaceHolder.Callba
             case MotionEvent.ACTION_MOVE:
                 cx = (int) event.getX();
                 cy = (int) event.getY();
+                Log.i(TAG, "onTouchEvent: cx:"+cx+" cy:"+cy);
+                Log.i(TAG, "getMeasuredWidth:"+getMeasuredWidth()+" getMeasuredHeight:"+getMeasuredHeight());
                 break;
+                //横屏：getMeasuredWidth:2232 getMeasuredHeight:972
+                //竖屏：getMeasuredWidth:1080 getMeasuredHeight:2232
             case MotionEvent.ACTION_UP:
                 cx = (int) event.getX();
                 cy = (int) event.getY();

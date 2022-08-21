@@ -107,6 +107,11 @@ public class LightOperation {
                         ;
                     }
                 }
+
+                @Override
+                public void onCharacteristicRead(boolean isReadSuccess, BluetoothGattCharacteristic characteristic) {
+
+                }
             });
             bluetoothGattManager.connect(address);
         }

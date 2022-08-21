@@ -360,6 +360,66 @@ public class BluetoothGattManager {
                 });
     }
 
+    /**
+     * 写数据
+     */
+    public void writeData(byte[] content, UUID serviceUuid, UUID characteristicUuid) {
+        writeDataObservable(content, serviceUuid, characteristicUuid)
+                //每个observable对象的操作符在哪个线程上运行
+                .subscribeOn(Schedulers.io())
+                //每个Subscriber(Observer)对象的操作符在哪个线程上运行
+                .observeOn(AndroidSchedulers.mainThread())
+                .timeout(7 * 1000, TimeUnit.MILLISECONDS)
+                .as(bindAutoDispose(lifecycleOwner))
+                .subscribe(new Consumer<Object>() {
+                    @Override
+                    public void accept(Object o) throws Exception {
+                        if (o instanceof BluetoothGattCharacteristic && onBleStateListener != null) {
+                            BluetoothGattCharacteristic bluetoothGattCharacteristic = (BluetoothGattCharacteristic) o;
+                            onBleStateListener.onCharacteristicChanged(true, bluetoothGattCharacteristic);
+                        } else if (onBleStateListener != null) {
+                            onBleStateListener.onCharacteristicChanged(false, null);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        if (onBleStateListener != null) {
+                            onBleStateListener.onCharacteristicChanged(false, null);
+                        }
+                    }
+                });
+    }
+
+    public void readData(UUID serviceUuid, UUID characteristicUuid){
+        readDataObservable(serviceUuid, characteristicUuid)
+                //每个observable对象的操作符在哪个线程上运行
+                .subscribeOn(Schedulers.io())
+                //每个Subscriber(Observer)对象的操作符在哪个线程上运行
+                .observeOn(AndroidSchedulers.mainThread())
+                .timeout(7 * 1000, TimeUnit.MILLISECONDS)
+                .as(bindAutoDispose(lifecycleOwner))
+                .subscribe(new Consumer<Object>() {
+                    @Override
+                    public void accept(Object o) throws Exception {
+                        if (o instanceof BluetoothGattCharacteristic && onBleStateListener != null) {
+                            BluetoothGattCharacteristic bluetoothGattCharacteristic = (BluetoothGattCharacteristic) o;
+                            onBleStateListener.onCharacteristicRead(true, bluetoothGattCharacteristic);
+                        } else if (onBleStateListener != null) {
+                            onBleStateListener.onCharacteristicRead(false, null);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        if (onBleStateListener != null) {
+                            onBleStateListener.onCharacteristicRead(false, null);
+                        }
+                    }
+                });
+    }
+
+
 
     /**
      * 创建gatt连接被观察者
@@ -539,6 +599,109 @@ public class BluetoothGattManager {
                     } else {
                         if (onBleStateListener != null) {
                             onBleStateListener.onCharacteristicChanged(false, null);
+                        }
+                    }
+
+                } else {
+                    if (onBleStateListener != null) {
+                        onBleStateListener.onGattDisconnected();
+                    }
+                }
+            }
+        });
+    }
+
+    /**
+     * 创建writeData被观察者
+     *
+     * @param content
+     * @param serviceUuid
+     * @param characteristicUuid
+     * @return
+     */
+    private Observable<Object> writeDataObservable(final byte[] content, final UUID serviceUuid, final UUID characteristicUuid) {
+        return Observable.create(new ObservableOnSubscribe<Object>() {
+            @Override
+            public void subscribe(ObservableEmitter<Object> emitter) throws Exception {
+                if (bluetoothGatt != null) {
+                    bluetoothGattCallback.setEmitter(emitter);
+                    BluetoothGattService bluetoothGattService = bluetoothGatt.getService(serviceUuid);
+                    if (bluetoothGattService != null) {
+                        BluetoothGattCharacteristic characteristic = bluetoothGattService.getCharacteristic(characteristicUuid);
+                        if (characteristic != null) {
+                            characteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
+                            characteristic.setValue(content);
+                            boolean status = false;
+                            while (!status) {
+                                status = bluetoothGatt.writeCharacteristic(characteristic);
+                                Log.i(TAG, "writeCharacteristic: "+status);
+
+//                                if (status) {
+//                                    boolean status1 = false;
+//                                    while (!status1) {
+//                                        BluetoothGattCharacteristic characteristic1 = bluetoothGattService.getCharacteristic(UUID.fromString("20890002-62E8-4795-9377-B44229C80329"));
+//                                        status1 = bluetoothGatt.readCharacteristic(characteristic1);
+//                                        Log.i(TAG, "readCharacteristic: "+status1);
+//                                    }
+//                                }
+//                                if (status){
+//                                    emitter.onComplete();
+//                                    if (onBleStateListener != null) {
+//                                        onBleStateListener.onCharacteristicChanged(true, null);
+//                                    }
+//                                }
+                            }
+
+                        } else {
+                            if (onBleStateListener != null) {
+                                onBleStateListener.onCharacteristicChanged(false, null);
+                            }
+                        }
+                    } else {
+                        if (onBleStateListener != null) {
+                            onBleStateListener.onCharacteristicChanged(false, null);
+                        }
+                    }
+
+                } else {
+                    if (onBleStateListener != null) {
+                        onBleStateListener.onGattDisconnected();
+                    }
+                }
+            }
+        });
+    }
+
+    /**
+     * 创建readData被观察者
+     * @param serviceUuid
+     * @param characteristicUuid
+     * @return
+     */
+    private Observable<Object> readDataObservable(final UUID serviceUuid, final UUID characteristicUuid) {
+        return Observable.create(new ObservableOnSubscribe<Object>() {
+            @Override
+            public void subscribe(ObservableEmitter<Object> emitter) throws Exception {
+                if (bluetoothGatt != null) {
+                    bluetoothGattCallback.setEmitter(emitter);
+                    BluetoothGattService bluetoothGattService = bluetoothGatt.getService(serviceUuid);
+                    if (bluetoothGattService != null) {
+                        BluetoothGattCharacteristic characteristic = bluetoothGattService.getCharacteristic(characteristicUuid);
+                        if (characteristic != null) {
+                            boolean status = false;
+                            while (!status) {
+                                status = bluetoothGatt.readCharacteristic(characteristic);
+                                Log.i(TAG, "readCharacteristic: "+status);
+                            }
+
+                        } else {
+                            if (onBleStateListener != null) {
+                                onBleStateListener.onCharacteristicRead(false, null);
+                            }
+                        }
+                    } else {
+                        if (onBleStateListener != null) {
+                            onBleStateListener.onCharacteristicRead(false, null);
                         }
                     }
 

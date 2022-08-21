@@ -58,4 +58,9 @@ public interface OnBleStateListener {
      */
     void onCharacteristicNotificationChanged(boolean isSetNotifySuccess);
 
+    /**
+     * 读特征值回调
+     */
+    void onCharacteristicRead(boolean isReadSuccess,BluetoothGattCharacteristic characteristic);
+
 }
