@@ -34,30 +34,32 @@ public class ExcelUtils {
             FileOutputStream os = new FileOutputStream(file);
             WritableWorkbook workbook = Workbook.createWorkbook(os);
             WritableSheet sheet;
-            if (workbook.getSheet(sheetName) != null){
-                sheet = workbook.getSheet(sheetName);
+            int numberOfSheets = workbook.getNumberOfSheets();
+            if (numberOfSheets != 0 && workbook.getSheet(sheetIndex) != null){
+                sheet = workbook.getSheet(sheetIndex);
             }
             else{
                 sheet = workbook.createSheet(sheetName, sheetIndex);
             }
             Label label;
+
+            //合并单元格
+            sheet.mergeCells(0,0,1,0);
             for (int i = 0; i < title.length; i++) {
                 //label = new Label(i, 0, title[i]);
                 label = new Label(i, 0, title[i],setHeader());
                 sheet.addCell(label);
             }
 
+
             for (int i = 0; i < content.length; i++) {
                 for (int j = 0; j < content[i].length; j++) {
                     sheet.addCell(new Label(j,i+1,content[i][j]));
-                    if (content[i][j].length()<=4){
-                        sheet.setColumnView(j,content[i][j].length()+8);
-                    }
-                    else{
-                        sheet.setColumnView(j,content[i][j].length()+5);
-                    }
+
                 }
             }
+
+
             workbook.write();
             workbook.close();
             os.close();

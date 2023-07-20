@@ -93,6 +93,13 @@ public class GattDemoActivity extends PermissionActivity {
     int count = 0;
     long startTime = 0;
     boolean isSendBleData = false;
+
+    private String L7ServiceUuid = "0000A002-0000-1000-8000-00805F9B34FB";
+    private String L7NotifyUuid = "0000C305-0000-1000-8000-00805F9B34FB";
+    private String L7WriteUuid = "0000C304-0000-1000-8000-00805F9B34FB";
+    //L7:SERVICE: 0000A002-0000-1000-8000-00805F9B34FB  NOTIFY:0000C305-0000-1000-8000-00805F9B34FB
+    //WRITE:0000C302-0000-1000-8000-00805F9B34FB
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,8 +121,10 @@ public class GattDemoActivity extends PermissionActivity {
         }
         //checkDeviceConnectStatus();
         initView();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            initMorePermission(Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_BACKGROUND_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (Build.VERSION.SDK_INT >= 30) {
+            //android 12及以上动态申请Manifest.permission.BLUETOOTH,Manifest.permission.BLUETOOTH_ADMIN，== BLUETOOTH.SCAN
+            initMorePermission(Manifest.permission.BLUETOOTH,
+                    Manifest.permission.BLUETOOTH_ADMIN,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_BACKGROUND_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
         } else {
             initMorePermission(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -152,56 +161,62 @@ public class GattDemoActivity extends PermissionActivity {
 //                        }
                         //bluetoothGattManager.setCharacteristicNotification(UUID.fromString(GATEWAY_SERVICE_UUID), UUID.fromString(GATEWAY_CHARACTERISTIC_NOTIFY_UUID),true);
                         //bluetoothGattManager.writeData(new byte[]{(byte) 0x9D, (byte) 0xB1, (byte) 0xE9,0x17},UUID.fromString("20890000-62E8-4795-9377-B44229C80329"), UUID.fromString("20890002-62E8-4795-9377-B44229C80329"));
-                        bluetoothGattManager.setCharacteristicNotification(UUID.fromString("00001000-0000-1000-8000-00805F9B34FB"), UUID.fromString("00001002-0000-1000-8000-00805F9B34FB"),true);
+                        //bluetoothGattManager.setCharacteristicNotification(UUID.fromString("00001000-0000-1000-8000-00805F9B34FB"), UUID.fromString("00001002-0000-1000-8000-00805F9B34FB"),true);
+
+                        bluetoothGattManager.setCharacteristicNotification(UUID.fromString(L7ServiceUuid), UUID.fromString(L7NotifyUuid),true);
                     }
 
                     @Override
                     public void onCharacteristicChanged(boolean isWriteDataSuccess, BluetoothGattCharacteristic characteristic) {
                         Log.i(TAG, "onCharacteristicChanged: isWriteDataSuccess:"+isWriteDataSuccess);
-                        if (isSendBleData){
-                            count++;
-                            Log.i(TAG, "onCharacteristicChanged: count:"+count);
-                            if (count>=Integer.MAX_VALUE){
-                                long currentTimeMillis = System.currentTimeMillis();
-                                long l = (currentTimeMillis - startTime) / 1000;
-                                float cent = (float) count*200/1024/l;
-                                Log.i(TAG, "速率："+cent+" 大小："+count*200/1024/1024L);
-                                return;
-                            }
-                            try {
-                                Thread.sleep(5);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            Random random = new Random();
-                            StringBuilder stringBuilder = new StringBuilder();
-                            StringBuilder stringBuilderHex = new StringBuilder();
-                            byte[] datas = new byte[200];
-                            String sTemp;
-                            for (int j = 0; j < datas.length; j++) {
-                                if (j == 0){
-                                    datas[j] = (byte) 0xFF;
-                                }
-                                else if (j == (datas.length -1)){
-                                    datas[j] = (byte) 0xFE;
-                                }
-                                else{
-                                    datas[j] = (byte) random.nextInt(15);
-                                }
-                                stringBuilder.append((char)(datas[j]));
-                                sTemp = Integer.toHexString(0xFF & datas[j]);
-                                if (sTemp.length() < 2) {
-                                    stringBuilderHex.append(0);
-                                }
-                                stringBuilderHex.append(sTemp.toUpperCase());
-                            }
-                            Log.i(TAG, "onCharacteristicChanged: "+stringBuilderHex.toString());
-                            Log.i(TAG, "onCharacteristicChanged-------: "+stringBuilder.toString());
+//                        if (isSendBleData){
+//                            count++;
+//                            Log.i(TAG, "onCharacteristicChanged: count:"+count);
+//                            if (count>=Integer.MAX_VALUE){
+//                                long currentTimeMillis = System.currentTimeMillis();
+//                                long l = (currentTimeMillis - startTime) / 1000;
+//                                float cent = (float) count*200/1024/l;
+//                                Log.i(TAG, "速率："+cent+" 大小："+count*200/1024/1024L);
+//                                return;
+//                            }
+//                            try {
+//                                Thread.sleep(5);
+//                            } catch (InterruptedException e) {
+//                                e.printStackTrace();
+//                            }
+//                            Random random = new Random();
+//                            StringBuilder stringBuilder = new StringBuilder();
+//                            StringBuilder stringBuilderHex = new StringBuilder();
+//                            byte[] datas = new byte[200];
+//                            String sTemp;
+//                            for (int j = 0; j < datas.length; j++) {
+//                                if (j == 0){
+//                                    datas[j] = (byte) 0xFF;
+//                                }
+//                                else if (j == (datas.length -1)){
+//                                    datas[j] = (byte) 0xFE;
+//                                }
+//                                else{
+//                                    datas[j] = (byte) random.nextInt(15);
+//                                }
+//                                stringBuilder.append((char)(datas[j]));
+//                                sTemp = Integer.toHexString(0xFF & datas[j]);
+//                                if (sTemp.length() < 2) {
+//                                    stringBuilderHex.append(0);
+//                                }
+//                                stringBuilderHex.append(sTemp.toUpperCase());
+//                            }
+//                            Log.i(TAG, "onCharacteristicChanged: "+stringBuilderHex.toString());
+//                            Log.i(TAG, "onCharacteristicChanged-------: "+stringBuilder.toString());
+//
+//                            //F9100000000100710F
+//                            //bluetoothGattManager.writeData(datas,UUID.fromString("00001000-0000-1000-8000-00805F9B34FB"), UUID.fromString("00001001-0000-1000-8000-00805F9B34FB"));
+//                            bluetoothGattManager.writeData(datas,UUID.fromString(L7ServiceUuid), UUID.fromString(L7WriteUuid));
+//                            //bluetoothGattManager.readData(UUID.fromString("20890000-62E8-4795-9377-B44229C80329"), UUID.fromString("20890002-62E8-4795-9377-B44229C80329"));
+//                        }
+                        byte[] bytes = new byte[]{(byte) 0xF9,0x10,0x00,0x00,0x00,0x01,0x00,0x71,0x0F};
 
-                            bluetoothGattManager.writeData(datas,UUID.fromString("00001000-0000-1000-8000-00805F9B34FB"), UUID.fromString("00001001-0000-1000-8000-00805F9B34FB"));
-
-                            //bluetoothGattManager.readData(UUID.fromString("20890000-62E8-4795-9377-B44229C80329"), UUID.fromString("20890002-62E8-4795-9377-B44229C80329"));
-                        }
+                        bluetoothGattManager.writeData(bytes,UUID.fromString(L7ServiceUuid), UUID.fromString(L7WriteUuid));
                     }
 
                     @Override
@@ -260,13 +275,14 @@ public class GattDemoActivity extends PermissionActivity {
 
         bluetoothScanManager = new BluetoothScanManager.Builder(this)
                 .setScanMode(ScanSettings.SCAN_MODE_BALANCED)
-                .setScanFilterType(FILTER_MAC)
+//                .setScanFilterType(FILTER_MAC)
 //                .setScanFilter("EC:1B:BD:78:EA:26") //学校项目
 //                .setScanFilter("E8:D0:3C:54:5C:A8")
 //                .setScanFilter("68:0A:E2:42:F6:15")
 //                .setScanFilter("C9:84:04:46:D6:1D")
 //                .setScanFilter("E0:7D:EA:6E:51:89")
 //                .setScanFilter("80:6F:B0:0F:BA:F9")
+//                .setScanFilter("7C:DF:A1:B3:80:B6")
                 .setScanTimeOut(10*1000)
                 .setOnBluetoothScanListener(new OnBleScanListener() {
             @Override

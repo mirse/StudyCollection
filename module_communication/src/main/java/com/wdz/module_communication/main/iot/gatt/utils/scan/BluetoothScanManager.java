@@ -113,7 +113,7 @@ public class BluetoothScanManager {
 
             @Override
             public void onError(Throwable e) {
-                Log.i(TAG, "onError: ");
+                Log.i(TAG, "onError: "+e.getMessage());
                 if (onBleScanListener != null) {
                     onBleScanListener.onScanTimeOut();
                 }
